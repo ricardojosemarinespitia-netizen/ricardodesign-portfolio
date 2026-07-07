@@ -1,438 +1,637 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ricardo Design | Creamos tu Presencia Online</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ricardo Design · Páginas web que convierten</title>
+<meta name="description" content="Creación, mantenimiento y publicidad de páginas web en Colombia. Diseño premium, resultados reales.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,800;1,700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* ============ VARIABLES ============ */
+:root{
+  --bg:#0f0f0f;
+  --bg2:#1a1a1a;
+  --gold:#d4a574;
+  --gold-glow:rgba(212,165,116,.35);
+  --text:#ffffff;
+  --muted:#a8a8a8;
+  --glass:rgba(255,255,255,.08);
+  --glass-strong:rgba(255,255,255,.14);
+  --glass-border:rgba(255,255,255,.15);
+  --whatsapp:#25d366;
+  --font-display:'Playfair Display',serif;
+  --font-body:'Inter',sans-serif;
+}
 
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            line-height: 1.6;
-            color: #1a1a1a;
-            background-color: #fafafa;
-        }
+/* ============ RESET / BASE ============ */
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  font-family:var(--font-body);
+  background:var(--bg);
+  color:var(--text);
+  line-height:1.6;
+  letter-spacing:-.3px;
+  overflow-x:hidden;
+}
+a{color:inherit;text-decoration:none}
+img{max-width:100%;display:block}
+section{position:relative}
 
-        /* Header */
-        header {
-            background: white;
-            padding: 1.5rem 2rem;
-            position: sticky;
-            top: 0;
-            border-bottom: 1px solid #eee;
-            z-index: 100;
-        }
+/* ============ REVEAL ON SCROLL ============ */
+.reveal{
+  opacity:0;
+  transform:translateY(40px);
+  transition:opacity .8s cubic-bezier(.22,1,.36,1),transform .8s cubic-bezier(.22,1,.36,1);
+}
+.reveal.in-view{opacity:1;transform:translateY(0)}
+.reveal-d1{transition-delay:.1s}
+.reveal-d2{transition-delay:.2s}
+.reveal-d3{transition-delay:.3s}
 
-        .header-content {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
+/* ============ HEADER ============ */
+header{
+  position:fixed;top:0;left:0;right:0;z-index:1000;
+  background:rgba(255,255,255,.05);
+  -webkit-backdrop-filter:blur(12px);
+  backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--glass-border);
+  transition:transform .4s ease,padding .4s ease,background .4s ease;
+}
+header .inner{
+  max-width:1200px;margin:0 auto;
+  display:flex;justify-content:space-between;align-items:center;
+  padding:1.3rem 2rem;
+  transition:padding .4s ease;
+}
+header.scrolled{background:rgba(15,15,15,.7)}
+header.scrolled .inner{padding:.7rem 2rem}
+header.hidden{transform:translateY(-100%)}
+.logo{
+  font-family:var(--font-display);
+  font-weight:800;font-size:1.4rem;
+  color:var(--gold);letter-spacing:.5px;
+  transition:text-shadow .3s ease;
+}
+.logo:hover{text-shadow:0 0 18px var(--gold-glow)}
+.logo span{color:var(--text)}
+nav ul{display:flex;gap:2rem;list-style:none}
+nav a{
+  font-size:.9rem;font-weight:500;color:var(--muted);
+  position:relative;transition:color .3s ease,text-shadow .3s ease;
+}
+nav a::after{
+  content:'';position:absolute;left:0;bottom:-6px;
+  width:100%;height:1px;background:var(--gold);
+  transform:scaleX(0);transform-origin:left;
+  transition:transform .35s cubic-bezier(.22,1,.36,1);
+}
+nav a:hover{color:var(--gold);text-shadow:0 0 14px var(--gold-glow)}
+nav a:hover::after{transform:scaleX(1)}
 
-        .logo {
-            font-size: 1.8rem;
-            font-weight: 700;
-            color: #d4a574;
-            letter-spacing: -1px;
-        }
+/* ============ HERO ============ */
+.hero{
+  min-height:100vh;
+  display:flex;flex-direction:column;
+  justify-content:center;align-items:center;
+  text-align:center;
+  padding:8rem 2rem 4rem;
+  background:linear-gradient(160deg,var(--bg) 0%,var(--bg2) 100%);
+  overflow:hidden;
+}
+.blob{
+  position:absolute;border-radius:50%;
+  filter:blur(90px);opacity:.5;
+  pointer-events:none;
+  will-change:transform;
+}
+.blob-1{
+  width:520px;height:520px;top:-10%;left:-12%;
+  background:radial-gradient(circle,rgba(212,165,116,.30) 0%,transparent 70%);
+  animation:drift1 22s ease-in-out infinite alternate;
+}
+.blob-2{
+  width:420px;height:420px;bottom:-14%;right:-10%;
+  background:radial-gradient(circle,rgba(212,165,116,.20) 0%,transparent 70%);
+  animation:drift2 26s ease-in-out infinite alternate;
+}
+.blob-3{
+  width:300px;height:300px;top:38%;right:22%;
+  background:radial-gradient(circle,rgba(255,255,255,.07) 0%,transparent 70%);
+  animation:drift3 18s ease-in-out infinite alternate;
+}
+@keyframes drift1{from{transform:translate(0,0) rotate(0deg) scale(1)}to{transform:translate(90px,60px) rotate(50deg) scale(1.15)}}
+@keyframes drift2{from{transform:translate(0,0) rotate(0deg) scale(1)}to{transform:translate(-80px,-50px) rotate(-40deg) scale(1.1)}}
+@keyframes drift3{from{transform:translate(0,0) scale(1)}to{transform:translate(-60px,70px) scale(1.25)}}
 
-        nav ul {
-            display: flex;
-            list-style: none;
-            gap: 2rem;
-        }
+.hero-content{position:relative;z-index:2;max-width:860px;will-change:transform}
+.hero-badge{
+  display:inline-block;
+  background:var(--glass);
+  -webkit-backdrop-filter:blur(16px);
+  backdrop-filter:blur(16px);
+  border:1px solid var(--glass-border);
+  border-radius:100px;
+  padding:.45rem 1.2rem;
+  font-size:.8rem;font-weight:500;color:var(--gold);
+  letter-spacing:1.5px;text-transform:uppercase;
+  margin-bottom:1.8rem;
+  animation:fadeDown 1s cubic-bezier(.22,1,.36,1) both;
+}
+.hero h1{
+  font-family:var(--font-display);
+  font-weight:800;
+  font-size:clamp(2.4rem,6vw,4.2rem);
+  line-height:1.12;
+  letter-spacing:.5px;
+  animation:fadeUp 1s cubic-bezier(.22,1,.36,1) .15s both;
+}
+.hero h1 em{
+  font-style:italic;color:var(--gold);
+  text-shadow:0 0 30px var(--gold-glow);
+}
+.hero p{
+  font-size:clamp(1rem,2vw,1.2rem);
+  color:var(--muted);
+  max-width:600px;margin:1.6rem auto 2.6rem;
+  animation:fadeUp 1s cubic-bezier(.22,1,.36,1) .3s both;
+}
+@keyframes fadeUp{from{opacity:0;transform:translateY(40px)}to{opacity:1;transform:translateY(0)}}
+@keyframes fadeDown{from{opacity:0;transform:translateY(-24px)}to{opacity:1;transform:translateY(0)}}
 
-        nav a {
-            text-decoration: none;
-            color: #1a1a1a;
-            font-size: 0.95rem;
-            transition: color 0.3s;
-        }
+.cta-row{
+  display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;
+  animation:fadeUp 1s cubic-bezier(.22,1,.36,1) .45s both;
+}
+.btn{
+  display:inline-flex;align-items:center;gap:.5rem;
+  padding:1rem 2.2rem;border-radius:100px;
+  font-family:var(--font-body);font-weight:600;font-size:1rem;
+  cursor:pointer;border:1px solid transparent;
+  transition:transform .35s cubic-bezier(.22,1,.36,1),box-shadow .35s ease,background .35s ease;
+  animation:float 3.6s ease-in-out infinite;
+}
+.btn:nth-child(2){animation-delay:1.8s}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+.btn:hover{animation-play-state:paused}
+.btn-outline{
+  background:var(--glass);
+  -webkit-backdrop-filter:blur(16px);
+  backdrop-filter:blur(16px);
+  border:1px solid var(--gold);
+  color:var(--gold);
+}
+.btn-outline:hover{
+  transform:scale(1.08);
+  box-shadow:0 0 30px var(--gold-glow),0 12px 32px rgba(0,0,0,.5);
+  background:rgba(212,165,116,.12);
+}
+.btn-gold{background:var(--gold);color:#0f0f0f}
+.btn-gold:hover{
+  transform:scale(1.08);
+  box-shadow:0 0 34px var(--gold-glow),0 12px 32px rgba(0,0,0,.5);
+}
+.btn-whatsapp{background:var(--whatsapp);color:#fff}
+.btn-whatsapp:hover{
+  transform:scale(1.08);
+  box-shadow:0 0 30px rgba(37,211,102,.45),0 12px 32px rgba(0,0,0,.5);
+}
 
-        nav a:hover {
-            color: #d4a574;
-        }
+.scroll-indicator{
+  position:absolute;bottom:2.2rem;left:50%;transform:translateX(-50%);
+  z-index:2;color:var(--muted);font-size:.75rem;letter-spacing:2px;
+  text-transform:uppercase;text-align:center;
+  transition:opacity .5s ease;
+}
+.scroll-indicator .arrow{
+  display:block;width:1px;height:44px;
+  background:linear-gradient(to bottom,transparent,var(--gold));
+  margin:.6rem auto 0;
+  animation:scrollPulse 1.8s ease-in-out infinite;
+}
+@keyframes scrollPulse{0%,100%{transform:scaleY(.5);opacity:.4;transform-origin:top}50%{transform:scaleY(1);opacity:1;transform-origin:top}}
+.scroll-indicator.gone{opacity:0;pointer-events:none}
 
-        /* Hero */
-        .hero {
-            background: linear-gradient(135deg, #fafafa 0%, #f5f5f5 100%);
-            padding: 6rem 2rem;
-            text-align: center;
-            max-width: 1000px;
-            margin: 0 auto;
-        }
+/* ============ MARQUEE ============ */
+.marquee{
+  border-top:1px solid var(--glass-border);
+  border-bottom:1px solid var(--glass-border);
+  background:rgba(255,255,255,.03);
+  overflow:hidden;padding:1.1rem 0;
+  white-space:nowrap;
+}
+.marquee-track{
+  display:inline-block;
+  animation:marquee 28s linear infinite;
+}
+.marquee span{
+  font-family:var(--font-display);font-style:italic;
+  font-size:1.05rem;color:var(--muted);
+  margin:0 1.4rem;
+}
+.marquee b{color:var(--gold);font-weight:400}
+@keyframes marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 
-        .hero h1 {
-            font-size: 3rem;
-            margin-bottom: 1rem;
-            color: #1a1a1a;
-            line-height: 1.2;
-        }
+/* ============ SECCIONES GENERALES ============ */
+.section{padding:7rem 2rem}
+.section-inner{max-width:1200px;margin:0 auto}
+.section-title{
+  font-family:var(--font-display);font-weight:800;
+  font-size:clamp(2rem,4.5vw,2.8rem);
+  text-align:center;margin-bottom:.8rem;letter-spacing:1px;
+}
+.section-title .underline{
+  display:block;width:70px;height:2px;margin:1.1rem auto 0;
+  background:var(--gold);
+  transform:scaleX(0);transform-origin:center;
+  transition:transform 1s cubic-bezier(.22,1,.36,1) .3s;
+  box-shadow:0 0 12px var(--gold-glow);
+}
+.in-view .underline{transform:scaleX(1)}
+.section-sub{
+  text-align:center;color:var(--muted);
+  max-width:560px;margin:0 auto 4rem;font-size:1.05rem;
+}
 
-        .hero p {
-            font-size: 1.2rem;
-            color: #666;
-            margin-bottom: 2rem;
-            max-width: 600px;
-            margin-left: auto;
-            margin-right: auto;
-        }
+/* ============ SERVICIOS ============ */
+.servicios-grid{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:1.6rem;
+}
+.glass-card{
+  position:relative;
+  background:var(--glass);
+  -webkit-backdrop-filter:blur(16px);
+  backdrop-filter:blur(16px);
+  border:1px solid var(--glass-border);
+  border-radius:16px;
+  padding:2.4rem 2rem;
+  overflow:hidden;
+  transition:transform .45s cubic-bezier(.22,1,.36,1),border-color .45s ease,box-shadow .45s ease;
+}
+.glass-card::before{
+  content:'';position:absolute;inset:0;
+  background:var(--glass-strong);
+  opacity:0;transition:opacity .45s ease;
+  pointer-events:none;
+}
+.glass-card:hover{
+  transform:translateY(-8px) scale(1.05);
+  border-color:rgba(212,165,116,.5);
+  box-shadow:0 0 40px rgba(212,165,116,.15),0 24px 48px rgba(0,0,0,.5);
+}
+.glass-card:hover::before{opacity:1}
+.card-icon{
+  font-size:2.6rem;display:inline-block;margin-bottom:1.2rem;
+  transition:transform .7s cubic-bezier(.22,1,.36,1);
+}
+.glass-card:hover .card-icon{transform:rotate(360deg) scale(1.15)}
+.glass-card h3{
+  font-size:1.25rem;font-weight:600;color:var(--gold);
+  margin-bottom:.7rem;position:relative;
+}
+.glass-card p{color:var(--muted);font-size:.95rem;position:relative}
 
-        .cta-buttons {
-            display: flex;
-            gap: 1rem;
-            justify-content: center;
-            flex-wrap: wrap;
-        }
+/* ============ PORTFOLIO ============ */
+.portfolio{background:var(--bg2)}
+.portfolio-grid{
+  display:grid;grid-template-columns:repeat(2,1fr);gap:1.8rem;
+}
+.proyecto{
+  position:relative;
+  background:rgba(245,245,245,.08);
+  -webkit-backdrop-filter:blur(14px);
+  backdrop-filter:blur(14px);
+  border:1px solid rgba(255,255,255,.12);
+  border-radius:18px;
+  overflow:hidden;
+  transition:transform .5s cubic-bezier(.22,1,.36,1),border-color .5s ease,box-shadow .5s ease;
+}
+.proyecto:hover{
+  transform:translateY(-6px) scale(1.03);
+  border-color:rgba(212,165,116,.55);
+  box-shadow:0 0 46px rgba(212,165,116,.14),0 28px 56px rgba(0,0,0,.55);
+}
+.proyecto-visual{
+  position:relative;height:230px;
+  display:flex;align-items:center;justify-content:center;
+  background:linear-gradient(135deg,#d4a574 0%,#a67c52 55%,#8a5a3a 100%);
+  overflow:hidden;
+}
+.proyecto-visual .emoji{
+  font-size:4.2rem;
+  filter:drop-shadow(0 10px 24px rgba(0,0,0,.35));
+  transition:transform .6s cubic-bezier(.22,1,.36,1);
+  will-change:transform;
+}
+.proyecto:hover .proyecto-visual .emoji{transform:scale(1.18) rotate(3deg)}
+.proyecto-num{
+  position:absolute;top:1rem;right:1.4rem;
+  font-family:var(--font-display);font-style:italic;
+  font-size:3.4rem;font-weight:700;color:rgba(255,255,255,.22);
+  line-height:1;user-select:none;
+}
+.proyecto-info{padding:1.8rem}
+.proyecto-info h3{
+  font-family:var(--font-display);
+  font-size:1.5rem;font-weight:700;margin-bottom:.5rem;
+}
+.proyecto-info p{color:var(--muted);font-size:.92rem;margin-bottom:1.2rem}
+.proyecto-tags{display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:1.3rem}
+.tag{
+  font-size:.72rem;font-weight:500;letter-spacing:.5px;
+  padding:.3rem .8rem;border-radius:100px;
+  background:rgba(212,165,116,.12);
+  border:1px solid rgba(212,165,116,.3);
+  color:var(--gold);
+}
+.proyecto-link{
+  color:var(--gold);font-weight:600;font-size:.95rem;
+  position:relative;display:inline-block;
+  transition:text-shadow .3s ease;
+}
+.proyecto-link::after{
+  content:'';position:absolute;left:0;bottom:-4px;
+  width:100%;height:1px;background:var(--gold);
+  transform:scaleX(0);transform-origin:left;
+  transition:transform .35s cubic-bezier(.22,1,.36,1);
+}
+.proyecto-link:hover{text-shadow:0 0 16px var(--gold-glow)}
+.proyecto-link:hover::after{transform:scaleX(1)}
 
-        .btn {
-            padding: 1rem 2rem;
-            font-size: 1rem;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            text-decoration: none;
-            display: inline-block;
-            transition: all 0.3s;
-            font-weight: 600;
-        }
+/* ============ CTA FINAL ============ */
+.cta-final{
+  background:linear-gradient(135deg,#1a1a1a 0%,#2a2a2a 100%);
+  overflow:hidden;text-align:center;
+}
+.cta-final .blob{opacity:.35}
+.cta-box{
+  position:relative;z-index:2;
+  max-width:760px;margin:0 auto;
+  background:rgba(255,255,255,.04);
+  -webkit-backdrop-filter:blur(10px);
+  backdrop-filter:blur(10px);
+  border:1px solid var(--glass-border);
+  border-radius:24px;
+  padding:4rem 2.5rem;
+}
+.cta-final h2{
+  font-family:var(--font-display);font-weight:800;
+  font-size:clamp(1.8rem,4vw,2.4rem);
+  margin-bottom:1rem;
+}
+.cta-final h2 em{color:var(--gold);font-style:italic}
+.cta-final p{color:var(--muted);max-width:520px;margin:0 auto 2.4rem}
 
-        .btn-primary {
-            background-color: #1a1a1a;
-            color: white;
-        }
+/* ============ FOOTER ============ */
+footer{
+  background:var(--bg);
+  border-top:1px solid rgba(255,255,255,.06);
+  padding:3rem 2rem;text-align:center;
+}
+.footer-inner{max-width:1200px;margin:0 auto}
+.footer-logo{
+  font-family:var(--font-display);font-weight:800;
+  font-size:1.2rem;color:var(--gold);margin-bottom:1.2rem;
+}
+.footer-contact{
+  display:flex;gap:2rem;justify-content:center;flex-wrap:wrap;
+  margin-bottom:1.6rem;font-size:.92rem;color:var(--muted);
+}
+.footer-contact a{color:var(--gold);transition:text-shadow .3s ease}
+.footer-contact a:hover{text-shadow:0 0 14px var(--gold-glow)}
+.footer-copy{font-size:.8rem;color:#666}
 
-        .btn-primary:hover {
-            background-color: #d4a574;
-        }
+/* ============ RESPONSIVE ============ */
+@media (max-width:1024px){
+  .servicios-grid{grid-template-columns:repeat(2,1fr)}
+}
+@media (max-width:768px){
+  .section{padding:5rem 1.4rem}
+  .servicios-grid,.portfolio-grid{grid-template-columns:1fr}
+  header .inner{padding:1rem 1.2rem}
+  nav ul{gap:1.1rem}
+  nav a{font-size:.8rem}
+  .cta-row{flex-direction:column;align-items:stretch}
+  .btn{justify-content:center}
+  .cta-box{padding:2.8rem 1.6rem}
+  .blob{filter:blur(70px)}
+}
 
-        .btn-secondary {
-            background-color: transparent;
-            color: #1a1a1a;
-            border: 2px solid #1a1a1a;
-        }
-
-        .btn-secondary:hover {
-            background-color: #1a1a1a;
-            color: white;
-        }
-
-        .btn-whatsapp {
-            background-color: #25d366;
-            color: white;
-        }
-
-        .btn-whatsapp:hover {
-            background-color: #1eaa4f;
-        }
-
-        /* Servicios */
-        .servicios {
-            padding: 4rem 2rem;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .servicios h2 {
-            font-size: 2.5rem;
-            text-align: center;
-            margin-bottom: 3rem;
-            color: #1a1a1a;
-        }
-
-        .servicios-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
-        }
-
-        .servicio-card {
-            background: white;
-            padding: 2rem;
-            border-radius: 8px;
-            text-align: center;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-            transition: transform 0.3s;
-        }
-
-        .servicio-card:hover {
-            transform: translateY(-5px);
-        }
-
-        .servicio-card h3 {
-            font-size: 1.3rem;
-            margin-bottom: 1rem;
-            color: #d4a574;
-        }
-
-        .servicio-card p {
-            color: #666;
-            font-size: 0.95rem;
-        }
-
-        /* Portfolio */
-        .portfolio {
-            background: white;
-            padding: 4rem 2rem;
-        }
-
-        .portfolio-content {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .portfolio h2 {
-            font-size: 2.5rem;
-            text-align: center;
-            margin-bottom: 3rem;
-            color: #1a1a1a;
-        }
-
-        .proyectos-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-        }
-
-        .proyecto {
-            background: #f5f5f5;
-            border-radius: 8px;
-            overflow: hidden;
-            transition: all 0.3s;
-        }
-
-        .proyecto:hover {
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.12);
-        }
-
-        .proyecto-img {
-            width: 100%;
-            height: 200px;
-            background: linear-gradient(135deg, #d4a574 0%, #a67c52 100%);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 3rem;
-            color: white;
-        }
-
-        .proyecto-info {
-            padding: 1.5rem;
-        }
-
-        .proyecto-info h3 {
-            font-size: 1.3rem;
-            margin-bottom: 0.5rem;
-            color: #1a1a1a;
-        }
-
-        .proyecto-info p {
-            color: #666;
-            font-size: 0.9rem;
-            margin-bottom: 1rem;
-        }
-
-        .proyecto-link {
-            color: #d4a574;
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 0.9rem;
-        }
-
-        .proyecto-link:hover {
-            text-decoration: underline;
-        }
-
-        /* CTA Ads */
-        .cta-ads {
-            background: linear-gradient(135deg, #1a1a1a 0%, #2a2a2a 100%);
-            color: white;
-            padding: 3rem 2rem;
-            text-align: center;
-        }
-
-        .cta-ads-content {
-            max-width: 800px;
-            margin: 0 auto;
-        }
-
-        .cta-ads h2 {
-            font-size: 2rem;
-            margin-bottom: 1rem;
-        }
-
-        .cta-ads p {
-            font-size: 1.1rem;
-            margin-bottom: 2rem;
-            opacity: 0.9;
-        }
-
-        .cta-ads .cta-buttons {
-            margin-bottom: 2rem;
-        }
-
-        .cta-ads .btn-primary {
-            background-color: #d4a574;
-            color: #1a1a1a;
-        }
-
-        .cta-ads .btn-primary:hover {
-            background-color: #e6c294;
-        }
-
-        /* Footer */
-        footer {
-            background: #0f0f0f;
-            color: #aaa;
-            padding: 2rem;
-            text-align: center;
-            font-size: 0.9rem;
-        }
-
-        .footer-content {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .footer-contact {
-            margin-bottom: 1rem;
-        }
-
-        .footer-contact a {
-            color: #d4a574;
-            text-decoration: none;
-        }
-
-        /* Responsive */
-        @media (max-width: 768px) {
-            .hero h1 {
-                font-size: 2rem;
-            }
-
-            .hero p {
-                font-size: 1rem;
-            }
-
-            nav ul {
-                gap: 1rem;
-                font-size: 0.85rem;
-            }
-
-            .cta-buttons {
-                flex-direction: column;
-            }
-
-            .btn {
-                width: 100%;
-            }
-
-            .servicios h2,
-            .portfolio h2 {
-                font-size: 1.8rem;
-            }
-        }
-    </style>
+/* ============ REDUCED MOTION ============ */
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{
+    animation-duration:.01ms!important;
+    animation-iteration-count:1!important;
+    transition-duration:.01ms!important;
+  }
+  html{scroll-behavior:auto}
+  .reveal{opacity:1;transform:none}
+}
+</style>
 </head>
 <body>
-    <!-- Header -->
-    <header>
-        <div class="header-content">
-            <div class="logo">Ricardo Design</div>
-            <nav>
-                <ul>
-                    <li><a href="#servicios">Servicios</a></li>
-                    <li><a href="#portfolio">Portfolio</a></li>
-                    <li><a href="#contacto">Contacto</a></li>
-                </ul>
-            </nav>
-        </div>
-    </header>
 
-    <!-- Hero -->
-    <section class="hero">
-        <h1>Tu marca merece una web profesional</h1>
-        <p>Creamos y mantenemos sitios web que conviertan visitantes en clientes. Diseño minimalista, rendimiento premium, resultados reales.</p>
-        <div class="cta-buttons">
-            <a href="#portfolio" class="btn btn-primary">Ver Portfolio</a>
-            <a href="https://wa.me/573228505472?text=Hola%20Me%20interesa%20conocer%20los%20servicios%20de%20creaci%C3%B3n%20de%20p%C3%A1ginas%20web" class="btn btn-whatsapp">Consulta Gratis</a>
-        </div>
-    </section>
+<!-- ============ HEADER ============ -->
+<header id="header">
+  <div class="inner">
+    <a href="#" class="logo">Ricardo <span>Design</span></a>
+    <nav>
+      <ul>
+        <li><a href="#servicios">Servicios</a></li>
+        <li><a href="#portfolio">Portfolio</a></li>
+        <li><a href="#contacto">Contacto</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
 
-    <!-- Servicios -->
-    <section id="servicios" class="servicios">
-        <h2>Servicios</h2>
-        <div class="servicios-grid">
-            <div class="servicio-card">
-                <h3>🎨 Creación Web</h3>
-                <p>Diseño responsivo, moderno y orientado a conversiones. Cada proyecto es único y adaptado a tu marca.</p>
-            </div>
-            <div class="servicio-card">
-                <h3>⚙️ Mantenimiento</h3>
-                <p>Actualizaciones, seguridad, rendimiento. Tu web siempre funcionando al 100% sin preocupaciones.</p>
-            </div>
-            <div class="servicio-card">
-                <h3>📢 Publicidad Digital</h3>
-                <p>Campañas en Meta Ads y Google Ads. Tráfico calificado que convierte en ventas reales.</p>
-            </div>
-        </div>
-    </section>
+<!-- ============ HERO ============ -->
+<section class="hero">
+  <div class="blob blob-1" data-speed="0.25"></div>
+  <div class="blob blob-2" data-speed="0.15"></div>
+  <div class="blob blob-3" data-speed="0.35"></div>
 
-    <!-- Portfolio -->
-    <section id="portfolio" class="portfolio">
-        <div class="portfolio-content">
-            <h2>Proyectos</h2>
-            <div class="proyectos-grid">
-                <!-- Proyecto 1: Felipe Vergel -->
-                <div class="proyecto">
-                    <div class="proyecto-img">🎨</div>
-                    <div class="proyecto-info">
-                        <h3>Felipe Vergel</h3>
-                        <p>E-commerce de arte en vidrio. Diseño elegante, colecciones exclusivas, sistema de suscripción VIP.</p>
-                        <a href="https://felipevergel.com" target="_blank" class="proyecto-link">Ver sitio →</a>
-                    </div>
-                </div>
+  <div class="hero-content" id="heroContent">
+    <span class="hero-badge">✦ Diseño Web Premium · Colombia</span>
+    <h1>Tu marca merece una<br><em>web profesional</em></h1>
+    <p>Creamos y mantenemos sitios web que convierten visitantes en clientes. Diseño minimalista, rendimiento premium, resultados reales.</p>
+    <div class="cta-row">
+      <a href="#portfolio" class="btn btn-outline">Ver Portfolio ↓</a>
+      <a href="https://wa.me/573027981468?text=Hola%2C%20me%20interesa%20una%20p%C3%A1gina%20web%20para%20mi%20negocio" target="_blank" rel="noopener" class="btn btn-whatsapp">Consulta Gratis</a>
+    </div>
+  </div>
 
-                <!-- Proyecto 2: Alejandra Vergel -->
-                <div class="proyecto">
-                    <div class="proyecto-img">✨</div>
-                    <div class="proyecto-info">
-                        <h3>Alejandra Vergel</h3>
-                        <p>Joyería artesanal de autor. Catálogo de productos con filtros, carrito inteligente y integración WhatsApp.</p>
-                        <a href="https://alejandravergel.com" target="_blank" class="proyecto-link">Ver sitio →</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+  <div class="scroll-indicator" id="scrollIndicator">
+    Scroll
+    <span class="arrow"></span>
+  </div>
+</section>
 
-    <!-- CTA para Ads -->
-    <section id="contacto" class="cta-ads">
-        <div class="cta-ads-content">
-            <h2>¿Necesitas una web como estas?</h2>
-            <p>Somos especialistas en crear webs que no solo se ven bien, sino que generan resultados.</p>
-            <div class="cta-buttons">
-                <a href="#portfolio" class="btn btn-primary">Ver más detalles</a>
-                <a href="https://wa.me/573228505472?text=Hola%20Me%20interesa%20saber%20m%C3%A1s%20sobre%20la%20creaci%C3%B3n%20de%20mi%20p%C3%A1gina%20web" class="btn btn-whatsapp">Hablar con nosotros</a>
-            </div>
-        </div>
-    </section>
+<!-- ============ MARQUEE ============ -->
+<div class="marquee" aria-hidden="true">
+  <div class="marquee-track">
+    <span>Diseño Web <b>✦</b></span><span>Mantenimiento <b>✦</b></span><span>Meta Ads <b>✦</b></span><span>E-commerce <b>✦</b></span><span>Landing Pages <b>✦</b></span><span>SEO <b>✦</b></span><span>Diseño Web <b>✦</b></span><span>Mantenimiento <b>✦</b></span><span>Meta Ads <b>✦</b></span><span>E-commerce <b>✦</b></span><span>Landing Pages <b>✦</b></span><span>SEO <b>✦</b></span>
+  </div>
+</div>
 
-    <!-- Footer -->
-    <footer>
-        <div class="footer-content">
-            <div class="footer-contact">
-                <p>📱 WhatsApp: <a href="https://wa.me/573228505472">+57 322 850 5472</a></p>
-                <p>📧 Email: ricardojosemarinespitia@gmail.com</p>
-            </div>
-            <p>&copy; 2026 Ricardo Design. Diseño minimalista. Resultados reales.</p>
+<!-- ============ SERVICIOS ============ -->
+<section id="servicios" class="section">
+  <div class="section-inner">
+    <h2 class="section-title reveal">Servicios<span class="underline"></span></h2>
+    <p class="section-sub reveal reveal-d1">Todo lo que tu negocio necesita para vivir — y vender — en internet.</p>
+    <div class="servicios-grid">
+      <div class="glass-card reveal">
+        <span class="card-icon">🎨</span>
+        <h3>Creación Web</h3>
+        <p>Diseño responsivo, moderno y orientado a conversiones. Cada proyecto es único y adaptado a tu marca.</p>
+      </div>
+      <div class="glass-card reveal reveal-d1">
+        <span class="card-icon">⚙️</span>
+        <h3>Mantenimiento</h3>
+        <p>Actualizaciones, seguridad, rendimiento. Tu web siempre funcionando al 100% sin preocupaciones.</p>
+      </div>
+      <div class="glass-card reveal reveal-d2">
+        <span class="card-icon">📢</span>
+        <h3>Publicidad Digital</h3>
+        <p>Campañas en Meta Ads y Google Ads. Tráfico calificado que convierte en ventas reales.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PORTFOLIO ============ -->
+<section id="portfolio" class="section portfolio">
+  <div class="section-inner">
+    <h2 class="section-title reveal">Proyectos<span class="underline"></span></h2>
+    <p class="section-sub reveal reveal-d1">Marcas reales, webs reales, resultados reales.</p>
+    <div class="portfolio-grid">
+
+      <article class="proyecto reveal">
+        <div class="proyecto-visual">
+          <span class="emoji" data-speed="0.06">🎨</span>
+          <span class="proyecto-num">01</span>
         </div>
-    </footer>
+        <div class="proyecto-info">
+          <h3>Felipe Vergel</h3>
+          <p>E-commerce de arte en vidrio. Diseño elegante, colecciones exclusivas y sistema de suscripción VIP.</p>
+          <div class="proyecto-tags">
+            <span class="tag">E-commerce</span>
+            <span class="tag">Arte</span>
+            <span class="tag">Suscripción</span>
+          </div>
+          <a href="https://felipevergel.com" target="_blank" rel="noopener" class="proyecto-link">Ver sitio en vivo →</a>
+        </div>
+      </article>
+
+      <article class="proyecto reveal reveal-d2">
+        <div class="proyecto-visual">
+          <span class="emoji" data-speed="0.06">✨</span>
+          <span class="proyecto-num">02</span>
+        </div>
+        <div class="proyecto-info">
+          <h3>Alejandra Vergel</h3>
+          <p>Joyería artesanal de autor. Catálogo con filtros, carrito inteligente e integración con WhatsApp.</p>
+          <div class="proyecto-tags">
+            <span class="tag">Catálogo</span>
+            <span class="tag">Joyería</span>
+            <span class="tag">WhatsApp</span>
+          </div>
+          <a href="https://alejandravergel.com" target="_blank" rel="noopener" class="proyecto-link">Ver sitio en vivo →</a>
+        </div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<!-- ============ CTA FINAL ============ -->
+<section id="contacto" class="section cta-final">
+  <div class="blob blob-1" data-speed="0.2"></div>
+  <div class="blob blob-2" data-speed="0.3"></div>
+  <div class="cta-box reveal">
+    <h2>¿Necesitas una web <em>como estas</em>?</h2>
+    <p>Somos especialistas en crear webs que no solo se ven bien, sino que generan resultados.</p>
+    <div class="cta-row">
+      <a href="#portfolio" class="btn btn-gold">Ver más detalles</a>
+      <a href="https://wa.me/573027981468?text=Hola%2C%20quiero%20cotizar%20mi%20p%C3%A1gina%20web" target="_blank" rel="noopener" class="btn btn-whatsapp">Hablar con nosotros</a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-logo">Ricardo Design</div>
+    <div class="footer-contact">
+      <span>📱 <a href="https://wa.me/573027981468" target="_blank" rel="noopener">302 798 1468</a></span>
+      <span>📧 <a href="mailto:ricardodesingwebs@gmail.com">ricardodesingwebs@gmail.com</a></span>
+      <span>📍 Bucaramanga, Colombia</span>
+    </div>
+    <p class="footer-copy">© 2026 Ricardo Design. Diseño minimalista. Resultados reales.</p>
+  </div>
+</footer>
+
+<script>
+(function(){
+  'use strict';
+
+  /* ===== Reveal on scroll (IntersectionObserver) ===== */
+  var observer = new IntersectionObserver(function(entries){
+    entries.forEach(function(entry){
+      if(entry.isIntersecting){
+        entry.target.classList.add('in-view');
+        observer.unobserve(entry.target);
+      }
+    });
+  },{threshold:0.15,rootMargin:'0px 0px -40px 0px'});
+  document.querySelectorAll('.reveal').forEach(function(el){observer.observe(el)});
+
+  /* ===== Header: shrink + hide on scroll down / show on scroll up ===== */
+  var header = document.getElementById('header');
+  var scrollIndicator = document.getElementById('scrollIndicator');
+  var lastY = 0, ticking = false;
+
+  function onScroll(){
+    var y = window.scrollY;
+
+    header.classList.toggle('scrolled', y > 60);
+    if(y > 300 && y > lastY){ header.classList.add('hidden'); }
+    else { header.classList.remove('hidden'); }
+
+    if(scrollIndicator){ scrollIndicator.classList.toggle('gone', y > 80); }
+
+    /* Parallax: elementos con data-speed */
+    document.querySelectorAll('[data-speed]').forEach(function(el){
+      var speed = parseFloat(el.dataset.speed);
+      el.style.transform = 'translate3d(0,' + (y * speed) + 'px,0)';
+    });
+
+    lastY = y;
+    ticking = false;
+  }
+
+  window.addEventListener('scroll', function(){
+    if(!ticking){
+      window.requestAnimationFrame(onScroll);
+      ticking = true;
+    }
+  }, {passive:true});
+
+  /* ===== Parallax sutil del hero con el mouse ===== */
+  var heroContent = document.getElementById('heroContent');
+  var fine = window.matchMedia('(pointer:fine)').matches;
+  var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  if(heroContent && fine && !reduced){
+    document.addEventListener('mousemove', function(e){
+      var x = (e.clientX / window.innerWidth - .5) * 14;
+      var yy = (e.clientY / window.innerHeight - .5) * 10;
+      heroContent.style.transform = 'translate3d(' + x + 'px,' + yy + 'px,0)';
+    }, {passive:true});
+  }
+})();
+</script>
 </body>
 </html>
