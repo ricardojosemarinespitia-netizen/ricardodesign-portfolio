@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ricardo Design | Creamos tu Presencia Online</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #1a1a1a;
+            background-color: #fafafa;
+        }
+
+        /* Header */
+        header {
+            background: white;
+            padding: 1.5rem 2rem;
+            position: sticky;
+            top: 0;
+            border-bottom: 1px solid #eee;
+            z-index: 100;
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #d4a574;
+            letter-spacing: -1px;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #1a1a1a;
+            font-size: 0.95rem;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: #d4a574;
+        }
+
+        /* Hero */
+        .hero {
+            background: linear-gradient(135deg, #fafafa 0%, #f5f5f5 100%);
+            padding: 6rem 2rem;
+            text-align: center;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            color: #1a1a1a;
+            line-height: 1.2;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            color: #666;
+            margin-bottom: 2rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 1rem 2rem;
+            font-size: 1rem;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.3s;
+            font-weight: 600;
+        }
+
+        .btn-primary {
+            background-color: #1a1a1a;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: #d4a574;
+        }
+
+        .btn-secondary {
+            background-color: transparent;
+            color: #1a1a1a;
+            border: 2px solid #1a1a1a;
+        }
+
+        .btn-secondary:hover {
+            background-color: #1a1a1a;
+            color: white;
+        }
+
+        .btn-whatsapp {
+            background-color: #25d366;
+            color: white;
+        }
+
+        .btn-whatsapp:hover {
+            background-color: #1eaa4f;
+        }
+
+        /* Servicios */
+        .servicios {
+            padding: 4rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .servicios h2 {
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 3rem;
+            color: #1a1a1a;
+        }
+
+        .servicios-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .servicio-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 8px;
+            text-align: center;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s;
+        }
+
+        .servicio-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .servicio-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            color: #d4a574;
+        }
+
+        .servicio-card p {
+            color: #666;
+            font-size: 0.95rem;
+        }
+
+        /* Portfolio */
+        .portfolio {
+            background: white;
+            padding: 4rem 2rem;
+        }
+
+        .portfolio-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .portfolio h2 {
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 3rem;
+            color: #1a1a1a;
+        }
+
+        .proyectos-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .proyecto {
+            background: #f5f5f5;
+            border-radius: 8px;
+            overflow: hidden;
+            transition: all 0.3s;
+        }
+
+        .proyecto:hover {
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.12);
+        }
+
+        .proyecto-img {
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(135deg, #d4a574 0%, #a67c52 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            color: white;
+        }
+
+        .proyecto-info {
+            padding: 1.5rem;
+        }
+
+        .proyecto-info h3 {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+            color: #1a1a1a;
+        }
+
+        .proyecto-info p {
+            color: #666;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        .proyecto-link {
+            color: #d4a574;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .proyecto-link:hover {
+            text-decoration: underline;
+        }
+
+        /* CTA Ads */
+        .cta-ads {
+            background: linear-gradient(135deg, #1a1a1a 0%, #2a2a2a 100%);
+            color: white;
+            padding: 3rem 2rem;
+            text-align: center;
+        }
+
+        .cta-ads-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .cta-ads h2 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .cta-ads p {
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+
+        .cta-ads .cta-buttons {
+            margin-bottom: 2rem;
+        }
+
+        .cta-ads .btn-primary {
+            background-color: #d4a574;
+            color: #1a1a1a;
+        }
+
+        .cta-ads .btn-primary:hover {
+            background-color: #e6c294;
+        }
+
+        /* Footer */
+        footer {
+            background: #0f0f0f;
+            color: #aaa;
+            padding: 2rem;
+            text-align: center;
+            font-size: 0.9rem;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-contact {
+            margin-bottom: 1rem;
+        }
+
+        .footer-contact a {
+            color: #d4a574;
+            text-decoration: none;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+
+            nav ul {
+                gap: 1rem;
+                font-size: 0.85rem;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+            }
+
+            .btn {
+                width: 100%;
+            }
+
+            .servicios h2,
+            .portfolio h2 {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="header-content">
+            <div class="logo">Ricardo Design</div>
+            <nav>
+                <ul>
+                    <li><a href="#servicios">Servicios</a></li>
+                    <li><a href="#portfolio">Portfolio</a></li>
+                    <li><a href="#contacto">Contacto</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero -->
+    <section class="hero">
+        <h1>Tu marca merece una web profesional</h1>
+        <p>Creamos y mantenemos sitios web que conviertan visitantes en clientes. Diseño minimalista, rendimiento premium, resultados reales.</p>
+        <div class="cta-buttons">
+            <a href="#portfolio" class="btn btn-primary">Ver Portfolio</a>
+            <a href="https://wa.me/573228505472?text=Hola%20Me%20interesa%20conocer%20los%20servicios%20de%20creaci%C3%B3n%20de%20p%C3%A1ginas%20web" class="btn btn-whatsapp">Consulta Gratis</a>
+        </div>
+    </section>
+
+    <!-- Servicios -->
+    <section id="servicios" class="servicios">
+        <h2>Servicios</h2>
+        <div class="servicios-grid">
+            <div class="servicio-card">
+                <h3>🎨 Creación Web</h3>
+                <p>Diseño responsivo, moderno y orientado a conversiones. Cada proyecto es único y adaptado a tu marca.</p>
+            </div>
+            <div class="servicio-card">
+                <h3>⚙️ Mantenimiento</h3>
+                <p>Actualizaciones, seguridad, rendimiento. Tu web siempre funcionando al 100% sin preocupaciones.</p>
+            </div>
+            <div class="servicio-card">
+                <h3>📢 Publicidad Digital</h3>
+                <p>Campañas en Meta Ads y Google Ads. Tráfico calificado que convierte en ventas reales.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Portfolio -->
+    <section id="portfolio" class="portfolio">
+        <div class="portfolio-content">
+            <h2>Proyectos</h2>
+            <div class="proyectos-grid">
+                <!-- Proyecto 1: Felipe Vergel -->
+                <div class="proyecto">
+                    <div class="proyecto-img">🎨</div>
+                    <div class="proyecto-info">
+                        <h3>Felipe Vergel</h3>
+                        <p>E-commerce de arte en vidrio. Diseño elegante, colecciones exclusivas, sistema de suscripción VIP.</p>
+                        <a href="https://felipevergel.com" target="_blank" class="proyecto-link">Ver sitio →</a>
+                    </div>
+                </div>
+
+                <!-- Proyecto 2: Alejandra Vergel -->
+                <div class="proyecto">
+                    <div class="proyecto-img">✨</div>
+                    <div class="proyecto-info">
+                        <h3>Alejandra Vergel</h3>
+                        <p>Joyería artesanal de autor. Catálogo de productos con filtros, carrito inteligente y integración WhatsApp.</p>
+                        <a href="https://alejandravergel.com" target="_blank" class="proyecto-link">Ver sitio →</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA para Ads -->
+    <section id="contacto" class="cta-ads">
+        <div class="cta-ads-content">
+            <h2>¿Necesitas una web como estas?</h2>
+            <p>Somos especialistas en crear webs que no solo se ven bien, sino que generan resultados.</p>
+            <div class="cta-buttons">
+                <a href="#portfolio" class="btn btn-primary">Ver más detalles</a>
+                <a href="https://wa.me/573228505472?text=Hola%20Me%20interesa%20saber%20m%C3%A1s%20sobre%20la%20creaci%C3%B3n%20de%20mi%20p%C3%A1gina%20web" class="btn btn-whatsapp">Hablar con nosotros</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-contact">
+                <p>📱 WhatsApp: <a href="https://wa.me/573228505472">+57 322 850 5472</a></p>
+                <p>📧 Email: ricardojosemarinespitia@gmail.com</p>
+            </div>
+            <p>&copy; 2026 Ricardo Design. Diseño minimalista. Resultados reales.</p>
+        </div>
+    </footer>
+</body>
+</html>
