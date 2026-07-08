@@ -396,38 +396,11 @@ section{padding:120px 5vw;position:relative}
 .spark{width:110px;height:30px;overflow:visible}
 .spark polyline{fill:none;stroke:var(--steel);stroke-width:2;stroke-linecap:round;stroke-linejoin:round;filter:drop-shadow(0 2px 5px rgba(10,65,116,.4))}
 
-/* ========== AUTOMATIZACIÓN: libreta full-screen (hojas de abajo→arriba) ========== */
-#automatiza{padding:60px 5vw 36px}
-#automatiza .shead{margin-bottom:22px}
-.auto-grid{
-  height:100svh;height:100vh;
-  overflow-y:auto;scroll-snap-type:y mandatory;
-  display:flex;flex-direction:column;align-items:center;gap:0;
-  border-radius:var(--r-lg);
-  -webkit-overflow-scrolling:touch;scrollbar-width:none;
-  overscroll-behavior:contain;
-}
-.auto-grid::-webkit-scrollbar{display:none}
-.auto-item{
-  flex:0 0 100%;min-height:100svh;min-height:100vh;
-  width:min(600px,100%);
-  scroll-snap-align:center;scroll-snap-stop:always;
-  display:flex;flex-direction:column;justify-content:center;
-  padding:6vh 30px;
-  transform:scale(.86) translateY(46px);opacity:.22;
-  transition:transform .6s var(--ease),opacity .5s ease;
-}
-.auto-item.focus{transform:none;opacity:1}
-.auto-item .stage{min-height:180px}
-.auto-item .em{
-  flex-shrink:0;width:48px;height:48px;border-radius:15px;font-size:1.1rem;
-  display:flex;align-items:center;justify-content:center;
-  background:linear-gradient(135deg,var(--blue),var(--steel));
-  box-shadow:0 8px 20px rgba(10,65,116,.3),inset 0 1px 0 rgba(255,255,255,.3);
-}
-.auto-item:nth-child(even) .em{background:linear-gradient(135deg,var(--teal),var(--soft))}
-.auto-item h4{font-size:.92rem;font-weight:700;margin-bottom:8px;color:var(--navy)}
-.auto-item p{color:var(--dim);font-size:.74rem;line-height:1.65}
+/* ===== AUTOMATIZACIÓN: rejilla de demos con ventana Mac (idéntico a "En Vivo") ===== */
+.auto-grid{display:grid;grid-template-columns:1fr;gap:26px;max-width:1180px;margin:0 auto;perspective:1100px}
+@media(min-width:900px){.auto-grid{grid-template-columns:1fr 1fr}}
+.auto-grid .demo-body{min-height:314px;display:flex;flex-direction:column}
+.auto-grid .md2{flex:1;min-height:0}
 
 /* Controles de la libreta (flotantes) */
 .cbtn{
@@ -460,42 +433,27 @@ section{padding:120px 5vw;position:relative}
 @keyframes hintUp{0%,100%{transform:translateX(-50%) translateY(0)}50%{transform:translateX(-50%) translateY(-6px)}}
 
 /* ================= MINI-DEMOS (un efecto por tema) ================= */
-.ai-top{display:flex;gap:18px;align-items:flex-start;margin-bottom:16px}
-.stage{
-  margin-top:auto;border-radius:18px;padding:17px 18px;position:relative;overflow:hidden;
-  min-height:110px;width:100%;
-}
-.stage.dark{
-  background:linear-gradient(150deg,rgba(3,41,78,.72),rgba(0,29,57,.82));
-  backdrop-filter:blur(18px) saturate(160%);-webkit-backdrop-filter:blur(18px) saturate(160%);
-  border:1px solid rgba(123,189,232,.3);
-  box-shadow:inset 0 1px 0 rgba(255,255,255,.22),inset 0 0 26px rgba(123,189,232,.06);
-}
-.stage.light{
-  background:linear-gradient(135deg,rgba(255,255,255,.6),rgba(255,255,255,.28));
-  backdrop-filter:blur(16px) saturate(170%);-webkit-backdrop-filter:blur(16px) saturate(170%);
-  border:1px solid rgba(255,255,255,.85);
-  box-shadow:inset 0 1px 0 rgba(255,255,255,.95),0 8px 24px rgba(10,65,116,.12);
-}
+/* (las demos ahora viven directo en .demo-body, con estilo de ventana Mac) */
 
-/* ---- Base de las demos ricas (motor JS, nivel demo grande) ---- */
-.md2{display:flex;flex-direction:column;gap:9px;min-height:228px}
-.dm-head{display:flex;align-items:center;gap:8px;font-size:.58rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;margin-bottom:2px}
-.stage.dark .dm-head{color:var(--ice)}
-.stage.light .dm-head{color:var(--blue)}
-.dm-lines{display:flex;flex-direction:column;gap:7px}
-.dm-ln{font-size:.66rem;line-height:1.65;min-height:1.3em}
-.stage.dark .dm-ln{color:var(--wdim)}
-.stage.light .dm-ln{color:var(--dim)}
-.dm-ln .st{display:inline-block;margin-left:6px;padding:1px 8px;border-radius:6px;font-weight:700;font-size:.56rem;letter-spacing:.06em;background:rgba(22,163,74,.2);border:1px solid rgba(126,226,160,.5);color:#7ee2a0}
-.stage.light .dm-ln .st{background:rgba(22,163,74,.12);border-color:rgba(22,163,74,.4);color:#15803d}
+/* ---- Base de las demos ricas (motor JS, mismo nivel que Correo/Excel) ---- */
+.md2{display:flex;flex-direction:column;gap:11px}
+.dm-head{display:flex;align-items:center;gap:8px;font-size:.6rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding-bottom:12px;margin-bottom:4px;border-bottom:1px solid rgba(0,29,57,.1)}
+.md2.dark .dm-head{color:var(--ice);border-bottom-color:rgba(255,255,255,.12)}
+.md2.light .dm-head{color:var(--blue)}
+.dm-lines{display:flex;flex-direction:column;gap:8px}
+.dm-ln{font-size:.72rem;line-height:1.7;min-height:1.35em}
+.md2.dark .dm-ln{color:var(--wdim)}
+.md2.light .dm-ln{color:var(--dim)}
+.dm-ln .st{display:inline-block;margin-left:6px;padding:1px 8px;border-radius:6px;font-weight:700;font-size:.58rem;letter-spacing:.06em;background:rgba(22,163,74,.2);border:1px solid rgba(126,226,160,.5);color:#7ee2a0}
+.md2.light .dm-ln .st{background:rgba(22,163,74,.12);border-color:rgba(22,163,74,.4);color:#15803d}
 .dm-ok{
   margin-top:auto;display:inline-flex;align-items:center;gap:8px;
-  font-size:.55rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;
+  font-size:.58rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;
+  padding-top:12px;
   opacity:0;transform:translateY(8px);transition:opacity .5s ease,transform .5s var(--ease);
 }
-.stage.dark .dm-ok{color:#7ee2a0}
-.stage.light .dm-ok{color:#15803d}
+.md2.dark .dm-ok{color:#7ee2a0}
+.md2.light .dm-ok{color:#15803d}
 .dm-ok.on{opacity:1;transform:none}
 
 /* 1) Correo: líneas que se escriben + enviado */
@@ -904,129 +862,118 @@ section{padding:120px 5vw;position:relative}
 
   <div class="auto-grid">
 
-    <!-- 1 Correos -->
-    <div class="auto-item lg mdemo">
-      <div class="ai-top"><span class="em" aria-hidden="true">📧</span><div><h4>Correos automáticos en tiempo real</h4><p>Cada suscriptor y cada venta dispara correos instantáneos: el cliente recibe su confirmación y tú recibes el aviso con los datos del pedido. Ambos, al mismo tiempo.</p></div></div>
-      <div class="stage dark md-mail" aria-hidden="true">
-        <span class="env">✉️</span>
-        <div class="tb t1"></div><div class="tb t2"></div><div class="tb t3"></div>
-        <span class="ok">✓ Enviado — cliente y dueño</span>
-      </div>
-    </div>
-
-    <!-- 2 Excel -->
-    <div class="auto-item lg mdemo">
-      <div class="ai-top"><span class="em" aria-hidden="true">📊</span><div><h4>Excel que se llena solo</h4><p>Cada venta se registra automáticamente en una hoja de cálculo en la nube: cliente, productos, total, ciudad y fecha. Tu historial completo, filtrable y seguro.</p></div></div>
-      <div class="stage light md-sheet" aria-hidden="true">
-        <div class="srow s1"><span>09:12</span><b>Laura G.</b><span>Bogotá</span><i>$305.000</i></div>
-        <div class="srow s2"><span>09:47</span><b>Carlos R.</b><span>Medellín</span><i>$185.000</i></div>
-        <div class="srow s3"><span>10:15</span><b>Ana T.</b><span>B/quilla</span><i>$420.000</i></div>
-        <div class="srow s4"><span>11:20</span><b>María L.</b><span>B/manga</span><i>$560.000</i></div>
-      </div>
-    </div>
-
-    <!-- 3 Pagos Wompi -->
-    <div class="auto-item lg mdemo">
-      <div class="ai-top"><span class="em" aria-hidden="true">💳</span><div><h4>Pagos ultra seguros — Wompi de Bancolombia</h4><p>Wompi es la pasarela de pagos creada por Bancolombia: tarjeta, PSE y Nequi con verificación criptográfica instantánea. El respaldo del banco más grande de Colombia genera confianza total en tus clientes.</p></div></div>
-      <div class="stage dark md2" data-demo="pay" aria-hidden="true">
-        <div class="dm-head">🔒 Wompi · pasarela de Bancolombia</div>
-        <div class="paymethods"><span class="pm">💳 Tarjeta</span><span class="pm">🏦 PSE</span><span class="pm">📱 Nequi</span></div>
-        <div class="dm-lines"></div>
-        <div class="dm-ok">✓ APROBADO — respaldado por Bancolombia</div>
-      </div>
-    </div>
-
-    <!-- 4 Carrito -->
-    <div class="auto-item lg mdemo">
-      <div class="ai-top"><span class="em" aria-hidden="true">🛒</span><div><h4>Carrito inteligente y persistente</h4><p>El cliente puede cerrar el navegador y su carrito lo espera hasta 30 días. Subtotales en tiempo real y checkout que no se congela nunca.</p></div></div>
-      <div class="stage light md2" data-demo="cart" aria-hidden="true">
-        <div class="dm-head">🛒 Carrito en tiempo real <span class="cbadge">0</span></div>
-        <div class="cart-items"></div>
-        <div class="cart-foot">Subtotal <b class="csum">$0</b></div>
-        <div class="dm-ok">✓ Guardado 30 días — aunque cierre el navegador</div>
-      </div>
-    </div>
-
-    <!-- 5 Club -->
-    <div class="auto-item lg mdemo">
-      <div class="ai-top"><span class="em" aria-hidden="true">🎁</span><div><h4>Club de miembros con descuentos</h4><p>Suscripción con códigos únicos por persona, validados en el servidor y aplicables en el checkout. Fideliza y multiplica la recompra.</p></div></div>
-      <div class="stage dark md2" data-demo="club" aria-hidden="true">
-        <div class="dm-head">🎁 Nuevo miembro del Club</div>
-        <div class="cl-row"><label>Email</label><span class="cl-em"></span></div>
-        <div class="dm-lines"></div>
-        <div class="code2"></div>
-        <div class="dm-ok">✓ Correo de bienvenida enviado — 15% activo</div>
-      </div>
-    </div>
-
-    <!-- 6 Envíos -->
-    <div class="auto-item lg mdemo">
-      <div class="ai-top"><span class="em" aria-hidden="true">📦</span><div><h4>Envíos inteligentes a todo el país</h4><p>Selector oficial de departamentos y municipios (DANE), tarifas por zona y envío gratis configurable. Cero errores de dirección.</p></div></div>
-      <div class="stage light md2" data-demo="ship" aria-hidden="true">
-        <div class="dm-head">📦 Cotizador de envío (DANE)</div>
-        <div class="sel-line"><label>Departamento</label><b class="sh-dep"></b></div>
-        <div class="sel-line"><label>Municipio</label><b class="sh-mun"></b></div>
-        <div class="sel-line"><label>Tarifa</label><b class="fee sh-fee"></b></div>
-        <div class="truckline"><span class="truck">🚚</span></div>
-        <div class="dm-ok">✓ Entregado — guía enviada al correo del cliente</div>
-      </div>
-    </div>
-
-    <!-- 7 Perfil -->
-    <div class="auto-item lg mdemo">
-      <div class="ai-top"><span class="em" aria-hidden="true">👤</span><div><h4>Perfil personal del cliente</h4><p>Historial de pedidos, direcciones guardadas y seguimiento de entregas. La segunda compra es aún más rápida que la primera.</p></div></div>
-      <div class="stage light md2" data-demo="prof" aria-hidden="true">
-        <div class="dm-head"><span class="pav2">LG</span> <span class="pf-name"></span></div>
-        <div class="dm-lines"></div>
-        <div class="orders"></div>
-        <div class="dm-ok">✓ Recompra en 1 clic — checkout precargado</div>
-      </div>
-    </div>
-
-    <!-- 8 Seguridad -->
-    <div class="auto-item lg mdemo">
-      <div class="ai-top"><span class="em" aria-hidden="true">🔐</span><div><h4>Seguridad de nivel bancario</h4><p>HTTPS en todo el sitio, validación de firmas en cada transacción y cero almacenamiento de tarjetas. Tus clientes confían — y tú duermes tranquilo.</p></div></div>
-      <div class="stage dark md2 mono" data-demo="sec" aria-hidden="true">
-        <div class="dm-head">🔐 Escaneo de seguridad en vivo</div>
-        <div class="dm-lines"></div>
-        <div class="dm-ok">🛡 Protección activa 24/7 — nivel bancario</div>
-      </div>
-    </div>
-
-    <!-- 9 Velocidad -->
-    <div class="auto-item lg mdemo">
-      <div class="ai-top"><span class="em" aria-hidden="true">⚡</span><div><h4>Velocidad que vende</h4><p>Carga en menos de 2 segundos, imágenes optimizadas y hosting escalable: aguanta desde 5 hasta millones de visitas.</p></div></div>
-      <div class="stage light md2" data-demo="speed" aria-hidden="true">
-        <div class="urlbar">🌐 <span class="u-t"></span></div>
-        <div class="bar2"><i class="fill2"></i></div>
-        <div class="metrics"><span>⚡ <b class="m1">0</b>/100 Rendimiento</span><span>🔍 <b class="m2">0</b>/100 SEO</span><span>⏱ <b class="m3">0.0</b>s carga</span></div>
-        <div class="dm-ok">✓ Más rápido que el 95% de las webs en Colombia</div>
-      </div>
-    </div>
-
-    <!-- 10 Pantallas -->
-    <div class="auto-item lg mdemo">
-      <div class="ai-top"><span class="em" aria-hidden="true">📱</span><div><h4>Perfecto en cualquier pantalla</h4><p>Mobile-first: el 65% de las compras llegan desde el celular y tu página está optimizada para eso, con WhatsApp siempre visible.</p></div></div>
-      <div class="stage light md2" data-demo="dev" aria-hidden="true">
-        <div class="dm-head">📱 Un diseño, todas las pantallas</div>
-        <div class="devrow">
-          <span class="dframe f-ph"><i class="db"></i><i class="db"></i><i class="db"></i></span>
-          <span class="dframe f-tb"><i class="db"></i><i class="db"></i><i class="db"></i></span>
-          <span class="dframe f-dt"><i class="db"></i><i class="db"></i><i class="db"></i></span>
+    <!-- Pagos Wompi -->
+    <article class="demo navy-panel tilt reveal-scale mdemo" data-tilt>
+      <div class="win-bar"><span></span><span></span><span></span><em>Wompi · pago con respaldo Bancolombia</em></div>
+      <div class="demo-body">
+        <div class="md2 dark" data-demo="pay" aria-hidden="true">
+          <div class="dm-head">🔒 Wompi — la pasarela de Bancolombia</div>
+          <div class="paymethods"><span class="pm">💳 Tarjeta</span><span class="pm">🏦 PSE</span><span class="pm">📱 Nequi</span></div>
+          <div class="dm-lines"></div>
+          <div class="dm-ok">✓ APROBADO — respaldado por Bancolombia</div>
         </div>
-        <div class="dlab2"></div>
-        <div class="dm-ok">✓ 65% de tus clientes comprarán desde el celular</div>
       </div>
-    </div>
+    </article>
+
+    <!-- Carrito -->
+    <article class="demo lg tilt reveal-scale mdemo" data-tilt>
+      <div class="win-bar"><span></span><span></span><span></span><em>Carrito — subtotales en tiempo real</em></div>
+      <div class="demo-body">
+        <div class="md2 light" data-demo="cart" aria-hidden="true">
+          <div class="dm-head">🛒 Carrito en vivo <span class="cbadge">0</span></div>
+          <div class="cart-items"></div>
+          <div class="cart-foot">Subtotal <b class="csum">$0</b></div>
+          <div class="dm-ok">✓ Guardado 30 días — aunque cierre el navegador</div>
+        </div>
+      </div>
+    </article>
+
+    <!-- Club -->
+    <article class="demo navy-panel tilt reveal-scale mdemo" data-tilt>
+      <div class="win-bar"><span></span><span></span><span></span><em>Club — código único automático</em></div>
+      <div class="demo-body">
+        <div class="md2 dark" data-demo="club" aria-hidden="true">
+          <div class="dm-head">🎁 Nuevo miembro del Club</div>
+          <div class="cl-row"><label>Email</label><span class="cl-em"></span></div>
+          <div class="dm-lines"></div>
+          <div class="code2"></div>
+          <div class="dm-ok">✓ Correo de bienvenida enviado — 15% activo</div>
+        </div>
+      </div>
+    </article>
+
+    <!-- Envíos -->
+    <article class="demo lg tilt reveal-scale mdemo" data-tilt>
+      <div class="win-bar"><span></span><span></span><span></span><em>Envíos — cotizador DANE</em></div>
+      <div class="demo-body">
+        <div class="md2 light" data-demo="ship" aria-hidden="true">
+          <div class="dm-head">📦 Cotizador de envío (DANE)</div>
+          <div class="sel-line"><label>Departamento</label><b class="sh-dep"></b></div>
+          <div class="sel-line"><label>Municipio</label><b class="sh-mun"></b></div>
+          <div class="sel-line"><label>Tarifa</label><b class="fee sh-fee"></b></div>
+          <div class="truckline"><span class="truck">🚚</span></div>
+          <div class="dm-ok">✓ Entregado — guía enviada al correo del cliente</div>
+        </div>
+      </div>
+    </article>
+
+    <!-- Perfil -->
+    <article class="demo lg tilt reveal-scale mdemo" data-tilt>
+      <div class="win-bar"><span></span><span></span><span></span><em>Mi cuenta — perfil del cliente</em></div>
+      <div class="demo-body">
+        <div class="md2 light" data-demo="prof" aria-hidden="true">
+          <div class="dm-head"><span class="pav2">LG</span> <span class="pf-name"></span></div>
+          <div class="dm-lines"></div>
+          <div class="orders"></div>
+          <div class="dm-ok">✓ Recompra en 1 clic — checkout precargado</div>
+        </div>
+      </div>
+    </article>
+
+    <!-- Seguridad -->
+    <article class="demo navy-panel tilt reveal-scale mdemo" data-tilt>
+      <div class="win-bar"><span></span><span></span><span></span><em>Security — escaneo en vivo</em></div>
+      <div class="demo-body">
+        <div class="md2 dark mono" data-demo="sec" aria-hidden="true">
+          <div class="dm-head">🔐 Escaneo de seguridad en vivo</div>
+          <div class="dm-lines"></div>
+          <div class="dm-ok">🛡 Protección activa 24/7 — nivel bancario</div>
+        </div>
+      </div>
+    </article>
+
+    <!-- Velocidad -->
+    <article class="demo lg tilt reveal-scale mdemo" data-tilt>
+      <div class="win-bar"><span></span><span></span><span></span><em>PageSpeed — tu web medida</em></div>
+      <div class="demo-body">
+        <div class="md2 light" data-demo="speed" aria-hidden="true">
+          <div class="dm-head">⚡ Prueba de velocidad</div>
+          <div class="urlbar">🌐 <span class="u-t"></span></div>
+          <div class="bar2"><i class="fill2"></i></div>
+          <div class="metrics"><span>⚡ <b class="m1">0</b>/100 Rendimiento</span><span>🔍 <b class="m2">0</b>/100 SEO</span><span>⏱ <b class="m3">0.0</b>s carga</span></div>
+          <div class="dm-ok">✓ Más rápido que el 95% de las webs en Colombia</div>
+        </div>
+      </div>
+    </article>
+
+    <!-- Pantallas -->
+    <article class="demo lg tilt reveal-scale mdemo" data-tilt>
+      <div class="win-bar"><span></span><span></span><span></span><em>Responsive — todas las pantallas</em></div>
+      <div class="demo-body">
+        <div class="md2 light" data-demo="dev" aria-hidden="true">
+          <div class="dm-head">📱 Un diseño, todas las pantallas</div>
+          <div class="devrow">
+            <span class="dframe f-ph"><i class="db"></i><i class="db"></i><i class="db"></i></span>
+            <span class="dframe f-tb"><i class="db"></i><i class="db"></i><i class="db"></i></span>
+            <span class="dframe f-dt"><i class="db"></i><i class="db"></i><i class="db"></i></span>
+          </div>
+          <div class="dlab2"></div>
+          <div class="dm-ok">✓ 65% de tus clientes comprarán desde el celular</div>
+        </div>
+      </div>
+    </article>
 
   </div>
-
-  <div class="pager-ui" id="pagerUi" aria-hidden="true">
-    <button class="cbtn" id="autoPrev" type="button" aria-label="Anterior">↑</button>
-    <span class="pager-count"><b id="pagerNow">1</b><i>/</i>10</span>
-    <button class="cbtn" id="autoNext" type="button" aria-label="Siguiente">↓</button>
-  </div>
-  <div class="swipe-hint" id="swipeHint">Desliza ↑</div>
 </section>
 
 <!-- ============ PROYECTOS ============ -->
@@ -1639,52 +1586,9 @@ section{padding:120px 5vw;position:relative}
         if (st) RICH[st.getAttribute('data-demo')].reset(st);
       }
     });
-  }, { root: document.querySelector('.auto-grid'), threshold: 0.55 });
+  }, { threshold: 0.35 });
   document.querySelectorAll('.mdemo').forEach(function (el) { mio.observe(el); });
 
-  /* ============ LIBRETA VERTICAL: hojas de abajo→arriba + controles ============ */
-  var track = document.querySelector('.auto-grid');
-  if (track) {
-    var cards = [].slice.call(track.children);
-    var pagerUi = document.getElementById('pagerUi');
-    var swipeHint = document.getElementById('swipeHint');
-    var pagerNow = document.getElementById('pagerNow');
-    var curIdx = 0, tick2 = false;
-
-    function focusNearest() {
-      var tr = track.getBoundingClientRect(), cy = tr.top + tr.height / 2, best = 0, bd = 1e9;
-      cards.forEach(function (c, i) {
-        var r = c.getBoundingClientRect();
-        var d = Math.abs(r.top + r.height / 2 - cy);
-        if (d < bd) { bd = d; best = i; }
-      });
-      cards.forEach(function (c, i) { c.classList.toggle('focus', i === best); });
-      if (best !== curIdx) { curIdx = best; pagerNow.textContent = best + 1; }
-      swipeHint.style.visibility = best === 0 ? 'visible' : 'hidden';
-    }
-    track.addEventListener('scroll', function () {
-      if (tick2) return; tick2 = true;
-      requestAnimationFrame(function () { focusNearest(); tick2 = false; });
-    }, { passive: true });
-    focusNearest();
-
-    function goTo(i) {
-      i = Math.max(0, Math.min(cards.length - 1, i));
-      cards[i].scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'center' });
-    }
-    document.getElementById('autoPrev').addEventListener('click', function () { goTo(curIdx - 1); });
-    document.getElementById('autoNext').addEventListener('click', function () { goTo(curIdx + 1); });
-
-    /* Mostrar controles solo cuando la libreta llena la pantalla */
-    var secObs = new IntersectionObserver(function (es) {
-      es.forEach(function (e) {
-        var on = e.isIntersecting && e.intersectionRatio > 0.5;
-        pagerUi.classList.toggle('show', on);
-        swipeHint.classList.toggle('show', on);
-      });
-    }, { threshold: [0, 0.5, 0.9] });
-    secObs.observe(track);
-  }
 
   /* ================= MODAL CÍRCULO ================= */
   var CLUB_APPS_SCRIPT = '';
