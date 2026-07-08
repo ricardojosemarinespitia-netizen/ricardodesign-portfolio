@@ -833,18 +833,14 @@ section{padding:120px 5vw;position:relative}
 </section>
 
 <!-- ============ DEMOS EN VIVO ============ -->
+<!-- ============ DEMOS + AUTOMATIZACIÓN (grupo unificado) ============ -->
 <section id="demos">
-  <div class="shead reveal">
-    <span class="kicker">En vivo</span>
-    <h2>Mira tu web <em>trabajando sola</em></h2>
-    <p>Esto es lo que hacen nuestras páginas mientras duermes. No es un video: está pasando ahora mismo, frente a ti.</p>
-  </div>
+  <div class="auto-grid">
 
-  <div class="demos">
     <!-- DEMO CORREO (panel navy) -->
-    <article class="demo navy-panel tilt reveal-scale" data-tilt>
+    <article class="demo navy-panel tilt reveal-scale mdemo" data-tilt>
       <div class="win-bar"><span></span><span></span><span></span><em id="mailTitle">Correo automático — nueva venta</em></div>
-      <div class="demo-body">
+      <div class="demo-body" data-demo="mail" aria-hidden="true">
         <div class="mail-f"><label>Para</label><span id="mTo"></span></div>
         <div class="mail-f"><label>Asunto</label><span id="mSub"></span></div>
         <div class="mail-lines" id="mBody"></div>
@@ -853,9 +849,9 @@ section{padding:120px 5vw;position:relative}
     </article>
 
     <!-- DEMO EXCEL (tarjeta clara) -->
-    <article class="demo lg tilt reveal-scale" data-tilt>
+    <article class="demo lg tilt reveal-scale mdemo" data-tilt>
       <div class="win-bar"><span></span><span></span><span></span><em>Ventas.xlsx — se llena solo</em></div>
-      <div class="demo-body">
+      <div class="demo-body" data-demo="sheet" aria-hidden="true">
         <div class="sheet-head"><span>Fecha</span><span>Cliente</span><span>Ciudad</span><span style="text-align:right">Total</span></div>
         <div class="sheet-rows" id="sheetRows"></div>
         <div class="sheet-foot">
@@ -865,12 +861,6 @@ section{padding:120px 5vw;position:relative}
         </div>
       </div>
     </article>
-  </div>
-</section>
-
-<!-- ============ AUTOMATIZACIÓN ============ -->
-<section id="automatiza">
-  <div class="auto-grid">
 
     <!-- Pagos Wompi -->
     <article class="demo navy-panel tilt reveal-scale mdemo" data-tilt>
@@ -1344,18 +1334,7 @@ section{padding:120px 5vw;position:relative}
     setTimeout(addSale, 2100);
   }
 
-  var demosSection = document.getElementById('demos');
-  var demoIO = new IntersectionObserver(function (es) {
-    es.forEach(function (e) {
-      if (e.isIntersecting) {
-        if (!mailRunning) { mailRunning = true; runMail(); }
-        if (!sheetRunning) { sheetRunning = true; addSale(); }
-      } else {
-        mailRunning = false; sheetRunning = false;
-      }
-    });
-  }, { threshold: 0.25 });
-  demoIO.observe(demosSection);
+  /* mail y sheet se controlan desde RICH (ver abajo) */
 
   /* ================= MINI-DEMOS RICAS: motor de secuencias ================= */
   function Ctl() { this.alive = true; this.t = []; }
@@ -1575,6 +1554,34 @@ section{padding:120px 5vw;position:relative}
         steps.push(W(C, 2800));
         steps.push(F(function () { me.run(st, C, ix + 1); }));
         chain(C, steps);
+      }
+    },
+
+    mail: {
+      reset: function () {
+        mailRunning = false;
+        var mT = document.getElementById('mTo'), mS = document.getElementById('mSub'),
+            mB = document.getElementById('mBody'), mSn = document.getElementById('mSent');
+        if (mT) mT.textContent = '';
+        if (mS) mS.textContent = '';
+        if (mB) mB.innerHTML = '';
+        if (mSn) mSn.classList.remove('on');
+      },
+      run: function () {
+        if (!mailRunning) { mailRunning = true; runMail(); }
+      }
+    },
+
+    sheet: {
+      reset: function () {
+        sheetRunning = false; saleIdx = 0; total = 0; sparkPts = [];
+        var rE = document.getElementById('sheetRows'), tE = document.getElementById('sheetTotal'), sE = document.getElementById('sparkLine');
+        if (rE) rE.innerHTML = '';
+        if (tE) tE.textContent = '$0';
+        if (sE) sE.setAttribute('points', '');
+      },
+      run: function () {
+        if (!sheetRunning) { sheetRunning = true; addSale(); }
       }
     }
   };
