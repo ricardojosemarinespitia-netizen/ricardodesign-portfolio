@@ -61,11 +61,14 @@ button{font-family:inherit}
 
 /* ================= FONDO: AURORA AZUL + NOISE ================= */
 .aurora{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden}
-.aurora i{position:absolute;border-radius:50%;filter:blur(110px);will-change:transform}
-.aurora i:nth-child(1){width:55vw;height:55vw;top:-18%;left:-12%;background:radial-gradient(circle,rgba(123,189,232,.4),transparent 70%);animation:auro 26s ease-in-out infinite}
-.aurora i:nth-child(2){width:45vw;height:45vw;bottom:-15%;right:-10%;background:radial-gradient(circle,rgba(78,142,162,.25),transparent 70%);animation:auro 32s ease-in-out infinite reverse}
-.aurora i:nth-child(3){width:34vw;height:34vw;top:42%;left:56%;background:radial-gradient(circle,rgba(189,216,233,.5),transparent 70%);animation:auro 22s ease-in-out infinite 4s}
-@keyframes auro{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(4vw,-3vw) scale(1.12)}}
+.aurora i{position:absolute;border-radius:50%;filter:blur(90px);will-change:transform}
+.aurora i:nth-child(1){width:60vw;height:60vw;top:-20%;left:-15%;background:radial-gradient(circle,rgba(123,189,232,.85),transparent 65%);animation:auro 24s ease-in-out infinite}
+.aurora i:nth-child(2){width:50vw;height:50vw;bottom:-18%;right:-12%;background:radial-gradient(circle,rgba(78,142,162,.6),transparent 65%);animation:auro 30s ease-in-out infinite reverse}
+.aurora i:nth-child(3){width:38vw;height:38vw;top:36%;left:52%;background:radial-gradient(circle,rgba(10,65,116,.38),transparent 65%);animation:auro2 21s ease-in-out infinite 3s}
+.aurora i:nth-child(4){width:30vw;height:30vw;top:12%;left:34%;background:radial-gradient(circle,rgba(255,255,255,.95),transparent 60%);animation:auro2 17s ease-in-out infinite}
+.aurora i:nth-child(5){width:44vw;height:44vw;bottom:4%;left:-10%;background:radial-gradient(circle,rgba(110,162,179,.55),transparent 65%);animation:auro 27s ease-in-out infinite 6s}
+@keyframes auro{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(5vw,-4vw) scale(1.15)}}
+@keyframes auro2{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(-6vw,5vw) scale(1.22)}}
 
 body::after{
   content:'';position:fixed;inset:0;z-index:1;pointer-events:none;opacity:.025;
@@ -74,52 +77,57 @@ body::after{
 
 main,header,footer{position:relative;z-index:2}
 
-/* ================= LIQUID GLASS CLARO (estilo Apple) ================= */
+/* ================= LIQUID GLASS (idéntico Apple: translúcido + refracción) ================= */
 .lg{
   position:relative;
-  background:linear-gradient(135deg,rgba(255,255,255,.78),rgba(255,255,255,.5));
-  backdrop-filter:blur(24px) saturate(150%);
-  -webkit-backdrop-filter:blur(24px) saturate(150%);
+  background:linear-gradient(135deg,rgba(255,255,255,.5),rgba(255,255,255,.16) 48%,rgba(255,255,255,.3));
+  backdrop-filter:blur(36px) saturate(200%);
+  -webkit-backdrop-filter:blur(36px) saturate(200%);
   border-radius:var(--r-lg);
   box-shadow:
-    inset 0 1px 0 rgba(255,255,255,.95),
-    0 24px 60px rgba(10,65,116,.16);
+    inset 0 1.5px 1px rgba(255,255,255,.95),
+    inset 0 -1px 1px rgba(255,255,255,.3),
+    inset 3px 6px 24px rgba(255,255,255,.3),
+    0 30px 70px rgba(10,65,116,.25);
 }
 .lg::before{
-  content:'';position:absolute;inset:0;border-radius:inherit;padding:1px;
-  background:linear-gradient(135deg,rgba(255,255,255,.95),rgba(255,255,255,.25) 40%,rgba(123,189,232,.35));
+  content:'';position:absolute;inset:0;border-radius:inherit;padding:1.5px;
+  background:linear-gradient(135deg,#fff,rgba(255,255,255,.15) 35%,rgba(123,189,232,.35) 62%,rgba(255,255,255,.8));
   -webkit-mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);
   -webkit-mask-composite:xor;mask-composite:exclude;
   pointer-events:none;
 }
 .lg::after{
   content:'';position:absolute;inset:0;border-radius:inherit;pointer-events:none;
-  background:radial-gradient(420px circle at var(--mx,50%) var(--my,-20%),rgba(255,255,255,.55),transparent 55%);
+  background:radial-gradient(460px circle at var(--mx,50%) var(--my,-20%),rgba(255,255,255,.6),transparent 55%);
   opacity:0;transition:opacity .5s ease;
 }
 .lg:hover::after{opacity:1}
 
-/* Panel azul marino sólido (estilo tarjeta fintech) */
+/* Panel navy: vidrio oscuro translúcido (Apple dark glass) */
 .navy-panel{
   position:relative;
-  background:linear-gradient(150deg,#03294e 0%,var(--navy) 70%);
+  background:linear-gradient(150deg,rgba(4,45,84,.78) 0%,rgba(0,29,57,.86) 70%);
+  backdrop-filter:blur(30px) saturate(170%);
+  -webkit-backdrop-filter:blur(30px) saturate(170%);
   border-radius:var(--r-lg);
   color:var(--w);
   box-shadow:
-    inset 0 1px 0 rgba(255,255,255,.14),
-    0 28px 64px rgba(0,29,57,.4);
+    inset 0 1.5px 1px rgba(255,255,255,.3),
+    inset 0 -1px 1px rgba(123,189,232,.14),
+    0 30px 70px rgba(0,29,57,.45);
   overflow:hidden;
 }
 .navy-panel::before{
-  content:'';position:absolute;inset:0;border-radius:inherit;padding:1px;
-  background:linear-gradient(135deg,rgba(255,255,255,.35),rgba(255,255,255,.05) 40%,rgba(123,189,232,.3));
+  content:'';position:absolute;inset:0;border-radius:inherit;padding:1.5px;
+  background:linear-gradient(135deg,rgba(255,255,255,.6),rgba(255,255,255,.08) 40%,rgba(123,189,232,.4));
   -webkit-mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);
   -webkit-mask-composite:xor;mask-composite:exclude;
   pointer-events:none;
 }
 .navy-panel::after{
   content:'';position:absolute;inset:0;border-radius:inherit;pointer-events:none;
-  background:radial-gradient(420px circle at var(--mx,50%) var(--my,-20%),rgba(123,189,232,.18),transparent 55%);
+  background:radial-gradient(460px circle at var(--mx,50%) var(--my,-20%),rgba(123,189,232,.25),transparent 55%);
   opacity:0;transition:opacity .5s ease;
 }
 .navy-panel:hover::after{opacity:1}
@@ -388,15 +396,21 @@ section{padding:120px 5vw;position:relative}
 .spark{width:110px;height:30px;overflow:visible}
 .spark polyline{fill:none;stroke:var(--steel);stroke-width:2;stroke-linecap:round;stroke-linejoin:round;filter:drop-shadow(0 2px 5px rgba(10,65,116,.4))}
 
-/* ================= AUTOMATIZACIÓN ================= */
-.auto-grid{display:grid;grid-template-columns:1fr;gap:16px;max-width:1180px;margin:0 auto}
-@media(min-width:720px){.auto-grid{grid-template-columns:1fr 1fr}}
-.auto-item{
-  display:flex;gap:18px;align-items:flex-start;
-  border-radius:var(--r-md);padding:26px 28px;
-  transition:transform .4s var(--ease);
+/* ================= AUTOMATIZACIÓN: carrusel deslizable (páginas) ================= */
+.auto-grid{
+  display:flex;gap:22px;overflow-x:auto;scroll-snap-type:x mandatory;
+  padding:26px calc(50vw - min(44vw,278px)) 30px;
+  -webkit-overflow-scrolling:touch;scrollbar-width:none;
 }
-.auto-item:hover{transform:translateY(-6px)}
+.auto-grid::-webkit-scrollbar{display:none}
+.auto-item{
+  flex:0 0 min(88vw,556px);scroll-snap-align:center;
+  display:flex;flex-direction:column;align-items:stretch;
+  border-radius:var(--r-md);padding:26px 28px;
+  transform:scale(.9);opacity:.5;
+  transition:transform .55s var(--ease),opacity .45s ease;
+}
+.auto-item.focus{transform:scale(1);opacity:1}
 .auto-item .em{
   flex-shrink:0;width:48px;height:48px;border-radius:15px;font-size:1.1rem;
   display:flex;align-items:center;justify-content:center;
@@ -404,28 +418,61 @@ section{padding:120px 5vw;position:relative}
   box-shadow:0 8px 20px rgba(10,65,116,.3),inset 0 1px 0 rgba(255,255,255,.3);
 }
 .auto-item:nth-child(even) .em{background:linear-gradient(135deg,var(--teal),var(--soft))}
-.auto-item h4{font-size:.86rem;font-weight:700;margin-bottom:8px;color:var(--navy)}
-.auto-item p{color:var(--dim);font-size:.76rem;line-height:1.7}
+.auto-item h4{font-size:.92rem;font-weight:700;margin-bottom:8px;color:var(--navy)}
+.auto-item p{color:var(--dim);font-size:.74rem;line-height:1.65}
+
+/* Controles del carrusel */
+.carousel-nav{display:flex;align-items:center;justify-content:center;gap:18px;margin-top:4px}
+.cbtn{
+  width:44px;height:44px;border-radius:50%;border:none;cursor:pointer;
+  background:linear-gradient(135deg,var(--blue),var(--steel));color:#fff;font-size:1.2rem;line-height:1;
+  box-shadow:0 10px 26px rgba(10,65,116,.35);transition:transform .3s ease;
+}
+.cbtn:hover{transform:scale(1.12)}
+.cdots{display:flex;gap:7px}
+.cdots i{width:7px;height:7px;border-radius:50%;background:rgba(10,65,116,.25);transition:all .35s ease}
+.cdots i.act{background:var(--blue);transform:scale(1.4);box-shadow:0 0 10px rgba(123,189,232,.9)}
+.swipe-hint{text-align:center;font-size:.56rem;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--steel);margin-top:14px;animation:hintSlide 2.2s ease-in-out infinite}
+@keyframes hintSlide{0%,100%{transform:translateX(0);opacity:.7}50%{transform:translateX(8px);opacity:1}}
 
 /* ================= MINI-DEMOS (un efecto por tema) ================= */
-.auto-item{flex-direction:column}
-.ai-top{display:flex;gap:18px;align-items:flex-start}
+.ai-top{display:flex;gap:18px;align-items:flex-start;margin-bottom:16px}
 .stage{
-  margin-top:18px;border-radius:16px;padding:16px 18px;position:relative;overflow:hidden;
-  min-height:104px;width:100%;
+  margin-top:auto;border-radius:18px;padding:17px 18px;position:relative;overflow:hidden;
+  min-height:110px;width:100%;
 }
-.stage.dark{background:linear-gradient(150deg,#03294e,var(--navy));box-shadow:inset 0 1px 0 rgba(255,255,255,.12)}
-.stage.light{background:rgba(123,189,232,.14);border:1px solid rgba(10,65,116,.12)}
+.stage.dark{
+  background:linear-gradient(150deg,rgba(3,41,78,.72),rgba(0,29,57,.82));
+  backdrop-filter:blur(18px) saturate(160%);-webkit-backdrop-filter:blur(18px) saturate(160%);
+  border:1px solid rgba(123,189,232,.3);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.22),inset 0 0 26px rgba(123,189,232,.06);
+}
+.stage.light{
+  background:linear-gradient(135deg,rgba(255,255,255,.6),rgba(255,255,255,.28));
+  backdrop-filter:blur(16px) saturate(170%);-webkit-backdrop-filter:blur(16px) saturate(170%);
+  border:1px solid rgba(255,255,255,.85);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.95),0 8px 24px rgba(10,65,116,.12);
+}
 
-/* Ventanas genéricas de aparición por tercios (stacks) */
-.stack{position:relative;display:inline-block;height:1.2em;min-width:9ch}
-.stack i{position:absolute;left:0;top:0;font-style:normal;white-space:nowrap;opacity:0}
-.mdemo.on .stack .c1{animation:third1 6s ease infinite}
-.mdemo.on .stack .c2{animation:third2 6s ease infinite}
-.mdemo.on .stack .c3{animation:third3 6s ease infinite}
-@keyframes third1{0%,2%{opacity:0}6%,30%{opacity:1}34%,100%{opacity:0}}
-@keyframes third2{0%,36%{opacity:0}40%,63%{opacity:1}67%,100%{opacity:0}}
-@keyframes third3{0%,69%{opacity:0}73%,96%{opacity:1}100%{opacity:0}}
+/* ---- Base de las demos ricas (motor JS, nivel demo grande) ---- */
+.md2{display:flex;flex-direction:column;gap:9px;min-height:228px}
+.dm-head{display:flex;align-items:center;gap:8px;font-size:.58rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;margin-bottom:2px}
+.stage.dark .dm-head{color:var(--ice)}
+.stage.light .dm-head{color:var(--blue)}
+.dm-lines{display:flex;flex-direction:column;gap:7px}
+.dm-ln{font-size:.66rem;line-height:1.65;min-height:1.3em}
+.stage.dark .dm-ln{color:var(--wdim)}
+.stage.light .dm-ln{color:var(--dim)}
+.dm-ln .st{display:inline-block;margin-left:6px;padding:1px 8px;border-radius:6px;font-weight:700;font-size:.56rem;letter-spacing:.06em;background:rgba(22,163,74,.2);border:1px solid rgba(126,226,160,.5);color:#7ee2a0}
+.stage.light .dm-ln .st{background:rgba(22,163,74,.12);border-color:rgba(22,163,74,.4);color:#15803d}
+.dm-ok{
+  margin-top:auto;display:inline-flex;align-items:center;gap:8px;
+  font-size:.55rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;
+  opacity:0;transform:translateY(8px);transition:opacity .5s ease,transform .5s var(--ease);
+}
+.stage.dark .dm-ok{color:#7ee2a0}
+.stage.light .dm-ok{color:#15803d}
+.dm-ok.on{opacity:1;transform:none}
 
 /* 1) Correo: líneas que se escriben + enviado */
 .md-mail .env{position:absolute;top:12px;right:14px;font-size:1.1rem;opacity:.85}
@@ -457,145 +504,68 @@ section{padding:120px 5vw;position:relative}
 @keyframes sr3{0%,34%{opacity:0;transform:translateY(-8px)}42%,88%{opacity:1;transform:none}96%,100%{opacity:0}}
 @keyframes sr4{0%,48%{opacity:0;transform:translateY(-8px)}56%,88%{opacity:1;transform:none}96%,100%{opacity:0}}
 
-/* 3) Pago: tarjeta entra, procesa, aprobado */
-.md-pay .prow2{display:flex;align-items:center;gap:18px;margin-bottom:14px}
-.md-pay .ccard{
-  width:54px;height:36px;border-radius:8px;position:relative;opacity:0;
-  background:linear-gradient(135deg,var(--sky),var(--steel));
-  box-shadow:inset 0 1px 0 rgba(255,255,255,.4);
-}
-.md-pay .ccard::before{content:'';position:absolute;top:9px;left:8px;width:11px;height:8px;border-radius:2px;background:var(--ice)}
-.mdemo.on .md-pay .ccard{animation:pcard 6s ease infinite}
-@keyframes pcard{0%,3%{opacity:0;transform:translateX(-26px)}12%,90%{opacity:1;transform:none}97%,100%{opacity:0}}
-.md-pay .pdots{display:flex;gap:6px}
-.md-pay .pdots i{width:8px;height:8px;border-radius:50%;background:var(--sky);opacity:.15}
-.mdemo.on .md-pay .p1{animation:pd1 6s ease infinite}
-.mdemo.on .md-pay .p2{animation:pd2 6s ease infinite}
-.mdemo.on .md-pay .p3{animation:pd3 6s ease infinite}
-@keyframes pd1{0%,16%{opacity:.15}20%{opacity:1}26%,100%{opacity:.15}}
-@keyframes pd2{0%,24%{opacity:.15}28%{opacity:1}34%,100%{opacity:.15}}
-@keyframes pd3{0%,32%{opacity:.15}36%{opacity:1}42%,100%{opacity:.15}}
-.md-pay .pok{
-  width:30px;height:30px;border-radius:50%;background:#16a34a;color:#fff;
-  display:flex;align-items:center;justify-content:center;font-size:.8rem;font-weight:700;opacity:0;
-}
-.mdemo.on .md-pay .pok{animation:pokw 6s var(--ease) infinite}
-@keyframes pokw{0%,46%{opacity:0;transform:scale(.4)}54%{opacity:1;transform:scale(1.18)}60%,88%{opacity:1;transform:scale(1)}96%,100%{opacity:0}}
+/* 3) Pago Wompi (Bancolombia) */
+.paymethods{display:flex;gap:8px;flex-wrap:wrap}
+.pm{font-size:.58rem;font-weight:700;padding:6px 11px;border-radius:999px;background:rgba(123,189,232,.1);border:1px solid rgba(123,189,232,.3);color:var(--wdim);transition:all .4s ease}
+.pm.hot{background:rgba(123,189,232,.3);border-color:var(--sky);color:#fff;box-shadow:0 0 16px rgba(123,189,232,.55);transform:scale(1.07)}
 
-/* 4) Carrito: productos vuelan + contador */
-.md-cart .cwrap{display:flex;align-items:center;gap:22px;position:relative;padding:8px 0}
-.md-cart .cic{position:relative;font-size:1.7rem}
-.md-cart .bd{
-  position:absolute;top:-7px;right:-11px;width:17px;height:17px;border-radius:50%;
-  background:var(--blue);color:#fff;font-size:.52rem;font-weight:700;opacity:0;
-}
-.md-cart .bd i{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-style:normal;opacity:0}
-.mdemo.on .md-cart .bd{animation:bdshow 6s ease infinite}
-@keyframes bdshow{0%,20%{opacity:0}24%,90%{opacity:1}96%,100%{opacity:0}}
-.mdemo.on .md-cart .n1{animation:bn1 6s ease infinite}
-.mdemo.on .md-cart .n2{animation:bn2 6s ease infinite}
-.mdemo.on .md-cart .n3{animation:bn3 6s ease infinite}
-@keyframes bn1{0%,22%{opacity:0}24%,39%{opacity:1}41%,100%{opacity:0}}
-@keyframes bn2{0%,41%{opacity:0}43%,57%{opacity:1}59%,100%{opacity:0}}
-@keyframes bn3{0%,59%{opacity:0}61%,90%{opacity:1}96%,100%{opacity:0}}
-.md-cart .it{position:absolute;left:34px;top:50%;width:11px;height:11px;border-radius:50%;background:var(--steel);opacity:0}
-.mdemo.on .md-cart .i1{animation:cit1 6s ease infinite}
-.mdemo.on .md-cart .i2{animation:cit2 6s ease infinite}
-.mdemo.on .md-cart .i3{animation:cit3 6s ease infinite}
-@keyframes cit1{0%,8%{opacity:0;transform:translate(70px,-22px) scale(.7)}12%{opacity:1}20%,100%{opacity:0;transform:translate(0,-4px) scale(.4)}}
-@keyframes cit2{0%,27%{opacity:0;transform:translate(70px,-22px) scale(.7)}31%{opacity:1}39%,100%{opacity:0;transform:translate(0,-4px) scale(.4)}}
-@keyframes cit3{0%,45%{opacity:0;transform:translate(70px,-22px) scale(.7)}49%{opacity:1}57%,100%{opacity:0;transform:translate(0,-4px) scale(.4)}}
-.md-cart .csub{font-size:.62rem;color:var(--dim);opacity:0}
-.md-cart .csub b{color:var(--blue)}
-.mdemo.on .md-cart .csub{animation:okwin 6s ease infinite}
+/* 4) Carrito rico */
+.cbadge{margin-left:auto;min-width:20px;height:20px;padding:0 6px;border-radius:999px;background:var(--blue);color:#fff;font-size:.6rem;display:inline-flex;align-items:center;justify-content:center;transition:transform .3s ease}
+.cbadge.pop{transform:scale(1.35)}
+.cart-items{display:flex;flex-direction:column;min-height:84px}
+.cart-it{display:flex;align-items:center;gap:9px;font-size:.64rem;color:var(--dim);padding:6px 2px;border-bottom:1px dashed rgba(10,65,116,.14);animation:rowIn .5s var(--ease)}
+.cart-it b{flex:1;color:var(--navy)}
+.cart-it .pr{color:var(--blue);font-weight:700}
+.cart-foot{display:flex;justify-content:space-between;align-items:baseline;font-size:.56rem;letter-spacing:.08em;text-transform:uppercase;color:var(--faint);font-weight:700;padding-top:8px}
+.cart-foot b{color:var(--blue);font-size:.9rem;letter-spacing:0}
 
-/* 5) Club: código que se escribe + brillo */
-.md-club .klabel{display:block;font-size:.58rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--wfaint);margin-bottom:12px}
-.md-club .code{
-  display:inline-block;font-family:monospace;font-weight:700;font-size:.95rem;letter-spacing:.08em;
-  color:var(--ice);background:rgba(123,189,232,.14);border:1px dashed rgba(123,189,232,.5);
-  border-radius:8px;padding:11px 16px;
-}
-.mdemo.on .md-club .code{animation:kglow 6s ease infinite}
-@keyframes kglow{0%,52%{box-shadow:none}60%,82%{box-shadow:0 0 20px rgba(123,189,232,.55)}92%,100%{box-shadow:none}}
-.md-club .code i{display:inline-block;overflow:hidden;white-space:nowrap;vertical-align:bottom;width:0;border-right:2px solid var(--sky)}
-.mdemo.on .md-club .code i{animation:ktype 6s steps(22) infinite}
-@keyframes ktype{0%,6%{width:0}46%,88%{width:11ch}96%,100%{width:0}}
+/* 5) Club rico */
+.cl-row{display:flex;gap:10px;align-items:baseline;font-size:.66rem;border-bottom:1px solid rgba(255,255,255,.09);padding:6px 0}
+.cl-row label{font-size:.52rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--wfaint);min-width:44px}
+.cl-row span{color:#fff;font-weight:500;min-height:1.2em}
+.code2{display:inline-block;align-self:flex-start;font-family:monospace;font-weight:700;letter-spacing:.08em;font-size:.85rem;color:var(--ice);background:rgba(123,189,232,.14);border:1px dashed rgba(123,189,232,.5);border-radius:8px;padding:8px 13px;min-width:12ch;min-height:2.2em;transition:box-shadow .4s ease}
+.code2.glow{box-shadow:0 0 22px rgba(123,189,232,.65)}
 
-/* 6) Envíos: paquete viaja + tarifa por ciudad */
-.md-ship .sfrom{font-size:.58rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--faint)}
-.md-ship .route{position:relative;height:0;border-top:2px dashed rgba(10,65,116,.35);margin:24px 6px 20px}
-.md-ship .pkg{position:absolute;top:-12px;left:0;font-size:.9rem}
-.mdemo.on .md-ship .pkg{animation:shipgo 6s ease-in-out infinite}
-@keyframes shipgo{
-  0%{left:0}30%,33%{left:calc(100% - 18px)}33.5%{left:0}
-  63%,66%{left:calc(100% - 18px)}66.5%{left:0}96%,100%{left:calc(100% - 18px)}
-}
-.md-ship .sto{text-align:right;font-size:.62rem;font-weight:700;color:var(--blue)}
-.md-ship .sto .stack{min-width:14ch;text-align:right}
-.md-ship .sto .stack i{left:auto;right:0}
+/* 6) Envíos rico */
+.sel-line{display:flex;gap:8px;font-size:.64rem;color:var(--dim);align-items:baseline}
+.sel-line label{font-size:.52rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--faint);min-width:96px}
+.sel-line b{color:var(--navy);min-height:1.2em}
+.sel-line b.fee{color:var(--blue)}
+.truckline{position:relative;border-top:2px dashed rgba(10,65,116,.3);margin:18px 4px 8px}
+.truck{position:absolute;top:-14px;left:0;font-size:1rem;transition:left 1.6s cubic-bezier(.45,0,.25,1)}
+.truck.go{left:calc(100% - 20px)}
 
-/* 7) Perfil: pedidos que aparecen + estado que cambia */
-.md-prof .prow{display:flex;align-items:center;gap:10px;font-size:.62rem;color:var(--dim);padding:7px 0;border-bottom:1px dashed rgba(10,65,116,.12);opacity:0}
-.md-prof .pav{width:24px;height:24px;border-radius:50%;background:linear-gradient(135deg,var(--steel),var(--sky));color:#fff;display:flex;align-items:center;justify-content:center;font-size:.5rem;font-weight:700;flex-shrink:0}
-.md-prof .prow>span:nth-child(2){flex:1;color:var(--navy);font-weight:700}
-.md-prof .pst{position:relative;min-width:9ch;height:1.5em}
-.md-prof .pst i{position:absolute;right:0;top:0;font-style:normal;font-size:.54rem;font-weight:700;padding:3px 8px;border-radius:999px;opacity:0}
-.md-prof .st-way{background:rgba(73,118,159,.18);color:var(--steel)}
-.md-prof .st-ok{background:rgba(22,163,74,.15);color:#16a34a}
-.mdemo.on .md-prof .pr1{animation:sr1 6s ease infinite}
-.mdemo.on .md-prof .pr2{animation:sr3 6s ease infinite}
-.mdemo.on .md-prof .pr1 .st-way{animation:h1a 6s ease infinite}
-.mdemo.on .md-prof .pr1 .st-ok{animation:h1b 6s ease infinite}
-.mdemo.on .md-prof .pr2 .st-way{animation:h2a 6s ease infinite}
-.mdemo.on .md-prof .pr2 .st-ok{animation:h2b 6s ease infinite}
-@keyframes h1a{0%,14%{opacity:0}16%,44%{opacity:1}46%,100%{opacity:0}}
-@keyframes h1b{0%,46%{opacity:0}50%,88%{opacity:1}96%,100%{opacity:0}}
-@keyframes h2a{0%,42%{opacity:0}44%,68%{opacity:1}70%,100%{opacity:0}}
-@keyframes h2b{0%,70%{opacity:0}74%,88%{opacity:1}96%,100%{opacity:0}}
+/* 7) Perfil rico */
+.pav2{width:26px;height:26px;border-radius:50%;background:linear-gradient(135deg,var(--steel),var(--sky));color:#fff;display:inline-flex;align-items:center;justify-content:center;font-size:.52rem;font-weight:700;flex-shrink:0}
+.pf-name{color:var(--navy);font-size:.72rem;letter-spacing:0;text-transform:none}
+.orders{display:flex;flex-direction:column}
+.ord{display:flex;align-items:center;gap:8px;font-size:.62rem;color:var(--dim);padding:6px 2px;border-bottom:1px dashed rgba(10,65,116,.14);animation:rowIn .5s var(--ease)}
+.ord b{color:var(--navy)}
+.ord .och{margin-left:auto;font-size:.52rem;font-weight:700;padding:3px 9px;border-radius:999px;white-space:nowrap;transition:all .4s ease}
+.och.way{background:rgba(73,118,159,.16);color:var(--steel)}
+.och.done{background:rgba(22,163,74,.14);color:#15803d}
 
-/* 8) Seguridad: verificaciones que se encienden */
-.md-sec{display:flex;flex-direction:column;justify-content:center;gap:10px}
-.md-sec .sit{display:flex;align-items:center;gap:10px;font-size:.62rem;font-weight:700;color:var(--wdim)}
-.md-sec .sdot{
-  width:19px;height:19px;border-radius:50%;border:1.5px solid rgba(255,255,255,.35);
-  display:flex;align-items:center;justify-content:center;font-size:.52rem;color:transparent;flex-shrink:0;
-}
-.mdemo.on .md-sec .d1{animation:sec1 6s ease infinite}
-.mdemo.on .md-sec .d2{animation:sec2 6s ease infinite}
-.mdemo.on .md-sec .d3{animation:sec3 6s ease infinite}
-@keyframes sec1{0%,8%{background:transparent;color:transparent;border-color:rgba(255,255,255,.35)}14%,88%{background:#16a34a;color:#fff;border-color:#16a34a}96%,100%{background:transparent;color:transparent;border-color:rgba(255,255,255,.35)}}
-@keyframes sec2{0%,22%{background:transparent;color:transparent;border-color:rgba(255,255,255,.35)}28%,88%{background:#16a34a;color:#fff;border-color:#16a34a}96%,100%{background:transparent;color:transparent;border-color:rgba(255,255,255,.35)}}
-@keyframes sec3{0%,36%{background:transparent;color:transparent;border-color:rgba(255,255,255,.35)}42%,88%{background:#16a34a;color:#fff;border-color:#16a34a}96%,100%{background:transparent;color:transparent;border-color:rgba(255,255,255,.35)}}
+/* 8) Seguridad rica (terminal) */
+.md2.mono .dm-ln{font-family:monospace;font-size:.6rem}
 
-/* 9) Velocidad: barra que carga + puntaje */
-.md-speed{display:flex;flex-direction:column;justify-content:center;gap:14px}
-.md-speed .sbar{height:10px;border-radius:6px;background:rgba(10,65,116,.15);overflow:hidden}
-.md-speed .sfill{height:100%;border-radius:6px;background:linear-gradient(90deg,var(--blue),var(--sky));transform-origin:left;transform:scaleX(0)}
-.mdemo.on .md-speed .sfill{animation:sfillk 6s var(--ease) infinite}
-@keyframes sfillk{0%,4%{transform:scaleX(0)}26%,90%{transform:scaleX(1)}97%,100%{transform:scaleX(0)}}
-.md-speed .smeta{display:flex;justify-content:space-between;align-items:baseline;font-size:.62rem;color:var(--dim)}
-.md-speed .smeta .stime{opacity:0}
-.mdemo.on .md-speed .smeta .stime{animation:okwin 6s ease infinite}
-.md-speed .sscore{font-weight:700;color:var(--blue)}
-.md-speed .sscore b{font-size:1.05rem}
+/* 9) Velocidad rica */
+.urlbar{display:flex;align-items:center;gap:8px;font-size:.66rem;color:var(--navy);font-weight:700;background:rgba(255,255,255,.55);border:1px solid rgba(10,65,116,.15);border-radius:999px;padding:8px 14px;min-height:2.6em}
+.bar2{height:9px;border-radius:6px;background:rgba(10,65,116,.14);overflow:hidden}
+.fill2{display:block;height:100%;width:0;border-radius:6px;background:linear-gradient(90deg,var(--blue),var(--sky));transition:width 1.4s var(--ease)}
+.fill2.go{width:100%}
+.metrics{display:flex;flex-wrap:wrap;gap:12px;font-size:.58rem;color:var(--dim)}
+.metrics b{color:var(--blue);font-size:.8rem}
 
-/* 10) Pantallas: dispositivos que se turnan */
-.md-dev{display:flex;flex-direction:column;justify-content:center;gap:14px}
-.md-dev .dwrap{display:flex;align-items:flex-end;gap:16px;justify-content:center}
-.md-dev .dev{border:2px solid rgba(10,65,116,.35);border-radius:5px;display:inline-block}
-.md-dev .d-ph{width:16px;height:27px}
-.md-dev .d-tb{width:25px;height:20px}
-.md-dev .d-dt{width:38px;height:23px}
-.mdemo.on .md-dev .dv1{animation:dvw1 6s ease infinite}
-.mdemo.on .md-dev .dv2{animation:dvw2 6s ease infinite}
-.mdemo.on .md-dev .dv3{animation:dvw3 6s ease infinite}
-@keyframes dvw1{0%,2%{border-color:rgba(10,65,116,.35);box-shadow:none}6%,30%{border-color:var(--blue);box-shadow:0 0 14px rgba(123,189,232,.9)}34%,100%{border-color:rgba(10,65,116,.35);box-shadow:none}}
-@keyframes dvw2{0%,36%{border-color:rgba(10,65,116,.35);box-shadow:none}40%,63%{border-color:var(--blue);box-shadow:0 0 14px rgba(123,189,232,.9)}67%,100%{border-color:rgba(10,65,116,.35);box-shadow:none}}
-@keyframes dvw3{0%,69%{border-color:rgba(10,65,116,.35);box-shadow:none}73%,96%{border-color:var(--blue);box-shadow:0 0 14px rgba(123,189,232,.9)}100%{border-color:rgba(10,65,116,.35);box-shadow:none}}
-.md-dev .dlab{text-align:center;font-size:.62rem;font-weight:700;color:var(--blue)}
-.md-dev .dlab .stack{min-width:8ch;text-align:center}
-.md-dev .dlab .stack i{left:50%;transform:translateX(-50%)}
+/* 10) Pantallas rica */
+.devrow{display:flex;align-items:flex-end;gap:18px;justify-content:center;padding:6px 0 2px}
+.dframe{border:2px solid rgba(10,65,116,.3);border-radius:6px;display:flex;flex-direction:column;gap:2px;padding:3px;transition:all .4s ease}
+.f-ph{width:26px;height:44px}
+.f-tb{width:44px;height:34px}
+.f-dt{width:64px;height:38px}
+.dframe.live{border-color:var(--blue);box-shadow:0 0 18px rgba(123,189,232,.9)}
+.db{background:rgba(10,65,116,.2);border-radius:2px;min-height:4px;flex:1;opacity:.45;transition:all .4s ease}
+.dframe.live .db{background:var(--steel);opacity:1}
+.dlab2{text-align:center;font-size:.6rem;font-weight:700;color:var(--blue);min-height:1.3em}
 
 /* ================= PROYECTOS ================= */
 .projects{display:flex;flex-direction:column;gap:50px;max-width:1080px;margin:0 auto;perspective:1200px}
@@ -632,6 +602,35 @@ section{padding:120px 5vw;position:relative}
 .pfeats{display:flex;flex-direction:column;gap:10px;margin-bottom:32px}
 .pfeats li{list-style:none;color:var(--wdim);font-size:.78rem;display:flex;gap:11px;align-items:flex-start;line-height:1.6}
 .pfeats li::before{content:'✦';color:var(--ice);font-size:.7rem;margin-top:2px}
+
+/* Foto real del proyecto — con los efectos originales de cada sitio */
+.project-grid{display:grid;grid-template-columns:1fr;gap:30px;align-items:stretch;position:relative;z-index:2}
+@media(min-width:900px){.project-grid{grid-template-columns:1.05fr .95fr}}
+.pshot{
+  position:relative;border-radius:20px;overflow:hidden;min-height:300px;display:block;
+  box-shadow:0 24px 55px rgba(0,29,57,.35),inset 0 1px 0 rgba(255,255,255,.3);
+}
+.pshot img{width:100%;height:100%;min-height:300px;object-fit:cover;display:block}
+.pshot .plabel2{
+  position:absolute;left:16px;bottom:14px;z-index:3;
+  font-size:.54rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:#fff;
+  background:rgba(0,0,0,.35);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+  border:1px solid rgba(255,255,255,.3);border-radius:999px;padding:8px 14px;
+}
+/* Felipe: kenburns + luz cobre viva (efectos de felipevergel.com) */
+.pshot-felipe img{object-position:50% 42%;animation:kbFel 24s ease-in-out infinite alternate}
+@keyframes kbFel{from{transform:scale(1)}to{transform:scale(1.12)}}
+.pshot-felipe::before{
+  content:'';position:absolute;inset:0;z-index:2;pointer-events:none;mix-blend-mode:soft-light;opacity:.9;
+  background:radial-gradient(420px 300px at 78% 18%,rgba(243,207,179,.9),transparent 65%),radial-gradient(360px 280px at 12% 85%,rgba(198,110,78,.6),transparent 60%);
+  animation:luzFel 16s ease-in-out infinite alternate;
+}
+@keyframes luzFel{from{transform:translate(0,0)}to{transform:translate(-24px,16px)}}
+.pshot-felipe::after{content:'';position:absolute;inset:0;z-index:1;background:linear-gradient(180deg,rgba(20,18,16,.12),rgba(20,18,16,.45))}
+/* Alejandra: zoom editorial suave (efectos de alejandravergel.com) */
+.pshot-ale img{object-position:50% 50%;animation:zoomAle 12s cubic-bezier(.2,.6,.3,1) infinite alternate}
+@keyframes zoomAle{from{transform:scale(1.07)}to{transform:scale(1)}}
+.pshot-ale::after{content:'';position:absolute;inset:0;z-index:1;background:linear-gradient(to top,rgba(20,15,10,.4),transparent 55%)}
 
 /* ================= CTA ================= */
 .cta-section{display:flex;justify-content:center;perspective:1100px}
@@ -761,7 +760,7 @@ section{padding:120px 5vw;position:relative}
 </head>
 <body>
 
-<div class="aurora" aria-hidden="true"><i></i><i></i><i></i></div>
+<div class="aurora" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>
 
 <!-- ============ NAV PILL ============ -->
 <header class="nav-pill lg" id="navPill">
@@ -882,7 +881,7 @@ section{padding:120px 5vw;position:relative}
   <div class="auto-grid">
 
     <!-- 1 Correos -->
-    <div class="auto-item lg reveal mdemo">
+    <div class="auto-item lg mdemo">
       <div class="ai-top"><span class="em" aria-hidden="true">📧</span><div><h4>Correos automáticos en tiempo real</h4><p>Cada suscriptor y cada venta dispara correos instantáneos: el cliente recibe su confirmación y tú recibes el aviso con los datos del pedido. Ambos, al mismo tiempo.</p></div></div>
       <div class="stage dark md-mail" aria-hidden="true">
         <span class="env">✉️</span>
@@ -892,7 +891,7 @@ section{padding:120px 5vw;position:relative}
     </div>
 
     <!-- 2 Excel -->
-    <div class="auto-item lg reveal mdemo" style="transition-delay:.05s">
+    <div class="auto-item lg mdemo">
       <div class="ai-top"><span class="em" aria-hidden="true">📊</span><div><h4>Excel que se llena solo</h4><p>Cada venta se registra automáticamente en una hoja de cálculo en la nube: cliente, productos, total, ciudad y fecha. Tu historial completo, filtrable y seguro.</p></div></div>
       <div class="stage light md-sheet" aria-hidden="true">
         <div class="srow s1"><span>09:12</span><b>Laura G.</b><span>Bogotá</span><i>$305.000</i></div>
@@ -902,88 +901,108 @@ section{padding:120px 5vw;position:relative}
       </div>
     </div>
 
-    <!-- 3 Pagos -->
-    <div class="auto-item lg reveal mdemo" style="transition-delay:.1s">
-      <div class="ai-top"><span class="em" aria-hidden="true">💳</span><div><h4>Pagos seguros integrados</h4><p>Pasarela Wompi con tarjeta, PSE y Bancolombia. Confirmación instantánea verificada criptográficamente — solo se registra la venta si el pago fue aprobado.</p></div></div>
-      <div class="stage dark md-pay" aria-hidden="true">
-        <div class="prow2">
-          <div class="ccard"></div>
-          <div class="pdots"><i class="p1"></i><i class="p2"></i><i class="p3"></i></div>
-          <div class="pok">✓</div>
-        </div>
-        <span class="plabel">Wompi · Pago aprobado</span>
+    <!-- 3 Pagos Wompi -->
+    <div class="auto-item lg mdemo">
+      <div class="ai-top"><span class="em" aria-hidden="true">💳</span><div><h4>Pagos ultra seguros — Wompi de Bancolombia</h4><p>Wompi es la pasarela de pagos creada por Bancolombia: tarjeta, PSE y Nequi con verificación criptográfica instantánea. El respaldo del banco más grande de Colombia genera confianza total en tus clientes.</p></div></div>
+      <div class="stage dark md2" data-demo="pay" aria-hidden="true">
+        <div class="dm-head">🔒 Wompi · pasarela de Bancolombia</div>
+        <div class="paymethods"><span class="pm">💳 Tarjeta</span><span class="pm">🏦 PSE</span><span class="pm">📱 Nequi</span></div>
+        <div class="dm-lines"></div>
+        <div class="dm-ok">✓ APROBADO — respaldado por Bancolombia</div>
       </div>
     </div>
 
     <!-- 4 Carrito -->
-    <div class="auto-item lg reveal mdemo" style="transition-delay:.15s">
+    <div class="auto-item lg mdemo">
       <div class="ai-top"><span class="em" aria-hidden="true">🛒</span><div><h4>Carrito inteligente y persistente</h4><p>El cliente puede cerrar el navegador y su carrito lo espera hasta 30 días. Subtotales en tiempo real y checkout que no se congela nunca.</p></div></div>
-      <div class="stage light md-cart" aria-hidden="true">
-        <div class="cwrap">
-          <span class="cic">🛒<span class="bd"><i class="n1">1</i><i class="n2">2</i><i class="n3">3</i></span></span>
-          <i class="it i1"></i><i class="it i2"></i><i class="it i3"></i>
-          <span class="csub">Subtotal actualizado: <b>$890.000</b></span>
-        </div>
+      <div class="stage light md2" data-demo="cart" aria-hidden="true">
+        <div class="dm-head">🛒 Carrito en tiempo real <span class="cbadge">0</span></div>
+        <div class="cart-items"></div>
+        <div class="cart-foot">Subtotal <b class="csum">$0</b></div>
+        <div class="dm-ok">✓ Guardado 30 días — aunque cierre el navegador</div>
       </div>
     </div>
 
     <!-- 5 Club -->
-    <div class="auto-item lg reveal mdemo" style="transition-delay:.2s">
+    <div class="auto-item lg mdemo">
       <div class="ai-top"><span class="em" aria-hidden="true">🎁</span><div><h4>Club de miembros con descuentos</h4><p>Suscripción con códigos únicos por persona, validados en el servidor y aplicables en el checkout. Fideliza y multiplica la recompra.</p></div></div>
-      <div class="stage dark md-club" aria-hidden="true">
-        <span class="klabel">Generando código único…</span>
-        <div class="code"><i>CLUB15-8F2A</i></div>
+      <div class="stage dark md2" data-demo="club" aria-hidden="true">
+        <div class="dm-head">🎁 Nuevo miembro del Club</div>
+        <div class="cl-row"><label>Email</label><span class="cl-em"></span></div>
+        <div class="dm-lines"></div>
+        <div class="code2"></div>
+        <div class="dm-ok">✓ Correo de bienvenida enviado — 15% activo</div>
       </div>
     </div>
 
     <!-- 6 Envíos -->
-    <div class="auto-item lg reveal mdemo" style="transition-delay:.25s">
+    <div class="auto-item lg mdemo">
       <div class="ai-top"><span class="em" aria-hidden="true">📦</span><div><h4>Envíos inteligentes a todo el país</h4><p>Selector oficial de departamentos y municipios (DANE), tarifas por zona y envío gratis configurable. Cero errores de dirección.</p></div></div>
-      <div class="stage light md-ship" aria-hidden="true">
-        <div class="sfrom">Barranquilla →</div>
-        <div class="route"><span class="pkg">📦</span></div>
-        <div class="sto"><span class="stack"><i class="c1">Bogotá · $15.000</i><i class="c2">Medellín · $15.000</i><i class="c3">≥ $200.000 · GRATIS</i></span></div>
+      <div class="stage light md2" data-demo="ship" aria-hidden="true">
+        <div class="dm-head">📦 Cotizador de envío (DANE)</div>
+        <div class="sel-line"><label>Departamento</label><b class="sh-dep"></b></div>
+        <div class="sel-line"><label>Municipio</label><b class="sh-mun"></b></div>
+        <div class="sel-line"><label>Tarifa</label><b class="fee sh-fee"></b></div>
+        <div class="truckline"><span class="truck">🚚</span></div>
+        <div class="dm-ok">✓ Entregado — guía enviada al correo del cliente</div>
       </div>
     </div>
 
     <!-- 7 Perfil -->
-    <div class="auto-item lg reveal mdemo" style="transition-delay:.3s">
+    <div class="auto-item lg mdemo">
       <div class="ai-top"><span class="em" aria-hidden="true">👤</span><div><h4>Perfil personal del cliente</h4><p>Historial de pedidos, direcciones guardadas y seguimiento de entregas. La segunda compra es aún más rápida que la primera.</p></div></div>
-      <div class="stage light md-prof" aria-hidden="true">
-        <div class="prow pr1"><span class="pav">LG</span><span>Pedido #1042</span><span class="pst"><i class="st-way">En camino</i><i class="st-ok">Entregado ✓</i></span></div>
-        <div class="prow pr2"><span class="pav">CR</span><span>Pedido #1041</span><span class="pst"><i class="st-way">En camino</i><i class="st-ok">Entregado ✓</i></span></div>
+      <div class="stage light md2" data-demo="prof" aria-hidden="true">
+        <div class="dm-head"><span class="pav2">LG</span> <span class="pf-name"></span></div>
+        <div class="dm-lines"></div>
+        <div class="orders"></div>
+        <div class="dm-ok">✓ Recompra en 1 clic — checkout precargado</div>
       </div>
     </div>
 
     <!-- 8 Seguridad -->
-    <div class="auto-item lg reveal mdemo" style="transition-delay:.35s">
+    <div class="auto-item lg mdemo">
       <div class="ai-top"><span class="em" aria-hidden="true">🔐</span><div><h4>Seguridad de nivel bancario</h4><p>HTTPS en todo el sitio, validación de firmas en cada transacción y cero almacenamiento de tarjetas. Tus clientes confían — y tú duermes tranquilo.</p></div></div>
-      <div class="stage dark md-sec" aria-hidden="true">
-        <div class="sit"><span class="sdot d1">✓</span>HTTPS activo</div>
-        <div class="sit"><span class="sdot d2">✓</span>Firma verificada</div>
-        <div class="sit"><span class="sdot d3">✓</span>Anti-fraude</div>
+      <div class="stage dark md2 mono" data-demo="sec" aria-hidden="true">
+        <div class="dm-head">🔐 Escaneo de seguridad en vivo</div>
+        <div class="dm-lines"></div>
+        <div class="dm-ok">🛡 Protección activa 24/7 — nivel bancario</div>
       </div>
     </div>
 
     <!-- 9 Velocidad -->
-    <div class="auto-item lg reveal mdemo" style="transition-delay:.4s">
+    <div class="auto-item lg mdemo">
       <div class="ai-top"><span class="em" aria-hidden="true">⚡</span><div><h4>Velocidad que vende</h4><p>Carga en menos de 2 segundos, imágenes optimizadas y hosting escalable: aguanta desde 5 hasta millones de visitas.</p></div></div>
-      <div class="stage light md-speed" aria-hidden="true">
-        <div class="sbar"><div class="sfill"></div></div>
-        <div class="smeta"><span class="stime">1.8s · carga completa</span><span class="sscore"><b class="score">0</b>/100</span></div>
+      <div class="stage light md2" data-demo="speed" aria-hidden="true">
+        <div class="urlbar">🌐 <span class="u-t"></span></div>
+        <div class="bar2"><i class="fill2"></i></div>
+        <div class="metrics"><span>⚡ <b class="m1">0</b>/100 Rendimiento</span><span>🔍 <b class="m2">0</b>/100 SEO</span><span>⏱ <b class="m3">0.0</b>s carga</span></div>
+        <div class="dm-ok">✓ Más rápido que el 95% de las webs en Colombia</div>
       </div>
     </div>
 
     <!-- 10 Pantallas -->
-    <div class="auto-item lg reveal mdemo" style="transition-delay:.45s">
+    <div class="auto-item lg mdemo">
       <div class="ai-top"><span class="em" aria-hidden="true">📱</span><div><h4>Perfecto en cualquier pantalla</h4><p>Mobile-first: el 65% de las compras llegan desde el celular y tu página está optimizada para eso, con WhatsApp siempre visible.</p></div></div>
-      <div class="stage light md-dev" aria-hidden="true">
-        <div class="dwrap"><span class="dev d-ph dv1"></span><span class="dev d-tb dv2"></span><span class="dev d-dt dv3"></span></div>
-        <div class="dlab"><span class="stack"><i class="c1">Móvil</i><i class="c2">Tablet</i><i class="c3">Desktop</i></span></div>
+      <div class="stage light md2" data-demo="dev" aria-hidden="true">
+        <div class="dm-head">📱 Un diseño, todas las pantallas</div>
+        <div class="devrow">
+          <span class="dframe f-ph"><i class="db"></i><i class="db"></i><i class="db"></i></span>
+          <span class="dframe f-tb"><i class="db"></i><i class="db"></i><i class="db"></i></span>
+          <span class="dframe f-dt"><i class="db"></i><i class="db"></i><i class="db"></i></span>
+        </div>
+        <div class="dlab2"></div>
+        <div class="dm-ok">✓ 65% de tus clientes comprarán desde el celular</div>
       </div>
     </div>
 
   </div>
+
+  <div class="carousel-nav">
+    <button class="cbtn" id="autoPrev" type="button" aria-label="Anterior">‹</button>
+    <div class="cdots" id="autoDots"></div>
+    <button class="cbtn" id="autoNext" type="button" aria-label="Siguiente">›</button>
+  </div>
+  <div class="swipe-hint">Desliza para explorar →</div>
 </section>
 
 <!-- ============ PROYECTOS ============ -->
@@ -998,17 +1017,22 @@ section{padding:120px 5vw;position:relative}
       <div class="deco d1" aria-hidden="true"></div>
       <div class="deco d2" aria-hidden="true"></div>
       <span class="project-num" aria-hidden="true">01</span>
-      <div class="project-info">
-        <div class="ptags"><span>E-Commerce</span><span>Arte en Vidrio</span><span>Pagos Wompi</span></div>
-        <h3>Felipe Vergel</h3>
-        <p>Tienda en línea completa de arte en vidrio: vitrina editorial con colecciones curadas, carrito persistente y checkout con 15 formas de pago. Un sistema de venta que funciona 24/7.</p>
-        <ul class="pfeats">
-          <li>Catálogo por colecciones con zoom, colores por pieza y badges de descuento</li>
-          <li>Pagos con tarjeta, PSE y efectivo — confirmación instantánea por webhook verificado</li>
-          <li>Cada orden llega al correo del dueño y del cliente, y se registra sola en Google Sheets</li>
-          <li>Círculo de miembros con código único y correo de bienvenida automático</li>
-        </ul>
-        <a class="btn btn-frost" href="https://felipevergel.com" target="_blank" rel="noopener">Ver en vivo ↗</a>
+      <div class="project-grid">
+        <div class="project-info">
+          <div class="ptags"><span>E-Commerce</span><span>Arte en Vidrio</span><span>Pagos Wompi</span></div>
+          <h3>Felipe Vergel</h3>
+          <p>Tienda en línea de arte en vidrio que vende sola, 24/7:</p>
+          <ul class="pfeats">
+            <li>El cliente explora colecciones cinematográficas y paga con 15 formas de pago</li>
+            <li>Cada orden llega al correo del dueño y del cliente, y se registra sola en su Excel</li>
+            <li>Círculo de miembros con código único y correo de bienvenida automático</li>
+          </ul>
+          <a class="btn btn-frost" href="https://felipevergel.com" target="_blank" rel="noopener">Ver en vivo ↗</a>
+        </div>
+        <a class="pshot pshot-felipe" href="https://felipevergel.com" target="_blank" rel="noopener" aria-label="Ver felipevergel.com">
+          <img src="https://felipevergel.com/img/florero-alto-irregular/florero-alto-irregular-03.jpg" alt="Floreros de vidrio soplado — portada de felipevergel.com" loading="lazy"/>
+          <span class="plabel2">felipevergel.com · en vivo</span>
+        </a>
       </div>
     </article>
 
@@ -1016,17 +1040,22 @@ section{padding:120px 5vw;position:relative}
       <div class="deco d1" aria-hidden="true"></div>
       <div class="deco d2" aria-hidden="true"></div>
       <span class="project-num" aria-hidden="true">02</span>
-      <div class="project-info">
-        <div class="ptags"><span>Catálogo Digital</span><span>Joyería Artesanal</span><span>Club 15%</span></div>
-        <h3>Alejandra Vergel</h3>
-        <p>Joyería artesanal colombiana con más de 30 piezas únicas: búsqueda inteligente, filtros por material y precio, y una experiencia de compra premium inspirada en las grandes casas de lujo.</p>
-        <ul class="pfeats">
-          <li>Modal detallado por joya: galería, materiales exactos, guía de tallas y stock en vivo</li>
-          <li>Envíos a toda Colombia con selector DANE y envío gratis desde $200.000</li>
-          <li>Club de membresía con 15% de descuento y correos automáticos de bienvenida</li>
-          <li>Perfil personal con historial de pedidos y recompra rápida</li>
-        </ul>
-        <a class="btn btn-frost" href="https://alejandravergel.co" target="_blank" rel="noopener">Ver en vivo ↗</a>
+      <div class="project-grid">
+        <div class="project-info">
+          <div class="ptags"><span>Catálogo Digital</span><span>Joyería Artesanal</span><span>Club 15%</span></div>
+          <h3>Alejandra Vergel</h3>
+          <p>Joyería artesanal colombiana con experiencia de casa de lujo. Todo funciona solo:</p>
+          <ul class="pfeats">
+            <li>El cliente elige su joya, paga con Wompi y recibe confirmación al instante</li>
+            <li>Cada venta llega al correo de Alejandra y se registra sola en su Excel</li>
+            <li>Club de miembros: 15% de descuento con código único automático</li>
+          </ul>
+          <a class="btn btn-frost" href="https://alejandravergel.com" target="_blank" rel="noopener">Ver en vivo ↗</a>
+        </div>
+        <a class="pshot pshot-ale" href="https://alejandravergel.com" target="_blank" rel="noopener" aria-label="Ver alejandravergel.com">
+          <img src="https://alejandravergel.com/img/collares/prisma-rectangular-1.jpg" alt="Collares en plata ley 925 — portada móvil de alejandravergel.com" loading="lazy"/>
+          <span class="plabel2">alejandravergel.com · en vivo</span>
+        </a>
       </div>
     </article>
   </div>
@@ -1347,34 +1376,285 @@ section{padding:120px 5vw;position:relative}
   }, { threshold: 0.25 });
   demoIO.observe(demosSection);
 
-  /* ================= MINI-DEMOS: activar solo en pantalla ================= */
-  var speedTimers = new WeakMap();
+  /* ================= MINI-DEMOS RICAS: motor de secuencias ================= */
+  function Ctl() { this.alive = true; this.t = []; }
+  Ctl.prototype.wait = function (ms, fn) { var s = this; if (!s.alive) return; s.t.push(setTimeout(function () { if (s.alive) fn(); }, ms)); };
+  Ctl.prototype.type = function (el, txt, sp, done) {
+    var s = this, i = 0;
+    (function st() { if (!s.alive) return; i++; el.textContent = txt.slice(0, i); if (i < txt.length) s.t.push(setTimeout(st, sp)); else if (done) done(); })();
+  };
+  Ctl.prototype.stop = function () { this.alive = false; this.t.forEach(clearTimeout); this.t = []; };
+
+  function chain(C, steps) { var i = 0; (function n() { if (!C.alive) return; if (i >= steps.length) return; steps[i++](n); })(); }
+  function W(C, ms) { return function (n) { C.wait(ms, n); }; }
+  function F(fn) { return function (n) { fn(); n(); }; }
+  function TY(C, el, txt, sp) { return function (n) { C.type(el, txt, sp || 22, n); }; }
+  function ln(box) { var d = document.createElement('div'); d.className = 'dm-ln'; box.appendChild(d); return d; }
+  function stamp(el, word) { var s = document.createElement('span'); s.className = 'st'; s.textContent = word; el.appendChild(s); }
+  function cnt(C, el, to, ms, dec) {
+    var t0 = performance.now();
+    (function f(t) {
+      if (!C.alive) return;
+      var k = Math.min(1, (t - t0) / ms); k = 1 - Math.pow(1 - k, 3);
+      var v = to * k;
+      el.textContent = dec ? v.toFixed(dec) : Math.round(v).toLocaleString('es-CO');
+      if (k < 1) requestAnimationFrame(f);
+    })(t0);
+  }
+  function snapReset(el, cls) { el.style.transition = 'none'; el.classList.remove(cls); void el.offsetWidth; el.style.transition = ''; }
+
+  var RICH = {
+    pay: {
+      reset: function (st) {
+        st.querySelector('.dm-lines').innerHTML = '';
+        st.querySelector('.dm-ok').classList.remove('on');
+        [].forEach.call(st.querySelectorAll('.pm'), function (p) { p.classList.remove('hot'); });
+      },
+      run: function (st, C, ix) {
+        var me = this; me.reset(st);
+        var D = [['Tarjeta', '$305.000'], ['PSE', '$185.000'], ['Nequi', '$420.000']][ix % 3];
+        var box = st.querySelector('.dm-lines'), ok = st.querySelector('.dm-ok'), pms = st.querySelectorAll('.pm'), l1, l2, l3;
+        chain(C, [W(C, 450),
+          F(function () { pms[ix % 3].classList.add('hot'); l1 = ln(box); }),
+          function (n) { C.type(l1, 'Cliente paga ' + D[1] + ' con ' + D[0] + '…', 22, n); }, W(C, 300),
+          F(function () { l2 = ln(box); }),
+          function (n) { C.type(l2, 'Verificando firma criptográfica…', 22, n); }, W(C, 600),
+          F(function () { stamp(l2, 'VERIFICADA'); l3 = ln(box); }), W(C, 350),
+          function (n) { C.type(l3, 'Wompi es de Bancolombia: tu dinero llega directo a tu cuenta.', 18, n); }, W(C, 350),
+          F(function () { ok.classList.add('on'); }), W(C, 3400),
+          F(function () { me.run(st, C, ix + 1); })]);
+      }
+    },
+    cart: {
+      reset: function (st) {
+        st.querySelector('.cart-items').innerHTML = '';
+        st.querySelector('.cbadge').textContent = '0';
+        st.querySelector('.csum').textContent = '$0';
+        st.querySelector('.dm-ok').classList.remove('on');
+      },
+      run: function (st, C, ix) {
+        var me = this; me.reset(st);
+        var items = [['💍', 'Anillo Luna', 160000], ['📿', 'Collar Sol', 185000], ['🕯', 'Vela artesanal', 45000]];
+        var box = st.querySelector('.cart-items'), bd = st.querySelector('.cbadge'), sum = st.querySelector('.csum'), ok = st.querySelector('.dm-ok');
+        var tot = 0, steps = [W(C, 500)];
+        items.forEach(function (it, i) {
+          steps.push(F(function () {
+            var r = document.createElement('div'); r.className = 'cart-it';
+            r.innerHTML = '<span>' + it[0] + '</span><b>' + it[1] + '</b><span class="pr">' + fmt(it[2]) + '</span>';
+            box.appendChild(r);
+            bd.textContent = i + 1; bd.classList.add('pop');
+            setTimeout(function () { bd.classList.remove('pop'); }, 300);
+            var prev = tot; tot += it[2]; countTo(sum, prev, tot, 700);
+          }));
+          steps.push(W(C, 1150));
+        });
+        steps.push(F(function () { ok.classList.add('on'); }));
+        steps.push(W(C, 3200));
+        steps.push(F(function () { me.run(st, C, ix + 1); }));
+        chain(C, steps);
+      }
+    },
+    club: {
+      reset: function (st) {
+        st.querySelector('.cl-em').textContent = '';
+        st.querySelector('.dm-lines').innerHTML = '';
+        var c = st.querySelector('.code2'); c.textContent = ''; c.classList.remove('glow');
+        st.querySelector('.dm-ok').classList.remove('on');
+      },
+      run: function (st, C, ix) {
+        var me = this; me.reset(st);
+        var D = [['laura.gomez@gmail.com', 'CLUB15-8F2A'], ['carlos.ruiz@hotmail.com', 'CLUB15-3K7Q']][ix % 2];
+        var box = st.querySelector('.dm-lines'), code = st.querySelector('.code2'), ok = st.querySelector('.dm-ok'), l1;
+        chain(C, [W(C, 450),
+          TY(C, st.querySelector('.cl-em'), D[0], 24), W(C, 300),
+          F(function () { l1 = ln(box); }),
+          function (n) { C.type(l1, 'Validando en el servidor… código único generado:', 20, n); }, W(C, 350),
+          function (n) { C.type(code, D[1], 55, n); },
+          F(function () { code.classList.add('glow'); }), W(C, 500),
+          F(function () { ok.classList.add('on'); }), W(C, 3300),
+          F(function () { me.run(st, C, ix + 1); })]);
+      }
+    },
+    ship: {
+      reset: function (st) {
+        ['.sh-dep', '.sh-mun', '.sh-fee'].forEach(function (q) { st.querySelector(q).textContent = ''; });
+        snapReset(st.querySelector('.truck'), 'go');
+        st.querySelector('.dm-ok').classList.remove('on');
+      },
+      run: function (st, C, ix) {
+        var me = this; me.reset(st);
+        var D = [['Cundinamarca', 'Bogotá', '$15.000'], ['Antioquia', 'Medellín', '$15.000'], ['Atlántico', 'Barranquilla', '$8.000'], ['Compra ≥ $200.000', 'Toda Colombia', 'GRATIS ✨']][ix % 4];
+        var ok = st.querySelector('.dm-ok');
+        chain(C, [W(C, 450),
+          TY(C, st.querySelector('.sh-dep'), D[0], 26), W(C, 250),
+          TY(C, st.querySelector('.sh-mun'), D[1], 26), W(C, 250),
+          TY(C, st.querySelector('.sh-fee'), D[2], 30), W(C, 350),
+          F(function () { st.querySelector('.truck').classList.add('go'); }), W(C, 1750),
+          F(function () { ok.classList.add('on'); }), W(C, 2900),
+          F(function () { me.run(st, C, ix + 1); })]);
+      }
+    },
+    prof: {
+      reset: function (st) {
+        st.querySelector('.pf-name').textContent = '';
+        st.querySelector('.dm-lines').innerHTML = '';
+        st.querySelector('.orders').innerHTML = '';
+        st.querySelector('.dm-ok').classList.remove('on');
+      },
+      run: function (st, C, ix) {
+        var me = this; me.reset(st);
+        var box = st.querySelector('.dm-lines'), ords = st.querySelector('.orders'), ok = st.querySelector('.dm-ok'), l1, ch1;
+        chain(C, [W(C, 450),
+          TY(C, st.querySelector('.pf-name'), 'Hola, Laura 👋', 30), W(C, 250),
+          F(function () { l1 = ln(box); }),
+          function (n) { C.type(l1, 'Dirección guardada: Cra 27 #45-12, B/manga ✓', 20, n); }, W(C, 400),
+          F(function () {
+            var r = document.createElement('div'); r.className = 'ord';
+            r.innerHTML = '<b>Pedido #1042</b><span>2 productos · $305.000</span><span class="och way">En camino</span>';
+            ords.appendChild(r); ch1 = r.querySelector('.och');
+          }), W(C, 1300),
+          F(function () { ch1.className = 'och done'; ch1.textContent = 'Entregado ✓'; }), W(C, 600),
+          F(function () {
+            var r = document.createElement('div'); r.className = 'ord';
+            r.innerHTML = '<b>Pedido #1038</b><span>1 producto · $160.000</span><span class="och done">Entregado ✓</span>';
+            ords.appendChild(r);
+          }), W(C, 500),
+          F(function () { ok.classList.add('on'); }), W(C, 3100),
+          F(function () { me.run(st, C, ix + 1); })]);
+      }
+    },
+    sec: {
+      reset: function (st) {
+        st.querySelector('.dm-lines').innerHTML = '';
+        st.querySelector('.dm-ok').classList.remove('on');
+      },
+      run: function (st, C, ix) {
+        var me = this; me.reset(st);
+        var box = st.querySelector('.dm-lines'), ok = st.querySelector('.dm-ok');
+        var rows = [['Certificado SSL', 'VÁLIDO'], ['Firma de transacción', 'VERIFICADA'], ['Datos de tarjeta', 'NUNCA SE GUARDAN'], ['Intentos de fraude', 'BLOQUEADOS']];
+        var steps = [W(C, 450)];
+        rows.forEach(function (r) {
+          var el;
+          steps.push(F(function () { el = ln(box); }));
+          steps.push(function (n) { C.type(el, '> ' + r[0] + ' …', 16, n); });
+          steps.push(W(C, 320));
+          steps.push(F(function () { stamp(el, r[1]); }));
+          steps.push(W(C, 260));
+        });
+        steps.push(F(function () { ok.classList.add('on'); }));
+        steps.push(W(C, 3300));
+        steps.push(F(function () { me.run(st, C, ix + 1); }));
+        chain(C, steps);
+      }
+    },
+    speed: {
+      reset: function (st) {
+        st.querySelector('.u-t').textContent = '';
+        snapReset(st.querySelector('.fill2'), 'go');
+        st.querySelector('.m1').textContent = '0';
+        st.querySelector('.m2').textContent = '0';
+        st.querySelector('.m3').textContent = '0.0';
+        st.querySelector('.dm-ok').classList.remove('on');
+      },
+      run: function (st, C, ix) {
+        var me = this; me.reset(st);
+        var ok = st.querySelector('.dm-ok');
+        chain(C, [W(C, 450),
+          TY(C, st.querySelector('.u-t'), 'tunegocio.co', 34), W(C, 250),
+          F(function () {
+            st.querySelector('.fill2').classList.add('go');
+            cnt(C, st.querySelector('.m1'), 98, 1500, 0);
+            cnt(C, st.querySelector('.m2'), 100, 1600, 0);
+            cnt(C, st.querySelector('.m3'), 1.8, 1500, 1);
+          }), W(C, 1800),
+          F(function () { ok.classList.add('on'); }), W(C, 3300),
+          F(function () { me.run(st, C, ix + 1); })]);
+      }
+    },
+    dev: {
+      reset: function (st) {
+        [].forEach.call(st.querySelectorAll('.dframe'), function (f) { f.classList.remove('live'); });
+        st.querySelector('.dlab2').textContent = '';
+        st.querySelector('.dm-ok').classList.remove('on');
+      },
+      run: function (st, C, ix) {
+        var me = this; me.reset(st);
+        var fr = st.querySelectorAll('.dframe'), lab = st.querySelector('.dlab2'), ok = st.querySelector('.dm-ok');
+        var L = ['Móvil · menú compacto + WhatsApp fijo', 'Tablet · catálogo a 2 columnas', 'Desktop · experiencia completa'];
+        var steps = [W(C, 400)];
+        L.forEach(function (t, i) {
+          steps.push(F(function () {
+            [].forEach.call(fr, function (f) { f.classList.remove('live'); });
+            fr[i].classList.add('live'); lab.textContent = '';
+          }));
+          steps.push(function (n) { C.type(lab, t, 20, n); });
+          steps.push(W(C, 1300));
+        });
+        steps.push(F(function () { ok.classList.add('on'); }));
+        steps.push(W(C, 2800));
+        steps.push(F(function () { me.run(st, C, ix + 1); }));
+        chain(C, steps);
+      }
+    }
+  };
+
+  var ctls = new WeakMap();
   var mio = new IntersectionObserver(function (es) {
     es.forEach(function (e) {
-      var el = e.target;
+      var card = e.target, st = card.querySelector('[data-demo]');
       if (e.isIntersecting) {
-        el.classList.add('on');
-        var sc = el.querySelector('.score');
-        if (sc && !speedTimers.get(el)) {
-          var run = function () {
-            var t0 = performance.now();
-            (function f(t) {
-              var k = Math.min(1, (t - t0) / 1600);
-              sc.textContent = Math.round(98 * (1 - Math.pow(1 - k, 3)));
-              if (k < 1 && el.classList.contains('on')) requestAnimationFrame(f);
-            })(t0);
-          };
-          run();
-          speedTimers.set(el, setInterval(run, 6000));
+        card.classList.add('on');
+        if (st && !ctls.get(card)) {
+          var C = new Ctl(); ctls.set(card, C);
+          RICH[st.getAttribute('data-demo')].run(st, C, 0);
         }
       } else {
-        el.classList.remove('on');
-        var tm = speedTimers.get(el);
-        if (tm) { clearInterval(tm); speedTimers.delete(el); }
+        card.classList.remove('on');
+        var C = ctls.get(card);
+        if (C) { C.stop(); ctls.delete(card); }
+        if (st) RICH[st.getAttribute('data-demo')].reset(st);
       }
     });
-  }, { threshold: 0.25 });
+  }, { threshold: 0.3 });
   document.querySelectorAll('.mdemo').forEach(function (el) { mio.observe(el); });
+
+  /* ================= CARRUSEL: foco tipo páginas + controles ================= */
+  var track = document.querySelector('.auto-grid');
+  if (track) {
+    var cards = [].slice.call(track.children);
+    var dotsBox = document.getElementById('autoDots');
+    cards.forEach(function (_, i) {
+      var d = document.createElement('i');
+      if (i === 0) d.className = 'act';
+      dotsBox.appendChild(d);
+    });
+    var dots = [].slice.call(dotsBox.children);
+    var curIdx = 0, tick2 = false;
+
+    function focusNearest() {
+      var tr = track.getBoundingClientRect(), cx = tr.left + tr.width / 2, best = 0, bd = 1e9;
+      cards.forEach(function (c, i) {
+        var r = c.getBoundingClientRect();
+        var d = Math.abs(r.left + r.width / 2 - cx);
+        if (d < bd) { bd = d; best = i; }
+      });
+      cards.forEach(function (c, i) { c.classList.toggle('focus', i === best); });
+      dots.forEach(function (d, i) { d.classList.toggle('act', i === best); });
+      curIdx = best;
+    }
+    track.addEventListener('scroll', function () {
+      if (tick2) return; tick2 = true;
+      requestAnimationFrame(function () { focusNearest(); tick2 = false; });
+    }, { passive: true });
+    focusNearest();
+
+    function goTo(i) {
+      i = Math.max(0, Math.min(cards.length - 1, i));
+      cards[i].scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'nearest', inline: 'center' });
+    }
+    document.getElementById('autoPrev').addEventListener('click', function () { goTo(curIdx - 1); });
+    document.getElementById('autoNext').addEventListener('click', function () { goTo(curIdx + 1); });
+  }
 
   /* ================= MODAL CÍRCULO ================= */
   var CLUB_APPS_SCRIPT = '';
