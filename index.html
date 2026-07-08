@@ -407,6 +407,196 @@ section{padding:120px 5vw;position:relative}
 .auto-item h4{font-size:.86rem;font-weight:700;margin-bottom:8px;color:var(--navy)}
 .auto-item p{color:var(--dim);font-size:.76rem;line-height:1.7}
 
+/* ================= MINI-DEMOS (un efecto por tema) ================= */
+.auto-item{flex-direction:column}
+.ai-top{display:flex;gap:18px;align-items:flex-start}
+.stage{
+  margin-top:18px;border-radius:16px;padding:16px 18px;position:relative;overflow:hidden;
+  min-height:104px;width:100%;
+}
+.stage.dark{background:linear-gradient(150deg,#03294e,var(--navy));box-shadow:inset 0 1px 0 rgba(255,255,255,.12)}
+.stage.light{background:rgba(123,189,232,.14);border:1px solid rgba(10,65,116,.12)}
+
+/* Ventanas genéricas de aparición por tercios (stacks) */
+.stack{position:relative;display:inline-block;height:1.2em;min-width:9ch}
+.stack i{position:absolute;left:0;top:0;font-style:normal;white-space:nowrap;opacity:0}
+.mdemo.on .stack .c1{animation:third1 6s ease infinite}
+.mdemo.on .stack .c2{animation:third2 6s ease infinite}
+.mdemo.on .stack .c3{animation:third3 6s ease infinite}
+@keyframes third1{0%,2%{opacity:0}6%,30%{opacity:1}34%,100%{opacity:0}}
+@keyframes third2{0%,36%{opacity:0}40%,63%{opacity:1}67%,100%{opacity:0}}
+@keyframes third3{0%,69%{opacity:0}73%,96%{opacity:1}100%{opacity:0}}
+
+/* 1) Correo: líneas que se escriben + enviado */
+.md-mail .env{position:absolute;top:12px;right:14px;font-size:1.1rem;opacity:.85}
+.md-mail .tb{height:7px;border-radius:4px;background:linear-gradient(90deg,var(--sky),var(--ice));transform-origin:left;transform:scaleX(0);margin-bottom:10px}
+.md-mail .t1{width:88%}.md-mail .t2{width:66%}.md-mail .t3{width:45%}
+.mdemo.on .md-mail .t1{animation:mt1 6s ease infinite}
+.mdemo.on .md-mail .t2{animation:mt2 6s ease infinite}
+.mdemo.on .md-mail .t3{animation:mt3 6s ease infinite}
+@keyframes mt1{0%,4%{transform:scaleX(0)}14%,88%{transform:scaleX(1)}96%,100%{transform:scaleX(0)}}
+@keyframes mt2{0%,16%{transform:scaleX(0)}26%,88%{transform:scaleX(1)}96%,100%{transform:scaleX(0)}}
+@keyframes mt3{0%,30%{transform:scaleX(0)}40%,88%{transform:scaleX(1)}96%,100%{transform:scaleX(0)}}
+.md-mail .ok,.md-pay .plabel{
+  display:inline-block;font-size:.58rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;
+  color:#7ee2a0;opacity:0;
+}
+.mdemo.on .md-mail .ok,.mdemo.on .md-pay .plabel{animation:okwin 6s ease infinite}
+@keyframes okwin{0%,48%{opacity:0;transform:translateY(6px)}56%,86%{opacity:1;transform:none}94%,100%{opacity:0}}
+
+/* 2) Excel: filas que entran solas */
+.md-sheet .srow{display:flex;justify-content:space-between;gap:8px;font-size:.6rem;padding:5px 2px;border-bottom:1px dashed rgba(10,65,116,.15);color:var(--dim);opacity:0}
+.md-sheet .srow b{color:var(--navy);font-weight:700;flex:1;text-align:left}
+.md-sheet .srow i{font-style:normal;color:var(--blue);font-weight:700}
+.mdemo.on .md-sheet .s1{animation:sr1 6s ease infinite}
+.mdemo.on .md-sheet .s2{animation:sr2 6s ease infinite}
+.mdemo.on .md-sheet .s3{animation:sr3 6s ease infinite}
+.mdemo.on .md-sheet .s4{animation:sr4 6s ease infinite}
+@keyframes sr1{0%,6%{opacity:0;transform:translateY(-8px)}14%,88%{opacity:1;transform:none}96%,100%{opacity:0}}
+@keyframes sr2{0%,20%{opacity:0;transform:translateY(-8px)}28%,88%{opacity:1;transform:none}96%,100%{opacity:0}}
+@keyframes sr3{0%,34%{opacity:0;transform:translateY(-8px)}42%,88%{opacity:1;transform:none}96%,100%{opacity:0}}
+@keyframes sr4{0%,48%{opacity:0;transform:translateY(-8px)}56%,88%{opacity:1;transform:none}96%,100%{opacity:0}}
+
+/* 3) Pago: tarjeta entra, procesa, aprobado */
+.md-pay .prow2{display:flex;align-items:center;gap:18px;margin-bottom:14px}
+.md-pay .ccard{
+  width:54px;height:36px;border-radius:8px;position:relative;opacity:0;
+  background:linear-gradient(135deg,var(--sky),var(--steel));
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.4);
+}
+.md-pay .ccard::before{content:'';position:absolute;top:9px;left:8px;width:11px;height:8px;border-radius:2px;background:var(--ice)}
+.mdemo.on .md-pay .ccard{animation:pcard 6s ease infinite}
+@keyframes pcard{0%,3%{opacity:0;transform:translateX(-26px)}12%,90%{opacity:1;transform:none}97%,100%{opacity:0}}
+.md-pay .pdots{display:flex;gap:6px}
+.md-pay .pdots i{width:8px;height:8px;border-radius:50%;background:var(--sky);opacity:.15}
+.mdemo.on .md-pay .p1{animation:pd1 6s ease infinite}
+.mdemo.on .md-pay .p2{animation:pd2 6s ease infinite}
+.mdemo.on .md-pay .p3{animation:pd3 6s ease infinite}
+@keyframes pd1{0%,16%{opacity:.15}20%{opacity:1}26%,100%{opacity:.15}}
+@keyframes pd2{0%,24%{opacity:.15}28%{opacity:1}34%,100%{opacity:.15}}
+@keyframes pd3{0%,32%{opacity:.15}36%{opacity:1}42%,100%{opacity:.15}}
+.md-pay .pok{
+  width:30px;height:30px;border-radius:50%;background:#16a34a;color:#fff;
+  display:flex;align-items:center;justify-content:center;font-size:.8rem;font-weight:700;opacity:0;
+}
+.mdemo.on .md-pay .pok{animation:pokw 6s var(--ease) infinite}
+@keyframes pokw{0%,46%{opacity:0;transform:scale(.4)}54%{opacity:1;transform:scale(1.18)}60%,88%{opacity:1;transform:scale(1)}96%,100%{opacity:0}}
+
+/* 4) Carrito: productos vuelan + contador */
+.md-cart .cwrap{display:flex;align-items:center;gap:22px;position:relative;padding:8px 0}
+.md-cart .cic{position:relative;font-size:1.7rem}
+.md-cart .bd{
+  position:absolute;top:-7px;right:-11px;width:17px;height:17px;border-radius:50%;
+  background:var(--blue);color:#fff;font-size:.52rem;font-weight:700;opacity:0;
+}
+.md-cart .bd i{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-style:normal;opacity:0}
+.mdemo.on .md-cart .bd{animation:bdshow 6s ease infinite}
+@keyframes bdshow{0%,20%{opacity:0}24%,90%{opacity:1}96%,100%{opacity:0}}
+.mdemo.on .md-cart .n1{animation:bn1 6s ease infinite}
+.mdemo.on .md-cart .n2{animation:bn2 6s ease infinite}
+.mdemo.on .md-cart .n3{animation:bn3 6s ease infinite}
+@keyframes bn1{0%,22%{opacity:0}24%,39%{opacity:1}41%,100%{opacity:0}}
+@keyframes bn2{0%,41%{opacity:0}43%,57%{opacity:1}59%,100%{opacity:0}}
+@keyframes bn3{0%,59%{opacity:0}61%,90%{opacity:1}96%,100%{opacity:0}}
+.md-cart .it{position:absolute;left:34px;top:50%;width:11px;height:11px;border-radius:50%;background:var(--steel);opacity:0}
+.mdemo.on .md-cart .i1{animation:cit1 6s ease infinite}
+.mdemo.on .md-cart .i2{animation:cit2 6s ease infinite}
+.mdemo.on .md-cart .i3{animation:cit3 6s ease infinite}
+@keyframes cit1{0%,8%{opacity:0;transform:translate(70px,-22px) scale(.7)}12%{opacity:1}20%,100%{opacity:0;transform:translate(0,-4px) scale(.4)}}
+@keyframes cit2{0%,27%{opacity:0;transform:translate(70px,-22px) scale(.7)}31%{opacity:1}39%,100%{opacity:0;transform:translate(0,-4px) scale(.4)}}
+@keyframes cit3{0%,45%{opacity:0;transform:translate(70px,-22px) scale(.7)}49%{opacity:1}57%,100%{opacity:0;transform:translate(0,-4px) scale(.4)}}
+.md-cart .csub{font-size:.62rem;color:var(--dim);opacity:0}
+.md-cart .csub b{color:var(--blue)}
+.mdemo.on .md-cart .csub{animation:okwin 6s ease infinite}
+
+/* 5) Club: código que se escribe + brillo */
+.md-club .klabel{display:block;font-size:.58rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--wfaint);margin-bottom:12px}
+.md-club .code{
+  display:inline-block;font-family:monospace;font-weight:700;font-size:.95rem;letter-spacing:.08em;
+  color:var(--ice);background:rgba(123,189,232,.14);border:1px dashed rgba(123,189,232,.5);
+  border-radius:8px;padding:11px 16px;
+}
+.mdemo.on .md-club .code{animation:kglow 6s ease infinite}
+@keyframes kglow{0%,52%{box-shadow:none}60%,82%{box-shadow:0 0 20px rgba(123,189,232,.55)}92%,100%{box-shadow:none}}
+.md-club .code i{display:inline-block;overflow:hidden;white-space:nowrap;vertical-align:bottom;width:0;border-right:2px solid var(--sky)}
+.mdemo.on .md-club .code i{animation:ktype 6s steps(22) infinite}
+@keyframes ktype{0%,6%{width:0}46%,88%{width:11ch}96%,100%{width:0}}
+
+/* 6) Envíos: paquete viaja + tarifa por ciudad */
+.md-ship .sfrom{font-size:.58rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--faint)}
+.md-ship .route{position:relative;height:0;border-top:2px dashed rgba(10,65,116,.35);margin:24px 6px 20px}
+.md-ship .pkg{position:absolute;top:-12px;left:0;font-size:.9rem}
+.mdemo.on .md-ship .pkg{animation:shipgo 6s ease-in-out infinite}
+@keyframes shipgo{
+  0%{left:0}30%,33%{left:calc(100% - 18px)}33.5%{left:0}
+  63%,66%{left:calc(100% - 18px)}66.5%{left:0}96%,100%{left:calc(100% - 18px)}
+}
+.md-ship .sto{text-align:right;font-size:.62rem;font-weight:700;color:var(--blue)}
+.md-ship .sto .stack{min-width:14ch;text-align:right}
+.md-ship .sto .stack i{left:auto;right:0}
+
+/* 7) Perfil: pedidos que aparecen + estado que cambia */
+.md-prof .prow{display:flex;align-items:center;gap:10px;font-size:.62rem;color:var(--dim);padding:7px 0;border-bottom:1px dashed rgba(10,65,116,.12);opacity:0}
+.md-prof .pav{width:24px;height:24px;border-radius:50%;background:linear-gradient(135deg,var(--steel),var(--sky));color:#fff;display:flex;align-items:center;justify-content:center;font-size:.5rem;font-weight:700;flex-shrink:0}
+.md-prof .prow>span:nth-child(2){flex:1;color:var(--navy);font-weight:700}
+.md-prof .pst{position:relative;min-width:9ch;height:1.5em}
+.md-prof .pst i{position:absolute;right:0;top:0;font-style:normal;font-size:.54rem;font-weight:700;padding:3px 8px;border-radius:999px;opacity:0}
+.md-prof .st-way{background:rgba(73,118,159,.18);color:var(--steel)}
+.md-prof .st-ok{background:rgba(22,163,74,.15);color:#16a34a}
+.mdemo.on .md-prof .pr1{animation:sr1 6s ease infinite}
+.mdemo.on .md-prof .pr2{animation:sr3 6s ease infinite}
+.mdemo.on .md-prof .pr1 .st-way{animation:h1a 6s ease infinite}
+.mdemo.on .md-prof .pr1 .st-ok{animation:h1b 6s ease infinite}
+.mdemo.on .md-prof .pr2 .st-way{animation:h2a 6s ease infinite}
+.mdemo.on .md-prof .pr2 .st-ok{animation:h2b 6s ease infinite}
+@keyframes h1a{0%,14%{opacity:0}16%,44%{opacity:1}46%,100%{opacity:0}}
+@keyframes h1b{0%,46%{opacity:0}50%,88%{opacity:1}96%,100%{opacity:0}}
+@keyframes h2a{0%,42%{opacity:0}44%,68%{opacity:1}70%,100%{opacity:0}}
+@keyframes h2b{0%,70%{opacity:0}74%,88%{opacity:1}96%,100%{opacity:0}}
+
+/* 8) Seguridad: verificaciones que se encienden */
+.md-sec{display:flex;flex-direction:column;justify-content:center;gap:10px}
+.md-sec .sit{display:flex;align-items:center;gap:10px;font-size:.62rem;font-weight:700;color:var(--wdim)}
+.md-sec .sdot{
+  width:19px;height:19px;border-radius:50%;border:1.5px solid rgba(255,255,255,.35);
+  display:flex;align-items:center;justify-content:center;font-size:.52rem;color:transparent;flex-shrink:0;
+}
+.mdemo.on .md-sec .d1{animation:sec1 6s ease infinite}
+.mdemo.on .md-sec .d2{animation:sec2 6s ease infinite}
+.mdemo.on .md-sec .d3{animation:sec3 6s ease infinite}
+@keyframes sec1{0%,8%{background:transparent;color:transparent;border-color:rgba(255,255,255,.35)}14%,88%{background:#16a34a;color:#fff;border-color:#16a34a}96%,100%{background:transparent;color:transparent;border-color:rgba(255,255,255,.35)}}
+@keyframes sec2{0%,22%{background:transparent;color:transparent;border-color:rgba(255,255,255,.35)}28%,88%{background:#16a34a;color:#fff;border-color:#16a34a}96%,100%{background:transparent;color:transparent;border-color:rgba(255,255,255,.35)}}
+@keyframes sec3{0%,36%{background:transparent;color:transparent;border-color:rgba(255,255,255,.35)}42%,88%{background:#16a34a;color:#fff;border-color:#16a34a}96%,100%{background:transparent;color:transparent;border-color:rgba(255,255,255,.35)}}
+
+/* 9) Velocidad: barra que carga + puntaje */
+.md-speed{display:flex;flex-direction:column;justify-content:center;gap:14px}
+.md-speed .sbar{height:10px;border-radius:6px;background:rgba(10,65,116,.15);overflow:hidden}
+.md-speed .sfill{height:100%;border-radius:6px;background:linear-gradient(90deg,var(--blue),var(--sky));transform-origin:left;transform:scaleX(0)}
+.mdemo.on .md-speed .sfill{animation:sfillk 6s var(--ease) infinite}
+@keyframes sfillk{0%,4%{transform:scaleX(0)}26%,90%{transform:scaleX(1)}97%,100%{transform:scaleX(0)}}
+.md-speed .smeta{display:flex;justify-content:space-between;align-items:baseline;font-size:.62rem;color:var(--dim)}
+.md-speed .smeta .stime{opacity:0}
+.mdemo.on .md-speed .smeta .stime{animation:okwin 6s ease infinite}
+.md-speed .sscore{font-weight:700;color:var(--blue)}
+.md-speed .sscore b{font-size:1.05rem}
+
+/* 10) Pantallas: dispositivos que se turnan */
+.md-dev{display:flex;flex-direction:column;justify-content:center;gap:14px}
+.md-dev .dwrap{display:flex;align-items:flex-end;gap:16px;justify-content:center}
+.md-dev .dev{border:2px solid rgba(10,65,116,.35);border-radius:5px;display:inline-block}
+.md-dev .d-ph{width:16px;height:27px}
+.md-dev .d-tb{width:25px;height:20px}
+.md-dev .d-dt{width:38px;height:23px}
+.mdemo.on .md-dev .dv1{animation:dvw1 6s ease infinite}
+.mdemo.on .md-dev .dv2{animation:dvw2 6s ease infinite}
+.mdemo.on .md-dev .dv3{animation:dvw3 6s ease infinite}
+@keyframes dvw1{0%,2%{border-color:rgba(10,65,116,.35);box-shadow:none}6%,30%{border-color:var(--blue);box-shadow:0 0 14px rgba(123,189,232,.9)}34%,100%{border-color:rgba(10,65,116,.35);box-shadow:none}}
+@keyframes dvw2{0%,36%{border-color:rgba(10,65,116,.35);box-shadow:none}40%,63%{border-color:var(--blue);box-shadow:0 0 14px rgba(123,189,232,.9)}67%,100%{border-color:rgba(10,65,116,.35);box-shadow:none}}
+@keyframes dvw3{0%,69%{border-color:rgba(10,65,116,.35);box-shadow:none}73%,96%{border-color:var(--blue);box-shadow:0 0 14px rgba(123,189,232,.9)}100%{border-color:rgba(10,65,116,.35);box-shadow:none}}
+.md-dev .dlab{text-align:center;font-size:.62rem;font-weight:700;color:var(--blue)}
+.md-dev .dlab .stack{min-width:8ch;text-align:center}
+.md-dev .dlab .stack i{left:50%;transform:translateX(-50%)}
+
 /* ================= PROYECTOS ================= */
 .projects{display:flex;flex-direction:column;gap:50px;max-width:1080px;margin:0 auto;perspective:1200px}
 .project{overflow:hidden;padding:clamp(36px,6vw,64px);position:relative;border-radius:var(--r-lg)}
@@ -690,16 +880,109 @@ section{padding:120px 5vw;position:relative}
   </div>
 
   <div class="auto-grid">
-    <div class="auto-item lg reveal"><span class="em" aria-hidden="true">📧</span><div><h4>Correos automáticos en tiempo real</h4><p>Cada suscriptor y cada venta dispara correos instantáneos: el cliente recibe su confirmación con todos los detalles, y tú recibes el aviso con los datos del pedido. Ambos, al mismo tiempo.</p></div></div>
-    <div class="auto-item lg reveal" style="transition-delay:.05s"><span class="em" aria-hidden="true">📊</span><div><h4>Excel que se llena solo</h4><p>Cada venta ejecutada en la página se registra automáticamente en una hoja de cálculo en la nube: cliente, productos, total, ciudad y fecha. Tu historial completo, filtrable y seguro.</p></div></div>
-    <div class="auto-item lg reveal" style="transition-delay:.1s"><span class="em" aria-hidden="true">💳</span><div><h4>Pagos seguros integrados</h4><p>Pasarela Wompi con tarjeta, PSE y Bancolombia. Confirmación instantánea verificada criptográficamente — solo se registra la venta si el pago fue aprobado.</p></div></div>
-    <div class="auto-item lg reveal" style="transition-delay:.15s"><span class="em" aria-hidden="true">🛒</span><div><h4>Carrito inteligente y persistente</h4><p>El cliente puede cerrar el navegador y su carrito lo espera hasta 30 días. Subtotales en tiempo real y checkout que no se congela nunca.</p></div></div>
-    <div class="auto-item lg reveal" style="transition-delay:.2s"><span class="em" aria-hidden="true">🎁</span><div><h4>Club de miembros con descuentos</h4><p>Suscripción con códigos únicos por persona, validados en el servidor y aplicables en el checkout. Fideliza y multiplica la recompra.</p></div></div>
-    <div class="auto-item lg reveal" style="transition-delay:.25s"><span class="em" aria-hidden="true">📦</span><div><h4>Envíos inteligentes a todo el país</h4><p>Selector oficial de departamentos y municipios (DANE), tarifas por zona y envío gratis configurable. Cero errores de dirección.</p></div></div>
-    <div class="auto-item lg reveal" style="transition-delay:.3s"><span class="em" aria-hidden="true">👤</span><div><h4>Perfil personal del cliente</h4><p>Historial de pedidos, direcciones guardadas y seguimiento de entregas. La segunda compra es aún más rápida que la primera.</p></div></div>
-    <div class="auto-item lg reveal" style="transition-delay:.35s"><span class="em" aria-hidden="true">🔐</span><div><h4>Seguridad de nivel bancario</h4><p>HTTPS en todo el sitio, validación de firmas en cada transacción y cero almacenamiento de tarjetas. Tus clientes confían — y tú duermes tranquilo.</p></div></div>
-    <div class="auto-item lg reveal" style="transition-delay:.4s"><span class="em" aria-hidden="true">⚡</span><div><h4>Velocidad que vende</h4><p>Carga en menos de 2 segundos, imágenes optimizadas y hosting escalable: aguanta desde 5 hasta millones de visitas.</p></div></div>
-    <div class="auto-item lg reveal" style="transition-delay:.45s"><span class="em" aria-hidden="true">📱</span><div><h4>Perfecto en cualquier pantalla</h4><p>Mobile-first: el 65% de las compras llegan desde el celular y tu página está optimizada para eso, con WhatsApp siempre visible.</p></div></div>
+
+    <!-- 1 Correos -->
+    <div class="auto-item lg reveal mdemo">
+      <div class="ai-top"><span class="em" aria-hidden="true">📧</span><div><h4>Correos automáticos en tiempo real</h4><p>Cada suscriptor y cada venta dispara correos instantáneos: el cliente recibe su confirmación y tú recibes el aviso con los datos del pedido. Ambos, al mismo tiempo.</p></div></div>
+      <div class="stage dark md-mail" aria-hidden="true">
+        <span class="env">✉️</span>
+        <div class="tb t1"></div><div class="tb t2"></div><div class="tb t3"></div>
+        <span class="ok">✓ Enviado — cliente y dueño</span>
+      </div>
+    </div>
+
+    <!-- 2 Excel -->
+    <div class="auto-item lg reveal mdemo" style="transition-delay:.05s">
+      <div class="ai-top"><span class="em" aria-hidden="true">📊</span><div><h4>Excel que se llena solo</h4><p>Cada venta se registra automáticamente en una hoja de cálculo en la nube: cliente, productos, total, ciudad y fecha. Tu historial completo, filtrable y seguro.</p></div></div>
+      <div class="stage light md-sheet" aria-hidden="true">
+        <div class="srow s1"><span>09:12</span><b>Laura G.</b><span>Bogotá</span><i>$305.000</i></div>
+        <div class="srow s2"><span>09:47</span><b>Carlos R.</b><span>Medellín</span><i>$185.000</i></div>
+        <div class="srow s3"><span>10:15</span><b>Ana T.</b><span>B/quilla</span><i>$420.000</i></div>
+        <div class="srow s4"><span>11:20</span><b>María L.</b><span>B/manga</span><i>$560.000</i></div>
+      </div>
+    </div>
+
+    <!-- 3 Pagos -->
+    <div class="auto-item lg reveal mdemo" style="transition-delay:.1s">
+      <div class="ai-top"><span class="em" aria-hidden="true">💳</span><div><h4>Pagos seguros integrados</h4><p>Pasarela Wompi con tarjeta, PSE y Bancolombia. Confirmación instantánea verificada criptográficamente — solo se registra la venta si el pago fue aprobado.</p></div></div>
+      <div class="stage dark md-pay" aria-hidden="true">
+        <div class="prow2">
+          <div class="ccard"></div>
+          <div class="pdots"><i class="p1"></i><i class="p2"></i><i class="p3"></i></div>
+          <div class="pok">✓</div>
+        </div>
+        <span class="plabel">Wompi · Pago aprobado</span>
+      </div>
+    </div>
+
+    <!-- 4 Carrito -->
+    <div class="auto-item lg reveal mdemo" style="transition-delay:.15s">
+      <div class="ai-top"><span class="em" aria-hidden="true">🛒</span><div><h4>Carrito inteligente y persistente</h4><p>El cliente puede cerrar el navegador y su carrito lo espera hasta 30 días. Subtotales en tiempo real y checkout que no se congela nunca.</p></div></div>
+      <div class="stage light md-cart" aria-hidden="true">
+        <div class="cwrap">
+          <span class="cic">🛒<span class="bd"><i class="n1">1</i><i class="n2">2</i><i class="n3">3</i></span></span>
+          <i class="it i1"></i><i class="it i2"></i><i class="it i3"></i>
+          <span class="csub">Subtotal actualizado: <b>$890.000</b></span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 5 Club -->
+    <div class="auto-item lg reveal mdemo" style="transition-delay:.2s">
+      <div class="ai-top"><span class="em" aria-hidden="true">🎁</span><div><h4>Club de miembros con descuentos</h4><p>Suscripción con códigos únicos por persona, validados en el servidor y aplicables en el checkout. Fideliza y multiplica la recompra.</p></div></div>
+      <div class="stage dark md-club" aria-hidden="true">
+        <span class="klabel">Generando código único…</span>
+        <div class="code"><i>CLUB15-8F2A</i></div>
+      </div>
+    </div>
+
+    <!-- 6 Envíos -->
+    <div class="auto-item lg reveal mdemo" style="transition-delay:.25s">
+      <div class="ai-top"><span class="em" aria-hidden="true">📦</span><div><h4>Envíos inteligentes a todo el país</h4><p>Selector oficial de departamentos y municipios (DANE), tarifas por zona y envío gratis configurable. Cero errores de dirección.</p></div></div>
+      <div class="stage light md-ship" aria-hidden="true">
+        <div class="sfrom">Barranquilla →</div>
+        <div class="route"><span class="pkg">📦</span></div>
+        <div class="sto"><span class="stack"><i class="c1">Bogotá · $15.000</i><i class="c2">Medellín · $15.000</i><i class="c3">≥ $200.000 · GRATIS</i></span></div>
+      </div>
+    </div>
+
+    <!-- 7 Perfil -->
+    <div class="auto-item lg reveal mdemo" style="transition-delay:.3s">
+      <div class="ai-top"><span class="em" aria-hidden="true">👤</span><div><h4>Perfil personal del cliente</h4><p>Historial de pedidos, direcciones guardadas y seguimiento de entregas. La segunda compra es aún más rápida que la primera.</p></div></div>
+      <div class="stage light md-prof" aria-hidden="true">
+        <div class="prow pr1"><span class="pav">LG</span><span>Pedido #1042</span><span class="pst"><i class="st-way">En camino</i><i class="st-ok">Entregado ✓</i></span></div>
+        <div class="prow pr2"><span class="pav">CR</span><span>Pedido #1041</span><span class="pst"><i class="st-way">En camino</i><i class="st-ok">Entregado ✓</i></span></div>
+      </div>
+    </div>
+
+    <!-- 8 Seguridad -->
+    <div class="auto-item lg reveal mdemo" style="transition-delay:.35s">
+      <div class="ai-top"><span class="em" aria-hidden="true">🔐</span><div><h4>Seguridad de nivel bancario</h4><p>HTTPS en todo el sitio, validación de firmas en cada transacción y cero almacenamiento de tarjetas. Tus clientes confían — y tú duermes tranquilo.</p></div></div>
+      <div class="stage dark md-sec" aria-hidden="true">
+        <div class="sit"><span class="sdot d1">✓</span>HTTPS activo</div>
+        <div class="sit"><span class="sdot d2">✓</span>Firma verificada</div>
+        <div class="sit"><span class="sdot d3">✓</span>Anti-fraude</div>
+      </div>
+    </div>
+
+    <!-- 9 Velocidad -->
+    <div class="auto-item lg reveal mdemo" style="transition-delay:.4s">
+      <div class="ai-top"><span class="em" aria-hidden="true">⚡</span><div><h4>Velocidad que vende</h4><p>Carga en menos de 2 segundos, imágenes optimizadas y hosting escalable: aguanta desde 5 hasta millones de visitas.</p></div></div>
+      <div class="stage light md-speed" aria-hidden="true">
+        <div class="sbar"><div class="sfill"></div></div>
+        <div class="smeta"><span class="stime">1.8s · carga completa</span><span class="sscore"><b class="score">0</b>/100</span></div>
+      </div>
+    </div>
+
+    <!-- 10 Pantallas -->
+    <div class="auto-item lg reveal mdemo" style="transition-delay:.45s">
+      <div class="ai-top"><span class="em" aria-hidden="true">📱</span><div><h4>Perfecto en cualquier pantalla</h4><p>Mobile-first: el 65% de las compras llegan desde el celular y tu página está optimizada para eso, con WhatsApp siempre visible.</p></div></div>
+      <div class="stage light md-dev" aria-hidden="true">
+        <div class="dwrap"><span class="dev d-ph dv1"></span><span class="dev d-tb dv2"></span><span class="dev d-dt dv3"></span></div>
+        <div class="dlab"><span class="stack"><i class="c1">Móvil</i><i class="c2">Tablet</i><i class="c3">Desktop</i></span></div>
+      </div>
+    </div>
+
   </div>
 </section>
 
@@ -1063,6 +1346,35 @@ section{padding:120px 5vw;position:relative}
     });
   }, { threshold: 0.25 });
   demoIO.observe(demosSection);
+
+  /* ================= MINI-DEMOS: activar solo en pantalla ================= */
+  var speedTimers = new WeakMap();
+  var mio = new IntersectionObserver(function (es) {
+    es.forEach(function (e) {
+      var el = e.target;
+      if (e.isIntersecting) {
+        el.classList.add('on');
+        var sc = el.querySelector('.score');
+        if (sc && !speedTimers.get(el)) {
+          var run = function () {
+            var t0 = performance.now();
+            (function f(t) {
+              var k = Math.min(1, (t - t0) / 1600);
+              sc.textContent = Math.round(98 * (1 - Math.pow(1 - k, 3)));
+              if (k < 1 && el.classList.contains('on')) requestAnimationFrame(f);
+            })(t0);
+          };
+          run();
+          speedTimers.set(el, setInterval(run, 6000));
+        }
+      } else {
+        el.classList.remove('on');
+        var tm = speedTimers.get(el);
+        if (tm) { clearInterval(tm); speedTimers.delete(el); }
+      }
+    });
+  }, { threshold: 0.25 });
+  document.querySelectorAll('.mdemo').forEach(function (el) { mio.observe(el); });
 
   /* ================= MODAL CÍRCULO ================= */
   var CLUB_APPS_SCRIPT = '';
