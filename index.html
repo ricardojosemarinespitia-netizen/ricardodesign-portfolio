@@ -396,21 +396,29 @@ section{padding:120px 5vw;position:relative}
 .spark{width:110px;height:30px;overflow:visible}
 .spark polyline{fill:none;stroke:var(--steel);stroke-width:2;stroke-linecap:round;stroke-linejoin:round;filter:drop-shadow(0 2px 5px rgba(10,65,116,.4))}
 
-/* ================= AUTOMATIZACIÓN: carrusel deslizable (páginas) ================= */
+/* ========== AUTOMATIZACIÓN: libreta full-screen (hojas de abajo→arriba) ========== */
+#automatiza{padding:60px 5vw 36px}
+#automatiza .shead{margin-bottom:22px}
 .auto-grid{
-  display:flex;gap:22px;overflow-x:auto;scroll-snap-type:x mandatory;
-  padding:26px calc(50vw - min(44vw,278px)) 30px;
+  height:100svh;height:100vh;
+  overflow-y:auto;scroll-snap-type:y mandatory;
+  display:flex;flex-direction:column;align-items:center;gap:0;
+  border-radius:var(--r-lg);
   -webkit-overflow-scrolling:touch;scrollbar-width:none;
+  overscroll-behavior:contain;
 }
 .auto-grid::-webkit-scrollbar{display:none}
 .auto-item{
-  flex:0 0 min(88vw,556px);scroll-snap-align:center;
-  display:flex;flex-direction:column;align-items:stretch;
-  border-radius:var(--r-md);padding:26px 28px;
-  transform:scale(.9);opacity:.5;
-  transition:transform .55s var(--ease),opacity .45s ease;
+  flex:0 0 100%;min-height:100svh;min-height:100vh;
+  width:min(600px,100%);
+  scroll-snap-align:center;scroll-snap-stop:always;
+  display:flex;flex-direction:column;justify-content:center;
+  padding:6vh 30px;
+  transform:scale(.86) translateY(46px);opacity:.22;
+  transition:transform .6s var(--ease),opacity .5s ease;
 }
-.auto-item.focus{transform:scale(1);opacity:1}
+.auto-item.focus{transform:none;opacity:1}
+.auto-item .stage{min-height:180px}
 .auto-item .em{
   flex-shrink:0;width:48px;height:48px;border-radius:15px;font-size:1.1rem;
   display:flex;align-items:center;justify-content:center;
@@ -421,19 +429,35 @@ section{padding:120px 5vw;position:relative}
 .auto-item h4{font-size:.92rem;font-weight:700;margin-bottom:8px;color:var(--navy)}
 .auto-item p{color:var(--dim);font-size:.74rem;line-height:1.65}
 
-/* Controles del carrusel */
-.carousel-nav{display:flex;align-items:center;justify-content:center;gap:18px;margin-top:4px}
+/* Controles de la libreta (flotantes) */
 .cbtn{
-  width:44px;height:44px;border-radius:50%;border:none;cursor:pointer;
-  background:linear-gradient(135deg,var(--blue),var(--steel));color:#fff;font-size:1.2rem;line-height:1;
-  box-shadow:0 10px 26px rgba(10,65,116,.35);transition:transform .3s ease;
+  width:46px;height:46px;border-radius:50%;border:none;cursor:pointer;
+  background:linear-gradient(135deg,var(--blue),var(--steel));color:#fff;font-size:1.3rem;line-height:1;
+  box-shadow:0 10px 26px rgba(10,65,116,.4);transition:transform .3s ease;
 }
 .cbtn:hover{transform:scale(1.12)}
-.cdots{display:flex;gap:7px}
-.cdots i{width:7px;height:7px;border-radius:50%;background:rgba(10,65,116,.25);transition:all .35s ease}
-.cdots i.act{background:var(--blue);transform:scale(1.4);box-shadow:0 0 10px rgba(123,189,232,.9)}
-.swipe-hint{text-align:center;font-size:.56rem;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--steel);margin-top:14px;animation:hintSlide 2.2s ease-in-out infinite}
-@keyframes hintSlide{0%,100%{transform:translateX(0);opacity:.7}50%{transform:translateX(8px);opacity:1}}
+.pager-ui{
+  position:fixed;right:16px;top:50%;transform:translateY(-50%);
+  z-index:120;display:flex;flex-direction:column;align-items:center;gap:12px;
+  opacity:0;pointer-events:none;transition:opacity .45s ease;
+}
+.pager-ui.show{opacity:1;pointer-events:auto}
+.pager-count{
+  font-size:.66rem;font-weight:700;color:var(--blue);
+  background:rgba(255,255,255,.6);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
+  border:1px solid rgba(255,255,255,.8);border-radius:999px;padding:6px 9px;text-align:center;min-width:32px;
+}
+.pager-count b{font-size:.9rem}
+.pager-count i{font-style:normal;opacity:.5;margin:0 1px}
+.swipe-hint{
+  position:fixed;left:50%;bottom:20px;transform:translateX(-50%);
+  z-index:120;font-size:.58rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--blue);
+  background:rgba(255,255,255,.6);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
+  border:1px solid rgba(255,255,255,.8);border-radius:999px;padding:9px 18px;
+  opacity:0;pointer-events:none;transition:opacity .45s ease;animation:hintUp 2s ease-in-out infinite;
+}
+.swipe-hint.show{opacity:1}
+@keyframes hintUp{0%,100%{transform:translateX(-50%) translateY(0)}50%{transform:translateX(-50%) translateY(-6px)}}
 
 /* ================= MINI-DEMOS (un efecto por tema) ================= */
 .ai-top{display:flex;gap:18px;align-items:flex-start;margin-bottom:16px}
@@ -997,12 +1021,12 @@ section{padding:120px 5vw;position:relative}
 
   </div>
 
-  <div class="carousel-nav">
-    <button class="cbtn" id="autoPrev" type="button" aria-label="Anterior">‹</button>
-    <div class="cdots" id="autoDots"></div>
-    <button class="cbtn" id="autoNext" type="button" aria-label="Siguiente">›</button>
+  <div class="pager-ui" id="pagerUi" aria-hidden="true">
+    <button class="cbtn" id="autoPrev" type="button" aria-label="Anterior">↑</button>
+    <span class="pager-count"><b id="pagerNow">1</b><i>/</i>10</span>
+    <button class="cbtn" id="autoNext" type="button" aria-label="Siguiente">↓</button>
   </div>
-  <div class="swipe-hint">Desliza para explorar →</div>
+  <div class="swipe-hint" id="swipeHint">Desliza ↑</div>
 </section>
 
 <!-- ============ PROYECTOS ============ -->
@@ -1615,32 +1639,28 @@ section{padding:120px 5vw;position:relative}
         if (st) RICH[st.getAttribute('data-demo')].reset(st);
       }
     });
-  }, { threshold: 0.3 });
+  }, { root: document.querySelector('.auto-grid'), threshold: 0.55 });
   document.querySelectorAll('.mdemo').forEach(function (el) { mio.observe(el); });
 
-  /* ================= CARRUSEL: foco tipo páginas + controles ================= */
+  /* ============ LIBRETA VERTICAL: hojas de abajo→arriba + controles ============ */
   var track = document.querySelector('.auto-grid');
   if (track) {
     var cards = [].slice.call(track.children);
-    var dotsBox = document.getElementById('autoDots');
-    cards.forEach(function (_, i) {
-      var d = document.createElement('i');
-      if (i === 0) d.className = 'act';
-      dotsBox.appendChild(d);
-    });
-    var dots = [].slice.call(dotsBox.children);
+    var pagerUi = document.getElementById('pagerUi');
+    var swipeHint = document.getElementById('swipeHint');
+    var pagerNow = document.getElementById('pagerNow');
     var curIdx = 0, tick2 = false;
 
     function focusNearest() {
-      var tr = track.getBoundingClientRect(), cx = tr.left + tr.width / 2, best = 0, bd = 1e9;
+      var tr = track.getBoundingClientRect(), cy = tr.top + tr.height / 2, best = 0, bd = 1e9;
       cards.forEach(function (c, i) {
         var r = c.getBoundingClientRect();
-        var d = Math.abs(r.left + r.width / 2 - cx);
+        var d = Math.abs(r.top + r.height / 2 - cy);
         if (d < bd) { bd = d; best = i; }
       });
       cards.forEach(function (c, i) { c.classList.toggle('focus', i === best); });
-      dots.forEach(function (d, i) { d.classList.toggle('act', i === best); });
-      curIdx = best;
+      if (best !== curIdx) { curIdx = best; pagerNow.textContent = best + 1; }
+      swipeHint.style.visibility = best === 0 ? 'visible' : 'hidden';
     }
     track.addEventListener('scroll', function () {
       if (tick2) return; tick2 = true;
@@ -1650,10 +1670,20 @@ section{padding:120px 5vw;position:relative}
 
     function goTo(i) {
       i = Math.max(0, Math.min(cards.length - 1, i));
-      cards[i].scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'nearest', inline: 'center' });
+      cards[i].scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'center' });
     }
     document.getElementById('autoPrev').addEventListener('click', function () { goTo(curIdx - 1); });
     document.getElementById('autoNext').addEventListener('click', function () { goTo(curIdx + 1); });
+
+    /* Mostrar controles solo cuando la libreta llena la pantalla */
+    var secObs = new IntersectionObserver(function (es) {
+      es.forEach(function (e) {
+        var on = e.isIntersecting && e.intersectionRatio > 0.5;
+        pagerUi.classList.toggle('show', on);
+        swipeHint.classList.toggle('show', on);
+      });
+    }, { threshold: [0, 0.5, 0.9] });
+    secObs.observe(track);
   }
 
   /* ================= MODAL CÍRCULO ================= */
