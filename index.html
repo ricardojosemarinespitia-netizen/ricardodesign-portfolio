@@ -396,11 +396,27 @@ section{padding:120px 5vw;position:relative}
 .spark{width:110px;height:30px;overflow:visible}
 .spark polyline{fill:none;stroke:var(--steel);stroke-width:2;stroke-linecap:round;stroke-linejoin:round;filter:drop-shadow(0 2px 5px rgba(10,65,116,.4))}
 
-/* ===== AUTOMATIZACIÓN: rejilla de demos con ventana Mac (idéntico a "En Vivo") ===== */
-.auto-grid{display:grid;grid-template-columns:1fr;gap:26px;max-width:1180px;margin:0 auto;perspective:1100px}
-@media(min-width:900px){.auto-grid{grid-template-columns:1fr 1fr}}
+/* ===== AUTOMATIZACIÓN: scroll-focus premium — una tarjeta a la vez ===== */
+.auto-grid{display:grid;grid-template-columns:1fr;gap:36px;max-width:560px;margin:0 auto;perspective:1100px;padding:20px 0 80px}
 .auto-grid .demo-body{min-height:314px;display:flex;flex-direction:column}
 .auto-grid .md2{flex:1;min-height:0}
+
+/* scroll-focus: tarjetas apagadas por defecto */
+.mdemo{
+  transition:opacity .55s var(--ease), transform .55s var(--ease), filter .55s var(--ease);
+  opacity:.18;
+  transform:scale(0.9) translateY(6px);
+  filter:blur(2.5px);
+  will-change:opacity,transform,filter;
+}
+/* tarjeta activa (centrada en pantalla) */
+.mdemo.sf-active{
+  opacity:1;
+  transform:scale(1) translateY(0);
+  filter:none;
+}
+/* mientras no hay scroll todavía (primera carga) */
+.mdemo:first-child{opacity:.6;transform:scale(0.96) translateY(0)}
 
 /* Controles de la libreta (flotantes) */
 .cbtn{
@@ -854,12 +870,6 @@ section{padding:120px 5vw;position:relative}
 
 <!-- ============ AUTOMATIZACIÓN ============ -->
 <section id="automatiza">
-  <div class="shead reveal">
-    <span class="kicker">Sistema completo</span>
-    <h2>Tu página no es solo bonita: <em>es un sistema que trabaja solo</em></h2>
-    <p>Cada web que entregamos está conectada a servidores automáticos funcionando en tiempo real. Mientras duermes, tu página vende, confirma, registra y avisa.</p>
-  </div>
-
   <div class="auto-grid">
 
     <!-- Pagos Wompi -->
@@ -1588,6 +1598,26 @@ section{padding:120px 5vw;position:relative}
     });
   }, { threshold: 0.35 });
   document.querySelectorAll('.mdemo').forEach(function (el) { mio.observe(el); });
+
+  /* ── scroll-focus: enfoca la tarjeta más centrada en pantalla ── */
+  var sfCards = Array.from(document.querySelectorAll('.mdemo'));
+  var sfActive = null;
+  function updateScrollFocus() {
+    var mid = window.innerHeight / 2;
+    var best = null, bestDist = Infinity;
+    sfCards.forEach(function(card) {
+      var r = card.getBoundingClientRect();
+      var dist = Math.abs((r.top + r.bottom) / 2 - mid);
+      if (dist < bestDist) { bestDist = dist; best = card; }
+    });
+    if (best !== sfActive) {
+      if (sfActive) sfActive.classList.remove('sf-active');
+      if (best) best.classList.add('sf-active');
+      sfActive = best;
+    }
+  }
+  window.addEventListener('scroll', updateScrollFocus, { passive: true });
+  updateScrollFocus();
 
 
   /* ================= MODAL CÍRCULO ================= */
