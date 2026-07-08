@@ -146,7 +146,8 @@ main,header,footer{position:relative;z-index:2}
   white-space:nowrap;
 }
 .nav-pill.hidden{transform:translateX(-50%) translateY(-140%)}
-.nav-pill .logo{font-weight:700;font-size:.95rem;letter-spacing:.3em;color:var(--blue)}
+.nav-pill .logo{font-weight:700;font-size:.95rem;letter-spacing:.3em;color:var(--blue);display:flex;align-items:center}
+.logo-img{height:38px;width:auto;display:block}
 .nav-links{display:flex;gap:22px}
 .nav-links a{
   font-size:.62rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;
@@ -762,7 +763,7 @@ section{padding:120px 5vw;position:relative}
 
 <!-- ============ NAV PILL ============ -->
 <header class="nav-pill lg" id="navPill">
-  <a href="#hero" class="logo">RICARDO</a>
+  <a href="#hero" class="logo"><img src="logo.png" alt="Ricardo Design" class="logo-img"/></a>
   <nav class="nav-links" aria-label="Navegación principal">
     <a href="#services">Servicios</a>
     <a href="#demos">En Vivo</a>
