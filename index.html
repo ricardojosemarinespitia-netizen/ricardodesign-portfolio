@@ -393,6 +393,12 @@ section{padding:120px 5vw;position:relative}
   background:#fdfefe;border:1px solid var(--xl-line);border-radius:8px;overflow:hidden;
   box-shadow:0 10px 30px rgba(10,65,116,.10);
 }
+/* Barra de app (logo Excel) */
+.xl-app{display:flex;align-items:center;gap:8px;padding:7px 12px;background:#f7faf8;border-bottom:1px solid var(--xl-line)}
+.xl-app .xl-ico{width:18px;height:18px;flex-shrink:0}
+.xl-app .xl-ico svg{width:18px;height:18px;display:block}
+.xl-app b{font-size:.68rem;font-weight:600;color:#185c37}
+.xl-app .xl-save{margin-left:auto;font-size:.5rem;color:#5c6b7a}
 /* Barra de fórmulas */
 .xl-fbar{display:flex;align-items:center;gap:0;border-bottom:1px solid var(--xl-line);background:#fff;height:26px}
 .xl-namebox{min-width:52px;height:100%;display:flex;align-items:center;justify-content:center;
@@ -478,29 +484,55 @@ section{padding:120px 5vw;position:relative}
 @keyframes rowIn{from{opacity:0;transform:translateY(-14px) scale(.98)}to{opacity:1;transform:none}}
 @keyframes fadeUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
 
-/* ---- WOMPI: checkout real ---- */
-.wp{flex:1;display:flex;flex-direction:column;background:#fbfdff;font-family:'Segoe UI',Verdana,sans-serif}
-.wp-top{display:flex;align-items:center;gap:8px;padding:12px 16px;background:linear-gradient(135deg,var(--navy),var(--blue));color:#fff}
-.wp-top b{font-size:.92rem;letter-spacing:-.02em}
-.wp-top span{font-size:.56rem;color:var(--ice);opacity:.85}
-.wp-top i{margin-left:auto;font-style:normal;font-size:.8rem}
-.wp-amt{display:flex;flex-direction:column;gap:2px;padding:13px 16px 9px;border-bottom:1px solid rgba(0,29,57,.08)}
-.wp-amt small{font-size:.54rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--faint)}
-.wp-amt b{font-size:1.3rem;color:var(--navy);font-variant-numeric:tabular-nums}
-.wp-methods{display:flex;gap:8px;padding:11px 16px}
-.wp-m{flex:1;font-family:inherit;font-size:.6rem;font-weight:700;color:var(--dim);padding:9px 4px;border-radius:10px;border:1.5px solid rgba(10,65,116,.18);background:#fff;transition:all .35s ease}
-.wp-m.sel{border-color:var(--blue);color:var(--blue);background:rgba(123,189,232,.12);box-shadow:0 0 0 3px rgba(123,189,232,.25);transform:scale(1.04)}
-.wp-status{display:flex;align-items:center;gap:9px;padding:3px 16px;min-height:28px}
+/* ---- WOMPI: checkout real con formularios por método ---- */
+.wp{flex:1;display:flex;flex-direction:column;background:#fff;font-family:'Segoe UI',Verdana,sans-serif}
+.wp-top{display:flex;align-items:center;gap:9px;padding:11px 16px;background:linear-gradient(120deg,#0a1f44,#12336b);color:#fff}
+.wp-logo{font-size:1rem;font-weight:800;letter-spacing:-.03em;color:#fff}
+.wp-logo i{color:#00e0b8;font-style:normal}
+.wp-by{display:flex;align-items:center;gap:4px;font-size:.55rem;color:#c7d6ec}
+.wp-lock{margin-left:auto;display:flex}
+.wp-lock svg{width:15px;height:15px;fill:#ffd200}
+/* marca Bancolombia (cuadro amarillo) */
+.bc{display:inline-flex;align-items:center;gap:4px;font-weight:700;font-size:.55rem;color:inherit}
+.bc::before{content:'';width:11px;height:11px;border-radius:2px;background:#ffd200;box-shadow:inset -3px -3px 0 #ffb800;flex-shrink:0}
+/* chips de marca */
+.bm{display:inline-flex;align-items:center;justify-content:center;font-weight:800;border-radius:4px;font-size:.5rem;letter-spacing:.01em;padding:2px 5px;line-height:1;flex-shrink:0}
+.bm-visa{background:#fff;color:#1a1f71;font-style:italic;border:1px solid #e3e6ef}
+.bm-mc{width:16px;height:11px;position:relative;background:transparent}
+.bm-pse{background:#0033a1;color:#fff}
+.bm-nequi{background:#20003b;color:#ff2e88}
+.wp-amt{display:flex;flex-direction:column;gap:1px;padding:11px 16px 8px;border-bottom:1px solid rgba(0,29,57,.08)}
+.wp-amt small{font-size:.52rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--faint)}
+.wp-amt b{font-size:1.25rem;color:var(--navy);font-variant-numeric:tabular-nums}
+.wp-methods{display:flex;gap:7px;padding:9px 16px}
+.wp-m{flex:1;display:flex;align-items:center;justify-content:center;gap:5px;font-family:inherit;font-size:.58rem;font-weight:700;color:var(--dim);padding:8px 4px;border-radius:9px;border:1.5px solid rgba(10,65,116,.16);background:#fff;transition:all .35s ease}
+.wp-m.sel{border-color:var(--blue);color:var(--blue);background:rgba(123,189,232,.1);box-shadow:0 0 0 3px rgba(123,189,232,.22)}
+/* formularios */
+.wp-forms{flex:1;padding:2px 16px 4px;position:relative}
+.wp-f{display:none;flex-direction:column;gap:5px}
+.wp-f.show{display:flex;animation:fadeUp .4s ease}
+.wp-f label{font-size:.5rem;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--faint);margin-top:3px}
+.wp-inp{display:flex;align-items:center;min-height:2.05em;padding:6px 10px;border:1.5px solid rgba(10,65,116,.16);border-radius:8px;background:#fbfdff;font-size:.66rem;color:var(--navy);transition:border-color .3s ease,box-shadow .3s ease}
+.wp-inp.active{border-color:var(--blue);box-shadow:0 0 0 3px rgba(123,189,232,.2)}
+.wp-inp .v{min-height:1em;font-variant-numeric:tabular-nums;letter-spacing:.03em}
+.wp-inp.typing .v::after{content:'';display:inline-block;width:1px;height:.95em;background:var(--blue);margin-left:1px;vertical-align:text-bottom;animation:xlcar .8s step-end infinite}
+.wp-inp .wp-brand{margin-left:auto;opacity:0;transition:opacity .3s ease}
+.wp-inp .wp-brand.on{opacity:1}
+.wp-inp i{margin-left:auto;font-style:normal;color:var(--faint);font-size:.7rem}
+.wp-row{display:flex;gap:9px}
+.wp-row>div{flex:1;display:flex;flex-direction:column;gap:5px}
+.wp-note{display:flex;align-items:center;gap:7px;font-size:.55rem;color:var(--steel);background:rgba(123,189,232,.1);border-radius:8px;padding:7px 10px;margin-top:4px}
+.wp-status{display:flex;align-items:center;gap:9px;padding:2px 16px;min-height:24px}
 .wp-spin{width:13px;height:13px;border-radius:50%;border:2px solid rgba(10,65,116,.15);border-top-color:var(--blue);opacity:0;flex-shrink:0}
 .wp-status.go .wp-spin{opacity:1;animation:wpspin .7s linear infinite}
 @keyframes wpspin{to{transform:rotate(360deg)}}
-.wp-msg{font-size:.62rem;color:var(--dim);min-height:1.2em}
-.wp-done{display:flex;align-items:center;gap:10px;margin:5px 16px;padding:9px 12px;border-radius:12px;background:rgba(33,115,70,.08);border:1px solid rgba(33,115,70,.28);opacity:0;transform:translateY(8px);transition:all .5s var(--ease)}
+.wp-msg{font-size:.6rem;color:var(--dim);min-height:1.1em}
+.wp-done{display:flex;align-items:center;gap:10px;margin:3px 16px;padding:8px 12px;border-radius:11px;background:rgba(33,115,70,.08);border:1px solid rgba(33,115,70,.28);opacity:0;transform:translateY(8px);transition:all .5s var(--ease)}
 .wp-done.show{opacity:1;transform:none}
-.wp-check{width:26px;height:26px;border-radius:50%;background:#217346;color:#fff;display:flex;align-items:center;justify-content:center;font-size:.8rem;font-weight:700;flex-shrink:0}
-.wp-done b{font-size:.68rem;color:#1a5c38;display:block}
-.wp-done small{display:block;font-size:.55rem;color:var(--faint);font-family:monospace;min-height:1.1em}
-.wp-foot{margin-top:auto;padding:9px 16px;font-size:.53rem;color:var(--faint);border-top:1px solid rgba(0,29,57,.07)}
+.wp-check{width:24px;height:24px;border-radius:50%;background:#217346;color:#fff;display:flex;align-items:center;justify-content:center;font-size:.75rem;font-weight:700;flex-shrink:0}
+.wp-done b{font-size:.66rem;color:#1a5c38;display:block}
+.wp-done small{display:block;font-size:.53rem;color:var(--faint);font-family:monospace;min-height:1.05em}
+.wp-foot{margin-top:auto;display:flex;align-items:center;gap:6px;padding:8px 16px;font-size:.52rem;color:var(--faint);border-top:1px solid rgba(0,29,57,.07)}
 
 /* ---- CARRITO: drawer de tienda ---- */
 .ct{flex:1;display:flex;flex-direction:column;background:#fbfdff}
@@ -968,6 +1000,11 @@ section{padding:120px 5vw;position:relative}
       <div class="win-bar"><span></span><span></span><span></span><em>Ventas.xlsx — se llena solo</em><img class="wb-logo" src="logo-mark.png" alt=""/></div>
       <div class="demo-body" data-demo="sheet" aria-hidden="true">
         <div class="xl">
+          <div class="xl-app">
+            <span class="xl-ico"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path fill="#21A366" d="M13 3.6h7.9c.6 0 1.1.5 1.1 1.1V8H13z"/><path fill="#33C481" d="M13 8h9v5h-9z"/><path fill="#107C41" d="M13 13h9v5h-9z"/><path fill="#185C37" d="M13 18h9v1.3c0 .6-.5 1.1-1.1 1.1H13z"/><rect x="1.6" y="3.6" width="12.4" height="16.8" rx="1.6" fill="#107C41"/><path fill="#fff" d="M5.3 8.3h2.1l1.35 2.5 1.35-2.5h2.05l-2.28 3.7 2.34 3.7H10.1L8.75 13.3l-1.36 2.6H5.3l2.34-3.7z"/></svg></span>
+            <b>Ventas.xlsx</b>
+            <span class="xl-save">☁ Guardado</span>
+          </div>
           <div class="xl-fbar">
             <span class="xl-namebox" id="xlCell">A1</span>
             <span class="xl-fx">fx</span>
@@ -986,12 +1023,47 @@ section{padding:120px 5vw;position:relative}
       <div class="win-bar"><span></span><span></span><span></span><em>Wompi · pago con respaldo Bancolombia</em><img class="wb-logo" src="logo-mark-w.png" alt=""/></div>
       <div class="demo-body" data-demo="pay" aria-hidden="true">
         <div class="wp">
-          <div class="wp-top"><b>wompi</b><span>× Bancolombia · pago seguro</span><i>🔒</i></div>
+          <div class="wp-top">
+            <span class="wp-logo">wompi<i>.</i></span>
+            <span class="wp-by">× <span class="bc">Bancolombia</span></span>
+            <span class="wp-lock"><svg viewBox="0 0 24 24"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zM9 6c0-1.66 1.34-3 3-3s3 1.34 3 3v2H9V6zm3 11c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2z"/></svg></span>
+          </div>
           <div class="wp-amt"><small>Total a pagar</small><b class="wp-total">$0</b></div>
-          <div class="wp-methods"><span class="wp-m">💳 Tarjeta</span><span class="wp-m">🏦 PSE</span><span class="wp-m">📱 Nequi</span></div>
+          <div class="wp-methods">
+            <span class="wp-m" data-m="card"><span class="bm bm-visa">VISA</span>Tarjeta</span>
+            <span class="wp-m" data-m="pse"><span class="bm bm-pse">pse</span>PSE</span>
+            <span class="wp-m" data-m="nequi"><span class="bm bm-nequi">nequi</span>Nequi</span>
+          </div>
+          <div class="wp-forms">
+            <!-- Tarjeta -->
+            <div class="wp-f wp-card">
+              <label>Número de tarjeta</label>
+              <div class="wp-inp wp-cardnum"><span class="v"></span><span class="wp-brand bm bm-visa">VISA</span></div>
+              <div class="wp-row">
+                <div><label>Vence</label><div class="wp-inp wp-exp"><span class="v"></span></div></div>
+                <div><label>CVV</label><div class="wp-inp wp-cvv"><span class="v"></span></div></div>
+              </div>
+              <label>Nombre en la tarjeta</label>
+              <div class="wp-inp wp-name"><span class="v"></span></div>
+            </div>
+            <!-- PSE -->
+            <div class="wp-f wp-pse">
+              <label>Banco</label>
+              <div class="wp-inp wp-bank"><span class="v"></span><i>▾</i></div>
+              <label>Tipo de persona</label>
+              <div class="wp-inp wp-person"><span class="v"></span></div>
+              <div class="wp-note">🏦 Serás redirigido al portal seguro de tu banco (PSE).</div>
+            </div>
+            <!-- Nequi -->
+            <div class="wp-f wp-nequi">
+              <label>Número de celular Nequi</label>
+              <div class="wp-inp wp-phone"><span class="v"></span></div>
+              <div class="wp-note">📲 Aprueba la notificación push en tu app <b style="color:#ff2e88;margin-left:3px">Nequi</b>.</div>
+            </div>
+          </div>
           <div class="wp-status"><i class="wp-spin"></i><span class="wp-msg"></span></div>
           <div class="wp-done"><span class="wp-check">✓</span><span><b>Transacción aprobada</b><small class="wp-ref"></small></span></div>
-          <div class="wp-foot">🛡 Protegido por Wompi · Grupo Bancolombia</div>
+          <div class="wp-foot"><span class="bc">Bancolombia</span> Protegido por Wompi · Grupo Bancolombia</div>
         </div>
       </div>
     </article>
@@ -1570,25 +1642,74 @@ section{padding:120px 5vw;position:relative}
         st.querySelector('.wp-status').classList.remove('go');
         st.querySelector('.wp-done').classList.remove('show');
         [].forEach.call(st.querySelectorAll('.wp-m'), function (m) { m.classList.remove('sel'); });
+        [].forEach.call(st.querySelectorAll('.wp-f'), function (f) { f.classList.remove('show'); });
+        [].forEach.call(st.querySelectorAll('.wp-inp'), function (i) {
+          i.classList.remove('active', 'typing');
+          var v = i.querySelector('.v'); if (v) v.textContent = '';
+          var b = i.querySelector('.wp-brand'); if (b) b.classList.remove('on');
+        });
       },
       run: function (st, C, ix) {
         var me = this; me.reset(st);
-        var D = [[0, 305000], [1, 185000], [2, 420000]][ix % 3];
+        // 0=Tarjeta, 1=PSE, 2=Nequi
+        var METHOD = ix % 3;
+        var AMTS = [305000, 185000, 420000];
+        var amt = AMTS[METHOD];
         var total = st.querySelector('.wp-total'), msg = st.querySelector('.wp-msg'),
             status = st.querySelector('.wp-status'), done = st.querySelector('.wp-done'),
             ref = st.querySelector('.wp-ref'), ms = st.querySelectorAll('.wp-m');
-        chain(C, [W(C, 350),
-          F(function () { cntM(C, total, D[1], 750); }), W(C, 950),
-          F(function () { ms[D[0]].classList.add('sel'); }), W(C, 550),
-          F(function () { status.classList.add('go'); }),
-          TY(C, msg, 'Conectando con Bancolombia…', 16), W(C, 620),
-          F(function () { msg.textContent = ''; }),
-          TY(C, msg, 'Verificando firma criptográfica…', 16), W(C, 620),
-          F(function () { msg.textContent = ''; }),
-          TY(C, msg, '3-D Secure · identidad confirmada ✓', 16), W(C, 480),
-          F(function () { status.classList.remove('go'); done.classList.add('show'); }),
-          TY(C, ref, 'REF WMP-' + (D[1] + ix * 7).toString(16).toUpperCase() + '-CO', 22), W(C, 3300),
-          F(function () { me.run(st, C, ix + 1); })]);
+
+        // rellena un campo tipo input: activa borde, escribe la .v, opcional muestra marca
+        function fill(sel, txt, sp, brand) {
+          var inp = st.querySelector(sel), v = inp.querySelector('.v');
+          return [
+            F(function () {
+              [].forEach.call(st.querySelectorAll('.wp-inp'), function (i) { i.classList.remove('active', 'typing'); });
+              inp.classList.add('active', 'typing');
+            }),
+            function (n) { C.type(v, txt, sp || 40, n); },
+            F(function () {
+              inp.classList.remove('typing');
+              if (brand) { var b = inp.querySelector('.wp-brand'); if (b) b.classList.add('on'); }
+            }),
+            W(C, 220)
+          ];
+        }
+
+        var seq = [W(C, 300),
+          F(function () { cntM(C, total, amt, 700); }), W(C, 850),
+          F(function () { ms[METHOD].classList.add('sel'); st.querySelector('.wp-f' + ['.wp-card', '.wp-pse', '.wp-nequi'][METHOD]).classList.add('show'); }),
+          W(C, 450)];
+
+        if (METHOD === 0) {
+          seq = seq.concat(fill('.wp-cardnum', '4242 4242 4242 4242', 24, true));
+          seq = seq.concat(fill('.wp-exp', '12/28', 55));
+          seq = seq.concat(fill('.wp-cvv', '•••', 120));
+          seq = seq.concat(fill('.wp-name', 'LAURA GOMEZ', 45));
+        } else if (METHOD === 1) {
+          seq = seq.concat(fill('.wp-bank', 'Bancolombia', 45));
+          seq = seq.concat(fill('.wp-person', 'Persona natural', 40));
+        } else {
+          seq = seq.concat(fill('.wp-phone', '300 123 4567', 45));
+        }
+
+        var procMsg = [
+          ['Conectando con Bancolombia…', 'Verificando firma criptográfica…', '3-D Secure · identidad confirmada ✓'],
+          ['Redirigiendo al portal PSE…', 'Débito autorizado por el banco…', 'Confirmación recibida ✓'],
+          ['Enviando push a tu Nequi…', 'Cliente aprobó en la app…', 'Pago confirmado por Nequi ✓']
+        ][METHOD];
+
+        seq.push(F(function () { [].forEach.call(st.querySelectorAll('.wp-inp'), function (i) { i.classList.remove('active'); }); status.classList.add('go'); }));
+        procMsg.forEach(function (m) {
+          seq.push(F(function () { msg.textContent = ''; }));
+          seq.push(TY(C, msg, m, 15));
+          seq.push(W(C, 560));
+        });
+        seq.push(F(function () { status.classList.remove('go'); done.classList.add('show'); }));
+        seq.push(TY(C, ref, 'REF WMP-' + (amt + ix * 7).toString(16).toUpperCase() + '-CO', 22));
+        seq.push(W(C, 3200));
+        seq.push(F(function () { me.run(st, C, ix + 1); }));
+        chain(C, seq);
       }
     },
     /* CARRITO: items entran, qty sube, subtotal recalcula */
