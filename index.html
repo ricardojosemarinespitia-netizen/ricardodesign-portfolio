@@ -737,8 +737,9 @@ section{padding:120px 5vw;position:relative}
   object-fit:cover;object-position:50% 42%;
   will-change:transform;transform:scale(1.02);
 }
-/* imágenes que rotan: overscan para que las esquinas nunca muestren el fondo al girar */
-.col-panel img[data-rotate]{inset:auto;top:-18%;left:-18%;width:136%;height:136%}
+/* imágenes que rotan: overscan para que las esquinas nunca muestren el fondo al girar
+   (max-width:none anula el img{max-width:100%} global que capaba el ancho) */
+.col-panel img[data-rotate]{inset:auto;top:-18%;left:-18%;width:136%;height:136%;max-width:none}
 /* alterna imagen desktop/móvil sin depender de <picture> (evita bugs de letterbox en iOS) */
 .col-img-dt{display:none}
 .col-img-mb{display:block}
