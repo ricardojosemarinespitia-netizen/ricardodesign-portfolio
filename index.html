@@ -678,17 +678,31 @@ section{padding:120px 5vw;position:relative}
 .pf-cta.press{background:var(--blue);color:#fff;transform:scale(.97)}
 .pf-cta.ok{border-color:#217346;background:rgba(33,115,70,.08);color:#15803d}
 
-/* ---- SEGURIDAD: terminal real ---- */
-.tm{flex:1;display:flex;flex-direction:column;background:#031321;font-family:'Cascadia Code',Consolas,Menlo,monospace}
-.tm-bar{padding:8px 14px;font-size:.55rem;color:rgba(189,216,233,.5);border-bottom:1px solid rgba(123,189,232,.12);letter-spacing:.05em}
-.tm-body{flex:1;padding:11px 14px;display:flex;flex-direction:column;gap:5px;overflow:hidden}
-.tm-l{font-size:.59rem;line-height:1.5;min-height:1.3em;color:var(--ice);white-space:nowrap;overflow:hidden}
-.tm-l.cmd{color:#8fc7ee}
-.tm-l.cmd::before{content:'$ ';color:#4a7ba6}
-.tm-l.ok{color:#4ade80;animation:fadeUp .35s ease}
-.tm-l.sum{margin-top:auto;color:var(--ice);font-weight:700;opacity:0;transition:opacity .5s ease}
-.tm-l.sum.on{opacity:1}
-.tm-cur{display:inline-block;width:.55em;height:1.05em;background:#8fc7ee;vertical-align:text-bottom;animation:xlcar .9s step-end infinite}
+/* ---- SEGURIDAD: centro de seguridad ---- */
+.sc{flex:1;display:flex;flex-direction:column;background:#fbfdff;padding:12px 16px;gap:9px}
+.sc-head{display:flex;align-items:center;gap:10px}
+.sc-shield{width:38px;height:38px;border-radius:11px;background:linear-gradient(135deg,var(--blue),var(--steel));display:flex;align-items:center;justify-content:center;color:#fff;flex-shrink:0;box-shadow:0 4px 10px rgba(10,65,116,.25)}
+.sc-hinfo{flex:1;min-width:0}
+.sc-dom{font-size:.66rem;font-weight:800;color:var(--navy)}
+.sc-last{font-size:.5rem;color:var(--faint)}
+.sc-pill{font-size:.5rem;font-weight:700;padding:3px 10px;border-radius:999px;background:rgba(217,119,6,.12);color:#b45309;white-space:nowrap;transition:all .4s ease}
+.sc-pill.safe{background:rgba(33,115,70,.12);color:#15803d}
+.sc-bar{height:4px;border-radius:999px;background:rgba(10,65,116,.08);overflow:hidden}
+.sc-bar i{display:block;height:100%;width:0;border-radius:999px;background:linear-gradient(90deg,var(--blue),var(--steel));transition:width .55s var(--ease)}
+.sc-rows{flex:1;display:flex;flex-direction:column;gap:6px;min-height:0}
+.sc-r{display:flex;align-items:center;gap:9px;background:#fff;border:1px solid rgba(10,65,116,.08);border-radius:10px;padding:7px 10px;opacity:.4;transition:opacity .35s ease,box-shadow .35s ease}
+.sc-r.on{opacity:1;box-shadow:0 2px 8px rgba(0,29,57,.05)}
+.sc-ic{width:26px;height:26px;border-radius:8px;background:rgba(73,118,159,.1);color:var(--steel);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.sc-rin{flex:1;min-width:0}
+.sc-nm{font-size:.57rem;font-weight:700;color:var(--navy)}
+.sc-dt{font-size:.5rem;color:var(--faint);min-height:1.2em;white-space:nowrap;overflow:hidden}
+.sc-st{width:16px;height:16px;flex-shrink:0;position:relative}
+.sc-spin{position:absolute;inset:0;border-radius:50%;border:2px solid rgba(73,118,159,.2);border-top-color:var(--steel);opacity:0}
+.sc-r.busy .sc-spin{opacity:1;animation:wpspin .7s linear infinite}
+.sc-chk{position:absolute;inset:0;border-radius:50%;background:#217346;color:#fff;display:flex;align-items:center;justify-content:center;font-size:.5rem;transform:scale(0);transition:transform .3s cubic-bezier(.34,1.56,.64,1)}
+.sc-r.done .sc-chk{transform:scale(1)}
+.sc-sum{display:flex;align-items:center;justify-content:center;gap:6px;padding:8px;border-radius:10px;background:rgba(33,115,70,.08);border:1px solid rgba(33,115,70,.18);color:#15803d;font-size:.56rem;font-weight:700;opacity:0;transition:opacity .5s ease}
+.sc-sum.on{opacity:1}
 
 /* ---- VELOCIDAD: gauge tipo Lighthouse ---- */
 .sp{flex:1;display:flex;flex-direction:column;background:#fbfdff;padding:12px 16px}
@@ -1269,13 +1283,24 @@ section{padding:120px 5vw;position:relative}
       </div>
     </article>
 
-    <!-- SEGURIDAD: terminal real -->
-    <article class="demo navy-panel tilt reveal-scale mdemo" data-tilt>
-      <div class="win-bar"><span></span><span></span><span></span><em>Security — escaneo en vivo</em><img class="wb-logo" src="logo-mark-w.png" alt=""/></div>
+    <!-- SEGURIDAD: centro de seguridad -->
+    <article class="demo lg tilt reveal-scale mdemo" data-tilt>
+      <div class="win-bar"><span></span><span></span><span></span><em>Security — escaneo en vivo</em><img class="wb-logo" src="logo-mark.png" alt=""/></div>
       <div class="demo-body" data-demo="sec" aria-hidden="true">
-        <div class="tm">
-          <div class="tm-bar">root@ricardodesign : ~/security — bash</div>
-          <div class="tm-body"></div>
+        <div class="sc">
+          <div class="sc-head">
+            <div class="sc-shield"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+            <div class="sc-hinfo"><div class="sc-dom">ricardodesign.co</div><div class="sc-last">Escaneo automático · cada 2 h</div></div>
+            <div class="sc-pill">Escaneando…</div>
+          </div>
+          <div class="sc-bar"><i></i></div>
+          <div class="sc-rows">
+            <div class="sc-r"><div class="sc-ic"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></div><div class="sc-rin"><div class="sc-nm">Certificado SSL</div><div class="sc-dt"></div></div><div class="sc-st"><i class="sc-spin"></i><i class="sc-chk">✓</i></div></div>
+            <div class="sc-r"><div class="sc-ic"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg></div><div class="sc-rin"><div class="sc-nm">Firewall</div><div class="sc-dt"></div></div><div class="sc-st"><i class="sc-spin"></i><i class="sc-chk">✓</i></div></div>
+            <div class="sc-r"><div class="sc-ic"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg></div><div class="sc-rin"><div class="sc-nm">Análisis de malware</div><div class="sc-dt"></div></div><div class="sc-st"><i class="sc-spin"></i><i class="sc-chk">✓</i></div></div>
+            <div class="sc-r"><div class="sc-ic"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg></div><div class="sc-rin"><div class="sc-nm">Copia de seguridad</div><div class="sc-dt"></div></div><div class="sc-st"><i class="sc-spin"></i><i class="sc-chk">✓</i></div></div>
+          </div>
+          <div class="sc-sum">🛡 Protección activa 24/7 — nivel bancario</div>
         </div>
       </div>
     </article>
@@ -2057,42 +2082,45 @@ section{padding:120px 5vw;position:relative}
         chain(C, steps);
       }
     },
-    /* SEGURIDAD: terminal bash con escaneos reales */
+    /* SEGURIDAD: centro de seguridad con escaneo en vivo */
     sec: {
-      reset: function (st) { st.querySelector('.tm-body').innerHTML = ''; },
+      reset: function (st) {
+        var p = st.querySelector('.sc-pill');
+        p.textContent = 'Escaneando…'; p.classList.remove('safe');
+        st.querySelector('.sc-bar i').style.width = '0';
+        st.querySelectorAll('.sc-r').forEach(function (r) {
+          r.classList.remove('on', 'busy', 'done');
+          r.querySelector('.sc-dt').textContent = '';
+        });
+        st.querySelector('.sc-sum').classList.remove('on');
+      },
       run: function (st, C, ix) {
         var me = this; me.reset(st);
-        var body = st.querySelector('.tm-body');
-        var cur = document.createElement('span'); cur.className = 'tm-cur';
-        var ROWS = [['ssl --verify ricardodesign.co', '[ OK ] TLS 1.3 · certificado válido'],
-                    ['firewall --status', '[ OK ] WAF activo · 0 amenazas hoy'],
-                    ['scan --malware ./site', '[ OK ] 1.240 archivos · 0 infectados'],
-                    ['backup --last', '[ OK ] Copia hace 2 h · AES-256']];
+        var rows = st.querySelectorAll('.sc-r'), bar = st.querySelector('.sc-bar i');
+        var DT = ['TLS 1.3 · certificado válido',
+                  'WAF activo · 0 amenazas hoy',
+                  '1.240 archivos · 0 infectados',
+                  'Copia hace 2 h · AES-256'];
         var steps = [W(C, 400)];
-        ROWS.forEach(function (r) {
-          var tEl;
+        DT.forEach(function (txt, i) {
           steps.push(F(function () {
-            var d = document.createElement('div'); d.className = 'tm-l cmd';
-            d.innerHTML = '<span class="t"></span>';
-            d.appendChild(cur);
-            body.appendChild(d);
-            tEl = d.querySelector('.t');
+            rows[i].classList.add('on', 'busy');
+            bar.style.width = ((i + 0.5) / DT.length * 100) + '%';
           }));
-          steps.push(function (n) { C.type(tEl, r[0], 14, n); });
-          steps.push(W(C, 240));
+          steps.push(W(C, 650));
+          steps.push(function (n) { C.type(rows[i].querySelector('.sc-dt'), txt, 12, n); });
           steps.push(F(function () {
-            var okl = document.createElement('div'); okl.className = 'tm-l ok'; okl.textContent = r[1];
-            body.appendChild(okl);
+            rows[i].classList.remove('busy'); rows[i].classList.add('done');
+            bar.style.width = ((i + 1) / DT.length * 100) + '%';
           }));
-          steps.push(W(C, 300));
+          steps.push(W(C, 220));
         });
         steps.push(F(function () {
-          var s = document.createElement('div'); s.className = 'tm-l sum';
-          s.textContent = '🛡 Protección activa 24/7 — nivel bancario';
-          body.appendChild(s);
-          requestAnimationFrame(function () { s.classList.add('on'); });
+          var p = st.querySelector('.sc-pill');
+          p.classList.add('safe'); p.textContent = '✓ Protegido';
+          st.querySelector('.sc-sum').classList.add('on');
         }));
-        steps.push(W(C, 3200));
+        steps.push(W(C, 3400));
         steps.push(F(function () { me.run(st, C, ix + 1); }));
         chain(C, steps);
       }
