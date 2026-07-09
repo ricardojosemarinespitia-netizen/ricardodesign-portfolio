@@ -448,9 +448,9 @@ section{padding:120px 5vw;position:relative}
 }
 #flagGrid{position:absolute;inset:0;width:100%;height:100%;display:block;pointer-events:none;opacity:.9}
 .svc-stage{
-  position:relative;z-index:2;height:100%;max-width:1180px;margin:0 auto;
+  position:relative;z-index:2;height:100%;max-width:1320px;margin:0 auto;
   display:flex;flex-direction:column;justify-content:center;gap:clamp(14px,2.6vh,30px);
-  padding:20px clamp(14px,4vw,40px);
+  padding:20px clamp(12px,3vw,36px);
 }
 /* título dentro de la bandera (aparece después de que el fondo cubre) */
 .svc-head{text-align:center;opacity:0;transform:translateY(38vh);will-change:transform,opacity;margin:0}
@@ -472,7 +472,7 @@ section{padding:120px 5vw;position:relative}
   border:1px solid rgba(255,255,255,.22);
   box-shadow:inset 0 1px 0 rgba(255,255,255,.26),0 18px 44px rgba(20,7,11,.38);
 }
-.svc2-sim{margin:14px 14px 0;border-radius:14px;overflow:hidden;background:#fff;box-shadow:0 12px 30px rgba(20,7,11,.4)}
+.svc2-sim{margin:10px 10px 0;border-radius:14px;overflow:hidden;background:#fff;box-shadow:0 12px 30px rgba(20,7,11,.4)}
 .svc2-txt{padding:18px 20px 22px}
 .svc2-txt h3{color:#fff;font-size:1.02rem;font-weight:700;margin-bottom:9px}
 .svc2-txt p{color:rgba(255,235,228,.8);font-size:.78rem;line-height:1.7}
@@ -493,7 +493,7 @@ section{padding:120px 5vw;position:relative}
 @keyframes pop52{0%,50%{opacity:0;transform:scale(.4)}54%{opacity:1;transform:scale(1.2)}57%,90%{opacity:1;transform:scale(1)}96%,100%{opacity:0;transform:scale(.4)}}
 @keyframes pop58{0%,56%{opacity:0;transform:scale(.4)}60%{opacity:1;transform:scale(1.2)}63%,90%{opacity:1;transform:scale(1)}96%,100%{opacity:0;transform:scale(.4)}}
 /* --- SIM 1: una web REAL apareciendo (marca, titular, productos con precio) --- */
-.sw{height:184px;background:linear-gradient(180deg,#fff 55%,#fdf6f2);padding:10px 12px;display:flex;flex-direction:column;gap:7px;font-family:'Readex Pro',system-ui,sans-serif}
+.sw{height:210px;background:linear-gradient(180deg,#fff 55%,#fdf6f2);padding:11px 13px;display:flex;flex-direction:column;gap:8px;font-family:'Readex Pro',system-ui,sans-serif}
 .sw u,.sw s{text-decoration:none;display:block}
 .sw-nav{display:flex;align-items:center;gap:9px;font-size:.48rem;color:var(--dim);opacity:0;animation:in5 8s infinite}
 .sw-nav b{font-size:.64rem;letter-spacing:.2em;color:var(--navy);font-weight:800;margin-right:auto}
@@ -515,19 +515,19 @@ section{padding:120px 5vw;position:relative}
   box-shadow:0 6px 14px rgba(20,7,11,.45),inset 0 2px 4px rgba(255,255,255,.55),inset 0 -3px 6px rgba(60,10,20,.5);
 }
 .sw-hero2 small{font-size:.4rem;letter-spacing:.3em;color:var(--ice);font-weight:700}
-.sw-hero2 b{font-family:'Cormorant Garamond',Georgia,serif;font-weight:500;font-size:1.06rem;line-height:1.02;letter-spacing:.01em}
+.sw-hero2 b{font-family:'Cormorant Garamond',Georgia,serif;font-weight:500;font-size:1.18rem;line-height:1.02;letter-spacing:.01em}
 .sw-hero2 .btn{width:max-content;font-size:.42rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;background:#fff;color:#6E2733;border-radius:999px;padding:3px 11px;margin-top:5px;opacity:0;animation:pop58 8s infinite;box-shadow:0 2px 8px rgba(20,7,11,.35)}
-.sw-prods{display:flex;gap:8px;height:60px}
+.sw-prods{display:flex;gap:8px;height:70px}
 .sw-prods i{flex:1;display:flex;flex-direction:column;font-style:normal;background:#fff;border:1px solid rgba(110,39,51,.12);border-radius:9px;padding:4px 6px 5px;opacity:0;box-shadow:0 3px 8px rgba(20,7,11,.07)}
 .sw-prods i:nth-child(1){animation:in32 8s infinite}
 .sw-prods i:nth-child(2){animation:in46 8s infinite}
 .sw-prods u{flex:1;border-radius:6px;background:radial-gradient(65% 95% at 50% 28%,rgba(255,165,134,.95),rgba(181,26,43,.6) 68%,rgba(74,21,32,.9));box-shadow:inset 0 2px 5px rgba(255,255,255,.4),inset 0 -3px 7px rgba(60,10,20,.35)}
 .sw-prods i:nth-child(2) u{background:radial-gradient(65% 95% at 50% 28%,rgba(247,220,206,.95),rgba(196,121,106,.7) 62%,rgba(110,39,51,.88))}
 .sw-prods .nm{display:flex;align-items:baseline;justify-content:space-between;gap:4px;margin-top:3px}
-.sw-prods b{font-size:.46rem;color:var(--navy);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.sw-prods s{font-size:.46rem;color:var(--blue);font-weight:700;white-space:nowrap}
+.sw-prods b{font-size:.5rem;color:var(--navy);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.sw-prods s{font-size:.5rem;color:var(--blue);font-weight:700;white-space:nowrap}
 /* --- SIM 2: mantenimiento en vivo --- */
-.mt2{height:184px;background:linear-gradient(180deg,#fff 55%,#fdf6f2);padding:10px 12px;display:flex;flex-direction:column;gap:7px}
+.mt2{height:210px;background:linear-gradient(180deg,#fff 55%,#fdf6f2);padding:11px 13px;display:flex;flex-direction:column;gap:8px}
 .mt2-head{display:flex;align-items:center;gap:7px;opacity:0;animation:in5 8s infinite}
 .mt2-head b{font-size:.64rem;color:var(--navy)}
 .mt2-pill{margin-left:auto;font-size:.46rem;font-weight:700;letter-spacing:.08em;padding:2px 9px;border-radius:999px;background:rgba(255,165,134,.25);color:var(--blue);border:1px solid rgba(181,26,43,.2);opacity:0;animation:pop58 8s infinite}
@@ -537,15 +537,15 @@ section{padding:120px 5vw;position:relative}
 .mt2-r.r3{animation:in32 8s infinite}
 /* icono en chip con gradiente (cada fila con su tono de la paleta) */
 .mt2-r .em{
-  width:24px;height:24px;border-radius:8px;flex-shrink:0;
-  display:flex;align-items:center;justify-content:center;font-size:.62rem;
+  width:27px;height:27px;border-radius:9px;flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;font-size:.7rem;
   background:linear-gradient(135deg,rgba(255,165,134,.45),rgba(181,26,43,.18));
   box-shadow:inset 0 1px 0 rgba(255,255,255,.7);
 }
 .mt2-r.r2 .em{background:linear-gradient(135deg,rgba(196,121,106,.4),rgba(110,39,51,.2))}
 .mt2-r.r3 .em{background:linear-gradient(135deg,rgba(247,220,206,.8),rgba(255,165,134,.35))}
-.mt2-r b{display:block;font-size:.56rem;color:var(--navy)}
-.mt2-r small{display:block;font-size:.47rem;color:var(--faint)}
+.mt2-r b{display:block;font-size:.6rem;color:var(--navy)}
+.mt2-r small{display:block;font-size:.5rem;color:var(--faint)}
 .mt2-r .mt2-in{flex:1;min-width:0}
 .mt2-st{width:15px;height:15px;position:relative;flex-shrink:0}
 .mt2-sp{position:absolute;inset:0;border-radius:50%;border:2px solid rgba(110,39,51,.18);border-top-color:var(--steel);opacity:0;animation:wpspin .7s linear infinite}
@@ -565,7 +565,7 @@ section{padding:120px 5vw;position:relative}
 .mt2-up .bar i{display:block;height:100%;border-radius:999px;background:linear-gradient(90deg,var(--blue),var(--sky));transform-origin:left;transform:scaleX(0);animation:upF 8s infinite}
 @keyframes upF{0%,48%{transform:scaleX(0)}62%,90%{transform:scaleX(1)}96%,100%{transform:scaleX(0)}}
 /* --- SIM 3: Meta Ads en vivo --- */
-.ad{height:184px;background:linear-gradient(180deg,#fff 55%,#fdf6f2);padding:10px 12px;display:flex;flex-direction:column;gap:7px}
+.ad{height:210px;background:linear-gradient(180deg,#fff 55%,#fdf6f2);padding:11px 13px;display:flex;flex-direction:column;gap:8px}
 .ad-head{display:flex;align-items:center;gap:7px;opacity:0;animation:in5 8s infinite}
 .ad-head svg{width:17px;height:auto;flex-shrink:0}
 .ad-head b{font-size:.58rem;color:var(--navy);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
@@ -587,14 +587,14 @@ section{padding:120px 5vw;position:relative}
 .ad-n.n2 .ic{background:linear-gradient(135deg,rgba(196,121,106,.45),rgba(110,39,51,.2))}
 .ad-n.n3 .ic{background:linear-gradient(135deg,rgba(247,220,206,.85),rgba(255,165,134,.4))}
 .ad-n .tx{flex:1;min-width:0}
-.ad-n b{display:block;font-size:.5rem;color:var(--navy);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.ad-n small{display:block;font-size:.42rem;color:var(--faint);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ad-n b{display:block;font-size:.55rem;color:var(--navy);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ad-n small{display:block;font-size:.46rem;color:var(--faint);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 /* monto en píldora: se lee como venta confirmada */
 .ad-n .amt{margin-left:auto;font-size:.5rem;font-weight:700;color:var(--blue);white-space:nowrap;flex-shrink:0;background:rgba(255,165,134,.22);border:1px solid rgba(181,26,43,.18);border-radius:999px;padding:2px 7px}
 .ad-kpis{display:flex;gap:7px;opacity:0;animation:in18 8s infinite}
 .ad-kpis>div{flex:1;background:#fff;border:1px solid rgba(110,39,51,.1);border-radius:10px;padding:5px 8px;min-width:0;box-shadow:0 3px 8px rgba(20,7,11,.06)}
 .ad-kpis small{display:block;font-size:.44rem;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--faint)}
-.ad-kpis b{display:block;font-size:.68rem;color:var(--blue);font-variant-numeric:tabular-nums;white-space:nowrap}
+.ad-kpis b{display:block;font-size:.74rem;color:var(--blue);font-variant-numeric:tabular-nums;white-space:nowrap}
 /* anchos medios (3 columnas angostas): sin subtítulos para que las filas
    no se envuelvan y desborden la ventana de la sim */
 @media(min-width:700px) and (max-width:1099px){
@@ -610,31 +610,39 @@ section{padding:120px 5vw;position:relative}
   .sw-prods b,.sw-prods s{font-size:.4rem}
   .mw-bar em{font-size:.44rem}
 }
-/* teléfonos (columna única): sims GRANDES con todo el diseño; el título y
-   los párrafos ceden espacio para que quepan en la pantalla completa */
+/* teléfonos (columna única): ventanas GRANDES a lo ancho (casi al borde)
+   y a lo alto; el título y los párrafos ceden espacio */
 @media(max-width:699px){
-  .svc-stage{gap:8px;padding:12px}
-  .svc-head .kicker{margin-bottom:6px}
-  .svc-head h2{font-size:1.18rem}
-  .svc2{border-radius:16px}
-  .svc2-sim{margin:8px 8px 0;border-radius:12px}
+  .svc-stage{gap:7px;padding:8px}
+  .svc-head .kicker{margin-bottom:5px}
+  .svc-head h2{font-size:1.14rem}
+  .svc2{border-radius:15px}
+  .svc2-sim{margin:6px 6px 0;border-radius:12px}
   .mw-bar{padding:4px 9px}
-  .svc2-txt{padding:6px 12px 9px}
+  .svc2-txt{padding:5px 12px 8px}
   .svc2-txt h3{font-size:.78rem;margin-bottom:0}
   .svc2-txt p{display:none}
-  .sw,.mt2,.ad{height:150px;padding:8px 10px;gap:5px}
-  .sw-hero2{padding:8px 48px 8px 11px}
-  .sw-hero2 b{font-size:.9rem}
-  .sw-hero2::after{width:30px;height:30px;right:9px}
-  .sw-prods{height:48px}
-  .mt2-r{padding:4px 8px}
-  .mt2-r .em,.ad-n .ic{width:20px;height:20px;border-radius:7px;font-size:.54rem}
-  .mt2-up span{font-size:.44rem}
-  .ad-n{padding:4px 8px}
-  .ad-kpis>div{padding:3px 7px}
-  .ad-kpis b{font-size:.58rem}
+  .sw,.mt2,.ad{height:172px;padding:9px 11px;gap:6px}
+  .sw-hero2{padding:9px 50px 9px 12px}
+  .sw-hero2 b{font-size:1.02rem}
+  .sw-hero2::after{width:34px;height:34px;right:10px}
+  .sw-prods{height:56px}
+  .mt2-r{padding:5px 9px}
+  .mt2-r .em,.ad-n .ic{width:23px;height:23px;border-radius:8px;font-size:.6rem}
+  .mt2-up span{font-size:.46rem}
+  .ad-n{padding:5px 9px}
+  .ad-kpis>div{padding:4px 8px}
+  .ad-kpis b{font-size:.62rem}
   .ad-kpis>div:nth-child(2){flex:.6}
   .ad-kpis>div:nth-child(3){flex:1.5}
+}
+/* teléfonos medianos (720-799px de alto): un punto menos para caber */
+@media(max-width:699px) and (max-height:799px){
+  .sw,.mt2,.ad{height:145px;padding:7px 9px;gap:5px}
+  .sw-hero2 b{font-size:.88rem}
+  .sw-prods{height:46px}
+  .mt2-r{padding:4px 8px}
+  .mt2-r .em,.ad-n .ic{width:20px;height:20px;font-size:.54rem}
 }
 /* pantallas bajitas (teléfonos cortos / apaisado): versión mínima */
 @media(max-width:699px) and (max-height:719px){
