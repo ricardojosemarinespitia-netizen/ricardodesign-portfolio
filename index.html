@@ -77,7 +77,11 @@ body{
   background:linear-gradient(180deg,#fbf1ec 0%,#f6e2d9 42%,#f0d8cf 100%);
   color:var(--ink);
   font-family:var(--font);
-  overflow-x:hidden;width:100%;
+  /* OJO: body NO debe llevar overflow-x:hidden. Con html{overflow-x:hidden}
+     el overflow del body ya no se propaga al viewport sino que aplica al
+     propio body, convirtiéndolo en contenedor de scroll -- y eso MATA todos
+     los position:sticky (pin del hero, pin de En vivo, pila de tarjetas).
+     El recorte lateral ya lo da html (propagado al viewport). */
   overscroll-behavior-x:none;
   -webkit-font-smoothing:antialiased;
 }
@@ -175,22 +179,23 @@ main,header,footer{position:relative;z-index:2}
 .hnav.hidden{transform:translateY(-160%)}
 .glassd{
   position:relative;overflow:hidden;isolation:isolate;
-  /* neutro y casi transparente: el color ya no lo pone un tinte navy
-     plano, lo pone el blur+saturate revelando lo que hay detrás -- eso
-     es lo que se ve como vidrio real y no como una píldora gris sólida */
-  background:rgba(20,20,26,.22);
-  backdrop-filter:blur(20px) saturate(180%) brightness(1.08) url(#glass-distortion);
-  -webkit-backdrop-filter:blur(20px) saturate(180%) brightness(1.08);
-  border:1px solid rgba(255,255,255,.22);
+  /* vidrio CLARO real: casi sin tinte (blanco al 6%%, no negro/navy).
+     El color lo aporta únicamente el blur+saturate de lo que hay detrás;
+     contrast/brightness compensan la falta de tinte para que el texto
+     blanco siga legible sin que el vidrio se vea como un bloque gris. */
+  background:rgba(255,255,255,.06);
+  backdrop-filter:blur(26px) saturate(220%) contrast(1.15) brightness(1.15) url(#glass-distortion);
+  -webkit-backdrop-filter:blur(26px) saturate(220%) contrast(1.15) brightness(1.15);
+  border:1px solid rgba(255,255,255,.4);
   box-shadow:
-    inset 4px 4px 12px 2px rgba(255,255,255,.2),
-    inset -2px -2px 15px 1px rgba(255,255,255,.2),
-    inset 0 0 15px 2px rgba(255,255,255,.2),
-    0 12px 34px rgba(22,30,47,.28);
+    inset 4px 4px 12px 2px rgba(255,255,255,.3),
+    inset -2px -2px 15px 1px rgba(255,255,255,.18),
+    inset 0 0 15px 2px rgba(255,255,255,.18),
+    0 8px 26px rgba(0,0,0,.14);
 }
 /* navegadores sin url() en backdrop-filter: mantienen el desenfoque clásico */
 @supports not (backdrop-filter:url(#glass-distortion)){
-  .glassd{backdrop-filter:blur(20px) saturate(180%) brightness(1.08)}
+  .glassd{backdrop-filter:blur(26px) saturate(220%) contrast(1.15) brightness(1.15)}
 }
 .glassd>*{position:relative;z-index:2}
 /* brillo especular líquido que recorre el cristal */
@@ -206,13 +211,18 @@ main,header,footer{position:relative;z-index:2}
   display:flex;align-items:center;gap:9px;
   border-radius:999px;padding:9px 20px 9px 12px;
   color:#fff;font-size:.78rem;font-weight:400;letter-spacing:-.02em;white-space:nowrap;
+  /* el vidrio ahora es casi transparente: sin esta sombra el texto blanco
+     se pierde contra fondos claros (paginas/foto) detras del cristal */
+  text-shadow:0 1px 4px rgba(0,0,0,.35),0 1px 14px rgba(0,0,0,.2);
 }
-.logo-img{height:30px;width:auto;max-width:none;display:block;filter:brightness(0) invert(1)}
+.logo-img{height:30px;width:auto;max-width:none;display:block;
+  filter:brightness(0) invert(1) drop-shadow(0 1px 3px rgba(0,0,0,.35))}
 .hnav-links{display:flex;align-items:center;gap:2px;border-radius:999px;padding:5px 7px}
 .hnav-links a{
   font-size:.72rem;font-weight:300;letter-spacing:-.01em;
   color:rgba(255,255,255,.72);padding:8px 17px;border-radius:999px;
   transition:color .3s ease,background .3s ease;white-space:nowrap;
+  text-shadow:0 1px 4px rgba(0,0,0,.35),0 1px 14px rgba(0,0,0,.2);
 }
 .hnav-links a:hover{color:#fff;background:rgba(255,255,255,.08)}
 .hnav-cta{
@@ -1141,9 +1151,9 @@ section{padding:120px 5vw;position:relative}
      trababan el scroll): aquí un blur liviano es barato y mantiene el
      vidrio real en vez de una píldora sólida */
   .glassd{
-    backdrop-filter:blur(10px) saturate(160%)!important;
-    -webkit-backdrop-filter:blur(10px) saturate(160%)!important;
-    background:rgba(20,20,26,.3)!important;
+    backdrop-filter:blur(14px) saturate(200%) contrast(1.15) brightness(1.15)!important;
+    -webkit-backdrop-filter:blur(14px) saturate(200%) contrast(1.15) brightness(1.15)!important;
+    background:rgba(255,255,255,.08)!important;
   }
   .glassd::after{animation:none!important;display:none}
   /* botones y etiquetas sobre imágenes: fondo sólido en vez de blur */
