@@ -738,27 +738,38 @@ section{padding:120px 5vw;position:relative}
 .sp-note{display:flex;align-items:center;justify-content:center;gap:6px;padding:8px;border-radius:10px;background:rgba(33,115,70,.08);border:1px solid rgba(33,115,70,.18);font-size:.55rem;font-weight:700;color:#15803d;opacity:0;transform:translateY(6px);transition:all .45s ease}
 .sp-note.on{opacity:1;transform:none}
 
-/* ---- PANTALLAS: dispositivos con mini-web dentro ---- */
-.dv{flex:1;display:flex;flex-direction:column;background:#fbfdff;padding:14px 16px 12px}
-.dv-row{flex:1;display:flex;align-items:flex-end;justify-content:center;gap:16px}
-.dv-frame{border:2px solid rgba(10,65,116,.22);border-radius:8px;background:#fff;padding:4px;display:flex;flex-direction:column;transition:all .45s var(--ease);opacity:.5}
-.dv-ph{width:52px;height:98px;border-radius:11px}
-.dv-tb{width:88px;height:76px}
-.dv-dt{width:124px;height:82px}
-.dv-frame.live{border-color:var(--blue);box-shadow:0 0 24px rgba(123,189,232,.75);opacity:1;transform:translateY(-5px)}
-.dv-scr{flex:1;display:flex;flex-direction:column;gap:3px;position:relative;overflow:hidden}
-.dv-scr i{display:block;border-radius:2px;background:rgba(10,65,116,.14);opacity:.4;transform:translateY(4px);transition:all .35s ease}
-.dv-frame.live .dv-scr i{opacity:1;transform:none}
-.dv-scr .b-nav{height:5px}
-.dv-frame.live .b-nav{background:var(--blue);transition-delay:.05s}
-.dv-scr .b-hero{flex:1.6}
-.dv-frame.live .b-hero{background:linear-gradient(135deg,var(--steel),var(--sky));transition-delay:.15s}
-.dv-grid{display:flex;gap:3px;flex:1}
-.dv-grid i{flex:1}
-.dv-frame.live .dv-grid i{transition-delay:.28s;background:rgba(10,65,116,.3)}
-.dv-wa{position:absolute;right:2px;bottom:2px;width:9px;height:9px;border-radius:50%;background:#25D366;opacity:0;transform:scale(0);transition:all .35s ease .45s}
+/* ---- PANTALLAS: vista responsive real ---- */
+.dv{flex:1;display:flex;flex-direction:column;background:#fbfdff;padding:12px 16px;gap:8px}
+.dv-head{display:flex;align-items:center;gap:8px;font-size:.56rem;font-weight:700;color:var(--navy);background:#fff;border:1px solid rgba(10,65,116,.12);border-radius:999px;padding:6px 12px}
+.dv-head svg{color:var(--steel);flex-shrink:0}
+.dv-dim{margin-left:auto;font-family:Consolas,Menlo,monospace;font-size:.52rem;font-weight:700;color:var(--steel);background:rgba(73,118,159,.1);border-radius:6px;padding:2px 8px;min-width:66px;text-align:center;transition:all .3s ease}
+.dv-row{flex:1;display:flex;align-items:flex-end;justify-content:center;gap:18px;padding:4px 0 2px}
+.dv-frame{border:2px solid rgba(10,65,116,.18);border-radius:10px;background:#fff;padding:5px;display:flex;flex-direction:column;transition:all .45s var(--ease);opacity:.45;transform:scale(.96)}
+.dv-ph{width:70px;height:148px;border-radius:14px}
+.dv-tb{width:116px;height:112px}
+.dv-dt{width:166px;height:118px}
+.dv-frame.live{border-color:var(--blue);box-shadow:0 10px 26px rgba(10,65,116,.16),0 0 22px rgba(123,189,232,.5);opacity:1;transform:translateY(-6px) scale(1)}
+.dv-scr{flex:1;display:flex;flex-direction:column;gap:3px;position:relative;overflow:hidden;border-radius:5px}
+.dv-scr u,.dv-scr s{text-decoration:none}
+.b-nav{display:flex;align-items:center;gap:3px;height:10px;padding:0 3px;border-radius:3px;background:rgba(10,65,116,.06);opacity:.5;transition:all .35s ease;flex-shrink:0}
+.b-nav u{width:5px;height:5px;border-radius:50%;background:var(--blue);flex-shrink:0}
+.b-nav s{width:8px;height:2px;border-radius:1px;background:rgba(10,65,116,.35)}
+.b-nav s:nth-of-type(1){margin-left:auto}
+.dv-frame.live .b-nav{opacity:1;background:#fff;box-shadow:0 1px 3px rgba(0,29,57,.14)}
+.b-hero{flex:1.5;border-radius:3px;background:linear-gradient(135deg,var(--steel),var(--sky));display:flex;flex-direction:column;justify-content:center;gap:3px;padding:0 5px;opacity:.35;transition:all .4s ease .1s}
+.b-hero s{width:72%;height:3px;border-radius:2px;background:rgba(255,255,255,.9)}
+.b-hero s+s{width:46%;background:rgba(255,255,255,.55)}
+.b-hero u{width:18px;height:6px;border-radius:3px;background:#fff;margin-top:2px}
+.dv-frame.live .b-hero{opacity:1}
+.dv-grid{display:flex;gap:3px;flex:1.2}
+.dv-grid i{flex:1;display:flex;flex-direction:column;gap:2px;padding:2px;border-radius:3px;background:rgba(10,65,116,.07);opacity:.5;transition:all .35s ease .22s}
+.dv-grid i u{flex:1;border-radius:2px;background:linear-gradient(135deg,rgba(73,118,159,.55),rgba(123,189,232,.55));display:block}
+.dv-grid i s{width:80%;height:2px;border-radius:1px;background:rgba(10,65,116,.35);display:block}
+.dv-frame.live .dv-grid i{opacity:1;background:#fff;box-shadow:0 1px 2px rgba(0,29,57,.1)}
+.dv-wa{position:absolute;right:3px;bottom:3px;width:11px;height:11px;border-radius:50%;background:#25D366;box-shadow:0 1px 4px rgba(37,211,102,.5);opacity:0;transform:scale(0);transition:all .35s ease .45s}
 .dv-frame.live .dv-wa{opacity:1;transform:none}
-.dv-lab{text-align:center;font-size:.6rem;font-weight:700;color:var(--blue);min-height:1.4em;padding-top:10px}
+.dv-lab{display:flex;align-items:center;justify-content:center;gap:6px;padding:8px;border-radius:10px;background:#fff;border:1px solid rgba(10,65,116,.1);font-size:.57rem;font-weight:700;color:var(--blue);min-height:2.5em}
+@media(max-width:480px){.dv-row{gap:8px}.dv-ph{width:54px;height:132px}.dv-tb{width:90px;height:100px}.dv-dt{width:130px;height:106px}}
 
 /* (estilos viejos de mini-demos eliminados — ahora cada tarjeta es una app real, ver bloque APPS REALES) */
 
@@ -1359,12 +1370,17 @@ section{padding:120px 5vw;position:relative}
       <div class="win-bar"><span></span><span></span><span></span><em>Responsive — todas las pantallas</em><img class="wb-logo" src="logo-mark.png" alt=""/></div>
       <div class="demo-body" data-demo="dev" aria-hidden="true">
         <div class="dv">
-          <div class="dv-row">
-            <div class="dv-frame dv-ph"><div class="dv-scr"><i class="b-nav"></i><i class="b-hero"></i><span class="dv-grid"><i></i></span><em class="dv-wa"></em></div></div>
-            <div class="dv-frame dv-tb"><div class="dv-scr"><i class="b-nav"></i><i class="b-hero"></i><span class="dv-grid"><i></i><i></i></span></div></div>
-            <div class="dv-frame dv-dt"><div class="dv-scr"><i class="b-nav"></i><i class="b-hero"></i><span class="dv-grid"><i></i><i></i><i></i></span></div></div>
+          <div class="dv-head">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+            Una sola web · todas las pantallas
+            <span class="dv-dim">—</span>
           </div>
-          <div class="dv-lab"></div>
+          <div class="dv-row">
+            <div class="dv-frame dv-ph"><div class="dv-scr"><span class="b-nav"><u></u><s></s><s></s></span><span class="b-hero"><s></s><s></s><u></u></span><span class="dv-grid"><i><u></u><s></s></i></span><em class="dv-wa"></em></div></div>
+            <div class="dv-frame dv-tb"><div class="dv-scr"><span class="b-nav"><u></u><s></s><s></s><s></s></span><span class="b-hero"><s></s><s></s><u></u></span><span class="dv-grid"><i><u></u><s></s></i><i><u></u><s></s></i></span><em class="dv-wa"></em></div></div>
+            <div class="dv-frame dv-dt"><div class="dv-scr"><span class="b-nav"><u></u><s></s><s></s><s></s><s></s></span><span class="b-hero"><s></s><s></s><u></u></span><span class="dv-grid"><i><u></u><s></s></i><i><u></u><s></s></i><i><u></u><s></s></i></span><em class="dv-wa"></em></div></div>
+          </div>
+          <div class="dv-lab"><span class="dv-lab-t"></span></div>
         </div>
       </div>
     </article>
@@ -2204,20 +2220,23 @@ section{padding:120px 5vw;position:relative}
     dev: {
       reset: function (st) {
         [].forEach.call(st.querySelectorAll('.dv-frame'), function (f) { f.classList.remove('live'); });
-        st.querySelector('.dv-lab').textContent = '';
+        st.querySelector('.dv-lab-t').textContent = '';
+        st.querySelector('.dv-dim').textContent = '—';
       },
       run: function (st, C, ix) {
         var me = this; me.reset(st);
-        var fr = st.querySelectorAll('.dv-frame'), lab = st.querySelector('.dv-lab');
-        var L = ['Móvil · menú compacto + WhatsApp fijo', 'Tablet · catálogo a 2 columnas', 'Escritorio · experiencia completa'];
+        var fr = st.querySelectorAll('.dv-frame'), lab = st.querySelector('.dv-lab-t'), dim = st.querySelector('.dv-dim');
+        var L = [['Móvil · menú compacto + WhatsApp fijo', '390 × 844'],
+                 ['Tablet · catálogo a 2 columnas', '834 × 1112'],
+                 ['Escritorio · experiencia completa', '1440 × 900']];
         var steps = [W(C, 400)];
         L.forEach(function (t, i) {
           steps.push(F(function () {
             [].forEach.call(fr, function (f) { f.classList.remove('live'); });
-            fr[i].classList.add('live'); lab.textContent = '';
+            fr[i].classList.add('live'); lab.textContent = ''; dim.textContent = t[1];
           }));
-          steps.push(function (n) { C.type(lab, t, 20, n); });
-          steps.push(W(C, 1350));
+          steps.push(function (n) { C.type(lab, t[0], 20, n); });
+          steps.push(W(C, 1500));
         });
         steps.push(W(C, 900));
         steps.push(F(function () { me.run(st, C, ix + 1); }));
