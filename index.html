@@ -146,8 +146,9 @@ main,header,footer{position:relative;z-index:2}
   white-space:nowrap;
 }
 .nav-pill.hidden{transform:translateX(-50%) translateY(-140%)}
-.nav-pill .logo{font-weight:700;font-size:.95rem;letter-spacing:.3em;color:var(--blue);display:flex;align-items:center}
-.logo-img{height:56px;width:auto;display:block}
+.nav-pill .logo{font-weight:700;font-size:.95rem;letter-spacing:.3em;color:var(--blue);display:flex;align-items:center;flex-shrink:0}
+.logo-img{height:46px;width:auto;max-width:none;display:block}
+@media(max-width:820px){.logo-img{height:38px}}
 .nav-links{display:flex;gap:22px}
 .nav-links a{
   font-size:.62rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;
@@ -451,152 +452,187 @@ section{padding:120px 5vw;position:relative}
 /* mientras no hay scroll todavía (primera carga) */
 .mdemo:first-child{opacity:.6;transform:scale(0.96) translateY(0)}
 
-/* Controles de la libreta (flotantes) */
-.cbtn{
-  width:46px;height:46px;border-radius:50%;border:none;cursor:pointer;
-  background:linear-gradient(135deg,var(--blue),var(--steel));color:#fff;font-size:1.3rem;line-height:1;
-  box-shadow:0 10px 26px rgba(10,65,116,.4);transition:transform .3s ease;
-}
-.cbtn:hover{transform:scale(1.12)}
-.pager-ui{
-  position:fixed;right:16px;top:50%;transform:translateY(-50%);
-  z-index:120;display:flex;flex-direction:column;align-items:center;gap:12px;
-  opacity:0;pointer-events:none;transition:opacity .45s ease;
-}
-.pager-ui.show{opacity:1;pointer-events:auto}
-.pager-count{
-  font-size:.66rem;font-weight:700;color:var(--blue);
-  background:rgba(255,255,255,.6);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
-  border:1px solid rgba(255,255,255,.8);border-radius:999px;padding:6px 9px;text-align:center;min-width:32px;
-}
-.pager-count b{font-size:.9rem}
-.pager-count i{font-style:normal;opacity:.5;margin:0 1px}
-.swipe-hint{
-  position:fixed;left:50%;bottom:20px;transform:translateX(-50%);
-  z-index:120;font-size:.58rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--blue);
-  background:rgba(255,255,255,.6);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
-  border:1px solid rgba(255,255,255,.8);border-radius:999px;padding:9px 18px;
-  opacity:0;pointer-events:none;transition:opacity .45s ease;animation:hintUp 2s ease-in-out infinite;
-}
-.swipe-hint.show{opacity:1}
-@keyframes hintUp{0%,100%{transform:translateX(-50%) translateY(0)}50%{transform:translateX(-50%) translateY(-6px)}}
+/* ================= APPS REALES (cada tarjeta = una app ejecutándose) ================= */
+/* logo rd en la barra de ventana de cada tarjeta */
+.win-bar .wb-logo{height:15px;width:auto;margin-left:auto;opacity:.55;flex-shrink:0}
 
-/* ================= MINI-DEMOS (un efecto por tema) ================= */
-/* (las demos ahora viven directo en .demo-body, con estilo de ventana Mac) */
+/* cuerpos edge-to-edge: la app llena la tarjeta como Excel */
+.demo-body[data-demo="pay"],.demo-body[data-demo="cart"],.demo-body[data-demo="club"],
+.demo-body[data-demo="ship"],.demo-body[data-demo="prof"],.demo-body[data-demo="sec"],
+.demo-body[data-demo="speed"],.demo-body[data-demo="dev"]{padding:0;display:flex}
 
-/* ---- Base de las demos ricas (motor JS, mismo nivel que Correo/Excel) ---- */
-.md2{display:flex;flex-direction:column;gap:11px}
-.dm-head{display:flex;align-items:center;gap:8px;font-size:.6rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding-bottom:12px;margin-bottom:4px;border-bottom:1px solid rgba(0,29,57,.1)}
-.md2.dark .dm-head{color:var(--ice);border-bottom-color:rgba(255,255,255,.12)}
-.md2.light .dm-head{color:var(--blue)}
-.dm-lines{display:flex;flex-direction:column;gap:8px}
-.dm-ln{font-size:.72rem;line-height:1.7;min-height:1.35em}
-.md2.dark .dm-ln{color:var(--wdim)}
-.md2.light .dm-ln{color:var(--dim)}
-.dm-ln .st{display:inline-block;margin-left:6px;padding:1px 8px;border-radius:6px;font-weight:700;font-size:.58rem;letter-spacing:.06em;background:rgba(22,163,74,.2);border:1px solid rgba(126,226,160,.5);color:#7ee2a0}
-.md2.light .dm-ln .st{background:rgba(22,163,74,.12);border-color:rgba(22,163,74,.4);color:#15803d}
-.dm-ok{
-  margin-top:auto;display:inline-flex;align-items:center;gap:8px;
-  font-size:.58rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;
-  padding-top:12px;
-  opacity:0;transform:translateY(8px);transition:opacity .5s ease,transform .5s var(--ease);
-}
-.md2.dark .dm-ok{color:#7ee2a0}
-.md2.light .dm-ok{color:#15803d}
-.dm-ok.on{opacity:1;transform:none}
+@keyframes rowIn{from{opacity:0;transform:translateY(-14px) scale(.98)}to{opacity:1;transform:none}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
 
-/* 1) Correo: líneas que se escriben + enviado */
-.md-mail .env{position:absolute;top:12px;right:14px;font-size:1.1rem;opacity:.85}
-.md-mail .tb{height:7px;border-radius:4px;background:linear-gradient(90deg,var(--sky),var(--ice));transform-origin:left;transform:scaleX(0);margin-bottom:10px}
-.md-mail .t1{width:88%}.md-mail .t2{width:66%}.md-mail .t3{width:45%}
-.mdemo.on .md-mail .t1{animation:mt1 6s ease infinite}
-.mdemo.on .md-mail .t2{animation:mt2 6s ease infinite}
-.mdemo.on .md-mail .t3{animation:mt3 6s ease infinite}
-@keyframes mt1{0%,4%{transform:scaleX(0)}14%,88%{transform:scaleX(1)}96%,100%{transform:scaleX(0)}}
-@keyframes mt2{0%,16%{transform:scaleX(0)}26%,88%{transform:scaleX(1)}96%,100%{transform:scaleX(0)}}
-@keyframes mt3{0%,30%{transform:scaleX(0)}40%,88%{transform:scaleX(1)}96%,100%{transform:scaleX(0)}}
-.md-mail .ok,.md-pay .plabel{
-  display:inline-block;font-size:.58rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;
-  color:#7ee2a0;opacity:0;
-}
-.mdemo.on .md-mail .ok,.mdemo.on .md-pay .plabel{animation:okwin 6s ease infinite}
-@keyframes okwin{0%,48%{opacity:0;transform:translateY(6px)}56%,86%{opacity:1;transform:none}94%,100%{opacity:0}}
+/* ---- WOMPI: checkout real ---- */
+.wp{flex:1;display:flex;flex-direction:column;background:#fbfdff;font-family:'Segoe UI',Verdana,sans-serif}
+.wp-top{display:flex;align-items:center;gap:8px;padding:12px 16px;background:linear-gradient(135deg,var(--navy),var(--blue));color:#fff}
+.wp-top b{font-size:.92rem;letter-spacing:-.02em}
+.wp-top span{font-size:.56rem;color:var(--ice);opacity:.85}
+.wp-top i{margin-left:auto;font-style:normal;font-size:.8rem}
+.wp-amt{display:flex;flex-direction:column;gap:2px;padding:13px 16px 9px;border-bottom:1px solid rgba(0,29,57,.08)}
+.wp-amt small{font-size:.54rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--faint)}
+.wp-amt b{font-size:1.3rem;color:var(--navy);font-variant-numeric:tabular-nums}
+.wp-methods{display:flex;gap:8px;padding:11px 16px}
+.wp-m{flex:1;font-family:inherit;font-size:.6rem;font-weight:700;color:var(--dim);padding:9px 4px;border-radius:10px;border:1.5px solid rgba(10,65,116,.18);background:#fff;transition:all .35s ease}
+.wp-m.sel{border-color:var(--blue);color:var(--blue);background:rgba(123,189,232,.12);box-shadow:0 0 0 3px rgba(123,189,232,.25);transform:scale(1.04)}
+.wp-status{display:flex;align-items:center;gap:9px;padding:3px 16px;min-height:28px}
+.wp-spin{width:13px;height:13px;border-radius:50%;border:2px solid rgba(10,65,116,.15);border-top-color:var(--blue);opacity:0;flex-shrink:0}
+.wp-status.go .wp-spin{opacity:1;animation:wpspin .7s linear infinite}
+@keyframes wpspin{to{transform:rotate(360deg)}}
+.wp-msg{font-size:.62rem;color:var(--dim);min-height:1.2em}
+.wp-done{display:flex;align-items:center;gap:10px;margin:5px 16px;padding:9px 12px;border-radius:12px;background:rgba(33,115,70,.08);border:1px solid rgba(33,115,70,.28);opacity:0;transform:translateY(8px);transition:all .5s var(--ease)}
+.wp-done.show{opacity:1;transform:none}
+.wp-check{width:26px;height:26px;border-radius:50%;background:#217346;color:#fff;display:flex;align-items:center;justify-content:center;font-size:.8rem;font-weight:700;flex-shrink:0}
+.wp-done b{font-size:.68rem;color:#1a5c38;display:block}
+.wp-done small{display:block;font-size:.55rem;color:var(--faint);font-family:monospace;min-height:1.1em}
+.wp-foot{margin-top:auto;padding:9px 16px;font-size:.53rem;color:var(--faint);border-top:1px solid rgba(0,29,57,.07)}
 
-/* 2) Excel: filas que entran solas */
-.md-sheet .srow{display:flex;justify-content:space-between;gap:8px;font-size:.6rem;padding:5px 2px;border-bottom:1px dashed rgba(10,65,116,.15);color:var(--dim);opacity:0}
-.md-sheet .srow b{color:var(--navy);font-weight:700;flex:1;text-align:left}
-.md-sheet .srow i{font-style:normal;color:var(--blue);font-weight:700}
-.mdemo.on .md-sheet .s1{animation:sr1 6s ease infinite}
-.mdemo.on .md-sheet .s2{animation:sr2 6s ease infinite}
-.mdemo.on .md-sheet .s3{animation:sr3 6s ease infinite}
-.mdemo.on .md-sheet .s4{animation:sr4 6s ease infinite}
-@keyframes sr1{0%,6%{opacity:0;transform:translateY(-8px)}14%,88%{opacity:1;transform:none}96%,100%{opacity:0}}
-@keyframes sr2{0%,20%{opacity:0;transform:translateY(-8px)}28%,88%{opacity:1;transform:none}96%,100%{opacity:0}}
-@keyframes sr3{0%,34%{opacity:0;transform:translateY(-8px)}42%,88%{opacity:1;transform:none}96%,100%{opacity:0}}
-@keyframes sr4{0%,48%{opacity:0;transform:translateY(-8px)}56%,88%{opacity:1;transform:none}96%,100%{opacity:0}}
+/* ---- CARRITO: drawer de tienda ---- */
+.ct{flex:1;display:flex;flex-direction:column;background:#fbfdff}
+.ct-top{display:flex;align-items:center;gap:8px;padding:12px 16px;border-bottom:1px solid rgba(0,29,57,.09)}
+.ct-top b{font-size:.76rem;color:var(--navy)}
+.ct-badge{margin-left:auto;min-width:21px;height:21px;padding:0 6px;border-radius:999px;background:var(--blue);color:#fff;font-size:.62rem;font-weight:700;display:inline-flex;align-items:center;justify-content:center;transition:transform .3s ease}
+.ct-badge.pop{transform:scale(1.4)}
+.ct-items{flex:1;display:flex;flex-direction:column;padding:2px 16px}
+.ct-it{display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px dashed rgba(10,65,116,.13);animation:rowIn .5s var(--ease)}
+.ct-th{width:32px;height:32px;border-radius:9px;background:rgba(123,189,232,.16);display:flex;align-items:center;justify-content:center;font-size:.95rem;flex-shrink:0}
+.ct-nm{flex:1;min-width:0}
+.ct-nm b{display:block;font-size:.64rem;color:var(--navy)}
+.ct-nm small{font-size:.53rem;color:var(--faint)}
+.ct-qty{display:flex;align-items:center;gap:6px;font-size:.62rem;color:var(--navy)}
+.ct-qty i{width:17px;height:17px;border-radius:6px;border:1px solid rgba(10,65,116,.25);font-style:normal;font-size:.6rem;display:flex;align-items:center;justify-content:center;color:var(--blue);transition:all .25s ease}
+.ct-qty i.press{background:var(--blue);color:#fff;transform:scale(1.2)}
+.ct-pr{font-size:.64rem;font-weight:700;color:var(--blue);font-variant-numeric:tabular-nums;min-width:62px;text-align:right}
+.ct-sub{display:flex;justify-content:space-between;align-items:baseline;padding:9px 16px 2px}
+.ct-sub span{font-size:.55rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--faint)}
+.ct-sub b{font-size:.92rem;color:var(--navy);font-variant-numeric:tabular-nums}
+.ct-btn{margin:7px 16px 4px;padding:10px;border-radius:11px;background:linear-gradient(135deg,var(--blue),var(--steel));color:#fff;font-size:.6rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;text-align:center;transition:transform .25s ease,box-shadow .25s ease}
+.ct-btn.press{transform:scale(.96);box-shadow:0 0 22px rgba(10,65,116,.5)}
+.ct-note{padding:2px 16px 11px;font-size:.55rem;font-weight:700;color:#15803d;opacity:0;transform:translateY(6px);transition:all .45s ease}
+.ct-note.on{opacity:1;transform:none}
 
-/* 3) Pago Wompi (Bancolombia) */
-.paymethods{display:flex;gap:8px;flex-wrap:wrap}
-.pm{font-size:.58rem;font-weight:700;padding:6px 11px;border-radius:999px;background:rgba(123,189,232,.1);border:1px solid rgba(123,189,232,.3);color:var(--wdim);transition:all .4s ease}
-.pm.hot{background:rgba(123,189,232,.3);border-color:var(--sky);color:#fff;box-shadow:0 0 16px rgba(123,189,232,.55);transform:scale(1.07)}
+/* ---- CLUB: formulario que se llena → éxito con código ---- */
+.cb{flex:1;position:relative;overflow:hidden}
+.cb-form,.cb-done{position:absolute;inset:0;display:flex;flex-direction:column;padding:16px 18px;transition:opacity .5s ease,transform .5s var(--ease)}
+.cb-form{gap:6px}
+.cb-title{font-size:.76rem;color:#fff;margin-bottom:4px}
+.cb-form label{font-size:.52rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--wfaint)}
+.cb-in{min-height:2.1em;padding:7px 11px;border-radius:9px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.16);font-size:.66rem;color:#fff;transition:border-color .3s ease,box-shadow .3s ease}
+.cb-in.foc{border-color:var(--sky);box-shadow:0 0 12px rgba(123,189,232,.35)}
+.cb-in.foc::after{content:'';display:inline-block;width:1px;height:.9em;background:var(--sky);margin-left:1px;vertical-align:text-bottom;animation:xlcar .8s step-end infinite}
+.cb-btn{margin-top:9px;padding:10px;border-radius:10px;background:linear-gradient(135deg,var(--sky),var(--steel));color:var(--navy);font-size:.6rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;text-align:center;transition:transform .25s ease}
+.cb-btn.press{transform:scale(.95)}
+.cb-form.hide{opacity:0;transform:translateX(-26px);pointer-events:none}
+.cb-done{opacity:0;transform:translateX(26px);align-items:center;justify-content:center;text-align:center;gap:6px}
+.cb-done.show{opacity:1;transform:none}
+.cb-gift{font-size:1.5rem}
+.cb-done b{font-size:.82rem;color:#fff;min-height:1.2em}
+.cb-done small{font-size:.57rem;color:var(--wdim)}
+.cb-code{font-family:monospace;font-weight:700;letter-spacing:.1em;font-size:.98rem;color:var(--ice);background:rgba(123,189,232,.13);border:1.5px dashed rgba(123,189,232,.55);border-radius:10px;padding:9px 16px;min-height:2.3em;min-width:13ch;transition:box-shadow .4s ease}
+.cb-code.glow{box-shadow:0 0 26px rgba(123,189,232,.6)}
+.cb-mail{font-size:.55rem;font-weight:700;color:#7ee2a0;opacity:0;transition:opacity .4s ease}
+.cb-mail.on{opacity:1}
 
-/* 4) Carrito rico */
-.cbadge{margin-left:auto;min-width:20px;height:20px;padding:0 6px;border-radius:999px;background:var(--blue);color:#fff;font-size:.6rem;display:inline-flex;align-items:center;justify-content:center;transition:transform .3s ease}
-.cbadge.pop{transform:scale(1.35)}
-.cart-items{display:flex;flex-direction:column;min-height:84px}
-.cart-it{display:flex;align-items:center;gap:9px;font-size:.64rem;color:var(--dim);padding:6px 2px;border-bottom:1px dashed rgba(10,65,116,.14);animation:rowIn .5s var(--ease)}
-.cart-it b{flex:1;color:var(--navy)}
-.cart-it .pr{color:var(--blue);font-weight:700}
-.cart-foot{display:flex;justify-content:space-between;align-items:baseline;font-size:.56rem;letter-spacing:.08em;text-transform:uppercase;color:var(--faint);font-weight:700;padding-top:8px}
-.cart-foot b{color:var(--blue);font-size:.9rem;letter-spacing:0}
+/* ---- ENVÍOS: cotizador con selects reales ---- */
+.sh{flex:1;display:flex;flex-direction:column;gap:6px;background:#fbfdff;padding:13px 16px 12px}
+.sh-title{font-size:.72rem;color:var(--navy)}
+.sh label{font-size:.52rem;font-weight:700;letter-spacing:.13em;text-transform:uppercase;color:var(--faint)}
+.sh-sel{position:relative;border:1.5px solid rgba(10,65,116,.18);border-radius:9px;background:#fff;padding:7px 11px;display:flex;align-items:center;font-size:.64rem;color:var(--dim);transition:border-color .3s ease}
+.sh-sel i{margin-left:auto;font-style:normal;color:var(--faint);transition:transform .3s ease}
+.sh-sel.open{border-color:var(--blue)}
+.sh-sel.open i{transform:rotate(180deg)}
+.sh-sel.filled .sh-val{color:var(--navy);font-weight:700}
+.sh-opts{position:absolute;top:calc(100% + 3px);left:-1.5px;right:-1.5px;background:#fff;border:1.5px solid rgba(10,65,116,.18);border-radius:9px;box-shadow:0 14px 30px rgba(10,65,116,.18);z-index:5;opacity:0;transform:translateY(-6px);pointer-events:none;transition:all .3s var(--ease);overflow:hidden}
+.sh-sel.open .sh-opts{opacity:1;transform:none}
+.sh-opts span{display:block;padding:6px 11px;font-size:.6rem;color:var(--dim)}
+.sh-opts span.hl{background:rgba(123,189,232,.18);color:var(--navy);font-weight:700}
+.sh-quote{display:flex;align-items:baseline;gap:10px;padding:5px 2px 0}
+.sh-quote span{font-size:.52rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--faint)}
+.sh-quote b{font-size:.95rem;color:var(--blue);font-variant-numeric:tabular-nums;min-width:4ch;min-height:1.2em}
+.sh-quote em{font-style:normal;font-size:.55rem;color:var(--faint)}
+.sh-track{margin-top:auto;padding:12px 2px 2px}
+.sh-road{position:relative;height:3px;border-radius:2px;background:rgba(10,65,116,.13)}
+.sh-road::before{content:'';position:absolute;inset:0;border-radius:2px;background:linear-gradient(90deg,var(--blue),var(--sky));transform-origin:left;transform:scaleX(var(--p,0));transition:transform .9s var(--ease)}
+.sh-truck{position:absolute;top:-15px;left:calc(var(--p,0)*100% - 10px);font-size:.95rem;transition:left .9s var(--ease)}
+.sh-steps{display:flex;justify-content:space-between;margin-top:8px}
+.sh-steps span{font-size:.52rem;font-weight:700;color:var(--faint);transition:color .4s ease}
+.sh-steps span.on{color:var(--blue)}
+.sh-steps span.done{color:#15803d}
+.sh-track.snap .sh-road::before,.sh-track.snap .sh-truck{transition:none !important}
 
-/* 5) Club rico */
-.cl-row{display:flex;gap:10px;align-items:baseline;font-size:.66rem;border-bottom:1px solid rgba(255,255,255,.09);padding:6px 0}
-.cl-row label{font-size:.52rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--wfaint);min-width:44px}
-.cl-row span{color:#fff;font-weight:500;min-height:1.2em}
-.code2{display:inline-block;align-self:flex-start;font-family:monospace;font-weight:700;letter-spacing:.08em;font-size:.85rem;color:var(--ice);background:rgba(123,189,232,.14);border:1px dashed rgba(123,189,232,.5);border-radius:8px;padding:8px 13px;min-width:12ch;min-height:2.2em;transition:box-shadow .4s ease}
-.code2.glow{box-shadow:0 0 22px rgba(123,189,232,.65)}
+/* ---- PERFIL: página de cuenta ---- */
+.pf{flex:1;display:flex;flex-direction:column;background:#fbfdff}
+.pf-head{display:flex;align-items:center;gap:11px;padding:12px 16px 9px}
+.pf-av{width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,var(--blue),var(--sky));color:#fff;display:flex;align-items:center;justify-content:center;font-size:.66rem;font-weight:700;flex-shrink:0}
+.pf-head b{display:block;font-size:.72rem;color:var(--navy);min-height:1.1em}
+.pf-head small{font-size:.53rem;color:var(--faint)}
+.pf-tabs{display:flex;gap:2px;padding:0 16px;border-bottom:1px solid rgba(0,29,57,.09)}
+.pf-tabs span{font-size:.57rem;font-weight:700;color:var(--faint);padding:6px 10px;border-bottom:2px solid transparent}
+.pf-tabs span.on{color:var(--blue);border-bottom-color:var(--blue)}
+.pf-orders{flex:1;display:flex;flex-direction:column;padding:3px 16px}
+.pf-o{display:flex;align-items:center;gap:8px;padding:8px 0;border-bottom:1px dashed rgba(10,65,116,.12);font-size:.6rem;color:var(--dim);animation:rowIn .5s var(--ease)}
+.pf-o b{color:var(--navy)}
+.pf-o .pf-pr{margin-left:auto;font-weight:700;color:var(--blue);font-variant-numeric:tabular-nums}
+.pf-pill{font-size:.5rem;font-weight:700;padding:3px 8px;border-radius:999px;white-space:nowrap;transition:all .4s ease}
+.pf-pill.way{background:rgba(73,118,159,.14);color:var(--steel)}
+.pf-pill.done{background:rgba(33,115,70,.12);color:#15803d}
+.pf-pill.flash{box-shadow:0 0 14px rgba(33,115,70,.45)}
+.pf-cta{margin:5px 16px 12px;padding:9px;border-radius:10px;border:1.5px solid var(--blue);color:var(--blue);font-size:.58rem;font-weight:700;letter-spacing:.09em;text-transform:uppercase;text-align:center;transition:all .3s ease}
+.pf-cta.press{background:var(--blue);color:#fff;transform:scale(.97)}
 
-/* 6) Envíos rico */
-.sel-line{display:flex;gap:8px;font-size:.64rem;color:var(--dim);align-items:baseline}
-.sel-line label{font-size:.52rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--faint);min-width:96px}
-.sel-line b{color:var(--navy);min-height:1.2em}
-.sel-line b.fee{color:var(--blue)}
-.truckline{position:relative;border-top:2px dashed rgba(10,65,116,.3);margin:18px 4px 8px}
-.truck{position:absolute;top:-14px;left:0;font-size:1rem;transition:left 1.6s cubic-bezier(.45,0,.25,1)}
-.truck.go{left:calc(100% - 20px)}
+/* ---- SEGURIDAD: terminal real ---- */
+.tm{flex:1;display:flex;flex-direction:column;background:#031321;font-family:'Cascadia Code',Consolas,Menlo,monospace}
+.tm-bar{padding:8px 14px;font-size:.55rem;color:rgba(189,216,233,.5);border-bottom:1px solid rgba(123,189,232,.12);letter-spacing:.05em}
+.tm-body{flex:1;padding:11px 14px;display:flex;flex-direction:column;gap:5px;overflow:hidden}
+.tm-l{font-size:.59rem;line-height:1.5;min-height:1.3em;color:var(--ice);white-space:nowrap;overflow:hidden}
+.tm-l.cmd{color:#8fc7ee}
+.tm-l.cmd::before{content:'$ ';color:#4a7ba6}
+.tm-l.ok{color:#4ade80;animation:fadeUp .35s ease}
+.tm-l.sum{margin-top:auto;color:var(--ice);font-weight:700;opacity:0;transition:opacity .5s ease}
+.tm-l.sum.on{opacity:1}
+.tm-cur{display:inline-block;width:.55em;height:1.05em;background:#8fc7ee;vertical-align:text-bottom;animation:xlcar .9s step-end infinite}
 
-/* 7) Perfil rico */
-.pav2{width:26px;height:26px;border-radius:50%;background:linear-gradient(135deg,var(--steel),var(--sky));color:#fff;display:inline-flex;align-items:center;justify-content:center;font-size:.52rem;font-weight:700;flex-shrink:0}
-.pf-name{color:var(--navy);font-size:.72rem;letter-spacing:0;text-transform:none}
-.orders{display:flex;flex-direction:column}
-.ord{display:flex;align-items:center;gap:8px;font-size:.62rem;color:var(--dim);padding:6px 2px;border-bottom:1px dashed rgba(10,65,116,.14);animation:rowIn .5s var(--ease)}
-.ord b{color:var(--navy)}
-.ord .och{margin-left:auto;font-size:.52rem;font-weight:700;padding:3px 9px;border-radius:999px;white-space:nowrap;transition:all .4s ease}
-.och.way{background:rgba(73,118,159,.16);color:var(--steel)}
-.och.done{background:rgba(22,163,74,.14);color:#15803d}
+/* ---- VELOCIDAD: gauge tipo Lighthouse ---- */
+.sp{flex:1;display:flex;flex-direction:column;background:#fbfdff;padding:12px 16px}
+.sp-url{display:flex;align-items:center;gap:8px;font-size:.62rem;font-weight:700;color:var(--navy);background:#fff;border:1px solid rgba(10,65,116,.15);border-radius:999px;padding:7px 13px;min-height:2.3em}
+.sp-main{flex:1;display:flex;align-items:center;gap:18px;padding:9px 2px}
+.sp-g{width:100px;height:100px;flex-shrink:0}
+.sp-bg{fill:none;stroke:rgba(10,65,116,.1);stroke-width:8}
+.sp-arc{fill:none;stroke:#d97706;stroke-width:8;stroke-linecap:round;stroke-dasharray:326.7;stroke-dashoffset:326.7;transform:rotate(-90deg);transform-origin:center;transition:stroke-dashoffset 1.6s var(--ease),stroke .6s ease}
+.sp-g.good .sp-arc{stroke:#217346}
+.sp-score{font-size:26px;font-weight:700;fill:var(--navy)}
+.sp-g.good .sp-score{fill:#217346}
+.sp-mets{flex:1;display:flex;flex-direction:column;gap:7px}
+.sp-mt{display:flex;justify-content:space-between;align-items:baseline;font-size:.57rem;color:var(--faint);border-bottom:1px dashed rgba(10,65,116,.12);padding-bottom:5px;opacity:0}
+.sp-mt.on{animation:fadeUp .4s ease forwards}
+.sp-mt b{font-size:.7rem;color:var(--blue);font-variant-numeric:tabular-nums}
+.sp-note{font-size:.55rem;font-weight:700;color:#15803d;opacity:0;transform:translateY(6px);transition:all .45s ease;padding-bottom:2px}
+.sp-note.on{opacity:1;transform:none}
 
-/* 8) Seguridad rica (terminal) */
-.md2.mono .dm-ln{font-family:monospace;font-size:.6rem}
+/* ---- PANTALLAS: dispositivos con mini-web dentro ---- */
+.dv{flex:1;display:flex;flex-direction:column;background:#fbfdff;padding:14px 16px 12px}
+.dv-row{flex:1;display:flex;align-items:flex-end;justify-content:center;gap:16px}
+.dv-frame{border:2px solid rgba(10,65,116,.22);border-radius:8px;background:#fff;padding:4px;display:flex;flex-direction:column;transition:all .45s var(--ease);opacity:.5}
+.dv-ph{width:52px;height:98px;border-radius:11px}
+.dv-tb{width:88px;height:76px}
+.dv-dt{width:124px;height:82px}
+.dv-frame.live{border-color:var(--blue);box-shadow:0 0 24px rgba(123,189,232,.75);opacity:1;transform:translateY(-5px)}
+.dv-scr{flex:1;display:flex;flex-direction:column;gap:3px;position:relative;overflow:hidden}
+.dv-scr i{display:block;border-radius:2px;background:rgba(10,65,116,.14);opacity:.4;transform:translateY(4px);transition:all .35s ease}
+.dv-frame.live .dv-scr i{opacity:1;transform:none}
+.dv-scr .b-nav{height:5px}
+.dv-frame.live .b-nav{background:var(--blue);transition-delay:.05s}
+.dv-scr .b-hero{flex:1.6}
+.dv-frame.live .b-hero{background:linear-gradient(135deg,var(--steel),var(--sky));transition-delay:.15s}
+.dv-grid{display:flex;gap:3px;flex:1}
+.dv-grid i{flex:1}
+.dv-frame.live .dv-grid i{transition-delay:.28s;background:rgba(10,65,116,.3)}
+.dv-wa{position:absolute;right:2px;bottom:2px;width:9px;height:9px;border-radius:50%;background:#25D366;opacity:0;transform:scale(0);transition:all .35s ease .45s}
+.dv-frame.live .dv-wa{opacity:1;transform:none}
+.dv-lab{text-align:center;font-size:.6rem;font-weight:700;color:var(--blue);min-height:1.4em;padding-top:10px}
 
-/* 9) Velocidad rica */
-.urlbar{display:flex;align-items:center;gap:8px;font-size:.66rem;color:var(--navy);font-weight:700;background:rgba(255,255,255,.55);border:1px solid rgba(10,65,116,.15);border-radius:999px;padding:8px 14px;min-height:2.6em}
-.bar2{height:9px;border-radius:6px;background:rgba(10,65,116,.14);overflow:hidden}
-.fill2{display:block;height:100%;width:0;border-radius:6px;background:linear-gradient(90deg,var(--blue),var(--sky));transition:width 1.4s var(--ease)}
-.fill2.go{width:100%}
-.metrics{display:flex;flex-wrap:wrap;gap:12px;font-size:.58rem;color:var(--dim)}
-.metrics b{color:var(--blue);font-size:.8rem}
-
-/* 10) Pantallas rica */
-.devrow{display:flex;align-items:flex-end;gap:18px;justify-content:center;padding:6px 0 2px}
-.dframe{border:2px solid rgba(10,65,116,.3);border-radius:6px;display:flex;flex-direction:column;gap:2px;padding:3px;transition:all .4s ease}
-.f-ph{width:26px;height:44px}
-.f-tb{width:44px;height:34px}
-.f-dt{width:64px;height:38px}
-.dframe.live{border-color:var(--blue);box-shadow:0 0 18px rgba(123,189,232,.9)}
-.db{background:rgba(10,65,116,.2);border-radius:2px;min-height:4px;flex:1;opacity:.45;transition:all .4s ease}
-.dframe.live .db{background:var(--steel);opacity:1}
-.dlab2{text-align:center;font-size:.6rem;font-weight:700;color:var(--blue);min-height:1.3em}
+/* (estilos viejos de mini-demos eliminados — ahora cada tarjeta es una app real, ver bloque APPS REALES) */
 
 /* ================= PROYECTOS ================= */
 .projects{display:flex;flex-direction:column;gap:50px;max-width:1080px;margin:0 auto;perspective:1200px}
@@ -795,7 +831,7 @@ section{padding:120px 5vw;position:relative}
 
 <!-- ============ NAV PILL ============ -->
 <header class="nav-pill lg" id="navPill">
-  <a href="#hero" class="logo"><img src="logo.png" alt="Ricardo Design" class="logo-img"/></a>
+  <a href="#hero" class="logo"><img src="logo-mark.png" alt="Ricardo Design" class="logo-img"/></a>
   <nav class="nav-links" aria-label="Navegación principal">
     <a href="#services">Servicios</a>
     <a href="#demos">En Vivo</a>
@@ -878,7 +914,7 @@ section{padding:120px 5vw;position:relative}
 
     <!-- DEMO CORREO (panel navy) -->
     <article class="demo navy-panel tilt reveal-scale mdemo" data-tilt>
-      <div class="win-bar"><span></span><span></span><span></span><em id="mailTitle">Correo automático — nueva venta</em></div>
+      <div class="win-bar"><span></span><span></span><span></span><em id="mailTitle">Correo automático — nueva venta</em><img class="wb-logo" src="logo-mark-w.png" alt=""/></div>
       <div class="demo-body" data-demo="mail" aria-hidden="true">
         <div class="mail-f"><label>Para</label><span id="mTo"></span></div>
         <div class="mail-f"><label>Asunto</label><span id="mSub"></span></div>
@@ -889,7 +925,7 @@ section{padding:120px 5vw;position:relative}
 
     <!-- DEMO EXCEL (tarjeta clara) -->
     <article class="demo lg tilt reveal-scale mdemo" data-tilt>
-      <div class="win-bar"><span></span><span></span><span></span><em>Ventas.xlsx — se llena solo</em></div>
+      <div class="win-bar"><span></span><span></span><span></span><em>Ventas.xlsx — se llena solo</em><img class="wb-logo" src="logo-mark.png" alt=""/></div>
       <div class="demo-body" data-demo="sheet" aria-hidden="true">
         <div class="xl">
           <div class="xl-fbar">
@@ -905,113 +941,134 @@ section{padding:120px 5vw;position:relative}
       </div>
     </article>
 
-    <!-- Pagos Wompi -->
+    <!-- WOMPI: checkout real -->
     <article class="demo navy-panel tilt reveal-scale mdemo" data-tilt>
-      <div class="win-bar"><span></span><span></span><span></span><em>Wompi · pago con respaldo Bancolombia</em></div>
-      <div class="demo-body">
-        <div class="md2 dark" data-demo="pay" aria-hidden="true">
-          <div class="dm-head">🔒 Wompi — la pasarela de Bancolombia</div>
-          <div class="paymethods"><span class="pm">💳 Tarjeta</span><span class="pm">🏦 PSE</span><span class="pm">📱 Nequi</span></div>
-          <div class="dm-lines"></div>
-          <div class="dm-ok">✓ APROBADO — respaldado por Bancolombia</div>
+      <div class="win-bar"><span></span><span></span><span></span><em>Wompi · pago con respaldo Bancolombia</em><img class="wb-logo" src="logo-mark-w.png" alt=""/></div>
+      <div class="demo-body" data-demo="pay" aria-hidden="true">
+        <div class="wp">
+          <div class="wp-top"><b>wompi</b><span>× Bancolombia · pago seguro</span><i>🔒</i></div>
+          <div class="wp-amt"><small>Total a pagar</small><b class="wp-total">$0</b></div>
+          <div class="wp-methods"><span class="wp-m">💳 Tarjeta</span><span class="wp-m">🏦 PSE</span><span class="wp-m">📱 Nequi</span></div>
+          <div class="wp-status"><i class="wp-spin"></i><span class="wp-msg"></span></div>
+          <div class="wp-done"><span class="wp-check">✓</span><span><b>Transacción aprobada</b><small class="wp-ref"></small></span></div>
+          <div class="wp-foot">🛡 Protegido por Wompi · Grupo Bancolombia</div>
         </div>
       </div>
     </article>
 
-    <!-- Carrito -->
+    <!-- CARRITO: drawer de tienda real -->
     <article class="demo lg tilt reveal-scale mdemo" data-tilt>
-      <div class="win-bar"><span></span><span></span><span></span><em>Carrito — subtotales en tiempo real</em></div>
-      <div class="demo-body">
-        <div class="md2 light" data-demo="cart" aria-hidden="true">
-          <div class="dm-head">🛒 Carrito en vivo <span class="cbadge">0</span></div>
-          <div class="cart-items"></div>
-          <div class="cart-foot">Subtotal <b class="csum">$0</b></div>
-          <div class="dm-ok">✓ Guardado 30 días — aunque cierre el navegador</div>
+      <div class="win-bar"><span></span><span></span><span></span><em>Carrito — subtotales en tiempo real</em><img class="wb-logo" src="logo-mark.png" alt=""/></div>
+      <div class="demo-body" data-demo="cart" aria-hidden="true">
+        <div class="ct">
+          <div class="ct-top"><b>🛒 Tu carrito</b><span class="ct-badge">0</span></div>
+          <div class="ct-items"></div>
+          <div class="ct-sub"><span>Subtotal</span><b class="ct-sum">$0</b></div>
+          <div class="ct-btn">Ir a pagar →</div>
+          <div class="ct-note">✓ Guardado 30 días — aunque cierre el navegador</div>
         </div>
       </div>
     </article>
 
-    <!-- Club -->
+    <!-- CLUB: formulario real → código -->
     <article class="demo navy-panel tilt reveal-scale mdemo" data-tilt>
-      <div class="win-bar"><span></span><span></span><span></span><em>Club — código único automático</em></div>
-      <div class="demo-body">
-        <div class="md2 dark" data-demo="club" aria-hidden="true">
-          <div class="dm-head">🎁 Nuevo miembro del Club</div>
-          <div class="cl-row"><label>Email</label><span class="cl-em"></span></div>
-          <div class="dm-lines"></div>
-          <div class="code2"></div>
-          <div class="dm-ok">✓ Correo de bienvenida enviado — 15% activo</div>
-        </div>
-      </div>
-    </article>
-
-    <!-- Envíos -->
-    <article class="demo lg tilt reveal-scale mdemo" data-tilt>
-      <div class="win-bar"><span></span><span></span><span></span><em>Envíos — cotizador DANE</em></div>
-      <div class="demo-body">
-        <div class="md2 light" data-demo="ship" aria-hidden="true">
-          <div class="dm-head">📦 Cotizador de envío (DANE)</div>
-          <div class="sel-line"><label>Departamento</label><b class="sh-dep"></b></div>
-          <div class="sel-line"><label>Municipio</label><b class="sh-mun"></b></div>
-          <div class="sel-line"><label>Tarifa</label><b class="fee sh-fee"></b></div>
-          <div class="truckline"><span class="truck">🚚</span></div>
-          <div class="dm-ok">✓ Entregado — guía enviada al correo del cliente</div>
-        </div>
-      </div>
-    </article>
-
-    <!-- Perfil -->
-    <article class="demo lg tilt reveal-scale mdemo" data-tilt>
-      <div class="win-bar"><span></span><span></span><span></span><em>Mi cuenta — perfil del cliente</em></div>
-      <div class="demo-body">
-        <div class="md2 light" data-demo="prof" aria-hidden="true">
-          <div class="dm-head"><span class="pav2">LG</span> <span class="pf-name"></span></div>
-          <div class="dm-lines"></div>
-          <div class="orders"></div>
-          <div class="dm-ok">✓ Recompra en 1 clic — checkout precargado</div>
-        </div>
-      </div>
-    </article>
-
-    <!-- Seguridad -->
-    <article class="demo navy-panel tilt reveal-scale mdemo" data-tilt>
-      <div class="win-bar"><span></span><span></span><span></span><em>Security — escaneo en vivo</em></div>
-      <div class="demo-body">
-        <div class="md2 dark mono" data-demo="sec" aria-hidden="true">
-          <div class="dm-head">🔐 Escaneo de seguridad en vivo</div>
-          <div class="dm-lines"></div>
-          <div class="dm-ok">🛡 Protección activa 24/7 — nivel bancario</div>
-        </div>
-      </div>
-    </article>
-
-    <!-- Velocidad -->
-    <article class="demo lg tilt reveal-scale mdemo" data-tilt>
-      <div class="win-bar"><span></span><span></span><span></span><em>PageSpeed — tu web medida</em></div>
-      <div class="demo-body">
-        <div class="md2 light" data-demo="speed" aria-hidden="true">
-          <div class="dm-head">⚡ Prueba de velocidad</div>
-          <div class="urlbar">🌐 <span class="u-t"></span></div>
-          <div class="bar2"><i class="fill2"></i></div>
-          <div class="metrics"><span>⚡ <b class="m1">0</b>/100 Rendimiento</span><span>🔍 <b class="m2">0</b>/100 SEO</span><span>⏱ <b class="m3">0.0</b>s carga</span></div>
-          <div class="dm-ok">✓ Más rápido que el 95% de las webs en Colombia</div>
-        </div>
-      </div>
-    </article>
-
-    <!-- Pantallas -->
-    <article class="demo lg tilt reveal-scale mdemo" data-tilt>
-      <div class="win-bar"><span></span><span></span><span></span><em>Responsive — todas las pantallas</em></div>
-      <div class="demo-body">
-        <div class="md2 light" data-demo="dev" aria-hidden="true">
-          <div class="dm-head">📱 Un diseño, todas las pantallas</div>
-          <div class="devrow">
-            <span class="dframe f-ph"><i class="db"></i><i class="db"></i><i class="db"></i></span>
-            <span class="dframe f-tb"><i class="db"></i><i class="db"></i><i class="db"></i></span>
-            <span class="dframe f-dt"><i class="db"></i><i class="db"></i><i class="db"></i></span>
+      <div class="win-bar"><span></span><span></span><span></span><em>Club — código único automático</em><img class="wb-logo" src="logo-mark-w.png" alt=""/></div>
+      <div class="demo-body" data-demo="club" aria-hidden="true">
+        <div class="cb">
+          <div class="cb-form">
+            <b class="cb-title">🎁 Únete al Club — 15% OFF</b>
+            <label>Nombre</label><div class="cb-in cb-nm"></div>
+            <label>Email</label><div class="cb-in cb-em"></div>
+            <div class="cb-btn">Unirme al Club</div>
           </div>
-          <div class="dlab2"></div>
-          <div class="dm-ok">✓ 65% de tus clientes comprarán desde el celular</div>
+          <div class="cb-done">
+            <span class="cb-gift">🎁</span>
+            <b class="cb-hi"></b>
+            <small>Tu código único de miembro:</small>
+            <div class="cb-code"></div>
+            <small class="cb-mail">✉ Correo de bienvenida enviado — 15% activo</small>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <!-- ENVÍOS: cotizador con selects reales -->
+    <article class="demo lg tilt reveal-scale mdemo" data-tilt>
+      <div class="win-bar"><span></span><span></span><span></span><em>Envíos — cotizador automático</em><img class="wb-logo" src="logo-mark.png" alt=""/></div>
+      <div class="demo-body" data-demo="ship" aria-hidden="true">
+        <div class="sh">
+          <b class="sh-title">📦 Calcula tu envío</b>
+          <label>Departamento</label>
+          <div class="sh-sel sh-s1"><span class="sh-val">Selecciona…</span><i>▾</i><div class="sh-opts"></div></div>
+          <label>Ciudad</label>
+          <div class="sh-sel sh-s2"><span class="sh-val">Selecciona…</span><i>▾</i><div class="sh-opts"></div></div>
+          <div class="sh-quote"><span>Tarifa</span><b class="sh-fee"></b><em class="sh-eta"></em></div>
+          <div class="sh-track">
+            <div class="sh-road"><span class="sh-truck">🚚</span></div>
+            <div class="sh-steps"><span>Recogido</span><span>En ruta</span><span>Entregado</span></div>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <!-- PERFIL: página de cuenta real -->
+    <article class="demo lg tilt reveal-scale mdemo" data-tilt>
+      <div class="win-bar"><span></span><span></span><span></span><em>Mi cuenta — perfil del cliente</em><img class="wb-logo" src="logo-mark.png" alt=""/></div>
+      <div class="demo-body" data-demo="prof" aria-hidden="true">
+        <div class="pf">
+          <div class="pf-head"><span class="pf-av">LG</span><span><b class="pf-nm"></b><small>Cliente frecuente ⭐ · Bucaramanga</small></span></div>
+          <div class="pf-tabs"><span class="on">Pedidos</span><span>Mis datos</span><span>Favoritos</span></div>
+          <div class="pf-orders"></div>
+          <div class="pf-cta">Repetir último pedido →</div>
+        </div>
+      </div>
+    </article>
+
+    <!-- SEGURIDAD: terminal real -->
+    <article class="demo navy-panel tilt reveal-scale mdemo" data-tilt>
+      <div class="win-bar"><span></span><span></span><span></span><em>Security — escaneo en vivo</em><img class="wb-logo" src="logo-mark-w.png" alt=""/></div>
+      <div class="demo-body" data-demo="sec" aria-hidden="true">
+        <div class="tm">
+          <div class="tm-bar">root@ricardodesign : ~/security — bash</div>
+          <div class="tm-body"></div>
+        </div>
+      </div>
+    </article>
+
+    <!-- VELOCIDAD: gauge Lighthouse -->
+    <article class="demo lg tilt reveal-scale mdemo" data-tilt>
+      <div class="win-bar"><span></span><span></span><span></span><em>PageSpeed — tu web medida</em><img class="wb-logo" src="logo-mark.png" alt=""/></div>
+      <div class="demo-body" data-demo="speed" aria-hidden="true">
+        <div class="sp">
+          <div class="sp-url">🌐 <span class="sp-u"></span></div>
+          <div class="sp-main">
+            <svg class="sp-g" viewBox="0 0 120 120" aria-hidden="true">
+              <circle class="sp-bg" cx="60" cy="60" r="52"/>
+              <circle class="sp-arc" cx="60" cy="60" r="52"/>
+              <text class="sp-score" x="60" y="69" text-anchor="middle">0</text>
+            </svg>
+            <div class="sp-mets">
+              <div class="sp-mt"><span>Primera pintura (FCP)</span><b class="sm1">—</b></div>
+              <div class="sp-mt"><span>Carga completa (LCP)</span><b class="sm2">—</b></div>
+              <div class="sp-mt"><span>Estabilidad (CLS)</span><b class="sm3">—</b></div>
+            </div>
+          </div>
+          <div class="sp-note">✓ Más rápido que el 95% de las webs en Colombia</div>
+        </div>
+      </div>
+    </article>
+
+    <!-- PANTALLAS: dispositivos con mini-web -->
+    <article class="demo lg tilt reveal-scale mdemo" data-tilt>
+      <div class="win-bar"><span></span><span></span><span></span><em>Responsive — todas las pantallas</em><img class="wb-logo" src="logo-mark.png" alt=""/></div>
+      <div class="demo-body" data-demo="dev" aria-hidden="true">
+        <div class="dv">
+          <div class="dv-row">
+            <div class="dv-frame dv-ph"><div class="dv-scr"><i class="b-nav"></i><i class="b-hero"></i><span class="dv-grid"><i></i></span><em class="dv-wa"></em></div></div>
+            <div class="dv-frame dv-tb"><div class="dv-scr"><i class="b-nav"></i><i class="b-hero"></i><span class="dv-grid"><i></i><i></i></span></div></div>
+            <div class="dv-frame dv-dt"><div class="dv-scr"><i class="b-nav"></i><i class="b-hero"></i><span class="dv-grid"><i></i><i></i><i></i></span></div></div>
+          </div>
+          <div class="dv-lab"></div>
         </div>
       </div>
     </article>
@@ -1088,7 +1145,7 @@ section{padding:120px 5vw;position:relative}
 
 <!-- ============ FOOTER ============ -->
 <footer class="footer navy-panel">
-  <div class="flogo">RICARDO</div>
+  <div class="flogo"><img src="logo-mark-w.png" alt="Ricardo Design" style="height:64px;width:auto;display:inline-block"/></div>
   <div class="footer-social">
     <a href="#" rel="noopener">Instagram</a>
     <a href="#" rel="noopener">LinkedIn</a>
@@ -1440,184 +1497,315 @@ section{padding:120px 5vw;position:relative}
   }
   function snapReset(el, cls) { el.style.transition = 'none'; el.classList.remove(cls); void el.offsetWidth; el.style.transition = ''; }
 
+  function cntM(C, el, to, ms) {
+    var t0 = performance.now();
+    (function f(t) {
+      if (!C.alive) return;
+      var k = Math.min(1, (t - t0) / ms); k = 1 - Math.pow(1 - k, 3);
+      el.textContent = '$' + Math.round(to * k).toLocaleString('es-CO');
+      if (k < 1) requestAnimationFrame(f);
+    })(t0);
+  }
+  function press(C, el) { el.classList.add('press'); C.wait(380, function () { el.classList.remove('press'); }); }
+
   var RICH = {
+    /* WOMPI: checkout real que procesa un pago */
     pay: {
       reset: function (st) {
-        st.querySelector('.dm-lines').innerHTML = '';
-        st.querySelector('.dm-ok').classList.remove('on');
-        [].forEach.call(st.querySelectorAll('.pm'), function (p) { p.classList.remove('hot'); });
+        st.querySelector('.wp-total').textContent = '$0';
+        st.querySelector('.wp-msg').textContent = '';
+        st.querySelector('.wp-ref').textContent = '';
+        st.querySelector('.wp-status').classList.remove('go');
+        st.querySelector('.wp-done').classList.remove('show');
+        [].forEach.call(st.querySelectorAll('.wp-m'), function (m) { m.classList.remove('sel'); });
       },
       run: function (st, C, ix) {
         var me = this; me.reset(st);
-        var D = [['Tarjeta', '$305.000'], ['PSE', '$185.000'], ['Nequi', '$420.000']][ix % 3];
-        var box = st.querySelector('.dm-lines'), ok = st.querySelector('.dm-ok'), pms = st.querySelectorAll('.pm'), l1, l2, l3;
-        chain(C, [W(C, 450),
-          F(function () { pms[ix % 3].classList.add('hot'); l1 = ln(box); }),
-          function (n) { C.type(l1, 'Cliente paga ' + D[1] + ' con ' + D[0] + '…', 22, n); }, W(C, 300),
-          F(function () { l2 = ln(box); }),
-          function (n) { C.type(l2, 'Verificando firma criptográfica…', 22, n); }, W(C, 600),
-          F(function () { stamp(l2, 'VERIFICADA'); l3 = ln(box); }), W(C, 350),
-          function (n) { C.type(l3, 'Wompi es de Bancolombia: tu dinero llega directo a tu cuenta.', 18, n); }, W(C, 350),
-          F(function () { ok.classList.add('on'); }), W(C, 3400),
+        var D = [[0, 305000], [1, 185000], [2, 420000]][ix % 3];
+        var total = st.querySelector('.wp-total'), msg = st.querySelector('.wp-msg'),
+            status = st.querySelector('.wp-status'), done = st.querySelector('.wp-done'),
+            ref = st.querySelector('.wp-ref'), ms = st.querySelectorAll('.wp-m');
+        chain(C, [W(C, 350),
+          F(function () { cntM(C, total, D[1], 750); }), W(C, 950),
+          F(function () { ms[D[0]].classList.add('sel'); }), W(C, 550),
+          F(function () { status.classList.add('go'); }),
+          TY(C, msg, 'Conectando con Bancolombia…', 16), W(C, 620),
+          F(function () { msg.textContent = ''; }),
+          TY(C, msg, 'Verificando firma criptográfica…', 16), W(C, 620),
+          F(function () { msg.textContent = ''; }),
+          TY(C, msg, '3-D Secure · identidad confirmada ✓', 16), W(C, 480),
+          F(function () { status.classList.remove('go'); done.classList.add('show'); }),
+          TY(C, ref, 'REF WMP-' + (D[1] + ix * 7).toString(16).toUpperCase() + '-CO', 22), W(C, 3300),
           F(function () { me.run(st, C, ix + 1); })]);
       }
     },
+    /* CARRITO: items entran, qty sube, subtotal recalcula */
     cart: {
       reset: function (st) {
-        st.querySelector('.cart-items').innerHTML = '';
-        st.querySelector('.cbadge').textContent = '0';
-        st.querySelector('.csum').textContent = '$0';
-        st.querySelector('.dm-ok').classList.remove('on');
+        st.querySelector('.ct-items').innerHTML = '';
+        st.querySelector('.ct-badge').textContent = '0';
+        st.querySelector('.ct-sum').textContent = '$0';
+        st.querySelector('.ct-note').classList.remove('on');
+        st.querySelector('.ct-btn').classList.remove('press');
       },
       run: function (st, C, ix) {
         var me = this; me.reset(st);
-        var items = [['💍', 'Anillo Luna', 160000], ['📿', 'Collar Sol', 185000], ['🕯', 'Vela artesanal', 45000]];
-        var box = st.querySelector('.cart-items'), bd = st.querySelector('.cbadge'), sum = st.querySelector('.csum'), ok = st.querySelector('.dm-ok');
-        var tot = 0, steps = [W(C, 500)];
+        var items = [['💍', 'Anillo Luna', 'Plata 950', 160000], ['📿', 'Collar Sol', 'Baño de oro 24k', 185000]];
+        var box = st.querySelector('.ct-items'), bd = st.querySelector('.ct-badge'),
+            sum = st.querySelector('.ct-sum'), note = st.querySelector('.ct-note'), btn = st.querySelector('.ct-btn');
+        var tot = 0, steps = [W(C, 400)];
         items.forEach(function (it, i) {
           steps.push(F(function () {
-            var r = document.createElement('div'); r.className = 'cart-it';
-            r.innerHTML = '<span>' + it[0] + '</span><b>' + it[1] + '</b><span class="pr">' + fmt(it[2]) + '</span>';
+            var r = document.createElement('div'); r.className = 'ct-it';
+            r.innerHTML = '<span class="ct-th">' + it[0] + '</span><span class="ct-nm"><b>' + it[1] + '</b><small>' + it[2] + '</small></span><span class="ct-qty"><i>−</i><em class="q" style="font-style:normal">1</em><i class="pl">+</i></span><span class="ct-pr">' + fmt(it[3]) + '</span>';
             box.appendChild(r);
             bd.textContent = i + 1; bd.classList.add('pop');
-            setTimeout(function () { bd.classList.remove('pop'); }, 300);
-            var prev = tot; tot += it[2]; countTo(sum, prev, tot, 700);
+            C.wait(300, function () { bd.classList.remove('pop'); });
+            var prev = tot; tot += it[3]; countTo(sum, prev, tot, 600);
           }));
-          steps.push(W(C, 1150));
+          steps.push(W(C, 1050));
         });
-        steps.push(F(function () { ok.classList.add('on'); }));
+        steps.push(F(function () {
+          var r0 = box.children[0];
+          var plus = r0.querySelector('.pl'), q = r0.querySelector('.q'), pr = r0.querySelector('.ct-pr');
+          plus.classList.add('press'); C.wait(360, function () { plus.classList.remove('press'); });
+          q.textContent = '2'; pr.textContent = fmt(320000);
+          var prev = tot; tot += 160000; countTo(sum, prev, tot, 600);
+          bd.textContent = '3'; bd.classList.add('pop');
+          C.wait(300, function () { bd.classList.remove('pop'); });
+        }));
+        steps.push(W(C, 950));
+        steps.push(F(function () { press(C, btn); }));
+        steps.push(W(C, 480));
+        steps.push(F(function () { note.classList.add('on'); }));
+        steps.push(W(C, 3100));
+        steps.push(F(function () { me.run(st, C, ix + 1); }));
+        chain(C, steps);
+      }
+    },
+    /* CLUB: formulario se llena → flip → código generado */
+    club: {
+      reset: function (st) {
+        st.querySelector('.cb-form').classList.remove('hide');
+        st.querySelector('.cb-done').classList.remove('show');
+        st.querySelector('.cb-nm').textContent = '';
+        st.querySelector('.cb-em').textContent = '';
+        [].forEach.call(st.querySelectorAll('.cb-in'), function (i) { i.classList.remove('foc'); });
+        st.querySelector('.cb-btn').classList.remove('press');
+        var c = st.querySelector('.cb-code'); c.textContent = ''; c.classList.remove('glow');
+        st.querySelector('.cb-hi').textContent = '';
+        st.querySelector('.cb-mail').classList.remove('on');
+      },
+      run: function (st, C, ix) {
+        var me = this; me.reset(st);
+        var D = [['Valentina Ríos', 'valentina.rios@gmail.com', '¡Bienvenida, Valentina!', 'CLUB15-8F2A'],
+                 ['Carlos Duarte', 'carlos.duarte@hotmail.com', '¡Bienvenido, Carlos!', 'CLUB15-3K7Q']][ix % 2];
+        var nm = st.querySelector('.cb-nm'), em = st.querySelector('.cb-em'),
+            form = st.querySelector('.cb-form'), done = st.querySelector('.cb-done'),
+            btn = st.querySelector('.cb-btn'), code = st.querySelector('.cb-code'),
+            hi = st.querySelector('.cb-hi'), mail = st.querySelector('.cb-mail');
+        chain(C, [W(C, 400),
+          F(function () { nm.classList.add('foc'); }),
+          TY(C, nm, D[0], 30),
+          F(function () { nm.classList.remove('foc'); em.classList.add('foc'); }),
+          TY(C, em, D[1], 22),
+          F(function () { em.classList.remove('foc'); }), W(C, 300),
+          F(function () { press(C, btn); }), W(C, 550),
+          F(function () { form.classList.add('hide'); done.classList.add('show'); hi.textContent = D[2]; }), W(C, 420),
+          function (n) { C.type(code, D[3], 55, n); },
+          F(function () { code.classList.add('glow'); }), W(C, 420),
+          F(function () { mail.classList.add('on'); }), W(C, 3200),
+          F(function () { me.run(st, C, ix + 1); })]);
+      }
+    },
+    /* ENVÍOS: selects que se abren y eligen + camión con estados */
+    ship: {
+      reset: function (st) {
+        [].forEach.call(st.querySelectorAll('.sh-sel'), function (s) {
+          s.classList.remove('open', 'filled');
+          s.querySelector('.sh-val').textContent = 'Selecciona…';
+          s.querySelector('.sh-opts').innerHTML = '';
+        });
+        st.querySelector('.sh-fee').textContent = '';
+        st.querySelector('.sh-eta').textContent = '';
+        var tr = st.querySelector('.sh-track');
+        tr.classList.add('snap');
+        st.querySelector('.sh-road').style.setProperty('--p', 0);
+        void tr.offsetWidth;
+        tr.classList.remove('snap');
+        [].forEach.call(st.querySelectorAll('.sh-steps span'), function (s) { s.classList.remove('on', 'done'); });
+      },
+      run: function (st, C, ix) {
+        var me = this; me.reset(st);
+        var DEPS = ['Atlántico', 'Antioquia', 'Cundinamarca', 'Valle del Cauca'];
+        var R = [['Atlántico', 'Barranquilla', 8000, '24–48 h', ['Barranquilla', 'Soledad', 'Puerto Colombia']],
+                 ['Cundinamarca', 'Bogotá', 15000, '2–4 días', ['Bogotá', 'Chía', 'Cajicá']],
+                 ['Valle del Cauca', 'Cali', 15000, '2–4 días', ['Cali', 'Jamundí', 'Palmira']]][ix % 3];
+        var s1 = st.querySelector('.sh-s1'), s2 = st.querySelector('.sh-s2');
+        var fee = st.querySelector('.sh-fee'), eta = st.querySelector('.sh-eta');
+        var road = st.querySelector('.sh-road'), stepsEl = st.querySelectorAll('.sh-steps span');
+        function pickSeq(sel, options, target) {
+          var out = [];
+          out.push(F(function () {
+            var box = sel.querySelector('.sh-opts'); box.innerHTML = '';
+            options.forEach(function (o) { var sp = document.createElement('span'); sp.textContent = o; box.appendChild(sp); });
+            sel.classList.add('open');
+          }));
+          out.push(W(C, 380));
+          var ti = options.indexOf(target);
+          for (var h = 0; h <= ti; h++) {
+            (function (h) {
+              out.push(F(function () {
+                var ops = sel.querySelectorAll('.sh-opts span');
+                [].forEach.call(ops, function (o) { o.classList.remove('hl'); });
+                ops[h].classList.add('hl');
+              }));
+              out.push(W(C, 250));
+            })(h);
+          }
+          out.push(F(function () {
+            sel.classList.remove('open'); sel.classList.add('filled');
+            sel.querySelector('.sh-val').textContent = target;
+          }));
+          out.push(W(C, 320));
+          return out;
+        }
+        var seq = [W(C, 350)];
+        seq = seq.concat(pickSeq(s1, DEPS, R[0]));
+        seq = seq.concat(pickSeq(s2, R[4], R[1]));
+        seq.push(F(function () { countTo(fee, 0, R[2], 500); eta.textContent = '· llega en ' + R[3]; }));
+        seq.push(W(C, 650));
+        [[0.18, 0], [0.55, 1], [1, 2]].forEach(function (pp) {
+          seq.push(F(function () {
+            road.style.setProperty('--p', pp[0]);
+            stepsEl[pp[1]].classList.add(pp[1] === 2 ? 'done' : 'on');
+            if (pp[1] > 0) stepsEl[pp[1] - 1].classList.add('done');
+          }));
+          seq.push(W(C, 950));
+        });
+        seq.push(W(C, 2300));
+        seq.push(F(function () { me.run(st, C, ix + 1); }));
+        chain(C, seq);
+      }
+    },
+    /* PERFIL: cuenta con pedidos y estado que cambia en vivo */
+    prof: {
+      reset: function (st) {
+        st.querySelector('.pf-nm').textContent = '';
+        st.querySelector('.pf-orders').innerHTML = '';
+        st.querySelector('.pf-cta').classList.remove('press');
+      },
+      run: function (st, C, ix) {
+        var me = this; me.reset(st);
+        var ords = st.querySelector('.pf-orders'), cta = st.querySelector('.pf-cta'), pill1;
+        var DATA = [['#1042', 'Collar Sol · 2 uds', '$370.000', 'way', 'En camino'],
+                    ['#1041', 'Anillo Luna', '$160.000', 'done', 'Entregado ✓'],
+                    ['#1038', 'Aretes Prisma', '$95.000', 'done', 'Entregado ✓']];
+        var steps = [W(C, 400), TY(C, st.querySelector('.pf-nm'), 'Laura Gómez', 32), W(C, 350)];
+        DATA.forEach(function (d, i) {
+          steps.push(F(function () {
+            var r = document.createElement('div'); r.className = 'pf-o';
+            r.innerHTML = '<b>' + d[0] + '</b><span>' + d[1] + '</span><span class="pf-pr">' + d[2] + '</span><span class="pf-pill ' + d[3] + '">' + d[4] + '</span>';
+            ords.appendChild(r);
+            if (i === 0) pill1 = r.querySelector('.pf-pill');
+          }));
+          steps.push(W(C, 420));
+        });
+        steps.push(W(C, 900));
+        steps.push(F(function () {
+          pill1.className = 'pf-pill done flash'; pill1.textContent = 'Entregado ✓';
+          C.wait(900, function () { pill1.classList.remove('flash'); });
+        }));
+        steps.push(W(C, 800));
+        steps.push(F(function () { press(C, cta); }));
+        steps.push(W(C, 3000));
+        steps.push(F(function () { me.run(st, C, ix + 1); }));
+        chain(C, steps);
+      }
+    },
+    /* SEGURIDAD: terminal bash con escaneos reales */
+    sec: {
+      reset: function (st) { st.querySelector('.tm-body').innerHTML = ''; },
+      run: function (st, C, ix) {
+        var me = this; me.reset(st);
+        var body = st.querySelector('.tm-body');
+        var cur = document.createElement('span'); cur.className = 'tm-cur';
+        var ROWS = [['ssl --verify ricardodesign.co', '[ OK ] TLS 1.3 · certificado válido'],
+                    ['firewall --status', '[ OK ] WAF activo · 0 amenazas hoy'],
+                    ['scan --malware ./site', '[ OK ] 1.240 archivos · 0 infectados'],
+                    ['backup --last', '[ OK ] Copia hace 2 h · AES-256']];
+        var steps = [W(C, 400)];
+        ROWS.forEach(function (r) {
+          var tEl;
+          steps.push(F(function () {
+            var d = document.createElement('div'); d.className = 'tm-l cmd';
+            d.innerHTML = '<span class="t"></span>';
+            d.appendChild(cur);
+            body.appendChild(d);
+            tEl = d.querySelector('.t');
+          }));
+          steps.push(function (n) { C.type(tEl, r[0], 14, n); });
+          steps.push(W(C, 240));
+          steps.push(F(function () {
+            var okl = document.createElement('div'); okl.className = 'tm-l ok'; okl.textContent = r[1];
+            body.appendChild(okl);
+          }));
+          steps.push(W(C, 300));
+        });
+        steps.push(F(function () {
+          var s = document.createElement('div'); s.className = 'tm-l sum';
+          s.textContent = '🛡 Protección activa 24/7 — nivel bancario';
+          body.appendChild(s);
+          requestAnimationFrame(function () { s.classList.add('on'); });
+        }));
         steps.push(W(C, 3200));
         steps.push(F(function () { me.run(st, C, ix + 1); }));
         chain(C, steps);
       }
     },
-    club: {
-      reset: function (st) {
-        st.querySelector('.cl-em').textContent = '';
-        st.querySelector('.dm-lines').innerHTML = '';
-        var c = st.querySelector('.code2'); c.textContent = ''; c.classList.remove('glow');
-        st.querySelector('.dm-ok').classList.remove('on');
-      },
-      run: function (st, C, ix) {
-        var me = this; me.reset(st);
-        var D = [['laura.gomez@gmail.com', 'CLUB15-8F2A'], ['carlos.ruiz@hotmail.com', 'CLUB15-3K7Q']][ix % 2];
-        var box = st.querySelector('.dm-lines'), code = st.querySelector('.code2'), ok = st.querySelector('.dm-ok'), l1;
-        chain(C, [W(C, 450),
-          TY(C, st.querySelector('.cl-em'), D[0], 24), W(C, 300),
-          F(function () { l1 = ln(box); }),
-          function (n) { C.type(l1, 'Validando en el servidor… código único generado:', 20, n); }, W(C, 350),
-          function (n) { C.type(code, D[1], 55, n); },
-          F(function () { code.classList.add('glow'); }), W(C, 500),
-          F(function () { ok.classList.add('on'); }), W(C, 3300),
-          F(function () { me.run(st, C, ix + 1); })]);
-      }
-    },
-    ship: {
-      reset: function (st) {
-        ['.sh-dep', '.sh-mun', '.sh-fee'].forEach(function (q) { st.querySelector(q).textContent = ''; });
-        snapReset(st.querySelector('.truck'), 'go');
-        st.querySelector('.dm-ok').classList.remove('on');
-      },
-      run: function (st, C, ix) {
-        var me = this; me.reset(st);
-        var D = [['Cundinamarca', 'Bogotá', '$15.000'], ['Antioquia', 'Medellín', '$15.000'], ['Atlántico', 'Barranquilla', '$8.000'], ['Compra ≥ $200.000', 'Toda Colombia', 'GRATIS ✨']][ix % 4];
-        var ok = st.querySelector('.dm-ok');
-        chain(C, [W(C, 450),
-          TY(C, st.querySelector('.sh-dep'), D[0], 26), W(C, 250),
-          TY(C, st.querySelector('.sh-mun'), D[1], 26), W(C, 250),
-          TY(C, st.querySelector('.sh-fee'), D[2], 30), W(C, 350),
-          F(function () { st.querySelector('.truck').classList.add('go'); }), W(C, 1750),
-          F(function () { ok.classList.add('on'); }), W(C, 2900),
-          F(function () { me.run(st, C, ix + 1); })]);
-      }
-    },
-    prof: {
-      reset: function (st) {
-        st.querySelector('.pf-name').textContent = '';
-        st.querySelector('.dm-lines').innerHTML = '';
-        st.querySelector('.orders').innerHTML = '';
-        st.querySelector('.dm-ok').classList.remove('on');
-      },
-      run: function (st, C, ix) {
-        var me = this; me.reset(st);
-        var box = st.querySelector('.dm-lines'), ords = st.querySelector('.orders'), ok = st.querySelector('.dm-ok'), l1, ch1;
-        chain(C, [W(C, 450),
-          TY(C, st.querySelector('.pf-name'), 'Hola, Laura 👋', 30), W(C, 250),
-          F(function () { l1 = ln(box); }),
-          function (n) { C.type(l1, 'Dirección guardada: Cra 27 #45-12, B/manga ✓', 20, n); }, W(C, 400),
-          F(function () {
-            var r = document.createElement('div'); r.className = 'ord';
-            r.innerHTML = '<b>Pedido #1042</b><span>2 productos · $305.000</span><span class="och way">En camino</span>';
-            ords.appendChild(r); ch1 = r.querySelector('.och');
-          }), W(C, 1300),
-          F(function () { ch1.className = 'och done'; ch1.textContent = 'Entregado ✓'; }), W(C, 600),
-          F(function () {
-            var r = document.createElement('div'); r.className = 'ord';
-            r.innerHTML = '<b>Pedido #1038</b><span>1 producto · $160.000</span><span class="och done">Entregado ✓</span>';
-            ords.appendChild(r);
-          }), W(C, 500),
-          F(function () { ok.classList.add('on'); }), W(C, 3100),
-          F(function () { me.run(st, C, ix + 1); })]);
-      }
-    },
-    sec: {
-      reset: function (st) {
-        st.querySelector('.dm-lines').innerHTML = '';
-        st.querySelector('.dm-ok').classList.remove('on');
-      },
-      run: function (st, C, ix) {
-        var me = this; me.reset(st);
-        var box = st.querySelector('.dm-lines'), ok = st.querySelector('.dm-ok');
-        var rows = [['Certificado SSL', 'VÁLIDO'], ['Firma de transacción', 'VERIFICADA'], ['Datos de tarjeta', 'NUNCA SE GUARDAN'], ['Intentos de fraude', 'BLOQUEADOS']];
-        var steps = [W(C, 450)];
-        rows.forEach(function (r) {
-          var el;
-          steps.push(F(function () { el = ln(box); }));
-          steps.push(function (n) { C.type(el, '> ' + r[0] + ' …', 16, n); });
-          steps.push(W(C, 320));
-          steps.push(F(function () { stamp(el, r[1]); }));
-          steps.push(W(C, 260));
-        });
-        steps.push(F(function () { ok.classList.add('on'); }));
-        steps.push(W(C, 3300));
-        steps.push(F(function () { me.run(st, C, ix + 1); }));
-        chain(C, steps);
-      }
-    },
+    /* VELOCIDAD: gauge Lighthouse que mide en vivo */
     speed: {
       reset: function (st) {
-        st.querySelector('.u-t').textContent = '';
-        snapReset(st.querySelector('.fill2'), 'go');
-        st.querySelector('.m1').textContent = '0';
-        st.querySelector('.m2').textContent = '0';
-        st.querySelector('.m3').textContent = '0.0';
-        st.querySelector('.dm-ok').classList.remove('on');
+        st.querySelector('.sp-u').textContent = '';
+        st.querySelector('.sp-g').classList.remove('good');
+        var arc = st.querySelector('.sp-arc');
+        arc.style.transition = 'none'; arc.style.strokeDashoffset = '326.7';
+        void arc.getBoundingClientRect(); arc.style.transition = '';
+        st.querySelector('.sp-score').textContent = '0';
+        [].forEach.call(st.querySelectorAll('.sp-mt'), function (m) { m.classList.remove('on'); });
+        st.querySelector('.sm1').textContent = '—';
+        st.querySelector('.sm2').textContent = '—';
+        st.querySelector('.sm3').textContent = '—';
+        st.querySelector('.sp-note').classList.remove('on');
       },
       run: function (st, C, ix) {
         var me = this; me.reset(st);
-        var ok = st.querySelector('.dm-ok');
-        chain(C, [W(C, 450),
-          TY(C, st.querySelector('.u-t'), 'tunegocio.co', 34), W(C, 250),
+        var score = st.querySelector('.sp-score'), arc = st.querySelector('.sp-arc'), g = st.querySelector('.sp-g');
+        var mets = st.querySelectorAll('.sp-mt');
+        chain(C, [W(C, 400),
+          TY(C, st.querySelector('.sp-u'), 'ricardodesign.co', 30), W(C, 300),
           F(function () {
-            st.querySelector('.fill2').classList.add('go');
-            cnt(C, st.querySelector('.m1'), 98, 1500, 0);
-            cnt(C, st.querySelector('.m2'), 100, 1600, 0);
-            cnt(C, st.querySelector('.m3'), 1.8, 1500, 1);
-          }), W(C, 1800),
-          F(function () { ok.classList.add('on'); }), W(C, 3300),
+            arc.style.strokeDashoffset = (326.7 * 0.02).toFixed(1);
+            cnt(C, score, 98, 1600, 0);
+            C.wait(1000, function () { g.classList.add('good'); });
+          }), W(C, 1750),
+          F(function () { mets[0].classList.add('on'); st.querySelector('.sm1').textContent = '0.4 s'; }), W(C, 280),
+          F(function () { mets[1].classList.add('on'); st.querySelector('.sm2').textContent = '0.8 s'; }), W(C, 280),
+          F(function () { mets[2].classList.add('on'); st.querySelector('.sm3').textContent = '0.00'; }), W(C, 400),
+          F(function () { st.querySelector('.sp-note').classList.add('on'); }), W(C, 3200),
           F(function () { me.run(st, C, ix + 1); })]);
       }
     },
+    /* PANTALLAS: cada dispositivo carga su mini-web */
     dev: {
       reset: function (st) {
-        [].forEach.call(st.querySelectorAll('.dframe'), function (f) { f.classList.remove('live'); });
-        st.querySelector('.dlab2').textContent = '';
-        st.querySelector('.dm-ok').classList.remove('on');
+        [].forEach.call(st.querySelectorAll('.dv-frame'), function (f) { f.classList.remove('live'); });
+        st.querySelector('.dv-lab').textContent = '';
       },
       run: function (st, C, ix) {
         var me = this; me.reset(st);
-        var fr = st.querySelectorAll('.dframe'), lab = st.querySelector('.dlab2'), ok = st.querySelector('.dm-ok');
-        var L = ['Móvil · menú compacto + WhatsApp fijo', 'Tablet · catálogo a 2 columnas', 'Desktop · experiencia completa'];
+        var fr = st.querySelectorAll('.dv-frame'), lab = st.querySelector('.dv-lab');
+        var L = ['Móvil · menú compacto + WhatsApp fijo', 'Tablet · catálogo a 2 columnas', 'Escritorio · experiencia completa'];
         var steps = [W(C, 400)];
         L.forEach(function (t, i) {
           steps.push(F(function () {
@@ -1625,10 +1813,9 @@ section{padding:120px 5vw;position:relative}
             fr[i].classList.add('live'); lab.textContent = '';
           }));
           steps.push(function (n) { C.type(lab, t, 20, n); });
-          steps.push(W(C, 1300));
+          steps.push(W(C, 1350));
         });
-        steps.push(F(function () { ok.classList.add('on'); }));
-        steps.push(W(C, 2800));
+        steps.push(W(C, 900));
         steps.push(F(function () { me.run(st, C, ix + 1); }));
         chain(C, steps);
       }
@@ -1663,6 +1850,8 @@ section{padding:120px 5vw;position:relative}
       }
     }
   };
+
+  window.__RICH = RICH; window.__Ctl = Ctl; // testable desde consola
 
   var ctls = new WeakMap();
   var mio = new IntersectionObserver(function (es) {
