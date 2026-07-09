@@ -575,26 +575,43 @@ section{padding:120px 5vw;position:relative}
 .ct-btn svg{width:13px;height:13px;fill:#fff}
 .ct-btn.press{transform:scale(.96);box-shadow:0 0 22px rgba(10,65,116,.5)}
 
-/* ---- CLUB: formulario que se llena → éxito con código ---- */
-.cb{flex:1;position:relative;overflow:hidden}
-.cb-form,.cb-done{position:absolute;inset:0;display:flex;flex-direction:column;padding:16px 18px;transition:opacity .5s ease,transform .5s var(--ease)}
-.cb-form{gap:6px}
-.cb-title{font-size:.76rem;color:#fff;margin-bottom:4px}
-.cb-form label{font-size:.52rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--wfaint)}
-.cb-in{min-height:2.1em;padding:7px 11px;border-radius:9px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.16);font-size:.66rem;color:#fff;transition:border-color .3s ease,box-shadow .3s ease}
-.cb-in.foc{border-color:var(--sky);box-shadow:0 0 12px rgba(123,189,232,.35)}
-.cb-in.foc::after{content:'';display:inline-block;width:1px;height:.9em;background:var(--sky);margin-left:1px;vertical-align:text-bottom;animation:xlcar .8s step-end infinite}
-.cb-btn{margin-top:9px;padding:10px;border-radius:10px;background:linear-gradient(135deg,var(--sky),var(--steel));color:var(--navy);font-size:.6rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;text-align:center;transition:transform .25s ease}
+/* ---- CLUB: registro real → tarjeta de miembro (fondo claro) ---- */
+.cb{flex:1;position:relative;overflow:hidden;background:#fff}
+.cb-form,.cb-done{position:absolute;inset:0;display:flex;flex-direction:column;padding:14px 16px;transition:opacity .5s ease,transform .5s var(--ease)}
+.cb-form{gap:5px}
+.cb-title{font-size:.72rem;color:var(--navy);margin-bottom:5px}
+.cb-form label{font-size:.5rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--faint);margin-top:3px}
+.cb-in{min-height:2.1em;padding:7px 11px;border-radius:9px;background:#fbfdff;border:1.5px solid rgba(10,65,116,.16);font-size:.66rem;color:var(--navy);transition:border-color .3s ease,box-shadow .3s ease}
+.cb-in.foc{border-color:var(--blue);box-shadow:0 0 0 3px rgba(123,189,232,.2)}
+.cb-in.foc::after{content:'';display:inline-block;width:1px;height:.9em;background:var(--blue);margin-left:1px;vertical-align:text-bottom;animation:xlcar .8s step-end infinite}
+.cb-btn{display:flex;align-items:center;justify-content:center;gap:7px;margin-top:9px;padding:10px;border-radius:10px;background:linear-gradient(135deg,var(--blue),var(--steel));color:#fff;font-size:.6rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;transition:transform .25s ease}
+.cb-btn svg{width:12px;height:12px;fill:#fff;flex-shrink:0}
 .cb-btn.press{transform:scale(.95)}
+.cb-status{display:flex;align-items:center;gap:8px;min-height:22px;padding-top:5px}
+.cb-spin{width:12px;height:12px;border-radius:50%;border:2px solid rgba(10,65,116,.15);border-top-color:var(--blue);opacity:0;flex-shrink:0}
+.cb-status.go .cb-spin{opacity:1;animation:wpspin .7s linear infinite}
+.cb-msg{font-size:.58rem;color:var(--dim);min-height:1.1em}
 .cb-form.hide{opacity:0;transform:translateX(-26px);pointer-events:none}
-.cb-done{opacity:0;transform:translateX(26px);align-items:center;justify-content:center;text-align:center;gap:6px}
+.cb-done{opacity:0;transform:translateX(26px);align-items:center;justify-content:center;text-align:center;gap:8px}
 .cb-done.show{opacity:1;transform:none}
-.cb-gift{font-size:1.5rem}
-.cb-done b{font-size:.82rem;color:#fff;min-height:1.2em}
-.cb-done small{font-size:.57rem;color:var(--wdim)}
-.cb-code{font-family:monospace;font-weight:700;letter-spacing:.1em;font-size:.98rem;color:var(--ice);background:rgba(123,189,232,.13);border:1.5px dashed rgba(123,189,232,.55);border-radius:10px;padding:9px 16px;min-height:2.3em;min-width:13ch;transition:box-shadow .4s ease}
-.cb-code.glow{box-shadow:0 0 26px rgba(123,189,232,.6)}
-.cb-mail{font-size:.55rem;font-weight:700;color:#7ee2a0;opacity:0;transition:opacity .4s ease}
+/* tarjeta de miembro renderizada (como tarjeta física) */
+.cb-card{width:min(290px,90%);border-radius:14px;padding:13px 16px 12px;text-align:left;color:#fff;
+  background:linear-gradient(130deg,var(--navy) 0%,var(--blue) 55%,var(--steel) 100%);
+  box-shadow:0 14px 30px rgba(10,65,116,.35),inset 0 1px 0 rgba(255,255,255,.25);
+  position:relative;overflow:hidden}
+.cb-card::before{content:'';position:absolute;width:160px;height:160px;border-radius:50%;top:-80px;right:-45px;background:radial-gradient(circle,rgba(123,189,232,.35),transparent 70%)}
+.cb-card::after{content:'';position:absolute;width:110px;height:110px;border-radius:50%;bottom:-60px;left:-35px;background:radial-gradient(circle,rgba(123,189,232,.2),transparent 70%)}
+.cb-card-top{display:flex;align-items:center;gap:7px;margin-bottom:10px;position:relative;z-index:1}
+.cb-card-top img{height:14px;width:auto;opacity:.95}
+.cb-card-top span{margin-left:auto;font-size:.48rem;font-weight:700;letter-spacing:.22em;color:var(--ice)}
+.cb-card small{font-size:.46rem;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.55);position:relative;z-index:1}
+.cb-code{font-family:monospace;font-weight:700;letter-spacing:.12em;font-size:1rem;color:#fff;min-height:1.3em;margin:3px 0 10px;position:relative;z-index:1;transition:text-shadow .4s ease}
+.cb-code.glow{text-shadow:0 0 18px rgba(123,189,232,.95)}
+.cb-card-bot{display:flex;align-items:baseline;justify-content:space-between;position:relative;z-index:1}
+.cb-member{font-size:.55rem;letter-spacing:.08em;text-transform:uppercase;color:var(--ice);min-height:1.1em}
+.cb-card-bot b{font-size:.64rem;color:#fff;background:rgba(123,189,232,.25);border:1px solid rgba(123,189,232,.45);border-radius:6px;padding:2px 8px}
+.cb-hi{font-size:.72rem;color:var(--navy);min-height:1.2em}
+.cb-mail{font-size:.55rem;font-weight:700;color:#15803d;opacity:0;transition:opacity .4s ease}
 .cb-mail.on{opacity:1}
 
 /* ---- ENVÍOS: cotizador con selects reales ---- */
@@ -1110,23 +1127,27 @@ section{padding:120px 5vw;position:relative}
       </div>
     </article>
 
-    <!-- CLUB: formulario real → código -->
-    <article class="demo navy-panel tilt reveal-scale mdemo" data-tilt>
-      <div class="win-bar"><span></span><span></span><span></span><em>Club — código único automático</em><img class="wb-logo" src="logo-mark-w.png" alt=""/></div>
+    <!-- CLUB: registro real → tarjeta de miembro -->
+    <article class="demo lg tilt reveal-scale mdemo" data-tilt>
+      <div class="win-bar"><span></span><span></span><span></span><em>Club — código único automático</em><img class="wb-logo" src="logo-mark.png" alt=""/></div>
       <div class="demo-body" data-demo="club" aria-hidden="true">
         <div class="cb">
           <div class="cb-form">
-            <b class="cb-title">🎁 Únete al Club — 15% OFF</b>
+            <b class="cb-title">Únete al Club — 15% en tu primera compra</b>
             <label>Nombre</label><div class="cb-in cb-nm"></div>
             <label>Email</label><div class="cb-in cb-em"></div>
-            <div class="cb-btn">Unirme al Club</div>
+            <div class="cb-btn"><svg viewBox="0 0 24 24"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zM9 6c0-1.66 1.34-3 3-3s3 1.34 3 3v2H9V6z"/></svg><span>Unirme al Club</span></div>
+            <div class="cb-status"><i class="cb-spin"></i><span class="cb-msg"></span></div>
           </div>
           <div class="cb-done">
-            <span class="cb-gift">🎁</span>
+            <div class="cb-card">
+              <div class="cb-card-top"><img src="logo-mark-w.png" alt=""/><span>CLUB MIEMBRO</span></div>
+              <small>Tu código único</small>
+              <div class="cb-code"></div>
+              <div class="cb-card-bot"><span class="cb-member"></span><b>15% OFF</b></div>
+            </div>
             <b class="cb-hi"></b>
-            <small>Tu código único de miembro:</small>
-            <div class="cb-code"></div>
-            <small class="cb-mail">✉ Correo de bienvenida enviado — 15% activo</small>
+            <small class="cb-mail">✉ Correo de bienvenida enviado — descuento activo</small>
           </div>
         </div>
       </div>
@@ -1829,7 +1850,10 @@ section{padding:120px 5vw;position:relative}
         st.querySelector('.cb-em').textContent = '';
         [].forEach.call(st.querySelectorAll('.cb-in'), function (i) { i.classList.remove('foc'); });
         st.querySelector('.cb-btn').classList.remove('press');
+        st.querySelector('.cb-status').classList.remove('go');
+        st.querySelector('.cb-msg').textContent = '';
         var c = st.querySelector('.cb-code'); c.textContent = ''; c.classList.remove('glow');
+        st.querySelector('.cb-member').textContent = '';
         st.querySelector('.cb-hi').textContent = '';
         st.querySelector('.cb-mail').classList.remove('on');
       },
@@ -1840,15 +1864,22 @@ section{padding:120px 5vw;position:relative}
         var nm = st.querySelector('.cb-nm'), em = st.querySelector('.cb-em'),
             form = st.querySelector('.cb-form'), done = st.querySelector('.cb-done'),
             btn = st.querySelector('.cb-btn'), code = st.querySelector('.cb-code'),
-            hi = st.querySelector('.cb-hi'), mail = st.querySelector('.cb-mail');
+            hi = st.querySelector('.cb-hi'), mail = st.querySelector('.cb-mail'),
+            status = st.querySelector('.cb-status'), msg = st.querySelector('.cb-msg'),
+            member = st.querySelector('.cb-member');
         chain(C, [W(C, 400),
           F(function () { nm.classList.add('foc'); }),
           TY(C, nm, D[0], 30),
           F(function () { nm.classList.remove('foc'); em.classList.add('foc'); }),
           TY(C, em, D[1], 22),
           F(function () { em.classList.remove('foc'); }), W(C, 300),
-          F(function () { press(C, btn); }), W(C, 550),
-          F(function () { form.classList.add('hide'); done.classList.add('show'); hi.textContent = D[2]; }), W(C, 420),
+          F(function () { press(C, btn); status.classList.add('go'); }),
+          TY(C, msg, 'Creando tu membresía…', 18), W(C, 700),
+          F(function () {
+            status.classList.remove('go');
+            form.classList.add('hide'); done.classList.add('show');
+            hi.textContent = D[2]; member.textContent = D[0];
+          }), W(C, 450),
           function (n) { C.type(code, D[3], 55, n); },
           F(function () { code.classList.add('glow'); }), W(C, 420),
           F(function () { mail.classList.add('on'); }), W(C, 3200),
