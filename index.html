@@ -536,29 +536,45 @@ section{padding:120px 5vw;position:relative}
 .wp-foot{margin-top:auto;display:flex;align-items:center;gap:6px;padding:8px 16px;font-size:.52rem;color:var(--faint);border-top:1px solid rgba(0,29,57,.07)}
 .wp-footlogo{height:11px;width:auto;vertical-align:middle;opacity:.75}
 
-/* ---- CARRITO: drawer de tienda ---- */
-.ct{flex:1;display:flex;flex-direction:column;background:#fbfdff}
-.ct-top{display:flex;align-items:center;gap:8px;padding:12px 16px;border-bottom:1px solid rgba(0,29,57,.09)}
-.ct-top b{font-size:.76rem;color:var(--navy)}
+/* ---- CARRITO: drawer de tienda con productos y envío ---- */
+.ct{flex:1;display:flex;flex-direction:column;background:#fff}
+.ct-top{display:flex;align-items:center;gap:8px;padding:11px 16px;border-bottom:1px solid rgba(0,29,57,.09)}
+.ct-top svg{width:15px;height:15px;fill:var(--navy)}
+.ct-top b{font-size:.74rem;color:var(--navy)}
 .ct-badge{margin-left:auto;min-width:21px;height:21px;padding:0 6px;border-radius:999px;background:var(--blue);color:#fff;font-size:.62rem;font-weight:700;display:inline-flex;align-items:center;justify-content:center;transition:transform .3s ease}
 .ct-badge.pop{transform:scale(1.4)}
-.ct-items{flex:1;display:flex;flex-direction:column;padding:2px 16px}
-.ct-it{display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px dashed rgba(10,65,116,.13);animation:rowIn .5s var(--ease)}
-.ct-th{width:32px;height:32px;border-radius:9px;background:rgba(123,189,232,.16);display:flex;align-items:center;justify-content:center;font-size:.95rem;flex-shrink:0}
+.ct-items{flex:1;display:flex;flex-direction:column;padding:3px 16px}
+.ct-it{display:flex;align-items:center;gap:11px;padding:8px 0;border-bottom:1px dashed rgba(10,65,116,.12);animation:rowIn .5s var(--ease)}
+.ct-th{width:42px;height:42px;border-radius:10px;overflow:hidden;flex-shrink:0;background:linear-gradient(140deg,#eef4fa,#d9e6f2);box-shadow:inset 0 0 0 1px rgba(10,65,116,.08),0 2px 5px rgba(10,65,116,.1)}
+.ct-th svg{width:100%;height:100%;display:block}
 .ct-nm{flex:1;min-width:0}
 .ct-nm b{display:block;font-size:.64rem;color:var(--navy)}
-.ct-nm small{font-size:.53rem;color:var(--faint)}
+.ct-nm small{font-size:.52rem;color:var(--faint)}
 .ct-qty{display:flex;align-items:center;gap:6px;font-size:.62rem;color:var(--navy)}
 .ct-qty i{width:17px;height:17px;border-radius:6px;border:1px solid rgba(10,65,116,.25);font-style:normal;font-size:.6rem;display:flex;align-items:center;justify-content:center;color:var(--blue);transition:all .25s ease}
 .ct-qty i.press{background:var(--blue);color:#fff;transform:scale(1.2)}
-.ct-pr{font-size:.64rem;font-weight:700;color:var(--blue);font-variant-numeric:tabular-nums;min-width:62px;text-align:right}
-.ct-sub{display:flex;justify-content:space-between;align-items:baseline;padding:9px 16px 2px}
-.ct-sub span{font-size:.55rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--faint)}
-.ct-sub b{font-size:.92rem;color:var(--navy);font-variant-numeric:tabular-nums}
-.ct-btn{margin:7px 16px 4px;padding:10px;border-radius:11px;background:linear-gradient(135deg,var(--blue),var(--steel));color:#fff;font-size:.6rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;text-align:center;transition:transform .25s ease,box-shadow .25s ease}
+.ct-pr{font-size:.63rem;font-weight:700;color:var(--blue);font-variant-numeric:tabular-nums;min-width:60px;text-align:right}
+/* envío */
+.ct-ship{display:flex;align-items:center;gap:9px;margin:0 16px;padding:8px 0;border-top:1px dashed rgba(10,65,116,.14);opacity:0;transform:translateY(6px);transition:all .45s var(--ease)}
+.ct-ship.on{opacity:1;transform:none}
+.ct-ship-ic{width:27px;height:27px;border-radius:8px;background:rgba(123,189,232,.16);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.ct-ship-ic svg{width:16px;height:16px;fill:var(--blue)}
+.ct-ship-info{flex:1;min-width:0}
+.ct-ship-info b{display:block;font-size:.6rem;color:var(--navy)}
+.ct-ship-info small{font-size:.5rem;color:var(--faint)}
+.ct-ship-cost{font-size:.62rem;font-weight:700;color:var(--navy);font-variant-numeric:tabular-nums;white-space:nowrap}
+.ct-ship-cost s{color:var(--faint);font-weight:400;margin-right:5px}
+.ct-ship-cost.free{color:#15803d}
+/* resumen */
+.ct-summary{padding:6px 16px 2px}
+.ct-line{display:flex;justify-content:space-between;align-items:baseline;font-size:.58rem;color:var(--dim);padding:2px 0}
+.ct-line b{font-variant-numeric:tabular-nums;color:var(--navy);font-weight:600}
+.ct-total{border-top:1px solid rgba(10,65,116,.14);margin-top:4px;padding-top:6px}
+.ct-total span{font-size:.55rem;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--faint)}
+.ct-total b{font-size:.98rem;color:var(--navy)}
+.ct-btn{display:flex;align-items:center;justify-content:center;gap:7px;margin:7px 16px 12px;padding:11px;border-radius:11px;background:linear-gradient(135deg,var(--blue),var(--steel));color:#fff;font-size:.6rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;transition:transform .25s ease,box-shadow .25s ease}
+.ct-btn svg{width:13px;height:13px;fill:#fff}
 .ct-btn.press{transform:scale(.96);box-shadow:0 0 22px rgba(10,65,116,.5)}
-.ct-note{padding:2px 16px 11px;font-size:.55rem;font-weight:700;color:#15803d;opacity:0;transform:translateY(6px);transition:all .45s ease}
-.ct-note.on{opacity:1;transform:none}
 
 /* ---- CLUB: formulario que se llena → éxito con código ---- */
 .cb{flex:1;position:relative;overflow:hidden}
@@ -1078,11 +1094,19 @@ section{padding:120px 5vw;position:relative}
       <div class="win-bar"><span></span><span></span><span></span><em>Carrito — subtotales en tiempo real</em><img class="wb-logo" src="logo-mark.png" alt=""/></div>
       <div class="demo-body" data-demo="cart" aria-hidden="true">
         <div class="ct">
-          <div class="ct-top"><b>🛒 Tu carrito</b><span class="ct-badge">0</span></div>
+          <div class="ct-top"><svg viewBox="0 0 24 24"><path d="M7 18c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.6-1.35 2.45c-.16.28-.25.61-.25.95 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12L8.1 15h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49A1 1 0 0 0 20 6H5.21l-.94-2H1zm16 16c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"/></svg><b>Tu carrito</b><span class="ct-badge">0</span></div>
           <div class="ct-items"></div>
-          <div class="ct-sub"><span>Subtotal</span><b class="ct-sum">$0</b></div>
-          <div class="ct-btn">Ir a pagar →</div>
-          <div class="ct-note">✓ Guardado 30 días — aunque cierre el navegador</div>
+          <div class="ct-ship">
+            <span class="ct-ship-ic"><svg viewBox="0 0 24 24"><path d="M20 8h-3V4H3c-1.1 0-2 .9-2 2v11h2c0 1.66 1.34 3 3 3s3-1.34 3-3h6c0 1.66 1.34 3 3 3s3-1.34 3-3h2v-5l-3-4zM6 18.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zm13.5-9L21 12h-4V9.5h2.5zM18 18.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"/></svg></span>
+            <span class="ct-ship-info"><b class="ct-ship-city">Envío a domicilio</b><small class="ct-ship-eta">Calculando…</small></span>
+            <span class="ct-ship-cost"></span>
+          </div>
+          <div class="ct-summary">
+            <div class="ct-line"><span>Subtotal</span><b class="ct-sum">$0</b></div>
+            <div class="ct-line"><span>Envío</span><b class="ct-shipv">—</b></div>
+            <div class="ct-line ct-total"><span>Total</span><b class="ct-tot">$0</b></div>
+          </div>
+          <div class="ct-btn"><svg viewBox="0 0 24 24"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zM9 6c0-1.66 1.34-3 3-3s3 1.34 3 3v2H9V6zm9 14H6V10h12v10z"/></svg><span class="ct-btn-t">Pagar $0</span></div>
         </div>
       </div>
     </article>
@@ -1637,6 +1661,13 @@ section{padding:120px 5vw;position:relative}
   }
   function press(C, el) { el.classList.add('press'); C.wait(380, function () { el.classList.remove('press'); }); }
 
+  /* miniaturas de joyería renderizadas (SVG con gradientes) */
+  var JEWEL = {
+    anillo: '<svg viewBox="0 0 44 44" xmlns="http://www.w3.org/2000/svg"><defs><radialGradient id="jab" cx="38%" cy="28%" r="80%"><stop offset="0" stop-color="#ffffff"/><stop offset="45%" stop-color="#d7e0e8"/><stop offset="100%" stop-color="#8195a8"/></radialGradient><radialGradient id="jap" cx="36%" cy="30%" r="72%"><stop offset="0" stop-color="#ffffff"/><stop offset="55%" stop-color="#eef1f6"/><stop offset="100%" stop-color="#bcc7d6"/></radialGradient></defs><ellipse cx="22" cy="29" rx="11.5" ry="11.5" fill="none" stroke="url(#jab)" stroke-width="4.4"/><circle cx="22" cy="13.5" r="6.6" fill="url(#jap)"/><circle cx="19.6" cy="11.2" r="1.7" fill="#fff" opacity=".9"/></svg>',
+    collar: '<svg viewBox="0 0 44 44" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="jcc" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f8dd95"/><stop offset="1" stop-color="#c99a3e"/></linearGradient><radialGradient id="jcs" cx="38%" cy="30%" r="72%"><stop offset="0" stop-color="#ffefb8"/><stop offset="50%" stop-color="#f4cf6a"/><stop offset="100%" stop-color="#c8962f"/></radialGradient></defs><path d="M7 11 Q22 27 37 11" fill="none" stroke="url(#jcc)" stroke-width="2.4" stroke-linecap="round"/><g><circle cx="22" cy="27" r="7.4" fill="url(#jcs)"/><circle cx="19.8" cy="24.6" r="1.7" fill="#fff" opacity=".85"/></g><g stroke="url(#jcc)" stroke-width="1.5" stroke-linecap="round"><path d="M22 16.4V13"/><path d="M31 20 33.4 17.8"/><path d="M13 20 10.6 17.8"/><path d="M29.8 27.5 33 28"/><path d="M14.2 27.5 11 28"/></g></svg>',
+    aretes: '<svg viewBox="0 0 44 44" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="jra" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ffe1ec"/><stop offset="1" stop-color="#d98aa8"/></linearGradient></defs><circle cx="15" cy="14" r="4.6" fill="none" stroke="#c99a3e" stroke-width="1.8"/><circle cx="29" cy="14" r="4.6" fill="none" stroke="#c99a3e" stroke-width="1.8"/><path d="M15 18.6 L11.5 31 L18.5 31 Z" fill="url(#jra)"/><path d="M29 18.6 L25.5 31 L32.5 31 Z" fill="url(#jra)"/></svg>'
+  };
+
   var RICH = {
     /* WOMPI: checkout real que procesa un pago */
     pay: {
@@ -1717,21 +1748,35 @@ section{padding:120px 5vw;position:relative}
         chain(C, seq);
       }
     },
-    /* CARRITO: items entran, qty sube, subtotal recalcula */
+    /* CARRITO: productos con foto, qty sube, envío se calcula, total con envío */
     cart: {
       reset: function (st) {
         st.querySelector('.ct-items').innerHTML = '';
         st.querySelector('.ct-badge').textContent = '0';
         st.querySelector('.ct-sum').textContent = '$0';
-        st.querySelector('.ct-note').classList.remove('on');
+        st.querySelector('.ct-shipv').textContent = '—';
+        st.querySelector('.ct-tot').textContent = '$0';
+        st.querySelector('.ct-ship').classList.remove('on');
+        st.querySelector('.ct-ship-city').textContent = 'Envío a domicilio';
+        st.querySelector('.ct-ship-eta').textContent = 'Calculando…';
+        var cc = st.querySelector('.ct-ship-cost'); cc.textContent = ''; cc.classList.remove('free');
         st.querySelector('.ct-btn').classList.remove('press');
+        st.querySelector('.ct-btn-t').textContent = 'Pagar $0';
       },
       run: function (st, C, ix) {
         var me = this; me.reset(st);
-        var items = [['💍', 'Anillo Luna', 'Plata 950', 160000], ['📿', 'Collar Sol', 'Baño de oro 24k', 185000]];
+        var items = [[JEWEL.anillo, 'Anillo Luna', 'Plata 950 · talla 7', 160000],
+                     [JEWEL.collar, 'Collar Sol', 'Baño de oro 24k', 185000]];
+        var CITY = [['Bogotá', '2 a 4 días hábiles', 12000],
+                    ['Medellín', '2 a 3 días hábiles', 12000],
+                    ['Barranquilla', '24 a 48 horas', 8000]][ix % 3];
         var box = st.querySelector('.ct-items'), bd = st.querySelector('.ct-badge'),
-            sum = st.querySelector('.ct-sum'), note = st.querySelector('.ct-note'), btn = st.querySelector('.ct-btn');
-        var tot = 0, steps = [W(C, 400)];
+            sum = st.querySelector('.ct-sum'), shipv = st.querySelector('.ct-shipv'),
+            totEl = st.querySelector('.ct-tot'), btn = st.querySelector('.ct-btn'), btnT = st.querySelector('.ct-btn-t'),
+            shipRow = st.querySelector('.ct-ship'), shipCity = st.querySelector('.ct-ship-city'),
+            shipEta = st.querySelector('.ct-ship-eta'), shipCost = st.querySelector('.ct-ship-cost');
+        var sub = 0, ship = 0;
+        var steps = [W(C, 400)];
         items.forEach(function (it, i) {
           steps.push(F(function () {
             var r = document.createElement('div'); r.className = 'ct-it';
@@ -1739,24 +1784,39 @@ section{padding:120px 5vw;position:relative}
             box.appendChild(r);
             bd.textContent = i + 1; bd.classList.add('pop');
             C.wait(300, function () { bd.classList.remove('pop'); });
-            var prev = tot; tot += it[3]; countTo(sum, prev, tot, 600);
+            sub += it[3]; sum.textContent = fmt(sub); btnT.textContent = 'Pagar ' + fmt(sub);
+            countTo(totEl, sub - it[3], sub, 550);
           }));
-          steps.push(W(C, 1050));
+          steps.push(W(C, 1000));
         });
+        // sube cantidad del primer producto (interacción real)
         steps.push(F(function () {
-          var r0 = box.children[0];
-          var plus = r0.querySelector('.pl'), q = r0.querySelector('.q'), pr = r0.querySelector('.ct-pr');
+          var r0 = box.children[0], plus = r0.querySelector('.pl'), q = r0.querySelector('.q'), pr = r0.querySelector('.ct-pr');
           plus.classList.add('press'); C.wait(360, function () { plus.classList.remove('press'); });
           q.textContent = '2'; pr.textContent = fmt(320000);
-          var prev = tot; tot += 160000; countTo(sum, prev, tot, 600);
-          bd.textContent = '3'; bd.classList.add('pop');
-          C.wait(300, function () { bd.classList.remove('pop'); });
+          var prev = sub; sub += 160000; sum.textContent = fmt(sub);
+          countTo(totEl, prev, sub, 550); btnT.textContent = 'Pagar ' + fmt(sub);
+          bd.textContent = '3'; bd.classList.add('pop'); C.wait(300, function () { bd.classList.remove('pop'); });
         }));
-        steps.push(W(C, 950));
+        steps.push(W(C, 900));
+        // calcula envío
+        steps.push(F(function () { shipRow.classList.add('on'); shipCity.textContent = 'Envío a ' + CITY[0]; shipEta.textContent = 'Calculando tarifa…'; shipCost.textContent = ''; }));
+        steps.push(W(C, 900));
+        steps.push(F(function () {
+          shipEta.textContent = 'Llega en ' + CITY[1];
+          if (sub >= 200000) {
+            shipCost.innerHTML = '<s>' + fmt(CITY[2]) + '</s>GRATIS';
+            shipCost.classList.add('free');
+            shipv.textContent = 'Gratis'; ship = 0;
+          } else {
+            shipCost.textContent = fmt(CITY[2]);
+            shipv.textContent = fmt(CITY[2]); ship = CITY[2];
+          }
+          countTo(totEl, sub, sub + ship, 550); btnT.textContent = 'Pagar ' + fmt(sub + ship);
+        }));
+        steps.push(W(C, 1100));
         steps.push(F(function () { press(C, btn); }));
-        steps.push(W(C, 480));
-        steps.push(F(function () { note.classList.add('on'); }));
-        steps.push(W(C, 3100));
+        steps.push(W(C, 3200));
         steps.push(F(function () { me.run(st, C, ix + 1); }));
         chain(C, steps);
       }
