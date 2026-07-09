@@ -175,19 +175,22 @@ main,header,footer{position:relative;z-index:2}
 .hnav.hidden{transform:translateY(-160%)}
 .glassd{
   position:relative;overflow:hidden;isolation:isolate;
-  background:rgba(22,30,47,.5);
-  backdrop-filter:blur(3px) saturate(150%) brightness(1.05) url(#glass-distortion);
-  -webkit-backdrop-filter:blur(16px) saturate(150%);
-  border:1px solid rgba(255,255,255,.16);
+  /* neutro y casi transparente: el color ya no lo pone un tinte navy
+     plano, lo pone el blur+saturate revelando lo que hay detrás -- eso
+     es lo que se ve como vidrio real y no como una píldora gris sólida */
+  background:rgba(20,20,26,.22);
+  backdrop-filter:blur(20px) saturate(180%) brightness(1.08) url(#glass-distortion);
+  -webkit-backdrop-filter:blur(20px) saturate(180%) brightness(1.08);
+  border:1px solid rgba(255,255,255,.22);
   box-shadow:
     inset 4px 4px 12px 2px rgba(255,255,255,.2),
     inset -2px -2px 15px 1px rgba(255,255,255,.2),
     inset 0 0 15px 2px rgba(255,255,255,.2),
-    0 12px 34px rgba(22,30,47,.4);
+    0 12px 34px rgba(22,30,47,.28);
 }
 /* navegadores sin url() en backdrop-filter: mantienen el desenfoque clásico */
 @supports not (backdrop-filter:url(#glass-distortion)){
-  .glassd{backdrop-filter:blur(16px) saturate(150%)}
+  .glassd{backdrop-filter:blur(20px) saturate(180%) brightness(1.08)}
 }
 .glassd>*{position:relative;z-index:2}
 /* brillo especular líquido que recorre el cristal */
@@ -1134,9 +1137,13 @@ section{padding:120px 5vw;position:relative}
     backdrop-filter:none!important;-webkit-backdrop-filter:none!important;
     background:linear-gradient(150deg,#2c1420 0%,#161e2f 72%)!important;
   }
+  /* el nav es un elemento pequeño y fijo (no las tarjetas grandes que sí
+     trababan el scroll): aquí un blur liviano es barato y mantiene el
+     vidrio real en vez de una píldora sólida */
   .glassd{
-    backdrop-filter:none!important;-webkit-backdrop-filter:none!important;
-    background:rgba(20,27,43,.9)!important;
+    backdrop-filter:blur(10px) saturate(160%)!important;
+    -webkit-backdrop-filter:blur(10px) saturate(160%)!important;
+    background:rgba(20,20,26,.3)!important;
   }
   .glassd::after{animation:none!important;display:none}
   /* botones y etiquetas sobre imágenes: fondo sólido en vez de blur */
