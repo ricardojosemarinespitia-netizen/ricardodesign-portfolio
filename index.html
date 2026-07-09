@@ -386,7 +386,7 @@ section{padding:120px 5vw;position:relative}
   display:flex;flex-direction:column;justify-content:center;
 }
 .shead-live .rv{
-  opacity:0;transform:translateY(34px);
+  opacity:0;transform:translateY(56px);
   transition:opacity .7s var(--ease),transform .7s var(--ease);
   will-change:opacity,transform;
 }
@@ -559,13 +559,13 @@ section{padding:120px 5vw;position:relative}
   justify-content:center;
 }
 .stack-slot .mdemo{width:100%}
+/* solo transform: animar box-shadow repinta media pantalla en cada frame */
 .mdemo{
-  transition:transform .5s var(--ease), box-shadow .5s var(--ease);
+  transition:transform .5s var(--ease);
   will-change:transform;
 }
 .stack-slot.is-covered .mdemo{
   transform:scale(.94) translateY(-14px);
-  box-shadow:0 18px 40px rgba(0,0,0,.16);
 }
 @media(min-width:821px){
   .stack-slot{top:15vh;min-height:64vh}
@@ -1691,10 +1691,18 @@ section{padding:120px 5vw;position:relative}
     }
     window.addEventListener('resize', size, { passive: true }); size();
     var t0 = performance.now();
+    /* pausa del render cuando el hero sale de pantalla: libera la GPU
+       para que el resto de la página deslice fluido */
+    var heroVis = true;
+    if ('IntersectionObserver' in window) {
+      new IntersectionObserver(function (es) { heroVis = es[0].isIntersecting; }).observe(cv);
+    }
     function frame() {
-      gl.uniform1f(ut, (performance.now() - t0) / 1000);
-      gl.uniform2f(ur, cv.width, cv.height);
-      gl.drawArrays(gl.TRIANGLES, 0, 3);
+      if (heroVis) {
+        gl.uniform1f(ut, (performance.now() - t0) / 1000);
+        gl.uniform2f(ur, cv.width, cv.height);
+        gl.drawArrays(gl.TRIANGLES, 0, 3);
+      }
       if (!reduceMotion) requestAnimationFrame(frame);
     }
     frame();
@@ -1772,8 +1780,11 @@ section{padding:120px 5vw;position:relative}
       for (var i = 0; i < ems.length; i++) {
         var r = ems[i].getBoundingClientRect();
         if (r.bottom < -200 || r.top > vh + 200) continue; // fuera de vista: no tocar
-        ems[i].style.backgroundSize = vw + 'px ' + vh + 'px';
-        ems[i].style.backgroundPosition = (-r.left) + 'px ' + (-r.top) + 'px';
+        var sz = vw + 'px ' + vh + 'px';
+        var pos = (-r.left).toFixed(1) + 'px ' + (-r.top).toFixed(1) + 'px';
+        // escribir estilo solo si cambió: evita recálculos por frame durante el pin
+        if (ems[i].__sz !== sz) { ems[i].__sz = sz; ems[i].style.backgroundSize = sz; }
+        if (ems[i].__pos !== pos) { ems[i].__pos = pos; ems[i].style.backgroundPosition = pos; }
       }
       ticking = false;
     }
@@ -1784,9 +1795,18 @@ section{padding:120px 5vw;position:relative}
     lock();
   })();
 
-  /* ---------- REVEALS ---------- */
+  /* ---------- REVEALS (reversibles) ----------
+     Al bajar: el elemento sube desde abajo hasta su posición final.
+     Al subir: si vuelve a quedar por debajo del viewport, se oculta
+     bajando hacia donde salió, y re-anima en la próxima pasada.
+     Si sale por ARRIBA no se toca (el contenido ya leído no parpadea). */
   var io = new IntersectionObserver(function (es) {
-    es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); } });
+    es.forEach(function (e) {
+      if (e.isIntersecting) { e.target.classList.add('visible'); }
+      else if (e.boundingClientRect.top > window.innerHeight * 0.9) {
+        e.target.classList.remove('visible');
+      }
+    });
   }, { threshold: 0.12 });
   document.querySelectorAll('.reveal, .reveal-scale').forEach(function (el) { io.observe(el); });
 
@@ -2537,22 +2557,30 @@ section{padding:120px 5vw;position:relative}
 
   var ctls = new WeakMap();
   var mio = new IntersectionObserver(function (es) {
-    es.forEach(function (e) {
-      var card = e.target, st = card.querySelector('[data-demo]');
-      if (e.isIntersecting) {
-        card.classList.add('on');
-        if (st && !ctls.get(card)) {
-          var C = new Ctl(); ctls.set(card, C);
-          RICH[st.getAttribute('data-demo')].run(st, C, 0);
-        }
-      } else {
-        card.classList.remove('on');
-        var C = ctls.get(card);
-        if (C) { C.stop(); ctls.delete(card); }
-        if (st) RICH[st.getAttribute('data-demo')].reset(st);
-      }
-    });
+    es.forEach(function (e) { e.target.__vis = e.isIntersecting; syncDemo(e.target); });
   }, { threshold: 0.35 });
+  /* una demo corre solo si está en pantalla Y no está cubierta por la pila:
+     antes las 10 tarjetas apiladas animaban a la vez (timers + DOM ocultos),
+     y eso era lo que hacía trabar el deslizamiento */
+  function syncDemo(card) {
+    if (!card) return;
+    var st = card.querySelector('[data-demo]');
+    var slot = card.parentNode;
+    var covered = slot && slot.classList && slot.classList.contains('is-covered');
+    if (card.__vis && !covered) {
+      card.classList.add('on');
+      if (st && !ctls.get(card)) {
+        var C = new Ctl(); ctls.set(card, C);
+        RICH[st.getAttribute('data-demo')].run(st, C, 0);
+      }
+    } else {
+      card.classList.remove('on');
+      var C2 = ctls.get(card);
+      if (C2) { C2.stop(); ctls.delete(card); }
+      if (st) RICH[st.getAttribute('data-demo')].reset(st);
+    }
+  }
+  window.__syncDemo = syncDemo;
   document.querySelectorAll('.mdemo').forEach(function (el) { mio.observe(el); });
 
   /* ── pila de tarjetas: cada una queda fija al centro y la siguiente
@@ -2575,11 +2603,22 @@ section{padding:120px 5vw;position:relative}
     });
     if (reduceMotion) return;
     var ticking = false;
+    var stickyTop = 0;
+    function measure() { stickyTop = parseFloat(getComputedStyle(slots[0]).top) || 0; }
+    measure();
+    window.addEventListener('resize', measure, { passive: true });
     function update() {
       for (var i = 0; i < slots.length - 1; i++) {
+        var was = slots[i].classList.contains('is-covered');
         var nextTop = slots[i + 1].getBoundingClientRect().top;
-        var stickyTop = parseFloat(getComputedStyle(slots[i + 1]).top) || 0;
-        slots[i].classList.toggle('is-covered', nextTop <= stickyTop + 2);
+        // histéresis: umbral distinto para cubrir (2px) y descubrir (40px),
+        // así no parpadea cuando el scroll oscila justo en el borde
+        var now = nextTop <= stickyTop + (was ? 40 : 2);
+        if (now !== was) {
+          slots[i].classList.toggle('is-covered', now);
+          // pausa/reanuda la demo de la tarjeta cubierta
+          if (window.__syncDemo) window.__syncDemo(slots[i].querySelector('.mdemo'));
+        }
       }
       ticking = false;
     }
