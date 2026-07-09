@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
 <meta charset="utf-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"/>
 <title>Ricardo Design | ricardodesign.co - Webs Premium que Venden 24/7</title>
 <meta name="description" content="Ricardo Design - ricardodesign.co | Webs ultra premium conectadas a servidores automáticos: pagos, correos en tiempo real, Excel que se llena solo y diseño a la medida de tu negocio."/>
 <link rel="canonical" href="https://ricardodesign.co/"/>
@@ -60,7 +60,16 @@
 }
 
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
-html{scroll-behavior:smooth}
+/* Safari iOS: el gesto de pellizcar-alejar o deslizar desde el borde
+   revela el "rebote" elástico del scroll. Si html (no solo body) no tiene
+   ancho contenido y overflow-x:hidden, ese rebote deja ver contenido
+   posicionado fuera del viewport (p.ej. el hero). overscroll-behavior-x
+   evita que el gesto de swipe-back navegue/arrastre la página lateral. */
+html{
+  scroll-behavior:smooth;
+  overflow-x:hidden;width:100%;
+  overscroll-behavior-x:none;
+}
 html.lenis,html.lenis body{height:auto}
 html.lenis.lenis-smooth{scroll-behavior:auto!important}
 html.lenis.lenis-smooth [data-lenis-prevent]{overscroll-behavior:contain}
@@ -68,7 +77,8 @@ body{
   background:linear-gradient(180deg,#fbf1ec 0%,#f6e2d9 42%,#f0d8cf 100%);
   color:var(--ink);
   font-family:var(--font);
-  overflow-x:hidden;
+  overflow-x:hidden;width:100%;
+  overscroll-behavior-x:none;
   -webkit-font-smoothing:antialiased;
 }
 ::selection{background:var(--sky);color:var(--navy)}
