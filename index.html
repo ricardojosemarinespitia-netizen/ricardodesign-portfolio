@@ -7,6 +7,9 @@
 <meta name="description" content="Ricardo Design - ricardodesign.co | Webs ultra premium conectadas a servidores automáticos: pagos, correos en tiempo real, Excel que se llena solo y diseño a la medida de tu negocio."/>
 <link rel="canonical" href="https://ricardodesign.co/"/>
 <meta name="theme-color" content="#001D39"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500&display=swap" rel="stylesheet"/>
 
 <script type="application/ld+json">
 {
@@ -714,6 +717,56 @@ section{padding:120px 5vw;position:relative}
 
 /* (estilos viejos de mini-demos eliminados — ahora cada tarjeta es una app real, ver bloque APPS REALES) */
 
+/* ===== PORTADAS CINEMATOGRÁFICAS (proyectos en vivo, estilo original de los sitios) ===== */
+.live-projects{display:flex;flex-direction:column;gap:70px;max-width:1080px;margin:0 auto}
+.live-lead{
+  font-size:clamp(.95rem,2.1vw,1.28rem);line-height:1.6;font-weight:700;color:var(--ink);
+  max-width:760px;margin:0 auto 24px;text-align:center;
+}
+.live-lead em{font-style:normal;color:var(--blue)}
+.col-panel{
+  position:relative;display:block;width:100%;height:92vh;min-height:520px;
+  border-radius:26px;overflow:hidden;background:#2B211B;cursor:pointer;
+  box-shadow:0 30px 70px rgba(0,29,57,.35);
+}
+.col-panel picture{display:contents}
+.col-panel img{
+  position:absolute;inset:0;width:100%;height:100%;
+  object-fit:cover;object-position:50% 42%;
+  will-change:transform;transform:scale(1.02);
+}
+.col-overlay{
+  position:absolute;inset:0;z-index:2;
+  display:flex;flex-direction:column;justify-content:flex-end;align-items:flex-start;
+  padding:0 7vw 72px;
+  background:linear-gradient(to bottom,rgba(12,9,6,0) 0%,rgba(12,9,6,.04) 40%,rgba(12,9,6,.45) 72%,rgba(12,9,6,.78) 100%);
+}
+.col-eyebrow{font-size:10.5px;letter-spacing:.42em;text-transform:uppercase;color:#E7CFB4;font-weight:400;margin-bottom:14px}
+.col-panel h3{
+  font-family:'Cormorant Garamond',Georgia,'Times New Roman',serif;
+  font-size:clamp(40px,5.6vw,74px);font-weight:500;letter-spacing:.02em;line-height:1;
+  color:#fff;margin-bottom:14px;
+}
+.col-overlay p{font-size:14.5px;font-weight:300;line-height:1.75;color:rgba(255,255,255,.88);max-width:460px;margin-bottom:26px}
+.btn-vivo{
+  display:inline-flex;align-items:center;gap:8px;padding:15px 38px;
+  border:1px solid rgba(255,255,255,.7);border-radius:2px;
+  background:rgba(22,17,12,.16);backdrop-filter:blur(3px);-webkit-backdrop-filter:blur(3px);
+  color:#fff;font-size:11px;letter-spacing:.26em;text-transform:uppercase;font-weight:500;
+  transition:all .35s ease;
+}
+.col-panel:hover .btn-vivo{background:#F4EEE3;color:#2B211B;border-color:#F4EEE3}
+/* variante Alejandra: tono frío */
+.col-panel.p-ale{background:#14161d}
+.col-panel.p-ale .col-eyebrow{color:#cfd8e3}
+.col-panel.p-ale:hover .btn-vivo{background:#eef1f6;color:#14161d;border-color:#eef1f6}
+@media(max-width:640px){
+  .live-projects{gap:52px}
+  .col-panel{height:80vh;min-height:440px}
+  .col-overlay{padding:0 24px 50px}
+  .col-eyebrow{font-size:9.5px;letter-spacing:.34em}
+}
+
 /* ================= PROYECTOS ================= */
 .projects{display:flex;flex-direction:column;gap:50px;max-width:1080px;margin:0 auto;perspective:1200px}
 .project{overflow:hidden;padding:clamp(36px,6vw,64px);position:relative;border-radius:var(--r-lg)}
@@ -1244,52 +1297,39 @@ section{padding:120px 5vw;position:relative}
     <h2>Sistemas reales, <em>vendiendo hoy</em></h2>
   </div>
 
-  <div class="projects">
-    <article class="project proj-1 tilt reveal-scale" data-tilt>
-      <div class="deco d1" aria-hidden="true"></div>
-      <div class="deco d2" aria-hidden="true"></div>
-      <span class="project-num" aria-hidden="true">01</span>
-      <div class="project-grid">
-        <div class="project-info">
-          <div class="ptags"><span>E-Commerce</span><span>Arte en Vidrio</span><span>Pagos Wompi</span></div>
-          <h3>Felipe Vergel</h3>
-          <p>Tienda en línea de arte en vidrio que vende sola, 24/7:</p>
-          <ul class="pfeats">
-            <li>El cliente explora colecciones cinematográficas y paga con 15 formas de pago</li>
-            <li>Cada orden llega al correo del dueño y del cliente, y se registra sola en su Excel</li>
-            <li>Círculo de miembros con código único y correo de bienvenida automático</li>
-          </ul>
-          <a class="btn btn-frost" href="https://felipevergel.com" target="_blank" rel="noopener">Ver en vivo ↗</a>
-        </div>
-        <a class="pshot pshot-felipe" href="https://felipevergel.com" target="_blank" rel="noopener" aria-label="Ver felipevergel.com">
-          <img src="https://felipevergel.com/img/florero-alto-irregular/florero-alto-irregular-03.jpg" alt="Floreros de vidrio soplado — portada de felipevergel.com" loading="lazy"/>
-          <span class="plabel2">felipevergel.com · en vivo</span>
-        </a>
-      </div>
-    </article>
+  <div class="live-projects">
 
-    <article class="project proj-2 tilt reveal-scale" data-tilt>
-      <div class="deco d1" aria-hidden="true"></div>
-      <div class="deco d2" aria-hidden="true"></div>
-      <span class="project-num" aria-hidden="true">02</span>
-      <div class="project-grid">
-        <div class="project-info">
-          <div class="ptags"><span>Catálogo Digital</span><span>Joyería Artesanal</span><span>Club 15%</span></div>
-          <h3>Alejandra Vergel</h3>
-          <p>Joyería artesanal colombiana con experiencia de casa de lujo. Todo funciona solo:</p>
-          <ul class="pfeats">
-            <li>El cliente elige su joya, paga con Wompi y recibe confirmación al instante</li>
-            <li>Cada venta llega al correo de Alejandra y se registra sola en su Excel</li>
-            <li>Club de miembros: 15% de descuento con código único automático</li>
-          </ul>
-          <a class="btn btn-frost" href="https://alejandravergel.com" target="_blank" rel="noopener">Ver en vivo ↗</a>
+    <!-- Felipe Vergel -->
+    <div>
+      <p class="live-lead reveal">El cliente explora <em>colecciones cinematográficas</em> y paga con 15 formas de pago.</p>
+      <a class="col-panel" href="https://felipevergel.com" target="_blank" rel="noopener" aria-label="Ver felipevergel.com en vivo">
+        <img src="https://felipevergel.com/img/florero-alto-irregular/florero-alto-irregular-03.jpg" alt="Floreros de vidrio soplado — felipevergel.com" loading="lazy" data-zoom="0.16"/>
+        <div class="col-overlay">
+          <span class="col-eyebrow">Felipe Vergel · Arte en vidrio</span>
+          <h3>Floreros</h3>
+          <p>Piezas únicas sopladas a mano. Cada orden llega al correo del dueño y se registra sola en su Excel.</p>
+          <span class="btn-vivo">Ver en vivo</span>
         </div>
-        <a class="pshot pshot-ale" href="https://alejandravergel.com" target="_blank" rel="noopener" aria-label="Ver alejandravergel.com">
-          <img src="https://alejandravergel.com/img/collares/prisma-rectangular-1.jpg" alt="Collares en plata ley 925 — portada móvil de alejandravergel.com" loading="lazy"/>
-          <span class="plabel2">alejandravergel.com · en vivo</span>
-        </a>
-      </div>
-    </article>
+      </a>
+    </div>
+
+    <!-- Alejandra Vergel -->
+    <div>
+      <p class="live-lead reveal">Joyería artesanal con alma de <em>casa de lujo</em>: la clienta se enamora, paga y su 15% llega solo.</p>
+      <a class="col-panel p-ale" href="https://alejandravergel.com" target="_blank" rel="noopener" aria-label="Ver alejandravergel.com en vivo">
+        <picture>
+          <source media="(min-width:1025px)" srcset="https://alejandravergel.com/img/collares/azur-gota-1.jpg"/>
+          <img src="https://alejandravergel.com/img/collares/prisma-rectangular-1.jpg" alt="Collares artesanales — alejandravergel.com" loading="lazy" data-zoom="0.10"/>
+        </picture>
+        <div class="col-overlay">
+          <span class="col-eyebrow">Alejandra Vergel · Joyería artesanal</span>
+          <h3>Collares</h3>
+          <p>Catálogo editorial, Club con código único del 15% y envíos a toda Colombia — todo automático.</p>
+          <span class="btn-vivo">Ver en vivo</span>
+        </div>
+      </a>
+    </div>
+
   </div>
 </section>
 
@@ -2160,6 +2200,27 @@ section{padding:120px 5vw;position:relative}
   }
   window.addEventListener('scroll', updateScrollFocus, { passive: true });
   updateScrollFocus();
+
+  /* ── portadas cinematográficas: la foto respira con el scroll ──
+     centrada en pantalla = máximo zoom; al alejarse se aleja y se
+     desplaza siguiendo la dirección del scroll (simétrico). */
+  var fotoPanels = document.querySelectorAll('.col-panel img');
+  function fotoFocus() {
+    var vh = window.innerHeight;
+    fotoPanels.forEach(function (img) {
+      var r = img.closest('.col-panel').getBoundingClientRect();
+      if (r.bottom < -100 || r.top > vh + 100) return;
+      var t = (r.top + r.height / 2 - vh / 2) / ((vh + r.height) / 2); // -1..1, 0 = centrada
+      t = Math.max(-1, Math.min(1, t));
+      var e = 1 - Math.abs(t);
+      e = e * e * (3 - 2 * e); // smoothstep: easing suave
+      var zoom = parseFloat(img.getAttribute('data-zoom')) || 0.10;
+      img.style.transform = 'scale(' + (1.02 + zoom * e).toFixed(4) + ') translateY(' + (t * 4).toFixed(2) + '%)';
+    });
+  }
+  window.addEventListener('scroll', fotoFocus, { passive: true });
+  window.addEventListener('resize', fotoFocus);
+  fotoFocus();
 
 
   /* ================= MODAL CÍRCULO ================= */
