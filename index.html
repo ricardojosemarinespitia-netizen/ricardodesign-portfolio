@@ -214,7 +214,10 @@ main,header,footer{position:relative;z-index:2}
 .hero-scroller{position:relative;height:400vh}
 .hero{
   position:sticky;top:0;
-  height:100vh;height:100dvh;min-height:480px;width:100%;overflow:hidden;
+  /* altura ESTABLE: en iOS 100vh no cambia con la barra de Safari.
+     Usar 100dvh hacía crecer el hero al ocultarse la barra y estiraba el
+     canvas del shader (se veía como una foto pegada). */
+  height:100vh;min-height:480px;width:100%;overflow:hidden;
   background:linear-gradient(180deg,#541A2B 0%,#B51A2B 24%,#FFA586 48%,#384358 66%,#242F49 82%,#161E2F 100%);
   font-family:'Readex Pro',system-ui,-apple-system,sans-serif;
 }
@@ -382,7 +385,7 @@ section{padding:120px 5vw;position:relative}
 .live-scroller{position:relative;height:230vh}
 .live-pin{
   position:sticky;top:0;
-  height:100vh;height:100dvh;
+  height:100vh;   /* estable en iOS (no cambia con la barra de Safari) */
   display:flex;flex-direction:column;justify-content:center;
 }
 .shead-live .rv{
