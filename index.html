@@ -704,21 +704,38 @@ section{padding:120px 5vw;position:relative}
 .sc-sum{display:flex;align-items:center;justify-content:center;gap:6px;padding:8px;border-radius:10px;background:rgba(33,115,70,.08);border:1px solid rgba(33,115,70,.18);color:#15803d;font-size:.56rem;font-weight:700;opacity:0;transition:opacity .5s ease}
 .sc-sum.on{opacity:1}
 
-/* ---- VELOCIDAD: gauge tipo Lighthouse ---- */
-.sp{flex:1;display:flex;flex-direction:column;background:#fbfdff;padding:12px 16px}
-.sp-url{display:flex;align-items:center;gap:8px;font-size:.62rem;font-weight:700;color:var(--navy);background:#fff;border:1px solid rgba(10,65,116,.15);border-radius:999px;padding:7px 13px;min-height:2.3em}
-.sp-main{flex:1;display:flex;align-items:center;gap:18px;padding:9px 2px}
-.sp-g{width:100px;height:100px;flex-shrink:0}
+/* ---- VELOCIDAD: PageSpeed Insights real ---- */
+.sp{flex:1;display:flex;flex-direction:column;background:#fbfdff;padding:12px 16px;gap:8px}
+.sp-top{display:flex;gap:8px}
+.sp-url{flex:1;display:flex;align-items:center;gap:8px;font-size:.6rem;font-weight:700;color:var(--navy);background:#fff;border:1px solid rgba(10,65,116,.15);border-radius:999px;padding:7px 13px;min-height:2.3em;min-width:0;white-space:nowrap;overflow:hidden}
+.sp-go{display:flex;align-items:center;padding:0 15px;border-radius:999px;background:var(--blue);color:#fff;font-size:.55rem;font-weight:700;letter-spacing:.04em;flex-shrink:0;transition:all .25s ease}
+.sp-go.press{transform:scale(.93);background:var(--steel)}
+.sp-tabs{display:flex;gap:16px;font-size:.53rem;font-weight:700;color:var(--faint);border-bottom:1px solid rgba(10,65,116,.08);padding:0 2px}
+.sp-tabs span{display:flex;align-items:center;gap:5px;padding:3px 1px 6px;border-bottom:2px solid transparent;transition:all .3s ease}
+.sp-tabs span.on{color:var(--blue);border-color:var(--blue)}
+.sp-status{display:flex;align-items:center;gap:7px;font-size:.53rem;color:var(--faint);min-height:1.5em}
+.sp-spin{width:11px;height:11px;border-radius:50%;border:2px solid rgba(10,65,116,.15);border-top-color:var(--blue);opacity:0;flex-shrink:0}
+.sp-status.go .sp-spin{opacity:1;animation:wpspin .7s linear infinite}
+.sp-main{flex:1;display:flex;align-items:center;gap:16px;padding:2px 2px 4px}
+.sp-g{width:96px;height:96px;flex-shrink:0}
 .sp-bg{fill:none;stroke:rgba(10,65,116,.1);stroke-width:8}
 .sp-arc{fill:none;stroke:#d97706;stroke-width:8;stroke-linecap:round;stroke-dasharray:326.7;stroke-dashoffset:326.7;transform:rotate(-90deg);transform-origin:center;transition:stroke-dashoffset 1.6s var(--ease),stroke .6s ease}
 .sp-g.good .sp-arc{stroke:#217346}
+.sp-g.good{filter:drop-shadow(0 0 10px rgba(33,115,70,.28))}
 .sp-score{font-size:26px;font-weight:700;fill:var(--navy)}
+.sp-glab{font-size:8.5px;fill:var(--faint);letter-spacing:.08em;text-transform:uppercase}
 .sp-g.good .sp-score{fill:#217346}
-.sp-mets{flex:1;display:flex;flex-direction:column;gap:7px}
-.sp-mt{display:flex;justify-content:space-between;align-items:baseline;font-size:.57rem;color:var(--faint);border-bottom:1px dashed rgba(10,65,116,.12);padding-bottom:5px;opacity:0}
+.sp-mets{flex:1;display:flex;flex-direction:column;gap:8px;min-width:0}
+.sp-mt{opacity:0}
 .sp-mt.on{animation:fadeUp .4s ease forwards}
-.sp-mt b{font-size:.7rem;color:var(--blue);font-variant-numeric:tabular-nums}
-.sp-note{font-size:.55rem;font-weight:700;color:#15803d;opacity:0;transform:translateY(6px);transition:all .45s ease;padding-bottom:2px}
+.sp-mtr{display:flex;align-items:center;gap:6px;font-size:.54rem;color:var(--faint)}
+.sp-ind{width:7px;height:7px;border-radius:50%;background:#217346;flex-shrink:0}
+.sp-mtr span{flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.sp-mtr b{font-size:.64rem;color:#15803d;font-variant-numeric:tabular-nums}
+.sp-mbar{height:3px;border-radius:999px;background:rgba(10,65,116,.08);overflow:hidden;margin-top:4px}
+.sp-mbar i{display:block;height:100%;width:0;border-radius:999px;background:#217346;transition:width .8s var(--ease)}
+.sp-mt.on .sp-mbar i{width:var(--w,90%)}
+.sp-note{display:flex;align-items:center;justify-content:center;gap:6px;padding:8px;border-radius:10px;background:rgba(33,115,70,.08);border:1px solid rgba(33,115,70,.18);font-size:.55rem;font-weight:700;color:#15803d;opacity:0;transform:translateY(6px);transition:all .45s ease}
 .sp-note.on{opacity:1;transform:none}
 
 /* ---- PANTALLAS: dispositivos con mini-web dentro ---- */
@@ -1310,20 +1327,29 @@ section{padding:120px 5vw;position:relative}
       <div class="win-bar"><span></span><span></span><span></span><em>PageSpeed — tu web medida</em><img class="wb-logo" src="logo-mark.png" alt=""/></div>
       <div class="demo-body" data-demo="speed" aria-hidden="true">
         <div class="sp">
-          <div class="sp-url">🌐 <span class="sp-u"></span></div>
+          <div class="sp-top">
+            <div class="sp-url">🌐 <span class="sp-u"></span></div>
+            <div class="sp-go">Analizar</div>
+          </div>
+          <div class="sp-tabs">
+            <span class="on sp-tab-mb"><svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><rect x="6" y="2" width="12" height="20" rx="2"/><path d="M12 18h.01"/></svg> Móvil</span>
+            <span class="sp-tab-dt"><svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg> Escritorio</span>
+          </div>
+          <div class="sp-status"><i class="sp-spin"></i><span class="sp-msg"></span></div>
           <div class="sp-main">
             <svg class="sp-g" viewBox="0 0 120 120" aria-hidden="true">
               <circle class="sp-bg" cx="60" cy="60" r="52"/>
               <circle class="sp-arc" cx="60" cy="60" r="52"/>
-              <text class="sp-score" x="60" y="69" text-anchor="middle">0</text>
+              <text class="sp-score" x="60" y="65" text-anchor="middle">0</text>
+              <text class="sp-glab" x="60" y="82" text-anchor="middle">Rendimiento</text>
             </svg>
             <div class="sp-mets">
-              <div class="sp-mt"><span>Primera pintura (FCP)</span><b class="sm1">—</b></div>
-              <div class="sp-mt"><span>Carga completa (LCP)</span><b class="sm2">—</b></div>
-              <div class="sp-mt"><span>Estabilidad (CLS)</span><b class="sm3">—</b></div>
+              <div class="sp-mt" style="--w:94%"><div class="sp-mtr"><i class="sp-ind"></i><span>Primera pintura (FCP)</span><b class="sm1">—</b></div><div class="sp-mbar"><i></i></div></div>
+              <div class="sp-mt" style="--w:90%"><div class="sp-mtr"><i class="sp-ind"></i><span>Carga completa (LCP)</span><b class="sm2">—</b></div><div class="sp-mbar"><i></i></div></div>
+              <div class="sp-mt" style="--w:100%"><div class="sp-mtr"><i class="sp-ind"></i><span>Estabilidad (CLS)</span><b class="sm3">—</b></div><div class="sp-mbar"><i></i></div></div>
             </div>
           </div>
-          <div class="sp-note">✓ Más rápido que el 95% de las webs en Colombia</div>
+          <div class="sp-note">⚡ Más rápido que el 95% de las webs en Colombia</div>
         </div>
       </div>
     </article>
@@ -2129,6 +2155,9 @@ section{padding:120px 5vw;position:relative}
     speed: {
       reset: function (st) {
         st.querySelector('.sp-u').textContent = '';
+        st.querySelector('.sp-go').classList.remove('press');
+        st.querySelector('.sp-status').classList.remove('go');
+        st.querySelector('.sp-msg').textContent = '';
         st.querySelector('.sp-g').classList.remove('good');
         var arc = st.querySelector('.sp-arc');
         arc.style.transition = 'none'; arc.style.strokeDashoffset = '326.7';
@@ -2143,18 +2172,31 @@ section{padding:120px 5vw;position:relative}
       run: function (st, C, ix) {
         var me = this; me.reset(st);
         var score = st.querySelector('.sp-score'), arc = st.querySelector('.sp-arc'), g = st.querySelector('.sp-g');
-        var mets = st.querySelectorAll('.sp-mt');
+        var mets = st.querySelectorAll('.sp-mt'), status = st.querySelector('.sp-status'), msg = st.querySelector('.sp-msg');
+        var mb = ix % 2 === 0;   /* alterna Móvil / Escritorio en cada ciclo */
+        var D = mb ? { sc: 98, m1: '0.4 s', m2: '0.8 s', m3: '0.00' }
+                   : { sc: 99, m1: '0.3 s', m2: '0.6 s', m3: '0.00' };
         chain(C, [W(C, 400),
-          TY(C, st.querySelector('.sp-u'), 'ricardodesign.co', 30), W(C, 300),
           F(function () {
-            arc.style.strokeDashoffset = (326.7 * 0.02).toFixed(1);
-            cnt(C, score, 98, 1600, 0);
+            st.querySelector('.sp-tab-mb').classList.toggle('on', mb);
+            st.querySelector('.sp-tab-dt').classList.toggle('on', !mb);
+          }),
+          TY(C, st.querySelector('.sp-u'), 'ricardodesign.co', 30), W(C, 250),
+          F(function () { st.querySelector('.sp-go').classList.add('press'); }), W(C, 200),
+          F(function () {
+            st.querySelector('.sp-go').classList.remove('press');
+            status.classList.add('go'); msg.textContent = 'Ejecutando Lighthouse en ' + (mb ? 'móvil' : 'escritorio') + '…';
+          }), W(C, 900),
+          F(function () {
+            status.classList.remove('go'); msg.textContent = 'Informe listo · ' + (mb ? 'Moto G4 · 4G' : 'Chrome escritorio');
+            arc.style.strokeDashoffset = (326.7 * (1 - D.sc / 100)).toFixed(1);
+            cnt(C, score, D.sc, 1600, 0);
             C.wait(1000, function () { g.classList.add('good'); });
           }), W(C, 1750),
-          F(function () { mets[0].classList.add('on'); st.querySelector('.sm1').textContent = '0.4 s'; }), W(C, 280),
-          F(function () { mets[1].classList.add('on'); st.querySelector('.sm2').textContent = '0.8 s'; }), W(C, 280),
-          F(function () { mets[2].classList.add('on'); st.querySelector('.sm3').textContent = '0.00'; }), W(C, 400),
-          F(function () { st.querySelector('.sp-note').classList.add('on'); }), W(C, 3200),
+          F(function () { mets[0].classList.add('on'); st.querySelector('.sm1').textContent = D.m1; }), W(C, 280),
+          F(function () { mets[1].classList.add('on'); st.querySelector('.sm2').textContent = D.m2; }), W(C, 280),
+          F(function () { mets[2].classList.add('on'); st.querySelector('.sm3').textContent = D.m3; }), W(C, 400),
+          F(function () { st.querySelector('.sp-note').classList.add('on'); }), W(C, 3400),
           F(function () { me.run(st, C, ix + 1); })]);
       }
     },
