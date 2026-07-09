@@ -1303,7 +1303,7 @@ section{padding:120px 5vw;position:relative}
     <div>
       <p class="live-lead reveal">El cliente explora <em>colecciones cinematográficas</em> y paga con 15 formas de pago.</p>
       <a class="col-panel" href="https://felipevergel.com" target="_blank" rel="noopener" aria-label="Ver felipevergel.com en vivo">
-        <img src="https://felipevergel.com/img/florero-alto-irregular/florero-alto-irregular-03.jpg" alt="Floreros de vidrio soplado — felipevergel.com" loading="lazy" data-zoom="0.16"/>
+        <img src="https://felipevergel.com/img/florero-alto-irregular/florero-alto-irregular-03.jpg" alt="Floreros de vidrio soplado — felipevergel.com" loading="lazy" data-start="50 30" data-focus="50 45" data-zoom="0.16"/>
         <div class="col-overlay">
           <span class="col-eyebrow">Felipe Vergel · Arte en vidrio</span>
           <h3>Floreros</h3>
@@ -1319,7 +1319,7 @@ section{padding:120px 5vw;position:relative}
       <a class="col-panel p-ale" href="https://alejandravergel.com" target="_blank" rel="noopener" aria-label="Ver alejandravergel.com en vivo">
         <picture>
           <source media="(min-width:1025px)" srcset="https://alejandravergel.com/img/collares/azur-gota-1.jpg"/>
-          <img src="https://alejandravergel.com/img/collares/prisma-rectangular-1.jpg" alt="Collares artesanales — alejandravergel.com" loading="lazy" data-zoom="0.10"/>
+          <img src="https://alejandravergel.com/img/collares/prisma-rectangular-1.jpg" alt="Collares artesanales — alejandravergel.com" loading="lazy" data-start="50 50" data-focus="50 50" data-zoom="0.10"/>
         </picture>
         <div class="col-overlay">
           <span class="col-eyebrow">Alejandra Vergel · Joyería artesanal</span>
@@ -2203,23 +2203,57 @@ section{padding:120px 5vw;position:relative}
   /* ── portadas cinematográficas: la foto respira con el scroll ──
      centrada en pantalla = máximo zoom; al alejarse se aleja y se
      desplaza siguiendo la dirección del scroll (simétrico). */
-  var fotoPanels = document.querySelectorAll('.col-panel img');
-  function fotoFocus() {
-    var vh = window.innerHeight;
-    fotoPanels.forEach(function (img) {
-      var r = img.closest('.col-panel').getBoundingClientRect();
-      if (r.bottom < -100 || r.top > vh + 100) return;
-      var t = (r.top + r.height / 2 - vh / 2) / ((vh + r.height) / 2); // -1..1, 0 = centrada
-      t = Math.max(-1, Math.min(1, t));
-      var e = 1 - Math.abs(t);
-      e = e * e * (3 - 2 * e); // smoothstep: easing suave
-      var zoom = parseFloat(img.getAttribute('data-zoom')) || 0.10;
-      img.style.transform = 'scale(' + (1.02 + zoom * e).toFixed(4) + ') translateY(' + (t * 4).toFixed(2) + '%)';
-    });
-  }
-  window.addEventListener('scroll', fotoFocus, { passive: true });
-  window.addEventListener('resize', fotoFocus);
-  fotoFocus();
+  (function initEditorialFocus() {
+    var imgs = document.querySelectorAll('.col-panel img[data-focus]');
+    var ticking = false;
+
+    function parsePos(s) {
+      return s.replace(/%/g, '').trim().split(/\s+/).map(Number);
+    }
+
+    function frame() {
+      ticking = false;
+      var vh = window.innerHeight;
+
+      imgs.forEach(function (img) {
+        var card = img.closest('.col-panel');
+        var r = card.getBoundingClientRect();
+        if (r.bottom < -80 || r.top > vh + 80) return;
+
+        // 1. posición relativa: 0 abajo, 1 centro, 2 arriba
+        var p = (vh / 2 - r.top) / (r.height / 2);
+
+        // 2. valor simétrico 0→1→0
+        var t = 1 - Math.abs(1 - p);
+        t = Math.max(0, Math.min(1, t));
+
+        // 3. easing suave (Hermite)
+        var e = t * t * (3 - 2 * t);
+
+        // 4. zoom
+        var zoomMax = parseFloat(img.getAttribute('data-zoom') || '0.10');
+        var scale = 1 + zoomMax * e;
+
+        // 5. interpola object-position start → focus
+        var s = parsePos(img.getAttribute('data-start') || '50 50');
+        var f = parsePos(img.getAttribute('data-focus') || '50 50');
+        var objX = s[0] + (f[0] - s[0]) * e;
+        var objY = s[1] + (f[1] - s[1]) * e;
+
+        // 6. aplica
+        img.style.objectPosition = objX + '% ' + objY + '%';
+        img.style.transform = 'scale(' + scale.toFixed(3) + ')';
+      });
+    }
+
+    function onScroll() {
+      if (!ticking) { ticking = true; requestAnimationFrame(frame); }
+    }
+
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll);
+    onScroll();
+  })();
 
 
   /* ================= MODAL CÍRCULO ================= */
