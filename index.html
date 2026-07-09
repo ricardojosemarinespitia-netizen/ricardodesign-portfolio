@@ -347,28 +347,43 @@ section{padding:120px 5vw;position:relative}
 .lg .win-bar em{color:var(--faint)}
 .demo-body{padding:26px 28px 30px;min-height:340px;text-align:left}
 
-/* Demo correo (panel navy) */
-.mail-f{display:flex;gap:12px;align-items:baseline;padding:9px 0;border-bottom:1px solid rgba(255,255,255,.09);font-size:.8rem}
-.mail-f label{font-size:.56rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--wfaint);min-width:56px}
-.mail-f span{color:var(--w);font-weight:500}
-.mail-lines{padding-top:18px;display:flex;flex-direction:column;gap:12px}
-.mail-lines div{font-size:.8rem;line-height:1.7;color:var(--wdim);min-height:1.4em}
-.var{
-  display:inline-block;padding:1px 9px;border-radius:7px;
-  background:rgba(123,189,232,.16);border:1px solid rgba(123,189,232,.45);
-  color:var(--ice);font-weight:700;font-size:.76rem;
-}
-.mail-sent{
-  display:inline-flex;align-items:center;gap:9px;margin-top:22px;
-  font-size:.62rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
-  color:#7ee2a0;opacity:0;transform:translateY(8px);
-  transition:opacity .5s ease,transform .5s var(--ease);
-}
-.mail-sent.on{opacity:1;transform:none}
-.mail-sent b{
-  width:20px;height:20px;border-radius:50%;background:#7ee2a0;color:#04140a;
-  display:inline-flex;align-items:center;justify-content:center;font-size:.7rem;
-}
+/* ===== Demo Correo REAL (interfaz auténtica de Gmail) ===== */
+.demo-body[data-demo="mail"]{padding:0;display:flex}
+.gm{flex:1;display:flex;flex-direction:column;background:#fff;color:#202124;
+  font-family:'Google Sans','Roboto','Segoe UI',Arial,sans-serif}
+.gm-tools{display:flex;align-items:center;gap:9px;padding:8px 14px;border-bottom:1px solid #f1f3f4}
+.gm-logo{height:16px;display:flex;align-items:center}
+.gm-logo svg{height:16px;width:auto;display:block}
+.gm-lbl{font-size:.54rem;font-weight:500;color:#5f6368;background:#f1f3f4;border-radius:5px;padding:3px 8px}
+.gm-icons{margin-left:auto;display:flex;align-items:center;gap:13px}
+.gm-icons svg{width:14px;height:14px;fill:#5f6368;display:block}
+.gm-subject{font-size:.9rem;font-weight:400;color:#202124;padding:13px 16px 9px;min-height:1.45em;letter-spacing:-.01em}
+.gm-from{display:flex;align-items:center;gap:10px;padding:0 16px 9px}
+.gm-av{width:31px;height:31px;border-radius:50%;color:#fff;display:flex;align-items:center;justify-content:center;font-size:.82rem;font-weight:500;flex-shrink:0}
+.gm-meta{flex:1;min-width:0}
+.gm-l1{font-size:.65rem;color:#202124;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.gm-l1 b{font-weight:600}
+.gm-l1 span{color:#5f6368}
+.gm-l2{font-size:.57rem;color:#5f6368;display:flex;align-items:center;gap:3px;min-height:1.15em}
+.gm-l2 span{min-height:1em}
+.gm-right{display:flex;align-items:center;gap:9px;color:#5f6368;flex-shrink:0}
+.gm-time{font-size:.55rem}
+.gm-right svg{width:14px;height:14px;fill:#5f6368;display:block}
+.gm-body{flex:1;padding:5px 16px 4px;font-size:.72rem;line-height:1.75;color:#3c4043;display:flex;flex-direction:column;gap:9px}
+.gm-body div{min-height:1.3em}
+.var{display:inline-block;padding:0 6px;border-radius:5px;
+  background:rgba(66,133,244,.1);border:1px solid rgba(66,133,244,.3);
+  color:#1a56c4;font-weight:600;font-size:.7rem}
+.gm-sent{display:inline-flex;align-items:center;gap:8px;margin:2px 16px 0;
+  font-size:.57rem;font-weight:600;color:#188038;
+  opacity:0;transform:translateY(8px);transition:opacity .5s ease,transform .5s var(--ease)}
+.gm-sent.on{opacity:1;transform:none}
+.gm-sent b{width:18px;height:18px;border-radius:50%;background:#188038;color:#fff;
+  display:inline-flex;align-items:center;justify-content:center;font-size:.62rem}
+.gm-actions{margin-top:auto;display:flex;gap:8px;padding:10px 16px 13px}
+.gm-btn{display:inline-flex;align-items:center;gap:6px;font-size:.6rem;font-weight:600;color:#3c4043;
+  border:1px solid #dadce0;border-radius:16px;padding:6px 15px}
+.gm-btn svg{width:13px;height:13px;fill:#3c4043}
 
 /* ===== Demo Excel REAL (interfaz auténtica de hoja de cálculo) ===== */
 .xl{
@@ -911,14 +926,40 @@ section{padding:120px 5vw;position:relative}
 
   <div class="auto-grid">
 
-    <!-- DEMO CORREO (panel navy) -->
-    <article class="demo navy-panel tilt reveal-scale mdemo" data-tilt>
-      <div class="win-bar"><span></span><span></span><span></span><em id="mailTitle">Correo automático — nueva venta</em><img class="wb-logo" src="logo-mark-w.png" alt=""/></div>
+    <!-- DEMO CORREO (Gmail real) -->
+    <article class="demo lg tilt reveal-scale mdemo" data-tilt>
+      <div class="win-bar"><span></span><span></span><span></span><em id="mailTitle">Correo automático — Gmail</em><img class="wb-logo" src="logo-mark.png" alt=""/></div>
       <div class="demo-body" data-demo="mail" aria-hidden="true">
-        <div class="mail-f"><label>Para</label><span id="mTo"></span></div>
-        <div class="mail-f"><label>Asunto</label><span id="mSub"></span></div>
-        <div class="mail-lines" id="mBody"></div>
-        <div class="mail-sent" id="mSent"><b>✓</b> Enviado al cliente y al dueño — en tiempo real</div>
+        <div class="gm">
+          <div class="gm-tools">
+            <span class="gm-logo"><svg viewBox="0 0 52 40" xmlns="http://www.w3.org/2000/svg"><path fill="#4285F4" d="M3.64 40h8.18V20.18L0 10.91v25.45C0 38.37 1.63 40 3.64 40z"/><path fill="#34A853" d="M40.18 40h8.18c2.01 0 3.64-1.63 3.64-3.64V10.91L40.18 20.18"/><path fill="#FBBC04" d="M40.18 3.64v16.54L52 10.91V5.45c0-5.06-5.77-7.94-9.82-4.91"/><path fill="#EA4335" d="M11.82 20.18V3.64L26 14.27 40.18 3.64v16.54L26 30.82"/><path fill="#C5221F" d="M0 5.45v5.46l11.82 9.27V3.64L9.82.55C5.77-2.53 0 .4 0 5.45z"/></svg></span>
+            <span class="gm-lbl">Recibidos</span>
+            <span class="gm-icons">
+              <svg viewBox="0 0 24 24"><path d="M20 6h-3V4c0-1.1-.9-2-2-2H9c-1.1 0-2 .9-2 2v2H4v2h1v11c0 1.1.9 2 2 2h10c1.1 0 2-.9 2-2V8h1V6zM9 4h6v2H9V4zm8 15H7V8h10v11z"/></svg>
+              <svg viewBox="0 0 24 24"><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/></svg>
+              <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+            </span>
+          </div>
+          <div class="gm-subject" id="mSub"></div>
+          <div class="gm-from">
+            <span class="gm-av" id="mAvatar">T</span>
+            <div class="gm-meta">
+              <div class="gm-l1"><b id="mFrom">Tu Negocio</b> <span id="mFromEmail">&lt;ventas@tunegocio.com&gt;</span></div>
+              <div class="gm-l2">para <span id="mTo"></span><i>▾</i></div>
+            </div>
+            <div class="gm-right">
+              <span class="gm-time" id="mTime">10:24</span>
+              <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+              <svg viewBox="0 0 24 24"><path d="M10 9V5l-7 7 7 7v-4.1c5 0 8.5 1.6 11 5.1-1-5-4-10-11-11z"/></svg>
+            </div>
+          </div>
+          <div class="gm-body" id="mBody"></div>
+          <div class="gm-sent" id="mSent"><b>✓</b> Enviado automáticamente — en tiempo real</div>
+          <div class="gm-actions">
+            <span class="gm-btn"><svg viewBox="0 0 24 24"><path d="M10 9V5l-7 7 7 7v-4.1c5 0 8.5 1.6 11 5.1-1-5-4-10-11-11z"/></svg>Responder</span>
+            <span class="gm-btn"><svg viewBox="0 0 24 24"><path d="M14 9V5l7 7-7 7v-4.1C9 16.8 5.5 18.4 3 22c1-5 4-10 11-11z"/></svg>Reenviar</span>
+          </div>
+        </div>
       </div>
     </article>
 
@@ -1286,6 +1327,7 @@ section{padding:120px 5vw;position:relative}
   var mailSets = [
     {
       title: 'Correo automático — nueva venta',
+      from: 'Tu Negocio', fromEmail: 'ventas@tunegocio.com', av: 'T', avColor: '#EA4335', time: '10:24',
       to: 'laura.gomez@gmail.com',
       sub: 'Tu pedido #1042 está confirmado ✓',
       lines: [
@@ -1296,6 +1338,7 @@ section{padding:120px 5vw;position:relative}
     },
     {
       title: 'Correo automático — aviso al dueño',
+      from: 'Ventas · Bot', fromEmail: 'no-reply@tunegocio.com', av: 'V', avColor: '#1A73E8', time: '10:24',
       to: 'dueño@tunegocio.com',
       sub: '💰 Nueva venta — pedido #1042',
       lines: [
@@ -1306,6 +1349,7 @@ section{padding:120px 5vw;position:relative}
     },
     {
       title: 'Correo automático — nuevo suscriptor',
+      from: 'Club VIP', fromEmail: 'club@tunegocio.com', av: 'C', avColor: '#34A853', time: '10:25',
       to: 'carlos.ruiz@hotmail.com',
       sub: 'Bienvenido al Club — tu código adentro 🎁',
       lines: [
@@ -1320,6 +1364,10 @@ section{padding:120px 5vw;position:relative}
       mSub = document.getElementById('mSub'),
       mBody = document.getElementById('mBody'),
       mSent = document.getElementById('mSent'),
+      mFrom = document.getElementById('mFrom'),
+      mFromEmail = document.getElementById('mFromEmail'),
+      mAvatar = document.getElementById('mAvatar'),
+      mTime = document.getElementById('mTime'),
       mailTitle = document.getElementById('mailTitle');
   var mailRunning = false, mailSet = 0;
 
@@ -1362,6 +1410,11 @@ section{padding:120px 5vw;position:relative}
     mailTitle.textContent = set.title;
     mTo.textContent = ''; mSub.textContent = '';
     mBody.innerHTML = ''; mSent.classList.remove('on');
+    // encabezado Gmail (aparece al instante, como abrir el correo)
+    if (mFrom) mFrom.textContent = set.from;
+    if (mFromEmail) mFromEmail.textContent = '<' + set.fromEmail + '>';
+    if (mAvatar) { mAvatar.textContent = set.av; mAvatar.style.background = set.avColor; }
+    if (mTime) mTime.textContent = set.time;
 
     typeInto(mTo, set.to, 26, function () {
       typeInto(mSub, set.sub, 26, function () {
