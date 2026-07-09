@@ -536,22 +536,33 @@ section{padding:120px 5vw;position:relative}
 .demo-body[data-demo="sheet"] .xl-rn{align-items:center;display:flex}
 
 /* ===== AUTOMATIZACIÓN: scroll-focus premium — una tarjeta a la vez ===== */
-.auto-grid{display:grid;grid-template-columns:1fr;gap:36px;max-width:560px;margin:0 auto;perspective:1100px;padding:20px 0 80px}
+.auto-grid{position:relative;max-width:560px;margin:0 auto;padding:6vh 0 14vh}
 .auto-grid .demo-body{min-height:314px;display:flex;flex-direction:column}
 
-/* scroll-focus: tarjetas apagadas por defecto */
-.mdemo{
-  transition:opacity .55s var(--ease), transform .55s var(--ease), filter .55s var(--ease);
-  opacity:.18;
-  transform:scale(0.9) translateY(6px);
-  filter:blur(2.5px);
-  will-change:opacity,transform,filter;
+/* pila de tarjetas: cada una se detiene al centro y la siguiente sube y la cubre */
+.stack-slot{
+  position:sticky;
+  top:10vh;
+  min-height:56vh;
+  display:flex;
+  align-items:flex-start;
+  justify-content:center;
 }
-/* tarjeta activa (centrada en pantalla) */
-.mdemo.sf-active{
-  opacity:1;
-  transform:scale(1) translateY(0);
-  filter:none;
+.stack-slot .mdemo{width:100%}
+.mdemo{
+  transition:transform .5s var(--ease), box-shadow .5s var(--ease);
+  will-change:transform;
+}
+.stack-slot.is-covered .mdemo{
+  transform:scale(.94) translateY(-14px);
+  box-shadow:0 18px 40px rgba(0,0,0,.16);
+}
+@media(min-width:821px){
+  .stack-slot{top:15vh;min-height:64vh}
+}
+@media(prefers-reduced-motion:reduce){
+  .stack-slot{position:static;min-height:auto;margin-bottom:36px}
+  .stack-slot.is-covered .mdemo{transform:none;box-shadow:none}
 }
 
 /* ================= APPS REALES (cada tarjeta = una app ejecutándose) ================= */
@@ -1154,13 +1165,13 @@ section{padding:120px 5vw;position:relative}
   <div class="shead shead-live" id="liveHead">
     <h2><span class="dm-line1 rv">Mira tu web</span> <em class="live-em dm-line2 rv" style="transition-delay:.17s">trabajando sola</em></h2>
     <p class="rv" style="transition-delay:.5s">Esto es lo que hacen nuestras páginas mientras duermes. <em class="live-em live-em-inline">No es un video:</em> está pasando ahora mismo, frente a ti.</p>
-    <span class="live-badge rv" style="transition-delay:.34s"><i class="live-dot"></i><em class="live-em live-badge-text">en vivo</em></span>
+    <span class="live-badge rv" style="transition-delay:.34s;margin-top:32px"><i class="live-dot"></i><em class="live-em live-badge-text">en vivo</em></span>
   </div>
 
   <div class="auto-grid">
 
     <!-- DEMO CORREO (Gmail real) -->
-    <article class="demo lg tilt reveal-scale mdemo" data-tilt>
+    <article class="demo lg mdemo">
       <div class="win-bar"><span></span><span></span><span></span><em id="mailTitle">Correo automático — Gmail</em><img class="wb-logo" src="logo-mark.png" alt=""/></div>
       <div class="demo-body" data-demo="mail" aria-hidden="true">
         <div class="gm">
@@ -1197,7 +1208,7 @@ section{padding:120px 5vw;position:relative}
     </article>
 
     <!-- DEMO EXCEL (tarjeta clara) -->
-    <article class="demo lg tilt reveal-scale mdemo" data-tilt>
+    <article class="demo lg mdemo">
       <div class="win-bar"><span></span><span></span><span></span><em>Ventas.xlsx — se llena solo</em><img class="wb-logo" src="logo-mark.png" alt=""/></div>
       <div class="demo-body" data-demo="sheet" aria-hidden="true">
         <div class="xl">
@@ -1220,7 +1231,7 @@ section{padding:120px 5vw;position:relative}
     </article>
 
     <!-- WOMPI: checkout real -->
-    <article class="demo lg tilt reveal-scale mdemo" data-tilt>
+    <article class="demo lg mdemo">
       <div class="win-bar"><span></span><span></span><span></span><em>Wompi · pago con respaldo Bancolombia</em><img class="wb-logo" src="logo-mark.png" alt=""/></div>
       <div class="demo-body" data-demo="pay" aria-hidden="true">
         <div class="wp">
@@ -1270,7 +1281,7 @@ section{padding:120px 5vw;position:relative}
     </article>
 
     <!-- CARRITO: drawer de tienda real -->
-    <article class="demo lg tilt reveal-scale mdemo" data-tilt>
+    <article class="demo lg mdemo">
       <div class="win-bar"><span></span><span></span><span></span><em>Carrito — subtotales en tiempo real</em><img class="wb-logo" src="logo-mark.png" alt=""/></div>
       <div class="demo-body" data-demo="cart" aria-hidden="true">
         <div class="ct">
@@ -1292,7 +1303,7 @@ section{padding:120px 5vw;position:relative}
     </article>
 
     <!-- CLUB: registro real → tarjeta de miembro -->
-    <article class="demo lg tilt reveal-scale mdemo" data-tilt>
+    <article class="demo lg mdemo">
       <div class="win-bar"><span></span><span></span><span></span><em>Club — código único automático</em><img class="wb-logo" src="logo-mark.png" alt=""/></div>
       <div class="demo-body" data-demo="club" aria-hidden="true">
         <div class="cb">
@@ -1318,7 +1329,7 @@ section{padding:120px 5vw;position:relative}
     </article>
 
     <!-- ENVÍOS: cotizador con selects reales -->
-    <article class="demo lg tilt reveal-scale mdemo" data-tilt>
+    <article class="demo lg mdemo">
       <div class="win-bar"><span></span><span></span><span></span><em>Envíos — guía y rastreo automático</em><img class="wb-logo" src="logo-mark.png" alt=""/></div>
       <div class="demo-body" data-demo="ship" aria-hidden="true">
         <div class="sh">
@@ -1344,7 +1355,7 @@ section{padding:120px 5vw;position:relative}
     </article>
 
     <!-- PERFIL: página de cuenta real -->
-    <article class="demo lg tilt reveal-scale mdemo" data-tilt>
+    <article class="demo lg mdemo">
       <div class="win-bar"><span></span><span></span><span></span><em>Mi cuenta — perfil del cliente</em><img class="wb-logo" src="logo-mark.png" alt=""/></div>
       <div class="demo-body" data-demo="prof" aria-hidden="true">
         <div class="pf">
@@ -1361,7 +1372,7 @@ section{padding:120px 5vw;position:relative}
     </article>
 
     <!-- SEGURIDAD: centro de seguridad -->
-    <article class="demo lg tilt reveal-scale mdemo" data-tilt>
+    <article class="demo lg mdemo">
       <div class="win-bar"><span></span><span></span><span></span><em>Security — escaneo en vivo</em><img class="wb-logo" src="logo-mark.png" alt=""/></div>
       <div class="demo-body" data-demo="sec" aria-hidden="true">
         <div class="sc">
@@ -1383,7 +1394,7 @@ section{padding:120px 5vw;position:relative}
     </article>
 
     <!-- VELOCIDAD: gauge Lighthouse -->
-    <article class="demo lg tilt reveal-scale mdemo" data-tilt>
+    <article class="demo lg mdemo">
       <div class="win-bar"><span></span><span></span><span></span><em>PageSpeed — tu web medida</em><img class="wb-logo" src="logo-mark.png" alt=""/></div>
       <div class="demo-body" data-demo="speed" aria-hidden="true">
         <div class="sp">
@@ -1415,7 +1426,7 @@ section{padding:120px 5vw;position:relative}
     </article>
 
     <!-- PANTALLAS: dispositivos con mini-web -->
-    <article class="demo lg tilt reveal-scale mdemo" data-tilt>
+    <article class="demo lg mdemo">
       <div class="win-bar"><span></span><span></span><span></span><em>Responsive — todas las pantallas</em><img class="wb-logo" src="logo-mark.png" alt=""/></div>
       <div class="demo-body" data-demo="dev" aria-hidden="true">
         <div class="dv">
@@ -2512,25 +2523,40 @@ section{padding:120px 5vw;position:relative}
   }, { threshold: 0.35 });
   document.querySelectorAll('.mdemo').forEach(function (el) { mio.observe(el); });
 
-  /* ── scroll-focus: enfoca la tarjeta más centrada en pantalla ── */
-  var sfCards = Array.from(document.querySelectorAll('.mdemo'));
-  var sfActive = null;
-  function updateScrollFocus() {
-    var mid = window.innerHeight / 2;
-    var best = null, bestDist = Infinity;
-    sfCards.forEach(function(card) {
-      var r = card.getBoundingClientRect();
-      var dist = Math.abs((r.top + r.bottom) / 2 - mid);
-      if (dist < bestDist) { bestDist = dist; best = card; }
+  /* ── pila de tarjetas: cada una queda fija al centro y la siguiente
+     sube desde abajo y la cubre; al subir el scroll se revierte solo
+     (position:sticky es nativamente reversible, sin JS de por medio) ── */
+  (function initCardStack() {
+    var grid = document.querySelector('.auto-grid');
+    if (!grid) return;
+    var cards = Array.prototype.slice.call(grid.children).filter(function (el) {
+      return el.classList.contains('mdemo');
     });
-    if (best !== sfActive) {
-      if (sfActive) sfActive.classList.remove('sf-active');
-      if (best) best.classList.add('sf-active');
-      sfActive = best;
+    if (!cards.length) return;
+    var slots = cards.map(function (card, i) {
+      var slot = document.createElement('div');
+      slot.className = 'stack-slot';
+      slot.style.zIndex = i + 1;
+      card.parentNode.insertBefore(slot, card);
+      slot.appendChild(card);
+      return slot;
+    });
+    if (reduceMotion) return;
+    var ticking = false;
+    function update() {
+      for (var i = 0; i < slots.length - 1; i++) {
+        var nextTop = slots[i + 1].getBoundingClientRect().top;
+        var stickyTop = parseFloat(getComputedStyle(slots[i + 1]).top) || 0;
+        slots[i].classList.toggle('is-covered', nextTop <= stickyTop + 2);
+      }
+      ticking = false;
     }
-  }
-  window.addEventListener('scroll', updateScrollFocus, { passive: true });
-  updateScrollFocus();
+    function onScroll() { if (ticking) return; ticking = true; requestAnimationFrame(update); }
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll, { passive: true });
+    if (window.__lenis) window.__lenis.on('scroll', onScroll);
+    update();
+  })();
 
   /* ── portadas cinematográficas: la foto respira con el scroll ──
      centrada en pantalla = máximo zoom; al alejarse se aleja y se
