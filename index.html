@@ -9,7 +9,7 @@
 <meta name="theme-color" content="#001D39"/>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500&family=Readex+Pro:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
 
 <script type="application/ld+json">
 {
@@ -138,122 +138,102 @@ main,header,footer{position:relative;z-index:2}
 /* Tilt 3D */
 .tilt{transform-style:preserve-3d;transition:transform .18s ease-out;will-change:transform}
 
-/* ================= NAV PILL ================= */
-.nav-pill{
-  position:fixed;top:18px;left:50%;transform:translateX(-50%);
-  z-index:100;
-  display:flex;align-items:center;gap:26px;
-  padding:10px 12px 10px 24px;
-  border-radius:999px;
+/* ================= NAV FLOTANTE (píldoras liquid glass) ================= */
+.hnav{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  display:flex;align-items:center;justify-content:space-between;gap:12px;
+  padding:20px 20px 0;
+  font-family:'Readex Pro',system-ui,-apple-system,sans-serif;
   transition:transform .5s var(--ease);
-  white-space:nowrap;
+  pointer-events:none;
 }
-.nav-pill.hidden{transform:translateX(-50%) translateY(-140%)}
-.nav-pill .logo{font-weight:700;font-size:.95rem;letter-spacing:.3em;color:var(--blue);display:flex;align-items:center;flex-shrink:0}
-.logo-img{height:46px;width:auto;max-width:none;display:block}
-@media(max-width:820px){.logo-img{height:38px}}
-.nav-links{display:flex;gap:22px}
-.nav-links a{
-  font-size:.62rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;
-  color:var(--dim);transition:color .3s ease;
+.hnav>*{pointer-events:auto}
+.hnav.hidden{transform:translateY(-160%)}
+.glassd{
+  background:rgba(22,30,47,.58);
+  backdrop-filter:blur(16px) saturate(150%);-webkit-backdrop-filter:blur(16px) saturate(150%);
+  border:1px solid rgba(255,255,255,.16);
+  box-shadow:
+    inset 4px 4px 12px 2px rgba(255,255,255,.2),
+    inset -2px -2px 15px 1px rgba(255,255,255,.2),
+    inset 0 0 15px 2px rgba(255,255,255,.2),
+    0 12px 34px rgba(22,30,47,.4);
 }
-.nav-links a:hover{color:var(--blue)}
-.nav-cta{
-  font-size:.6rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;
-  color:#fff;background:linear-gradient(135deg,var(--blue),var(--steel));
-  border:none;border-radius:999px;padding:12px 22px;cursor:pointer;
-  transition:transform .3s ease,box-shadow .3s ease;
+.hnav-brand{
+  display:flex;align-items:center;gap:9px;
+  border-radius:999px;padding:9px 20px 9px 12px;
+  color:#fff;font-size:.78rem;font-weight:400;letter-spacing:-.02em;white-space:nowrap;
 }
-.nav-cta:hover{transform:scale(1.06);box-shadow:0 8px 26px rgba(10,65,116,.45)}
-.nav-cta-wa{
-  display:flex;align-items:center;gap:7px;
-  background:linear-gradient(135deg,var(--blue),var(--steel));
-  box-shadow:0 8px 22px rgba(10,65,116,.35);
+.logo-img{height:30px;width:auto;max-width:none;display:block;filter:brightness(0) invert(1)}
+.hnav-links{display:flex;align-items:center;gap:2px;border-radius:999px;padding:5px 7px}
+.hnav-links a{
+  font-size:.72rem;font-weight:300;letter-spacing:-.01em;
+  color:rgba(255,255,255,.72);padding:8px 17px;border-radius:999px;
+  transition:color .3s ease,background .3s ease;white-space:nowrap;
 }
-.nav-cta-wa svg{width:14px;height:14px;fill:#fff;flex-shrink:0}
-.nav-cta-wa:hover{box-shadow:0 10px 28px rgba(10,65,116,.5)}
+.hnav-links a:hover{color:#fff;background:rgba(255,255,255,.08)}
+.hnav-cta{
+  font-size:.72rem;font-weight:500;letter-spacing:-.01em;white-space:nowrap;
+  color:#161E2F;background:#fff;border-radius:999px;padding:12px 24px;
+  transition:background .3s ease,transform .3s ease;
+  box-shadow:0 12px 30px rgba(22,30,47,.35);
+}
+.hnav-cta:hover{background:#FFA586;transform:scale(1.04)}
 
-/* ================= HERO (panel navy con video lunar) ================= */
-.hero-wrap{padding:96px 16px 16px;perspective:1200px}
+/* ================= HERO (full-screen · paleta atardecer · shader 3D) ================= */
 .hero{
-  position:relative;min-height:calc(100vh - 112px);
-  display:flex;flex-direction:column;align-items:center;justify-content:center;
-  text-align:center;padding:100px 6vw 140px;
+  position:relative;height:100svh;min-height:640px;width:100%;overflow:hidden;
+  background:linear-gradient(180deg,#541A2B 0%,#B51A2B 24%,#FFA586 48%,#384358 66%,#242F49 82%,#161E2F 100%);
+  font-family:'Readex Pro',system-ui,-apple-system,sans-serif;
 }
-.hero-video{
-  position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
-  height:135%;width:auto;min-width:62%;object-fit:cover;
-  opacity:.55;filter:brightness(1.1);
-  mix-blend-mode:screen;pointer-events:none;
-  animation:vDrift 20s ease-in-out infinite;
+.hero-bg{position:absolute;inset:0;width:100%;height:100%;display:block}
+.hero-lines{
+  position:absolute;inset:0;pointer-events:none;z-index:1;
+  background:repeating-linear-gradient(0deg,rgba(255,255,255,.05) 0 1px,transparent 1px 5px);
+  mix-blend-mode:overlay;opacity:.5;
 }
-@keyframes vDrift{0%,100%{transform:translate(-50%,-50%) scale(1)}50%{transform:translate(-50%,-50%) scale(1.08)}}
-.hero .glow{
-  position:absolute;inset:0;z-index:1;pointer-events:none;
-  background:
-    radial-gradient(ellipse at 50% 40%,rgba(123,189,232,.16),transparent 55%),
-    radial-gradient(ellipse at 50% 118%,rgba(0,29,57,.9),transparent 65%);
+.hero-title{
+  position:absolute;z-index:2;margin:0;
+  color:#fff;font-weight:500;font-size:14vw;
+  letter-spacing:-.04em;line-height:.95;text-transform:lowercase;
+  text-shadow:0 6px 60px rgba(22,30,47,.35);
+  opacity:0;transform:translateY(34px);
+  animation:htUp .9s var(--ease) forwards;
 }
-
-/* Orbes de vidrio */
-.orb{
-  position:absolute;border-radius:50%;z-index:1;pointer-events:none;
-  background:
-    radial-gradient(circle at 32% 28%,rgba(255,255,255,.5),rgba(255,255,255,.06) 42%,transparent 60%),
-    radial-gradient(circle at 68% 78%,rgba(123,189,232,.35),transparent 55%);
-  backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);
-  box-shadow:inset 0 1px 1px rgba(255,255,255,.55),0 24px 48px rgba(0,29,57,.35);
-  animation:orbFloat 9s ease-in-out infinite;
+@keyframes htUp{to{opacity:1;transform:none}}
+.ht-1{left:16px;top:18%;animation-delay:.15s}
+.ht-2{right:16px;top:38%;animation-delay:.32s}
+.ht-3{left:18%;top:58%;animation-delay:.5s}
+.hero-desc{
+  position:absolute;z-index:2;left:24px;top:47%;max-width:240px;
+  font-size:15px;font-weight:300;line-height:1.45;color:rgba(255,255,255,.9);
+  opacity:0;animation:htUp .9s var(--ease) .75s forwards;
 }
-.orb-1{width:110px;height:110px;top:16%;left:8%}
-.orb-2{width:64px;height:64px;top:62%;right:10%;animation-delay:2.5s;animation-duration:11s}
-.orb-3{width:38px;height:38px;top:24%;right:20%;animation-delay:1.2s;animation-duration:7s}
-@keyframes orbFloat{0%,100%{transform:translateY(0) rotate(0)}50%{transform:translateY(-26px) rotate(8deg)}}
-
-.hero-inner{position:relative;z-index:2;max-width:1060px}
-
-.hero-eyebrow{
-  display:inline-flex;align-items:center;gap:10px;
-  font-size:.58rem;font-weight:700;letter-spacing:.32em;text-transform:uppercase;
-  color:var(--ice);
-  background:rgba(255,255,255,.1);
-  backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
-  border:1px solid rgba(255,255,255,.18);
-  border-radius:999px;padding:12px 24px;margin-bottom:44px;
+.hstat{position:absolute;z-index:2;color:#fff;opacity:0;animation:htUp .9s var(--ease) forwards}
+.hstat .row{display:flex;align-items:center;gap:14px}
+.hstat b{font-size:clamp(2rem,4.4vw,3.4rem);font-weight:500;letter-spacing:-.03em;line-height:1}
+.hstat span{display:block;font-size:.78rem;font-weight:300;color:rgba(255,255,255,.7);margin-top:5px}
+.hdiv{display:none;height:1px;width:96px;background:rgba(255,255,255,.4)}
+.hdiv.d1{transform:rotate(20deg)}
+.hdiv.d2{transform:rotate(-20deg)}
+.hstat-tr{right:24px;top:14%;text-align:right;animation-delay:.9s}
+.hstat-bl{left:24px;bottom:88px;animation-delay:1.05s}
+.hstat-br{right:24px;bottom:60px;text-align:right;animation-delay:1.2s}
+.hstat-br span,.hstat-tr span{text-align:right}
+.hero-fade{
+  position:absolute;bottom:0;left:0;right:0;height:170px;z-index:1;pointer-events:none;
+  background:linear-gradient(to bottom,transparent,#161E2F 88%);
 }
-.hero-eyebrow .pulse{
-  width:7px;height:7px;border-radius:50%;background:#7ee2a0;
-  box-shadow:0 0 10px #7ee2a0;animation:pulse 2s ease-in-out infinite;
-}
-@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(.7)}}
-
-.typeline{
-  font-weight:700;
-  font-size:clamp(1.9rem,5.6vw,4.2rem);
-  letter-spacing:-.01em;line-height:1.16;
-  min-height:2.4em;
-  display:flex;align-items:center;justify-content:center;flex-wrap:wrap;
-  color:var(--w);
-  text-shadow:0 0 42px rgba(123,189,232,.4);
-  margin-bottom:20px;
-}
-.typeline .cursor{
-  display:inline-block;width:3px;height:1em;margin-left:10px;
-  background:var(--sky);animation:blink .85s step-end infinite;
-}
-@keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
-
-.hero-sub{
-  font-style:italic;font-weight:700;
-  font-size:clamp(1.05rem,2.6vw,1.55rem);
-  background:linear-gradient(100deg,var(--ice),var(--sky) 50%,var(--soft));
-  -webkit-background-clip:text;background-clip:text;
-  -webkit-text-fill-color:transparent;color:transparent;
-  margin-bottom:26px;
-}
-.hero p.lead{
-  font-size:clamp(.86rem,1.6vw,.98rem);line-height:1.85;
-  color:var(--wdim);max-width:640px;margin:0 auto 46px;
+@media(min-width:821px){
+  .hero-title{font-size:13vw}
+  .ht-1{left:40px}
+  .ht-2{right:40px}
+  .ht-3{left:28%}
+  .hero-desc{left:40px}
+  .hdiv{display:block}
+  .hstat-tr{right:96px}
+  .hstat-bl{left:80px;bottom:96px}
+  .hstat-br{right:80px;bottom:80px}
 }
 
 .hero-ctas{display:flex;flex-wrap:wrap;gap:16px;justify-content:center}
@@ -275,22 +255,6 @@ main,header,footer{position:relative;z-index:2}
 }
 .btn-frost:hover{transform:translateY(-3px) scale(1.03);background:rgba(255,255,255,.2)}
 
-/* Chips de contacto */
-.hero-chips{
-  position:absolute;bottom:26px;left:0;right:0;z-index:2;
-  display:flex;flex-wrap:wrap;gap:12px;justify-content:center;padding:0 20px;
-}
-.chip{
-  display:inline-flex;align-items:center;gap:9px;
-  font-size:.66rem;font-weight:500;color:var(--w);
-  background:rgba(255,255,255,.1);
-  backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
-  border:1px solid rgba(255,255,255,.2);
-  border-radius:999px;padding:12px 22px;
-  transition:transform .3s ease,background .3s ease;
-}
-.chip:hover{transform:translateY(-4px);background:rgba(255,255,255,.2)}
-.chip .dot{color:var(--sky)}
 
 /* ================= SECCIONES ================= */
 section{padding:120px 5vw;position:relative}
@@ -1002,12 +966,9 @@ section{padding:120px 5vw;position:relative}
 
 /* ================= RESPONSIVE ================= */
 @media(max-width:820px){
-  .nav-links{display:none}
-  .nav-pill{gap:16px}
+  .hnav-links{display:none}
+  .logo-img{height:26px}
   section{padding:92px 6vw}
-  .hero{padding-bottom:170px}
-  .hero-video{height:100%;width:100%;min-width:0;object-fit:cover}
-  .orb-1{width:70px;height:70px}
   .demo-body{min-height:300px}
 }
 
@@ -1024,55 +985,46 @@ section{padding:120px 5vw;position:relative}
 
 <div class="aurora" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>
 
-<!-- ============ NAV PILL ============ -->
-<header class="nav-pill lg" id="navPill">
-  <a href="#hero" class="logo"><img src="logo-mark.png" alt="Ricardo Design" class="logo-img"/></a>
-  <nav class="nav-links" aria-label="Navegación principal">
-    <a href="#services">Servicios</a>
-    <a href="#demos">En Vivo</a>
-    <a href="#automatiza">Automatización</a>
-    <a href="#portfolio">Proyectos</a>
+<!-- ============ NAV FLOTANTE ============ -->
+<header class="hnav" id="navPill">
+  <a href="#hero" class="hnav-brand glassd"><img src="logo-mark.png" alt="Ricardo Design" class="logo-img"/><span>ricardo design</span></a>
+  <nav class="hnav-links glassd" aria-label="Navegación principal">
+    <a href="#services">servicios</a>
+    <a href="#demos">en vivo</a>
+    <a href="#automatiza">automatización</a>
+    <a href="#portfolio">proyectos</a>
   </nav>
-  <a class="nav-cta nav-cta-wa" href="https://wa.me/573027981468?text=Hola%20Ricardo%2C%20quiero%20info%20sobre%20mi%20p%C3%A1gina%20web" target="_blank" rel="noopener">
-    <svg viewBox="0 0 24 24"><path d="M17.5 14.4c-.3-.15-1.7-.85-2-.95-.27-.1-.46-.15-.66.15s-.75.94-.92 1.14c-.17.2-.34.22-.63.07-.3-.15-1.24-.46-2.37-1.46-.87-.78-1.47-1.74-1.64-2.04-.17-.3-.02-.46.13-.6.13-.13.3-.34.44-.5s.2-.3.3-.5c.1-.2.05-.37-.02-.52-.07-.15-.66-1.6-.9-2.18-.24-.58-.48-.5-.66-.5h-.56c-.2 0-.5.07-.77.37-.27.3-1 .98-1 2.4s1.03 2.78 1.17 2.97c.15.2 2.03 3.1 4.93 4.35.69.3 1.22.48 1.64.6.69.22 1.32.19 1.82.12.55-.08 1.7-.7 1.94-1.37.24-.68.24-1.25.17-1.37-.07-.13-.27-.2-.57-.35z"/><path d="M12 2a10 10 0 0 0-8.5 15.3L2 22l4.8-1.46A10 10 0 1 0 12 2zm0 18.2c-1.6 0-3.15-.42-4.5-1.22l-.32-.19-3.15.96.98-3.08-.2-.32A8.2 8.2 0 1 1 12 20.2z"/></svg>
-    <span>Contactar</span>
-  </a>
+  <a class="hnav-cta" href="https://wa.me/573027981468?text=Hola%20Ricardo%2C%20quiero%20info%20sobre%20mi%20p%C3%A1gina%20web" target="_blank" rel="noopener">contactar</a>
 </header>
 
 <main>
 
 <!-- ============ HERO ============ -->
-<div class="hero-wrap">
-<section class="hero navy-panel" id="hero">
-  <video class="hero-video" autoplay muted loop playsinline preload="auto" aria-hidden="true">
-    <source src="luna.mp4" type="video/mp4"/>
-  </video>
-  <div class="glow" aria-hidden="true"></div>
-  <div class="orb orb-1" aria-hidden="true"></div>
-  <div class="orb orb-2" aria-hidden="true"></div>
-  <div class="orb orb-3" aria-hidden="true"></div>
+<section class="hero" id="hero">
+  <canvas class="hero-bg" id="heroGL" aria-hidden="true"></canvas>
+  <div class="hero-lines" aria-hidden="true"></div>
 
-  <div class="hero-inner">
-    <span class="hero-eyebrow"><i class="pulse"></i> Ricardo Design · Estudio Web · Colombia</span>
-    <h1 class="typeline" aria-label="Creamos webs que venden">
-      <span id="typeText"></span><span class="cursor" aria-hidden="true"></span>
-    </h1>
-    <p class="hero-sub">Tu marca merece una web profesional.</p>
-    <p class="lead">Diseñamos páginas conectadas a servidores automáticos en tiempo real: reciben pagos, envían correos a ti y a tus clientes, y registran cada venta en un Excel — solas, 24 horas al día.</p>
-    <div class="hero-ctas">
-      <a class="btn btn-sky" href="#demos">Verlo funcionando →</a>
-      <a class="btn btn-frost" href="https://wa.me/573027981468?text=Hola%20Ricardo%2C%20quiero%20una%20p%C3%A1gina%20web%20para%20mi%20negocio" target="_blank" rel="noopener">Consulta Gratis</a>
-    </div>
+  <h1 class="hero-title ht-1">webs</h1>
+  <h1 class="hero-title ht-2">que</h1>
+  <h1 class="hero-title ht-3">venden</h1>
+
+  <p class="hero-desc">sistemas que cobran, envían correos y registran cada venta por ti — solos, 24 horas al día</p>
+
+  <div class="hstat hstat-tr">
+    <div class="row"><i class="hdiv d1"></i><b>+15</b></div>
+    <span>formas de pago</span>
+  </div>
+  <div class="hstat hstat-bl">
+    <div class="row"><b>98</b><i class="hdiv d2"></i></div>
+    <span>de 100 en google pagespeed</span>
+  </div>
+  <div class="hstat hstat-br">
+    <div class="row"><i class="hdiv d2"></i><b>24/7</b></div>
+    <span>seguridad activa</span>
   </div>
 
-  <div class="hero-chips">
-    <a class="chip" href="tel:+573027981468"><span class="dot">✆</span> 302 798 1468</a>
-    <a class="chip" href="mailto:ricardodesingwebs@gmail.com"><span class="dot">✉</span> ricardodesingwebs@gmail.com</a>
-    <a class="chip" href="https://wa.me/573027981468" target="_blank" rel="noopener"><span class="dot">✦</span> WhatsApp directo</a>
-    <span class="chip"><span class="dot">◎</span> Bucaramanga, CO</span>
-  </div>
+  <div class="hero-fade" aria-hidden="true"></div>
 </section>
-</div>
 
 <!-- ============ SERVICIOS ============ -->
 <section id="services">
@@ -1500,33 +1452,65 @@ section{padding:120px 5vw;position:relative}
   var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var finePointer = window.matchMedia('(pointer: fine)').matches;
 
-  /* ---------- TYPEWRITER ---------- */
-  var phrases = [
-    'CREAMOS WEBS QUE VENDEN',
-    'TU NEGOCIO, EN LÍNEA 24/7',
-    'DISEÑO · CÓDIGO · RESULTADOS',
-    'AUTOMATIZA TU EMPRESA'
-  ];
-  var typeEl = document.getElementById('typeText');
-  if (reduceMotion) { typeEl.textContent = phrases[0]; }
-  else {
-    (function () {
-      var pi = 0, ci = 0, del = false;
-      function tick() {
-        var p = phrases[pi];
-        if (!del) {
-          ci++; typeEl.textContent = p.slice(0, ci);
-          if (ci === p.length) { del = true; setTimeout(tick, 2300); return; }
-          setTimeout(tick, 72);
-        } else {
-          ci--; typeEl.textContent = p.slice(0, ci);
-          if (ci === 0) { del = false; pi = (pi + 1) % phrases.length; setTimeout(tick, 480); return; }
-          setTimeout(tick, 30);
-        }
-      }
-      setTimeout(tick, 550);
-    })();
-  }
+  /* ---------- HERO: shader atardecer 3D (paleta 161E2F/242F49/384358/FFA586/B51A2B/541A2B) ---------- */
+  (function () {
+    var cv = document.getElementById('heroGL');
+    if (!cv) return;
+    var gl = cv.getContext('webgl', { antialias: false, alpha: false, powerPreference: 'low-power' });
+    if (!gl) { cv.style.display = 'none'; return; } /* queda el gradiente CSS de respaldo */
+    var VS = 'attribute vec2 a;void main(){gl_Position=vec4(a,0.,1.);}';
+    var FS =
+      'precision mediump float;uniform float t;uniform vec2 r;' +
+      'float h(vec2 p){return fract(sin(dot(p,vec2(127.1,311.7)))*43758.5453);}' +
+      'float n(vec2 p){vec2 i=floor(p),f=fract(p);f=f*f*(3.-2.*f);' +
+      'return mix(mix(h(i),h(i+vec2(1.,0.)),f.x),mix(h(i+vec2(0.,1.)),h(i+vec2(1.,1.)),f.x),f.y);}' +
+      'float fbm(vec2 p){float v=0.,a=.5;for(int i=0;i<5;i++){v+=a*n(p);p*=2.03;a*=.5;}return v;}' +
+      'void main(){' +
+      'vec2 uv=gl_FragCoord.xy/r;vec2 p=vec2(uv.x*r.x/r.y,uv.y);' +
+      'float w=fbm(p*1.6+vec2(t*.03,t*.015));' +
+      'float w2=fbm(p*3.4-vec2(t*.02,t*.03));' +
+      'float y=uv.y+(w-.5)*.3+(w2-.5)*.12;' +
+      'vec3 col=mix(vec3(.055,.075,.13),vec3(.086,.118,.184),smoothstep(0.,.18,y));' +
+      'col=mix(col,vec3(.141,.184,.286),smoothstep(.14,.34,y));' +
+      'col=mix(col,vec3(.22,.263,.345),smoothstep(.3,.46,y));' +
+      'col=mix(col,vec3(1.,.647,.525),smoothstep(.46,.6,y));' +
+      'col=mix(col,vec3(.71,.102,.169),smoothstep(.62,.8,y));' +
+      'col=mix(col,vec3(.33,.102,.169),smoothstep(.84,1.08,y));' +
+      'float g=fbm(p*2.2+vec2(-t*.025,t*.02));' +
+      'col+=vec3(1.,.75,.6)*pow(g,3.)*.14*smoothstep(.34,.62,y);' +
+      'float vg=smoothstep(1.3,.45,length(uv-vec2(.5,.52)));' +
+      'col*=mix(.8,1.,vg);' +
+      'gl_FragColor=vec4(col,1.);}';
+    function sh(type, src) {
+      var s = gl.createShader(type); gl.shaderSource(s, src); gl.compileShader(s);
+      return gl.getShaderParameter(s, gl.COMPILE_STATUS) ? s : null;
+    }
+    var vs = sh(gl.VERTEX_SHADER, VS), fs = sh(gl.FRAGMENT_SHADER, FS);
+    if (!vs || !fs) { cv.style.display = 'none'; return; }
+    var pr = gl.createProgram();
+    gl.attachShader(pr, vs); gl.attachShader(pr, fs); gl.linkProgram(pr); gl.useProgram(pr);
+    var buf = gl.createBuffer();
+    gl.bindBuffer(gl.ARRAY_BUFFER, buf);
+    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1, -1, 3, -1, -1, 3]), gl.STATIC_DRAW);
+    var loc = gl.getAttribLocation(pr, 'a');
+    gl.enableVertexAttribArray(loc); gl.vertexAttribPointer(loc, 2, gl.FLOAT, false, 0, 0);
+    var ut = gl.getUniformLocation(pr, 't'), ur = gl.getUniformLocation(pr, 'r');
+    function size() {
+      var d = Math.min(window.devicePixelRatio || 1, 1.5) * .6; /* media resolución: gradiente suave, GPU liviana */
+      cv.width = Math.max(2, Math.round(cv.clientWidth * d));
+      cv.height = Math.max(2, Math.round(cv.clientHeight * d));
+      gl.viewport(0, 0, cv.width, cv.height);
+    }
+    window.addEventListener('resize', size, { passive: true }); size();
+    var t0 = performance.now();
+    function frame() {
+      gl.uniform1f(ut, (performance.now() - t0) / 1000);
+      gl.uniform2f(ur, cv.width, cv.height);
+      gl.drawArrays(gl.TRIANGLES, 0, 3);
+      if (!reduceMotion) requestAnimationFrame(frame);
+    }
+    frame();
+  })();
 
   /* ---------- REVEALS ---------- */
   var io = new IntersectionObserver(function (es) {
