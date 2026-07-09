@@ -339,26 +339,67 @@ section{padding:120px 5vw;position:relative}
   background:rgba(181,26,43,.07);border:1px solid rgba(181,26,43,.22);
   font-size:.62rem;font-weight:700;letter-spacing:.3em;text-transform:uppercase;color:var(--blue);
 }
-.live-dot{width:7px;height:7px;border-radius:50%;background:var(--blue);flex-shrink:0;animation:liveDotPulse 1.8s ease-out infinite}
+.live-dot{width:7px;height:7px;border-radius:50%;background:var(--blue);flex-shrink:0;animation:liveDotPulse 1.6s ease-in-out infinite}
 @keyframes liveDotPulse{
-  0%{box-shadow:0 0 0 0 rgba(181,26,43,.55)}
-  70%{box-shadow:0 0 0 10px rgba(181,26,43,0)}
-  100%{box-shadow:0 0 0 0 rgba(181,26,43,0)}
+  0%,100%{opacity:1;box-shadow:0 0 0 0 rgba(181,26,43,.55)}
+  50%{opacity:.15;box-shadow:0 0 0 8px rgba(181,26,43,0)}
+}
+.shead-live .live-badge-text{
+  font-style:normal;font-weight:800;
+  animation:liveBlink 1.6s ease-in-out infinite;
+}
+@keyframes liveBlink{
+  0%,100%{opacity:1}
+  50%{opacity:.22}
+}
+@media(prefers-reduced-motion:reduce){
+  .live-dot,.shead-live .live-badge-text{animation:none;opacity:1}
 }
 .shead-live h2{font-size:clamp(2rem,5.6vw,3.6rem);font-weight:800;letter-spacing:-.02em}
 .shead-live .live-em{
   position:relative;font-style:italic;
   background-image:
-    repeating-linear-gradient(90deg,rgba(22,10,10,.4) 0 1px,transparent 1px 6px),
-    radial-gradient(130% 170% at var(--live-bg-x,30%) var(--live-bg-y,65%),
-      #FFD9A8 0%,#FFA24D 16%,#F0562F 34%,#B51A2B 54%,#6E2733 74%,#22090F 100%);
-  background-blend-mode:overlay;
-  background-size:100% 100%,240% 240%;
+    linear-gradient(128deg,#1a0508 0%,#3d0f1f 20%,#a01640 38%,#ff9433 52%,#ff7a1f 58%,#c41f4f 70%,#3d0f2e 86%,#150307 100%),
+    radial-gradient(120% 150% at var(--live-bg-x,30%) var(--live-bg-y,65%),
+      rgba(255,180,110,.9) 0%,rgba(255,122,31,.55) 22%,rgba(196,31,79,.4) 44%,transparent 72%);
+  background-blend-mode:normal,screen;
+  background-size:240% 240%,220% 220%;
+  background-position:var(--live-bg-x,30%) var(--live-bg-y,65%),var(--live-bg-x,30%) var(--live-bg-y,65%);
   -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent;
   will-change:background-position;
 }
 .shead-live p{font-size:.92rem;color:var(--dim)}
+.shead-live .live-em-inline{font-weight:800}
 @media(min-width:821px){.shead-live h2{font-size:clamp(2.4rem,4.6vw,3.9rem)}}
+
+/* ---- En vivo: scrollytelling (pin + reveal por pasos) ---- */
+.demos-scroller{position:relative;height:320vh}
+.demos-pin{
+  position:sticky;top:0;
+  height:100vh;height:100dvh;
+  display:flex;flex-direction:column;justify-content:center;align-items:center;
+  margin:0 auto;max-width:1180px;padding:0 5vw;
+}
+.demos-pin h2{margin:6px 0 0}
+.demos-pin .dm-line1{display:block}
+.demos-pin [data-ds]{
+  opacity:0;transform:translateY(40px);
+  transition:opacity .7s var(--ease),transform .7s var(--ease);
+  will-change:opacity,transform;
+}
+.demos-pin [data-ds].in{opacity:1;transform:none}
+.demos-hint{
+  position:absolute;left:50%;bottom:40px;transform:translateX(-50%);
+  opacity:0;transition:opacity .5s ease;pointer-events:none;
+}
+.demos-hint i{display:block;width:1px;height:30px;background:linear-gradient(to bottom,var(--blue),transparent);animation:hintPulse 1.8s ease-in-out infinite}
+.demos-scroller.ds-go .demos-hint{opacity:.55}
+.demos-scroller.ds-end .demos-hint{opacity:0}
+@media(prefers-reduced-motion:reduce){
+  .demos-scroller{height:auto}
+  .demos-pin{position:static;height:auto;padding:120px 5vw 0}
+  .demos-pin [data-ds]{opacity:1;transform:none}
+}
 
 /* Reveal */
 .reveal{opacity:0;transform:translateY(56px);transition:opacity .9s var(--ease),transform .9s var(--ease)}
@@ -1124,10 +1165,13 @@ section{padding:120px 5vw;position:relative}
 <!-- ============ DEMOS EN VIVO ============ -->
 <!-- ============ DEMOS + AUTOMATIZACIÓN (grupo unificado) ============ -->
 <section id="demos">
-  <div class="shead shead-live reveal">
-    <span class="live-badge"><i class="live-dot"></i>en vivo</span>
-    <h2>Mira tu web <em class="live-em">trabajando sola</em></h2>
-    <p>Esto es lo que hacen nuestras páginas mientras duermes. No es un video: está pasando ahora mismo, frente a ti.</p>
+  <div class="demos-scroller" id="demosScroller">
+    <div class="shead shead-live demos-pin">
+      <span class="live-badge" data-ds><i class="live-dot"></i><em class="live-em live-badge-text">en vivo</em></span>
+      <h2><span class="dm-line1" data-ds>Mira tu web</span> <em class="live-em dm-line2" data-ds>trabajando sola</em></h2>
+      <p data-ds>Esto es lo que hacen nuestras páginas mientras duermes. <em class="live-em live-em-inline">No es un video:</em> está pasando ahora mismo, frente a ti.</p>
+      <div class="demos-hint" aria-hidden="true"><i></i></div>
+    </div>
   </div>
 
   <div class="auto-grid">
@@ -1582,7 +1626,7 @@ section{padding:120px 5vw;position:relative}
       'for(int i=0;i<6;i++){v+=a*n(p);p=m*p+vec2(1.3,-2.1);a*=.5;}return v;}' +
       'void main(){' +
       'vec2 uv=gl_FragCoord.xy/r;vec2 p=vec2(uv.x*r.x/r.y,uv.y);' +
-      'float tm=t*.05;' +
+      'float tm=t*.06;' +
       /* domain warping: nubes volumétricas que fluyen */
       'vec2 q=vec2(fbm(p*1.3+vec2(0.,tm)),fbm(p*1.3+vec2(4.3,-tm*.7)));' +
       'vec2 w=vec2(fbm(p*1.7+2.4*q+vec2(1.7,9.2-tm*.4)),fbm(p*1.7+2.4*q+vec2(8.3+tm*.35,2.8)));' +
@@ -1675,23 +1719,38 @@ section{padding:120px 5vw;position:relative}
     update();
   })();
 
-  /* ---------- "TRABAJANDO SOLA": textura cálida en el texto, se desplaza como si estuviera debajo al deslizar ---------- */
+  /* ---------- EN VIVO: scrollytelling (Mira tu web -> trabajando sola -> en vivo -> texto) + textura que se mueve ---------- */
   (function () {
-    var em = document.querySelector('.live-em');
-    if (!em) return;
-    if (reduceMotion) return;
+    var scroller = document.getElementById('demosScroller');
+    if (!scroller) return;
+    var pin = scroller.querySelector('.demos-pin');
+    // orden de aparición deseado
+    var seq = [
+      scroller.querySelector('.dm-line1'),
+      scroller.querySelector('.dm-line2'),
+      scroller.querySelector('.live-badge'),
+      scroller.querySelector('.demos-pin p')
+    ].filter(Boolean);
+    if (reduceMotion) { seq.forEach(function (el) { el.classList.add('in'); }); return; }
+    var thresholds = [0, 0.28, 0.50, 0.72];
     var ticking = false;
     function update() {
-      var r = em.getBoundingClientRect();
-      var vh = window.innerHeight;
-      var pct = (vh - r.top) / (vh + r.height);
-      if (pct < 0) pct = 0; if (pct > 1) pct = 1;
-      em.style.setProperty('--live-bg-x', (16 + pct * 68) + '%');
-      em.style.setProperty('--live-bg-y', (78 - pct * 56) + '%');
+      var maxScroll = scroller.offsetHeight - window.innerHeight;
+      var progress = maxScroll > 0 ? (-scroller.getBoundingClientRect().top) / maxScroll : 1;
+      if (progress < 0) progress = 0; if (progress > 1) progress = 1;
+      seq.forEach(function (el, i) { el.classList.toggle('in', progress >= thresholds[i]); });
+      scroller.classList.toggle('ds-go', progress > 0.02 && progress < 0.9);
+      scroller.classList.toggle('ds-end', progress >= 0.9);
+      // textura cálida que se desplaza como si la foto estuviera debajo
+      if (pin) {
+        pin.style.setProperty('--live-bg-x', (16 + progress * 68) + '%');
+        pin.style.setProperty('--live-bg-y', (78 - progress * 56) + '%');
+      }
       ticking = false;
     }
     function onScroll() { if (ticking) return; ticking = true; requestAnimationFrame(update); }
     window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll, { passive: true });
     if (window.__lenis) window.__lenis.on('scroll', onScroll);
     update();
   })();
