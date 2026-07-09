@@ -60,14 +60,21 @@
 }
 
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
-/* Safari iOS: el gesto de pellizcar-alejar o deslizar desde el borde
-   revela el "rebote" elástico del scroll. Si html (no solo body) no tiene
-   ancho contenido y overflow-x:hidden, ese rebote deja ver contenido
-   posicionado fuera del viewport (p.ej. el hero). overscroll-behavior-x
-   evita que el gesto de swipe-back navegue/arrastre la página lateral. */
+/* Las DOS cosas a la vez, sin conflicto:
+   1) Safari iOS: el gesto de pellizcar-alejar / deslizar desde el borde
+      revela contenido posicionado fuera del viewport (el hero oscuro). Hay
+      que recortar el desborde horizontal en la RAÍZ.
+   2) Pero overflow-x:HIDDEN crea un "scroll container" y eso MATA todos los
+      position:sticky (pin del hero, pin de En vivo, pila de tarjetas) --
+      fue lo que rompió los efectos.
+   Solución: overflow-x:CLIP -- recorta igual que hidden PERO no crea scroll
+   container, así los sticky siguen anclados al viewport. Fallback a hidden
+   solo en navegadores viejos sin soporte de clip (raros ya). */
 html{
   scroll-behavior:smooth;
-  overflow-x:hidden;width:100%;
+  overflow-x:hidden;      /* fallback navegadores sin clip */
+  overflow-x:clip;
+  width:100%;
   overscroll-behavior-x:none;
 }
 html.lenis,html.lenis body{height:auto}
@@ -77,11 +84,11 @@ body{
   background:linear-gradient(180deg,#fbf1ec 0%,#f6e2d9 42%,#f0d8cf 100%);
   color:var(--ink);
   font-family:var(--font);
-  /* OJO: body NO debe llevar overflow-x:hidden. Con html{overflow-x:hidden}
-     el overflow del body ya no se propaga al viewport sino que aplica al
-     propio body, convirtiéndolo en contenedor de scroll -- y eso MATA todos
-     los position:sticky (pin del hero, pin de En vivo, pila de tarjetas).
-     El recorte lateral ya lo da html (propagado al viewport). */
+  /* clip también aquí: refuerza el recorte del gesto y NO rompe sticky
+     (a diferencia de hidden, clip no convierte el body en scroll container).
+     Sin fallback a hidden aquí: hidden en body SÍ mataría los sticky. */
+  overflow-x:clip;
+  width:100%;
   overscroll-behavior-x:none;
   -webkit-font-smoothing:antialiased;
 }
