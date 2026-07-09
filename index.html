@@ -729,12 +729,15 @@ section{padding:120px 5vw;position:relative}
   border-radius:26px;overflow:hidden;background:#2B211B;cursor:pointer;
   box-shadow:0 30px 70px rgba(0,29,57,.35);
 }
-.col-panel picture{display:contents}
 .col-panel img{
   position:absolute;inset:0;width:100%;height:100%;
   object-fit:cover;object-position:50% 42%;
   will-change:transform;transform:scale(1.02);
 }
+/* alterna imagen desktop/móvil sin depender de <picture> (evita bugs de letterbox en iOS) */
+.col-img-dt{display:none}
+.col-img-mb{display:block}
+@media(min-width:1025px){.col-img-dt{display:block}.col-img-mb{display:none}}
 .col-overlay{
   position:absolute;inset:0;z-index:2;
   display:flex;flex-direction:column;justify-content:flex-end;align-items:flex-start;
@@ -1317,10 +1320,8 @@ section{padding:120px 5vw;position:relative}
     <div>
       <p class="live-lead reveal">Joyería artesanal con alma de <em>casa de lujo</em>: la clienta se enamora, paga y su 15% llega solo.</p>
       <a class="col-panel p-ale" href="https://alejandravergel.com" target="_blank" rel="noopener" aria-label="Ver alejandravergel.com en vivo">
-        <picture>
-          <source media="(min-width:1025px)" srcset="https://alejandravergel.com/img/collares/azur-gota-1.jpg"/>
-          <img src="https://alejandravergel.com/img/collares/prisma-rectangular-1.jpg" alt="Collares artesanales — alejandravergel.com" loading="lazy" data-start="50 50" data-focus="50 50" data-zoom="0.10"/>
-        </picture>
+        <img class="col-img-dt" src="https://alejandravergel.com/img/collares/azur-gota-1.jpg" alt="Collares artesanales — alejandravergel.com" loading="lazy" data-zoom="0.10" data-rotate="-10"/>
+        <img class="col-img-mb" src="https://alejandravergel.com/img/collares/prisma-rectangular-1.jpg" alt="Collares artesanales — alejandravergel.com" loading="lazy" data-zoom="0.10" data-rotate="-10"/>
         <div class="col-overlay">
           <span class="col-eyebrow">Alejandra Vergel · Joyería artesanal</span>
           <h3>Collares</h3>
@@ -2204,7 +2205,7 @@ section{padding:120px 5vw;position:relative}
      centrada en pantalla = máximo zoom; al alejarse se aleja y se
      desplaza siguiendo la dirección del scroll (simétrico). */
   (function initEditorialFocus() {
-    var imgs = document.querySelectorAll('.col-panel img[data-focus]');
+    var imgs = document.querySelectorAll('.col-panel img[data-focus], .col-panel img[data-rotate]');
     var ticking = false;
 
     function parsePos(s) {
@@ -2234,15 +2235,22 @@ section{padding:120px 5vw;position:relative}
         var zoomMax = parseFloat(img.getAttribute('data-zoom') || '0.10');
         var scale = 1 + zoomMax * e;
 
-        // 5. interpola object-position start → focus
-        var s = parsePos(img.getAttribute('data-start') || '50 50');
-        var f = parsePos(img.getAttribute('data-focus') || '50 50');
-        var objX = s[0] + (f[0] - s[0]) * e;
-        var objY = s[1] + (f[1] - s[1]) * e;
-
-        // 6. aplica
-        img.style.objectPosition = objX + '% ' + objY + '%';
-        img.style.transform = 'scale(' + scale.toFixed(3) + ')';
+        var rotAttr = img.getAttribute('data-rotate');
+        if (rotAttr !== null) {
+          // efecto circular: gira -N° fuera de vista, recta (0°) en el centro
+          var rotMax = parseFloat(rotAttr);
+          var ang = rotMax * (1 - e);
+          img.style.objectPosition = '50% 50%';
+          img.style.transform = 'scale(' + scale.toFixed(3) + ') rotate(' + ang.toFixed(2) + 'deg)';
+        } else {
+          // interpola object-position start → focus
+          var s = parsePos(img.getAttribute('data-start') || '50 50');
+          var f = parsePos(img.getAttribute('data-focus') || '50 50');
+          var objX = s[0] + (f[0] - s[0]) * e;
+          var objY = s[1] + (f[1] - s[1]) * e;
+          img.style.objectPosition = objX + '% ' + objY + '%';
+          img.style.transform = 'scale(' + scale.toFixed(3) + ')';
+        }
       });
     }
 
