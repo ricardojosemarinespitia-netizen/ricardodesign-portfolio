@@ -433,21 +433,115 @@ section{padding:120px 5vw;position:relative}
 .reveal-scale{opacity:0;transform:scale(.94) translateY(30px);transition:opacity 1s var(--ease),transform 1s var(--ease)}
 .reveal-scale.visible{opacity:1;transform:none}
 
-/* ================= SERVICIOS ================= */
-.services-grid{display:grid;grid-template-columns:1fr;gap:22px;max-width:1180px;margin:0 auto;perspective:1100px}
-@media(min-width:768px){.services-grid{grid-template-columns:repeat(3,1fr)}}
-.svc{padding:44px 36px}
-.icon-sq{
-  width:56px;height:56px;border-radius:18px;
-  display:flex;align-items:center;justify-content:center;
-  font-size:1.35rem;margin-bottom:28px;
-  background:linear-gradient(135deg,var(--blue),var(--steel));
-  box-shadow:0 10px 24px rgba(181,26,43,.35),inset 0 1px 0 rgba(255,255,255,.3);
+/* ================= SERVICIOS · PANEL BANDERA VINO CON ENTRAMADO ================= */
+.flag-wrap{max-width:1180px;margin:0 auto}
+.flag-panel{
+  position:relative;overflow:hidden;border-radius:var(--r-lg);
+  background:radial-gradient(120% 95% at 50% 36%,#5E1E2C 0%,#461621 55%,#2E0E17 100%);
+  box-shadow:0 42px 90px rgba(60,22,33,.45),inset 0 1px 0 rgba(255,255,255,.12);
+  padding:clamp(20px,4vw,52px);
+  will-change:transform,opacity;
 }
-.icon-sq.t2{background:linear-gradient(135deg,var(--teal),var(--soft))}
-.icon-sq.t3{background:linear-gradient(135deg,var(--steel),var(--sky))}
-.svc h3{font-weight:700;font-size:1.1rem;margin-bottom:13px;color:var(--navy)}
-.svc p{color:var(--dim);line-height:1.75;font-size:.83rem}
+#flagGrid{position:absolute;inset:0;width:100%;height:100%;display:block;pointer-events:none;opacity:.9}
+.svc-grid{position:relative;z-index:2;display:grid;grid-template-columns:1fr;gap:22px}
+@media(min-width:900px){.svc-grid{grid-template-columns:repeat(3,1fr)}}
+/* tarjeta de servicio: vidrio oscuro sobre la bandera */
+.svc2{
+  display:flex;flex-direction:column;border-radius:22px;overflow:hidden;
+  background:rgba(255,255,255,.07);
+  backdrop-filter:blur(12px) saturate(150%);-webkit-backdrop-filter:blur(12px) saturate(150%);
+  border:1px solid rgba(255,255,255,.22);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.26),0 18px 44px rgba(20,7,11,.38);
+}
+.svc2-sim{margin:14px 14px 0;border-radius:14px;overflow:hidden;background:#fff;box-shadow:0 12px 30px rgba(20,7,11,.4)}
+.svc2-txt{padding:18px 20px 22px}
+.svc2-txt h3{color:#fff;font-size:1.02rem;font-weight:700;margin-bottom:9px}
+.svc2-txt p{color:rgba(255,235,228,.8);font-size:.78rem;line-height:1.7}
+/* barra de ventana mini */
+.mw-bar{display:flex;align-items:center;gap:5px;padding:8px 11px;border-bottom:1px solid rgba(22,30,47,.08);background:#fbfbfd}
+.mw-bar i{width:8px;height:8px;border-radius:50%}
+.mw-bar i:nth-child(1){background:#ff5f57}
+.mw-bar i:nth-child(2){background:#febc2e}
+.mw-bar i:nth-child(3){background:#28c840}
+.mw-bar em{font-style:normal;font-size:.5rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--faint);margin-left:5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+/* --- pasos genéricos del ciclo de 8s (todas las sims sincronizadas) --- */
+@keyframes in5{0%,3%{opacity:0;transform:translateY(7px)}8%,90%{opacity:1;transform:none}96%,100%{opacity:0;transform:translateY(7px)}}
+@keyframes in18{0%,16%{opacity:0;transform:translateY(7px)}21%,90%{opacity:1;transform:none}96%,100%{opacity:0;transform:translateY(7px)}}
+@keyframes in32{0%,30%{opacity:0;transform:translateY(7px)}35%,90%{opacity:1;transform:none}96%,100%{opacity:0;transform:translateY(7px)}}
+@keyframes in46{0%,44%{opacity:0;transform:translateY(7px)}49%,90%{opacity:1;transform:none}96%,100%{opacity:0;transform:translateY(7px)}}
+@keyframes pop24{0%,22%{opacity:0;transform:scale(.4)}26%{opacity:1;transform:scale(1.2)}29%,90%{opacity:1;transform:scale(1)}96%,100%{opacity:0;transform:scale(.4)}}
+@keyframes pop38{0%,36%{opacity:0;transform:scale(.4)}40%{opacity:1;transform:scale(1.2)}43%,90%{opacity:1;transform:scale(1)}96%,100%{opacity:0;transform:scale(.4)}}
+@keyframes pop52{0%,50%{opacity:0;transform:scale(.4)}54%{opacity:1;transform:scale(1.2)}57%,90%{opacity:1;transform:scale(1)}96%,100%{opacity:0;transform:scale(.4)}}
+@keyframes pop58{0%,56%{opacity:0;transform:scale(.4)}60%{opacity:1;transform:scale(1.2)}63%,90%{opacity:1;transform:scale(1)}96%,100%{opacity:0;transform:scale(.4)}}
+/* --- SIM 1: la web se construye sola --- */
+.sw{height:168px;background:#fff;padding:10px 12px;display:flex;flex-direction:column;gap:7px}
+.sw u,.sw s{text-decoration:none;display:block}
+.sw-nav{display:flex;align-items:center;gap:6px;height:17px;border-radius:6px;background:rgba(110,39,51,.07);padding:0 8px;opacity:0;animation:in5 8s infinite}
+.sw-nav u{width:7px;height:7px;border-radius:50%;background:var(--blue)}
+.sw-nav s{width:15px;height:3px;border-radius:2px;background:rgba(110,39,51,.35)}
+.sw-nav s:nth-of-type(1){margin-left:auto}
+.sw-hero{flex:1;border-radius:8px;background:linear-gradient(135deg,#6E2733,#B51A2B 55%,#FFA586);padding:11px 13px;display:flex;flex-direction:column;justify-content:center;gap:5px;opacity:0;animation:in18 8s infinite}
+.sw-hero s{height:4px;border-radius:2px;background:rgba(255,255,255,.92);width:64%}
+.sw-hero s+s{width:40%;background:rgba(255,255,255,.55)}
+.sw-btn{width:34px;height:10px;border-radius:5px;background:#fff;margin-top:3px;opacity:0;animation:pop58 8s infinite;box-shadow:0 2px 8px rgba(20,7,11,.3)}
+.sw-cards{display:flex;gap:7px;height:44px}
+.sw-cards i{flex:1;border-radius:7px;background:#fbf4f0;border:1px solid rgba(110,39,51,.12);padding:5px;display:flex;flex-direction:column;gap:3px;opacity:0}
+.sw-cards i:nth-child(1){animation:in32 8s infinite}
+.sw-cards i:nth-child(2){animation:in46 8s infinite}
+.sw-cards u{flex:1;border-radius:4px;background:linear-gradient(135deg,rgba(110,39,51,.5),rgba(255,165,134,.55))}
+.sw-cards s{width:70%;height:3px;border-radius:2px;background:rgba(110,39,51,.35)}
+/* --- SIM 2: mantenimiento en vivo --- */
+.mt2{height:168px;background:#fff;padding:10px 12px;display:flex;flex-direction:column;gap:6px}
+.mt2-head{display:flex;align-items:center;gap:7px;opacity:0;animation:in5 8s infinite}
+.mt2-head b{font-size:.62rem;color:var(--navy)}
+.mt2-pill{margin-left:auto;font-size:.46rem;font-weight:700;letter-spacing:.08em;padding:2px 8px;border-radius:999px;background:rgba(255,165,134,.22);color:var(--blue);opacity:0;animation:pop58 8s infinite}
+.mt2-r{display:flex;align-items:center;gap:8px;background:#fbf7f5;border:1px solid rgba(110,39,51,.1);border-radius:9px;padding:6px 9px;opacity:0}
+.mt2-r.r1{animation:in5 8s infinite}
+.mt2-r.r2{animation:in18 8s infinite}
+.mt2-r.r3{animation:in32 8s infinite}
+.mt2-r .em{font-size:.72rem;flex-shrink:0}
+.mt2-r b{display:block;font-size:.56rem;color:var(--navy)}
+.mt2-r small{display:block;font-size:.47rem;color:var(--faint)}
+.mt2-r .mt2-in{flex:1;min-width:0}
+.mt2-st{width:15px;height:15px;position:relative;flex-shrink:0}
+.mt2-sp{position:absolute;inset:0;border-radius:50%;border:2px solid rgba(110,39,51,.18);border-top-color:var(--steel);opacity:0;animation:wpspin .7s linear infinite}
+.r1 .mt2-sp{animation:spA 8s infinite,wpspin .7s linear infinite}
+.r2 .mt2-sp{animation:spB 8s infinite,wpspin .7s linear infinite}
+.r3 .mt2-sp{animation:spC 8s infinite,wpspin .7s linear infinite}
+@keyframes spA{0%,8%{opacity:0}10%,22%{opacity:1}24%,100%{opacity:0}}
+@keyframes spB{0%,22%{opacity:0}24%,36%{opacity:1}38%,100%{opacity:0}}
+@keyframes spC{0%,36%{opacity:0}38%,50%{opacity:1}52%,100%{opacity:0}}
+.mt2-ck{position:absolute;inset:0;border-radius:50%;background:var(--blue);color:#fff;display:flex;align-items:center;justify-content:center;font-size:.48rem;opacity:0}
+.r1 .mt2-ck{animation:pop24 8s infinite}
+.r2 .mt2-ck{animation:pop38 8s infinite}
+.r3 .mt2-ck{animation:pop52 8s infinite}
+.mt2-up{margin-top:auto;opacity:0;animation:in46 8s infinite}
+.mt2-up span{font-size:.5rem;font-weight:700;color:var(--steel)}
+.mt2-up .bar{height:4px;border-radius:999px;background:rgba(110,39,51,.12);overflow:hidden;margin-top:3px}
+.mt2-up .bar i{display:block;height:100%;border-radius:999px;background:linear-gradient(90deg,var(--blue),var(--sky));transform-origin:left;transform:scaleX(0);animation:upF 8s infinite}
+@keyframes upF{0%,48%{transform:scaleX(0)}62%,90%{transform:scaleX(1)}96%,100%{transform:scaleX(0)}}
+/* --- SIM 3: Meta Ads en vivo --- */
+.ad{height:168px;background:#fff;padding:10px 12px;display:flex;flex-direction:column;gap:7px}
+.ad-head{display:flex;align-items:center;gap:7px;opacity:0;animation:in5 8s infinite}
+.ad-head svg{width:17px;height:auto;flex-shrink:0}
+.ad-head b{font-size:.58rem;color:var(--navy);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ad-pill{margin-left:auto;display:inline-flex;align-items:center;gap:4px;font-size:.46rem;font-weight:700;letter-spacing:.08em;padding:2px 8px;border-radius:999px;background:rgba(255,165,134,.22);color:var(--blue);opacity:0;animation:pop24 8s infinite;flex-shrink:0}
+.ad-pill i{width:5px;height:5px;border-radius:50%;background:var(--blue);animation:adDot 1.2s ease-in-out infinite}
+@keyframes adDot{0%,100%{opacity:1}50%{opacity:.25}}
+.ad-chart{flex:1;display:flex;align-items:flex-end;gap:5px;padding:2px 2px 0;opacity:0;animation:in18 8s infinite}
+.ad-chart i{flex:1;border-radius:3px 3px 0 0;background:linear-gradient(180deg,var(--sky),var(--blue));height:var(--h,40%);transform-origin:bottom;transform:scaleY(0);animation:adBar 8s infinite}
+.ad-chart i:nth-child(2){animation-delay:.09s}.ad-chart i:nth-child(3){animation-delay:.18s}
+.ad-chart i:nth-child(4){animation-delay:.27s}.ad-chart i:nth-child(5){animation-delay:.36s}
+.ad-chart i:nth-child(6){animation-delay:.45s}.ad-chart i:nth-child(7){animation-delay:.54s}
+@keyframes adBar{0%,18%{transform:scaleY(.03)}30%,90%{transform:scaleY(1)}97%,100%{transform:scaleY(.03)}}
+.ad-kpis{display:flex;gap:7px;opacity:0;animation:in32 8s infinite}
+.ad-kpis>div{flex:1;background:#fbf7f5;border:1px solid rgba(110,39,51,.1);border-radius:9px;padding:5px 8px;min-width:0}
+.ad-kpis small{display:block;font-size:.44rem;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--faint)}
+.ad-kpis b{display:block;font-size:.66rem;color:var(--blue);font-variant-numeric:tabular-nums;white-space:nowrap}
+@media(prefers-reduced-motion:reduce){
+  .sw *,.sw-nav,.sw-hero,.mt2 *,.ad *,.ad-chart,.ad-kpis,.mt2-head,.mt2-r,.mt2-up{animation:none!important;opacity:1!important;transform:none!important}
+  .mt2-sp{opacity:0!important}
+}
 
 /* ================= DEMOS EN VIVO ================= */
 .demos{display:grid;grid-template-columns:1fr;gap:26px;max-width:1180px;margin:0 auto;perspective:1100px}
@@ -1203,6 +1297,12 @@ section{padding:120px 5vw;position:relative}
     background:rgba(255,255,255,.08)!important;
   }
   .glassd::after{animation:none!important;display:none}
+  /* tarjetas de servicios sobre la bandera: sin blur en móvil (GPU),
+     fondo vino translúcido que da el mismo look */
+  .svc2{
+    backdrop-filter:none!important;-webkit-backdrop-filter:none!important;
+    background:rgba(40,13,20,.55)!important;
+  }
   /* botones y etiquetas sobre imágenes: fondo sólido en vez de blur */
   .btn-frost,.btn-vivo,.ptags span,.pshot .plabel2{
     backdrop-filter:none!important;-webkit-backdrop-filter:none!important;
@@ -1583,22 +1683,76 @@ section{padding:120px 5vw;position:relative}
     <span class="kicker">Servicios</span>
     <h2>Todo lo que tu negocio necesita <em>para vivir en internet</em></h2>
   </div>
-  <div class="services-grid">
-    <article class="svc lg tilt reveal" data-tilt>
-      <div class="icon-sq" aria-hidden="true">🌐</div>
-      <h3>Creación Web</h3>
-      <p>Arquitectura digital a medida. Sitios rápidos, responsivos y visualmente impactantes, con interfaces diseñadas según la función de tu empresa: tu información clara y entendible para tus clientes.</p>
-    </article>
-    <article class="svc lg tilt reveal" data-tilt style="transition-delay:.08s">
-      <div class="icon-sq t2" aria-hidden="true">🔧</div>
-      <h3>Mantenimiento</h3>
-      <p>Soporte continuo, actualizaciones de seguridad, respaldos y optimización de rendimiento. Tu página siempre en línea, siempre rápida, sin que tengas que tocar nada.</p>
-    </article>
-    <article class="svc lg tilt reveal" data-tilt style="transition-delay:.16s">
-      <div class="icon-sq t3" aria-hidden="true">📣</div>
-      <h3>Publicidad Digital</h3>
-      <p>Campañas Meta Ads de alto impacto dirigidas a la audiencia correcta de tu ciudad y tu sector. Convertimos clics en clientes reales.</p>
-    </article>
+  <div class="flag-wrap">
+    <div class="flag-panel" id="flagPanel">
+      <canvas id="flagGrid" aria-hidden="true"></canvas>
+      <div class="svc-grid">
+
+        <!-- Creación Web: la página se construye sola -->
+        <article class="svc2">
+          <div class="svc2-sim" aria-hidden="true">
+            <div class="mw-bar"><i></i><i></i><i></i><em>tunegocio.com</em></div>
+            <div class="sw">
+              <div class="sw-nav"><u></u><s></s><s></s><s></s></div>
+              <div class="sw-hero"><s></s><s></s><u class="sw-btn"></u></div>
+              <div class="sw-cards">
+                <i><u></u><s></s></i>
+                <i><u></u><s></s></i>
+              </div>
+            </div>
+          </div>
+          <div class="svc2-txt">
+            <h3>Creación Web</h3>
+            <p>Arquitectura digital a medida. Sitios rápidos, responsivos y visualmente impactantes, con interfaces diseñadas según la función de tu empresa: tu información clara y entendible para tus clientes.</p>
+          </div>
+        </article>
+
+        <!-- Mantenimiento: centro de estado en vivo -->
+        <article class="svc2">
+          <div class="svc2-sim" aria-hidden="true">
+            <div class="mw-bar"><i></i><i></i><i></i><em>Mantenimiento · en vivo</em></div>
+            <div class="mt2">
+              <div class="mt2-head"><b>tunegocio.com</b><span class="mt2-pill">AL DÍA</span></div>
+              <div class="mt2-r r1"><span class="em">🛡️</span><div class="mt2-in"><b>Seguridad</b><small>parches aplicados</small></div><span class="mt2-st"><i class="mt2-sp"></i><i class="mt2-ck">✓</i></span></div>
+              <div class="mt2-r r2"><span class="em">💾</span><div class="mt2-in"><b>Respaldo diario</b><small>copia verificada</small></div><span class="mt2-st"><i class="mt2-sp"></i><i class="mt2-ck">✓</i></span></div>
+              <div class="mt2-r r3"><span class="em">⚡</span><div class="mt2-in"><b>Velocidad</b><small>caché optimizada</small></div><span class="mt2-st"><i class="mt2-sp"></i><i class="mt2-ck">✓</i></span></div>
+              <div class="mt2-up"><span>99,98% en línea</span><div class="bar"><i></i></div></div>
+            </div>
+          </div>
+          <div class="svc2-txt">
+            <h3>Mantenimiento</h3>
+            <p>Soporte continuo, actualizaciones de seguridad, respaldos y optimización de rendimiento. Tu página siempre en línea, siempre rápida, sin que tengas que tocar nada.</p>
+          </div>
+        </article>
+
+        <!-- Publicidad Digital: administrador de Meta Ads -->
+        <article class="svc2">
+          <div class="svc2-sim" aria-hidden="true">
+            <div class="mw-bar"><i></i><i></i><i></i><em>Meta Ads · administrador</em></div>
+            <div class="ad">
+              <div class="ad-head">
+                <svg viewBox="0 0 36 24" xmlns="http://www.w3.org/2000/svg"><path fill="#0866FF" d="M25.9 0c-3.1 0-5.6 1.9-7.9 5.1C15.7 1.9 13.2 0 10.1 0 4.4 0 0 5.4 0 12s4.4 12 10.1 12c3.1 0 5.6-1.9 7.9-5.1 2.3 3.2 4.8 5.1 7.9 5.1C31.6 24 36 18.6 36 12S31.6 0 25.9 0zM10.1 19.6c-3.2 0-5.5-3.4-5.5-7.6s2.3-7.6 5.5-7.6c2 0 3.7 1.6 5.6 4.6-.7 1.1-1.4 2.1-2 3-1.9 3-3.6 7.6-3.6 7.6zm15.8 0c-2 0-3.7-1.6-5.6-4.6.7-1.1 1.4-2.1 2-3 1.9-3 3.6-7.6 3.6-7.6 3.2 0 5.5 3.4 5.5 7.6s-2.3 7.6-5.5 7.6z" opacity=".9"/></svg>
+                <b>Campaña · Tu ciudad</b>
+                <span class="ad-pill"><i></i>ACTIVA</span>
+              </div>
+              <div class="ad-chart">
+                <i style="--h:32%"></i><i style="--h:46%"></i><i style="--h:40%"></i><i style="--h:62%"></i><i style="--h:55%"></i><i style="--h:78%"></i><i style="--h:96%"></i>
+              </div>
+              <div class="ad-kpis">
+                <div><small>Alcance</small><b id="adReach">0</b></div>
+                <div><small>Clics</small><b id="adClicks">0</b></div>
+                <div><small>Ventas</small><b id="adSales">$0</b></div>
+              </div>
+            </div>
+          </div>
+          <div class="svc2-txt">
+            <h3>Publicidad Digital</h3>
+            <p>Campañas Meta Ads de alto impacto dirigidas a la audiencia correcta de tu ciudad y tu sector. Convertimos clics en clientes reales.</p>
+          </div>
+        </article>
+
+      </div>
+    </div>
   </div>
 </section>
 
@@ -1878,6 +2032,115 @@ section{padding:120px 5vw;position:relative}
     window.addEventListener('scroll', onScroll, { passive: true });
     if (window.__lenis) window.__lenis.on('scroll', onScroll);
     update();
+  })();
+
+  /* ---------- SERVICIOS: bandera vino con entramado ondeando (canvas 2D liviano) ---------- */
+  (function () {
+    var cv = document.getElementById('flagGrid');
+    if (!cv) return;
+    var ctx = cv.getContext('2d');
+    var vis = false, t0 = performance.now();
+    function size() {
+      var d = Math.min(window.devicePixelRatio || 1, 1.5);
+      cv.width = Math.max(2, Math.round(cv.clientWidth * d));
+      cv.height = Math.max(2, Math.round(cv.clientHeight * d));
+    }
+    size();
+    var lw = window.innerWidth;
+    window.addEventListener('resize', function () {
+      if (window.innerWidth !== lw) { lw = window.innerWidth; size(); }
+    }, { passive: true });
+    if ('IntersectionObserver' in window) {
+      new IntersectionObserver(function (es) { vis = es[0].isIntersecting; }).observe(cv);
+    } else { vis = true; }
+    var COLS = 9, ROWS = 7;
+    function draw(now) {
+      var w = cv.width, h = cv.height, t = (now - t0) / 1000;
+      var SEG = Math.max(12, Math.round(h / 26));
+      ctx.clearRect(0, 0, w, h);
+      ctx.strokeStyle = 'rgba(255,230,220,.30)';
+      ctx.lineWidth = Math.max(1, w / 1000);
+      /* dos ondas superpuestas = tela ondeando, no un vaivén mecánico */
+      var A = h * .014 + w * .004;
+      var i, x, y, x0, y0, d;
+      for (i = 0; i <= COLS; i++) {
+        x0 = w * i / COLS; ctx.beginPath();
+        for (y = 0; y <= h + SEG; y += SEG) {
+          d = A * Math.sin(y / h * 4.2 + t * 1.05 + i * .8) + A * .6 * Math.sin(y / h * 9.1 - t * .65 + i * 1.7);
+          y === 0 ? ctx.moveTo(x0 + d, y) : ctx.lineTo(x0 + d, y);
+        }
+        ctx.stroke();
+      }
+      for (i = 0; i <= ROWS; i++) {
+        y0 = h * i / ROWS; ctx.beginPath();
+        for (x = 0; x <= w + SEG; x += SEG) {
+          d = A * Math.sin(x / w * 4.6 - t * .9 + i * .9) + A * .6 * Math.sin(x / w * 8.3 + t * .55 + i * 1.3);
+          x === 0 ? ctx.moveTo(x, y0 + d) : ctx.lineTo(x, y0 + d);
+        }
+        ctx.stroke();
+      }
+    }
+    var last = 0;
+    function frame(now) {
+      if (vis && (now - last) >= 33) { last = now; draw(now); }
+      requestAnimationFrame(frame);
+    }
+    if (reduceMotion) { draw(performance.now()); }
+    else { requestAnimationFrame(frame); }
+  })();
+
+  /* ---------- SERVICIOS: el panel emerge desde abajo al deslizar (reversible) ---------- */
+  (function () {
+    var panel = document.getElementById('flagPanel');
+    if (!panel) return;
+    var wrap = panel.parentElement, tick = false, lastT = '';
+    function upd() {
+      tick = false;
+      var r = wrap.getBoundingClientRect(), vh = window.innerHeight;
+      if (r.top > vh + 80 || r.bottom < -80) return;   /* fuera de vista: no tocar estilos */
+      var p = (vh - r.top) / (vh * .72);
+      p = p < 0 ? 0 : (p > 1 ? 1 : p);
+      var e = 1 - Math.pow(1 - p, 3);                   /* easeOutCubic */
+      var t = 'translateY(' + ((1 - e) * 14).toFixed(2) + 'vh)';
+      if (t !== lastT) {
+        lastT = t;
+        panel.style.transform = t;
+        panel.style.opacity = (.25 + e * .75).toFixed(3);
+      }
+    }
+    window.addEventListener('scroll', function () {
+      if (!tick) { tick = true; requestAnimationFrame(upd); }
+    }, { passive: true });
+    upd();
+  })();
+
+  /* ---------- SERVICIOS: contadores del administrador de Meta Ads ---------- */
+  (function () {
+    var reach = document.getElementById('adReach');
+    if (!reach) return;
+    var clicks = document.getElementById('adClicks'), sales = document.getElementById('adSales');
+    var vis = false;
+    if ('IntersectionObserver' in window) {
+      new IntersectionObserver(function (es) { vis = es[0].isIntersecting; }).observe(reach);
+    } else { vis = true; }
+    function cycle() {
+      if (!vis || reduceMotion) {
+        /* sin animación: valores finales fijos */
+        reach.textContent = '12,4 mil'; clicks.textContent = '318'; sales.textContent = '$2.140.000';
+        return;
+      }
+      var t0 = performance.now(), D = 3000;
+      function st(now) {
+        var p = Math.min(1, (now - t0) / D), e = 1 - Math.pow(1 - p, 3);
+        reach.textContent = (12.4 * e).toFixed(1).replace('.', ',') + ' mil';
+        clicks.textContent = Math.round(318 * e);
+        sales.textContent = '$' + (Math.round(2140 * e) * 1000).toLocaleString('es-CO');
+        if (p < 1 && vis) requestAnimationFrame(st);
+      }
+      requestAnimationFrame(st);
+    }
+    cycle();
+    setInterval(cycle, 8000);   /* mismo ciclo de 8s que las animaciones CSS */
   })();
 
   /* ---------- EN VIVO: reveal uno-por-uno al deslizar (pin corto) + foto FIJA al viewport ---------- */
