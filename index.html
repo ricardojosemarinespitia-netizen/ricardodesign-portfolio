@@ -356,49 +356,35 @@ section{padding:120px 5vw;position:relative}
   .live-dot,.shead-live .live-badge-text{animation:none;opacity:1}
 }
 .shead-live h2{font-size:clamp(2rem,5.6vw,3.6rem);font-weight:800;letter-spacing:-.02em}
+.shead-live .dm-line1{display:block}
+/* La foto vive detrás del texto y queda FIJA al viewport: el JS ancla
+   background-size/position al viewport, así el texto es una ventana sobre
+   la foto y al deslizar el texto "pasa por encima" de la imagen quieta. */
 .shead-live .live-em{
   position:relative;font-style:italic;
-  background-image:
-    linear-gradient(128deg,#1a0508 0%,#3d0f1f 20%,#a01640 38%,#ff9433 52%,#ff7a1f 58%,#c41f4f 70%,#3d0f2e 86%,#150307 100%),
-    radial-gradient(120% 150% at var(--live-bg-x,30%) var(--live-bg-y,65%),
-      rgba(255,180,110,.9) 0%,rgba(255,122,31,.55) 22%,rgba(196,31,79,.4) 44%,transparent 72%);
-  background-blend-mode:normal,screen;
-  background-size:240% 240%,220% 220%;
-  background-position:var(--live-bg-x,30%) var(--live-bg-y,65%),var(--live-bg-x,30%) var(--live-bg-y,65%);
-  -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent;
+  background-image:linear-gradient(125deg,
+    #17040a 0%,#420f20 11%,#93163c 24%,#d1362f 37%,
+    #ff9a3d 48%,#ff7d1f 55%,#e0264f 66%,#7a173a 80%,#2a0a12 92%,#120308 100%);
+  background-repeat:no-repeat;
+  background-size:100vw 100vh;      /* lo fija el JS al viewport */
+  background-position:0 0;           /* lo actualiza el JS */
+  -webkit-background-clip:text;background-clip:text;
+  -webkit-text-fill-color:transparent;color:transparent;
   will-change:background-position;
 }
 .shead-live p{font-size:.92rem;color:var(--dim)}
 .shead-live .live-em-inline{font-weight:800}
 @media(min-width:821px){.shead-live h2{font-size:clamp(2.4rem,4.6vw,3.9rem)}}
 
-/* ---- En vivo: scrollytelling (pin + reveal por pasos) ---- */
-.demos-scroller{position:relative;height:320vh}
-.demos-pin{
-  position:sticky;top:0;
-  height:100vh;height:100dvh;
-  display:flex;flex-direction:column;justify-content:center;align-items:center;
-  margin:0 auto;max-width:1180px;padding:0 5vw;
-}
-.demos-pin h2{margin:6px 0 0}
-.demos-pin .dm-line1{display:block}
-.demos-pin [data-ds]{
-  opacity:0;transform:translateY(40px);
+/* ---- En vivo: reveal secuencial robusto (una sola vía, sin pin) ---- */
+.shead-live .rv{
+  opacity:0;transform:translateY(28px);
   transition:opacity .7s var(--ease),transform .7s var(--ease);
   will-change:opacity,transform;
 }
-.demos-pin [data-ds].in{opacity:1;transform:none}
-.demos-hint{
-  position:absolute;left:50%;bottom:40px;transform:translateX(-50%);
-  opacity:0;transition:opacity .5s ease;pointer-events:none;
-}
-.demos-hint i{display:block;width:1px;height:30px;background:linear-gradient(to bottom,var(--blue),transparent);animation:hintPulse 1.8s ease-in-out infinite}
-.demos-scroller.ds-go .demos-hint{opacity:.55}
-.demos-scroller.ds-end .demos-hint{opacity:0}
+.shead-live.seq-in .rv{opacity:1;transform:none}
 @media(prefers-reduced-motion:reduce){
-  .demos-scroller{height:auto}
-  .demos-pin{position:static;height:auto;padding:120px 5vw 0}
-  .demos-pin [data-ds]{opacity:1;transform:none}
+  .shead-live .rv{opacity:1;transform:none;transition:none}
 }
 
 /* Reveal */
@@ -1165,13 +1151,10 @@ section{padding:120px 5vw;position:relative}
 <!-- ============ DEMOS EN VIVO ============ -->
 <!-- ============ DEMOS + AUTOMATIZACIÓN (grupo unificado) ============ -->
 <section id="demos">
-  <div class="demos-scroller" id="demosScroller">
-    <div class="shead shead-live demos-pin">
-      <span class="live-badge" data-ds><i class="live-dot"></i><em class="live-em live-badge-text">en vivo</em></span>
-      <h2><span class="dm-line1" data-ds>Mira tu web</span> <em class="live-em dm-line2" data-ds>trabajando sola</em></h2>
-      <p data-ds>Esto es lo que hacen nuestras páginas mientras duermes. <em class="live-em live-em-inline">No es un video:</em> está pasando ahora mismo, frente a ti.</p>
-      <div class="demos-hint" aria-hidden="true"><i></i></div>
-    </div>
+  <div class="shead shead-live" id="liveHead">
+    <span class="live-badge rv" style="transition-delay:.34s"><i class="live-dot"></i><em class="live-em live-badge-text">en vivo</em></span>
+    <h2><span class="dm-line1 rv">Mira tu web</span> <em class="live-em dm-line2 rv" style="transition-delay:.17s">trabajando sola</em></h2>
+    <p class="rv" style="transition-delay:.5s">Esto es lo que hacen nuestras páginas mientras duermes. <em class="live-em live-em-inline">No es un video:</em> está pasando ahora mismo, frente a ti.</p>
   </div>
 
   <div class="auto-grid">
@@ -1719,40 +1702,43 @@ section{padding:120px 5vw;position:relative}
     update();
   })();
 
-  /* ---------- EN VIVO: scrollytelling (Mira tu web -> trabajando sola -> en vivo -> texto) + textura que se mueve ---------- */
+  /* ---------- EN VIVO: reveal secuencial (una sola vía) + foto FIJA al viewport ---------- */
   (function () {
-    var scroller = document.getElementById('demosScroller');
-    if (!scroller) return;
-    var pin = scroller.querySelector('.demos-pin');
-    // orden de aparición deseado
-    var seq = [
-      scroller.querySelector('.dm-line1'),
-      scroller.querySelector('.dm-line2'),
-      scroller.querySelector('.live-badge'),
-      scroller.querySelector('.demos-pin p')
-    ].filter(Boolean);
-    if (reduceMotion) { seq.forEach(function (el) { el.classList.add('in'); }); return; }
-    var thresholds = [0, 0.28, 0.50, 0.72];
+    var head = document.getElementById('liveHead');
+    if (!head) return;
+
+    // 1) revelar los textos en secuencia cuando la cabecera entra (no se re-oculta al subir)
+    if (reduceMotion) { head.classList.add('seq-in'); }
+    else {
+      var rio = new IntersectionObserver(function (es) {
+        es.forEach(function (e) {
+          if (e.isIntersecting) { head.classList.add('seq-in'); rio.disconnect(); }
+        });
+      }, { threshold: 0.35 });
+      rio.observe(head);
+    }
+
+    // 2) la foto (gradiente) queda FIJA al viewport: anclamos background-size/position
+    //    a la pantalla, así el texto es una ventana y al deslizar "pasa por encima"
+    //    de la imagen quieta. Emula background-attachment:fixed de forma estable en móvil.
+    var ems = [].slice.call(document.querySelectorAll('.shead-live .live-em'));
+    if (!ems.length) return;
     var ticking = false;
-    function update() {
-      var maxScroll = scroller.offsetHeight - window.innerHeight;
-      var progress = maxScroll > 0 ? (-scroller.getBoundingClientRect().top) / maxScroll : 1;
-      if (progress < 0) progress = 0; if (progress > 1) progress = 1;
-      seq.forEach(function (el, i) { el.classList.toggle('in', progress >= thresholds[i]); });
-      scroller.classList.toggle('ds-go', progress > 0.02 && progress < 0.9);
-      scroller.classList.toggle('ds-end', progress >= 0.9);
-      // textura cálida que se desplaza como si la foto estuviera debajo
-      if (pin) {
-        pin.style.setProperty('--live-bg-x', (16 + progress * 68) + '%');
-        pin.style.setProperty('--live-bg-y', (78 - progress * 56) + '%');
+    function lock() {
+      var vw = window.innerWidth, vh = window.innerHeight;
+      for (var i = 0; i < ems.length; i++) {
+        var r = ems[i].getBoundingClientRect();
+        if (r.bottom < -200 || r.top > vh + 200) continue; // fuera de vista: no tocar
+        ems[i].style.backgroundSize = vw + 'px ' + vh + 'px';
+        ems[i].style.backgroundPosition = (-r.left) + 'px ' + (-r.top) + 'px';
       }
       ticking = false;
     }
-    function onScroll() { if (ticking) return; ticking = true; requestAnimationFrame(update); }
+    function onScroll() { if (ticking) return; ticking = true; requestAnimationFrame(lock); }
     window.addEventListener('scroll', onScroll, { passive: true });
     window.addEventListener('resize', onScroll, { passive: true });
     if (window.__lenis) window.__lenis.on('scroll', onScroll);
-    update();
+    lock();
   })();
 
   /* ---------- REVEALS ---------- */
