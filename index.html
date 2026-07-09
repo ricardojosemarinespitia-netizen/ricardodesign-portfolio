@@ -360,16 +360,17 @@ section{padding:120px 5vw;position:relative}
 }
 .shead-live h2{font-size:clamp(2rem,5.6vw,3.6rem);font-weight:800;letter-spacing:-.02em}
 .shead-live .dm-line1{display:block}
-/* La foto vive detrás del texto y queda FIJA al viewport: el JS ancla
-   background-size/position al viewport, así el texto es una ventana sobre
-   la foto y al deslizar el texto "pasa por encima" de la imagen quieta. */
+/* La foto vive detrás del texto y queda FIJA al viewport (como un
+   background-attachment:fixed hecho a mano, con cover real): el JS calcula
+   el tamaño que cubre la pantalla manteniendo la proporción de la foto y
+   ancla cada letra a su ventana exacta -- las letras rojas quedan HUECAS,
+   mostrando la foto a través, y al deslizar el texto "pasa por encima"
+   de la imagen quieta (la foto no se mueve, solo lo que se ve de ella). */
 .shead-live .live-em{
   position:relative;font-style:italic;
-  background-image:linear-gradient(125deg,
-    #17040a 0%,#420f20 11%,#93163c 24%,#d1362f 37%,
-    #ff9a3d 48%,#ff7d1f 55%,#e0264f 66%,#7a173a 80%,#2a0a12 92%,#120308 100%);
+  background-image:url('LOGOS/rojo.jpg');
   background-repeat:no-repeat;
-  background-size:100vw 100vh;      /* lo fija el JS al viewport */
+  background-size:100vw 100vh;      /* el JS la ajusta a cover real */
   background-position:0 0;           /* lo actualiza el JS */
   -webkit-background-clip:text;background-clip:text;
   -webkit-text-fill-color:transparent;color:transparent;
@@ -1840,20 +1841,25 @@ section{padding:120px 5vw;position:relative}
       }
     }
 
-    // 2) la foto (gradiente) queda FIJA al viewport en TODOS los dispositivos:
-    //    el texto es una ventana y al deslizar "pasa por encima" de la imagen
-    //    quieta. Solo se escribe el estilo cuando el valor cambia (barato:
-    //    el navegador recorta el repintado a la caja del texto, no la pantalla).
+    // 2) la foto queda FIJA al viewport en TODOS los dispositivos, con
+    //    "cover" real (mantiene su proporción, no se estira): el texto es
+    //    una ventana sobre ella y al deslizar "pasa por encima" de la
+    //    imagen quieta. Solo se escribe el estilo cuando el valor cambia.
     var ems = [].slice.call(document.querySelectorAll('.shead-live .live-em'));
     if (!ems.length) return;
+    var IMG_W = 736, IMG_H = 1308; /* proporción real de LOGOS/rojo.jpg */
     var ticking = false;
     function lock() {
       var vw = window.innerWidth, vh = window.innerHeight;
+      // cover: escala el mayor de los dos ejes para cubrir toda la pantalla
+      var scale = Math.max(vw / IMG_W, vh / IMG_H);
+      var dw = IMG_W * scale, dh = IMG_H * scale;
+      var offX = (vw - dw) / 2, offY = (vh - dh) / 2; // centrada, como cover
+      var sz = dw.toFixed(1) + 'px ' + dh.toFixed(1) + 'px';
       for (var i = 0; i < ems.length; i++) {
         var r = ems[i].getBoundingClientRect();
         if (r.bottom < -200 || r.top > vh + 200) continue; // fuera de vista: no tocar
-        var sz = vw + 'px ' + vh + 'px';
-        var pos = (-r.left).toFixed(1) + 'px ' + (-r.top).toFixed(1) + 'px';
+        var pos = (offX - r.left).toFixed(1) + 'px ' + (offY - r.top).toFixed(1) + 'px';
         // escribir estilo solo si cambió: evita recálculos por frame durante el pin
         if (ems[i].__sz !== sz) { ems[i].__sz = sz; ems[i].style.backgroundSize = sz; }
         if (ems[i].__pos !== pos) { ems[i].__pos = pos; ems[i].style.backgroundPosition = pos; }
