@@ -50,6 +50,9 @@
 
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
 html{scroll-behavior:smooth}
+html.lenis,html.lenis body{height:auto}
+html.lenis.lenis-smooth{scroll-behavior:auto!important}
+html.lenis.lenis-smooth [data-lenis-prevent]{overscroll-behavior:contain}
 body{
   background:linear-gradient(180deg,#fbf1ec 0%,#f6e2d9 42%,#f0d8cf 100%);
   color:var(--ink);
@@ -1470,12 +1473,28 @@ section{padding:120px 5vw;position:relative}
 </div>
 
 <!-- ============ SCRIPTS ============ -->
+<script src="https://unpkg.com/lenis@1.1.18/dist/lenis.min.js"></script>
 <script>
 (function () {
   'use strict';
 
   var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var finePointer = window.matchMedia('(pointer: fine)').matches;
+
+  /* ---------- SMOOTH SCROLL INERCIAL (Lenis) ---------- */
+  (function () {
+    if (reduceMotion || typeof window.Lenis !== 'function') return;
+    var lenis = new window.Lenis({
+      duration: 1.1,
+      easing: function (t) { return 1 - Math.pow(1 - t, 3); },
+      smoothWheel: true,
+      wheelMultiplier: 1,
+      touchMultiplier: 1.15
+    });
+    function raf(time) { lenis.raf(time); requestAnimationFrame(raf); }
+    requestAnimationFrame(raf);
+    window.__lenis = lenis;
+  })();
 
   /* ---------- HERO: shader atardecer 3D (paleta 161E2F/242F49/384358/FFA586/B51A2B/541A2B) ---------- */
   (function () {
@@ -1610,7 +1629,10 @@ section{padding:120px 5vw;position:relative}
   document.querySelectorAll('a[href^="#"]').forEach(function (a) {
     a.addEventListener('click', function (e) {
       var t = document.querySelector(this.getAttribute('href'));
-      if (t) { e.preventDefault(); t.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth' }); }
+      if (!t) return;
+      e.preventDefault();
+      if (window.__lenis) { window.__lenis.scrollTo(t, { duration: 1.1 }); }
+      else { t.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth' }); }
     });
   });
 
