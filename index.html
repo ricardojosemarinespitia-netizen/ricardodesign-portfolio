@@ -186,23 +186,19 @@ main,header,footer{position:relative;z-index:2}
 .hnav.hidden{transform:translateY(-160%)}
 .glassd{
   position:relative;overflow:hidden;isolation:isolate;
-  /* vidrio CLARO real: casi sin tinte (blanco al 6%%, no negro/navy).
-     El color lo aporta únicamente el blur+saturate de lo que hay detrás;
-     contrast/brightness compensan la falta de tinte para que el texto
-     blanco siga legible sin que el vidrio se vea como un bloque gris. */
-  background:rgba(255,255,255,.06);
-  backdrop-filter:blur(26px) saturate(220%) contrast(1.15) brightness(1.15) url(#glass-distortion);
-  -webkit-backdrop-filter:blur(26px) saturate(220%) contrast(1.15) brightness(1.15);
-  border:1px solid rgba(255,255,255,.4);
+  /* glassmorphism LIMPIO y TRANSPARENTE (como la referencia): se ve a
+     través, solo un frost sutil. La clave de que NO se vea lechoso:
+       · SIN brightness/contrast (eso lo blanqueaba)
+       · SIN glows internos gruesos (eso creaba el borde lechoso)
+       · relleno muy transparente + UN borde fino brillante (el "filo" del
+         cristal) + UNA sombra suave debajo (lo despega del fondo) */
+  background:rgba(255,255,255,.08);
+  backdrop-filter:blur(14px) saturate(150%);
+  -webkit-backdrop-filter:blur(14px) saturate(150%);
+  border:1px solid rgba(255,255,255,.45);
   box-shadow:
-    inset 4px 4px 12px 2px rgba(255,255,255,.3),
-    inset -2px -2px 15px 1px rgba(255,255,255,.18),
-    inset 0 0 15px 2px rgba(255,255,255,.18),
-    0 8px 26px rgba(0,0,0,.14);
-}
-/* navegadores sin url() en backdrop-filter: mantienen el desenfoque clásico */
-@supports not (backdrop-filter:url(#glass-distortion)){
-  .glassd{backdrop-filter:blur(26px) saturate(220%) contrast(1.15) brightness(1.15)}
+    inset 0 1px 0 rgba(255,255,255,.55),   /* filo superior de luz, 1px */
+    0 10px 30px rgba(0,0,0,.12);           /* sombra suave que lo despega */
 }
 .glassd>*{position:relative;z-index:2}
 /* brillo especular líquido que recorre el cristal */
@@ -1154,12 +1150,12 @@ section{padding:120px 5vw;position:relative}
     backdrop-filter:none!important;-webkit-backdrop-filter:none!important;
     background:linear-gradient(150deg,#2c1420 0%,#161e2f 72%)!important;
   }
-  /* el nav es un elemento pequeño y fijo (no las tarjetas grandes que sí
-     trababan el scroll): aquí un blur liviano es barato y mantiene el
-     vidrio real en vez de una píldora sólida */
+  /* el nav es pequeño y fijo (no las tarjetas grandes que trababan el
+     scroll): mismo vidrio limpio y transparente que en escritorio, con
+     blur liviano. SIN brightness/contrast (eso lo volvía lechoso). */
   .glassd{
-    backdrop-filter:blur(14px) saturate(200%) contrast(1.15) brightness(1.15)!important;
-    -webkit-backdrop-filter:blur(14px) saturate(200%) contrast(1.15) brightness(1.15)!important;
+    backdrop-filter:blur(12px) saturate(150%)!important;
+    -webkit-backdrop-filter:blur(12px) saturate(150%)!important;
     background:rgba(255,255,255,.08)!important;
   }
   .glassd::after{animation:none!important;display:none}
