@@ -162,6 +162,14 @@ main,header,footer{position:relative;z-index:2}
   transition:transform .3s ease,box-shadow .3s ease;
 }
 .nav-cta:hover{transform:scale(1.06);box-shadow:0 8px 26px rgba(10,65,116,.45)}
+.nav-wa{
+  display:flex;align-items:center;gap:6px;flex-shrink:0;
+  font-size:.6rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;
+  color:#25D366;padding:10px 6px;transition:transform .3s ease;
+}
+.nav-wa svg{width:16px;height:16px;fill:#25D366;flex-shrink:0}
+.nav-wa:hover{transform:scale(1.08)}
+@media(max-width:820px){.nav-wa{font-size:0;padding:8px}.nav-wa svg{width:20px;height:20px}}
 
 /* ================= HERO (panel navy con video lunar) ================= */
 .hero-wrap{padding:96px 16px 16px;perspective:1200px}
@@ -470,7 +478,7 @@ section{padding:120px 5vw;position:relative}
   filter:none;
 }
 /* mientras no hay scroll todavía (primera carga) */
-.mdemo:first-child{opacity:.6;transform:scale(0.96) translateY(0)}
+.mdemo:first-child{opacity:.85;transform:scale(0.98) translateY(0);filter:none}
 
 /* ================= APPS REALES (cada tarjeta = una app ejecutándose) ================= */
 /* logo rd en la barra de ventana de cada tarjeta */
@@ -484,28 +492,20 @@ section{padding:120px 5vw;position:relative}
 @keyframes rowIn{from{opacity:0;transform:translateY(-14px) scale(.98)}to{opacity:1;transform:none}}
 @keyframes fadeUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
 
-/* ---- WOMPI: checkout real con formularios por método ---- */
+/* ---- WOMPI: checkout real con formularios por método (fondo claro, igual a Excel/Correo) ---- */
 .wp{flex:1;display:flex;flex-direction:column;background:#fff;font-family:'Segoe UI',Verdana,sans-serif}
-.wp-top{display:flex;align-items:center;gap:9px;padding:11px 16px;background:linear-gradient(120deg,#0a1f44,#12336b);color:#fff}
-.wp-logo{font-size:1rem;font-weight:800;letter-spacing:-.03em;color:#fff}
-.wp-logo i{color:#00e0b8;font-style:normal}
-.wp-by{display:flex;align-items:center;gap:4px;font-size:.55rem;color:#c7d6ec}
+.wp-top{display:flex;align-items:center;gap:10px;padding:11px 16px;background:#f7faf8;border-bottom:1px solid rgba(0,29,57,.08)}
+.wp-logo-img{height:15px;width:auto;display:block}
+.wp-by{display:flex;align-items:center;gap:5px;font-size:.6rem;color:var(--faint)}
+.wp-bylogo{height:12px;width:auto;display:block}
 .wp-lock{margin-left:auto;display:flex}
-.wp-lock svg{width:15px;height:15px;fill:#ffd200}
-/* marca Bancolombia (cuadro amarillo) */
-.bc{display:inline-flex;align-items:center;gap:4px;font-weight:700;font-size:.55rem;color:inherit}
-.bc::before{content:'';width:11px;height:11px;border-radius:2px;background:#ffd200;box-shadow:inset -3px -3px 0 #ffb800;flex-shrink:0}
-/* chips de marca */
-.bm{display:inline-flex;align-items:center;justify-content:center;font-weight:800;border-radius:4px;font-size:.5rem;letter-spacing:.01em;padding:2px 5px;line-height:1;flex-shrink:0}
-.bm-visa{background:#fff;color:#1a1f71;font-style:italic;border:1px solid #e3e6ef}
-.bm-mc{width:16px;height:11px;position:relative;background:transparent}
-.bm-pse{background:#0033a1;color:#fff}
-.bm-nequi{background:#20003b;color:#ff2e88}
+.wp-lock svg{width:14px;height:14px;fill:#ffb800}
 .wp-amt{display:flex;flex-direction:column;gap:1px;padding:11px 16px 8px;border-bottom:1px solid rgba(0,29,57,.08)}
 .wp-amt small{font-size:.52rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--faint)}
 .wp-amt b{font-size:1.25rem;color:var(--navy);font-variant-numeric:tabular-nums}
 .wp-methods{display:flex;gap:7px;padding:9px 16px}
-.wp-m{flex:1;display:flex;align-items:center;justify-content:center;gap:5px;font-family:inherit;font-size:.58rem;font-weight:700;color:var(--dim);padding:8px 4px;border-radius:9px;border:1.5px solid rgba(10,65,116,.16);background:#fff;transition:all .35s ease}
+.wp-m{flex:1;display:flex;align-items:center;justify-content:center;gap:6px;font-family:inherit;font-size:.58rem;font-weight:700;color:var(--dim);padding:8px 4px;border-radius:9px;border:1.5px solid rgba(10,65,116,.16);background:#fff;transition:all .35s ease}
+.wp-m img{height:13px;width:auto;flex-shrink:0}
 .wp-m.sel{border-color:var(--blue);color:var(--blue);background:rgba(123,189,232,.1);box-shadow:0 0 0 3px rgba(123,189,232,.22)}
 /* formularios */
 .wp-forms{flex:1;padding:2px 16px 4px;position:relative}
@@ -516,12 +516,13 @@ section{padding:120px 5vw;position:relative}
 .wp-inp.active{border-color:var(--blue);box-shadow:0 0 0 3px rgba(123,189,232,.2)}
 .wp-inp .v{min-height:1em;font-variant-numeric:tabular-nums;letter-spacing:.03em}
 .wp-inp.typing .v::after{content:'';display:inline-block;width:1px;height:.95em;background:var(--blue);margin-left:1px;vertical-align:text-bottom;animation:xlcar .8s step-end infinite}
-.wp-inp .wp-brand{margin-left:auto;opacity:0;transition:opacity .3s ease}
-.wp-inp .wp-brand.on{opacity:1}
+.wp-inp img.wp-brand{margin-left:auto;height:14px;width:auto;opacity:0;transition:opacity .3s ease}
+.wp-inp img.wp-brand.on{opacity:1}
 .wp-inp i{margin-left:auto;font-style:normal;color:var(--faint);font-size:.7rem}
 .wp-row{display:flex;gap:9px}
 .wp-row>div{flex:1;display:flex;flex-direction:column;gap:5px}
-.wp-note{display:flex;align-items:center;gap:7px;font-size:.55rem;color:var(--steel);background:rgba(123,189,232,.1);border-radius:8px;padding:7px 10px;margin-top:4px}
+.wp-note{display:flex;align-items:center;gap:8px;font-size:.55rem;color:var(--steel);background:rgba(123,189,232,.1);border-radius:8px;padding:7px 10px;margin-top:4px}
+.wp-notelogo{height:14px;width:auto;flex-shrink:0}
 .wp-status{display:flex;align-items:center;gap:9px;padding:2px 16px;min-height:24px}
 .wp-spin{width:13px;height:13px;border-radius:50%;border:2px solid rgba(10,65,116,.15);border-top-color:var(--blue);opacity:0;flex-shrink:0}
 .wp-status.go .wp-spin{opacity:1;animation:wpspin .7s linear infinite}
@@ -533,6 +534,7 @@ section{padding:120px 5vw;position:relative}
 .wp-done b{font-size:.66rem;color:#1a5c38;display:block}
 .wp-done small{display:block;font-size:.53rem;color:var(--faint);font-family:monospace;min-height:1.05em}
 .wp-foot{margin-top:auto;display:flex;align-items:center;gap:6px;padding:8px 16px;font-size:.52rem;color:var(--faint);border-top:1px solid rgba(0,29,57,.07)}
+.wp-footlogo{height:11px;width:auto;vertical-align:middle;opacity:.75}
 
 /* ---- CARRITO: drawer de tienda ---- */
 .ct{flex:1;display:flex;flex-direction:column;background:#fbfdff}
@@ -884,6 +886,10 @@ section{padding:120px 5vw;position:relative}
     <a href="#automatiza">Automatización</a>
     <a href="#portfolio">Proyectos</a>
   </nav>
+  <a class="nav-wa" href="https://wa.me/573027981468?text=Hola%20Ricardo%2C%20quiero%20info%20sobre%20mi%20p%C3%A1gina%20web" target="_blank" rel="noopener" aria-label="Contactar por WhatsApp">
+    <svg viewBox="0 0 24 24"><path d="M17.5 14.4c-.3-.15-1.7-.85-2-.95-.27-.1-.46-.15-.66.15s-.75.94-.92 1.14c-.17.2-.34.22-.63.07-.3-.15-1.24-.46-2.37-1.46-.87-.78-1.47-1.74-1.64-2.04-.17-.3-.02-.46.13-.6.13-.13.3-.34.44-.5s.2-.3.3-.5c.1-.2.05-.37-.02-.52-.07-.15-.66-1.6-.9-2.18-.24-.58-.48-.5-.66-.5h-.56c-.2 0-.5.07-.77.37-.27.3-1 .98-1 2.4s1.03 2.78 1.17 2.97c.15.2 2.03 3.1 4.93 4.35.69.3 1.22.48 1.64.6.69.22 1.32.19 1.82.12.55-.08 1.7-.7 1.94-1.37.24-.68.24-1.25.17-1.37-.07-.13-.27-.2-.57-.35z"/><path d="M12 2a10 10 0 0 0-8.5 15.3L2 22l4.8-1.46A10 10 0 1 0 12 2zm0 18.2c-1.6 0-3.15-.42-4.5-1.22l-.32-.19-3.15.96.98-3.08-.2-.32A8.2 8.2 0 1 1 12 20.2z"/></svg>
+    Contactar
+  </a>
   <button class="nav-cta" id="openClubBtn" type="button">Únete al Círculo</button>
 </header>
 
@@ -1019,26 +1025,26 @@ section{padding:120px 5vw;position:relative}
     </article>
 
     <!-- WOMPI: checkout real -->
-    <article class="demo navy-panel tilt reveal-scale mdemo" data-tilt>
-      <div class="win-bar"><span></span><span></span><span></span><em>Wompi · pago con respaldo Bancolombia</em><img class="wb-logo" src="logo-mark-w.png" alt=""/></div>
+    <article class="demo lg tilt reveal-scale mdemo" data-tilt>
+      <div class="win-bar"><span></span><span></span><span></span><em>Wompi · pago con respaldo Bancolombia</em><img class="wb-logo" src="logo-mark.png" alt=""/></div>
       <div class="demo-body" data-demo="pay" aria-hidden="true">
         <div class="wp">
           <div class="wp-top">
-            <span class="wp-logo">wompi<i>.</i></span>
-            <span class="wp-by">× <span class="bc">Bancolombia</span></span>
+            <img class="wp-logo-img" src="logo-wompi.png" alt="Wompi"/>
+            <span class="wp-by">× <img class="wp-bylogo" src="logo-bancolombia.png" alt="Bancolombia"/></span>
             <span class="wp-lock"><svg viewBox="0 0 24 24"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zM9 6c0-1.66 1.34-3 3-3s3 1.34 3 3v2H9V6zm3 11c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2z"/></svg></span>
           </div>
           <div class="wp-amt"><small>Total a pagar</small><b class="wp-total">$0</b></div>
           <div class="wp-methods">
-            <span class="wp-m" data-m="card"><span class="bm bm-visa">VISA</span>Tarjeta</span>
-            <span class="wp-m" data-m="pse"><span class="bm bm-pse">pse</span>PSE</span>
-            <span class="wp-m" data-m="nequi"><span class="bm bm-nequi">nequi</span>Nequi</span>
+            <span class="wp-m" data-m="card"><img src="logo-visa.png" alt="Visa"/>Tarjeta</span>
+            <span class="wp-m" data-m="pse"><img src="logo-pse.png" alt="PSE"/>PSE</span>
+            <span class="wp-m" data-m="nequi"><img src="logo-nequi.png" alt="Nequi"/>Nequi</span>
           </div>
           <div class="wp-forms">
             <!-- Tarjeta -->
             <div class="wp-f wp-card">
               <label>Número de tarjeta</label>
-              <div class="wp-inp wp-cardnum"><span class="v"></span><span class="wp-brand bm bm-visa">VISA</span></div>
+              <div class="wp-inp wp-cardnum"><span class="v"></span><img class="wp-brand" src="logo-visa.png" alt="Visa"/></div>
               <div class="wp-row">
                 <div><label>Vence</label><div class="wp-inp wp-exp"><span class="v"></span></div></div>
                 <div><label>CVV</label><div class="wp-inp wp-cvv"><span class="v"></span></div></div>
@@ -1052,18 +1058,18 @@ section{padding:120px 5vw;position:relative}
               <div class="wp-inp wp-bank"><span class="v"></span><i>▾</i></div>
               <label>Tipo de persona</label>
               <div class="wp-inp wp-person"><span class="v"></span></div>
-              <div class="wp-note">🏦 Serás redirigido al portal seguro de tu banco (PSE).</div>
+              <div class="wp-note"><img class="wp-notelogo" src="logo-pse.png" alt="PSE"/>Serás redirigido al portal seguro de tu banco.</div>
             </div>
             <!-- Nequi -->
             <div class="wp-f wp-nequi">
               <label>Número de celular Nequi</label>
               <div class="wp-inp wp-phone"><span class="v"></span></div>
-              <div class="wp-note">📲 Aprueba la notificación push en tu app <b style="color:#ff2e88;margin-left:3px">Nequi</b>.</div>
+              <div class="wp-note"><img class="wp-notelogo" src="logo-nequi.png" alt="Nequi"/>Aprueba la notificación push en tu app.</div>
             </div>
           </div>
           <div class="wp-status"><i class="wp-spin"></i><span class="wp-msg"></span></div>
           <div class="wp-done"><span class="wp-check">✓</span><span><b>Transacción aprobada</b><small class="wp-ref"></small></span></div>
-          <div class="wp-foot"><span class="bc">Bancolombia</span> Protegido por Wompi · Grupo Bancolombia</div>
+          <div class="wp-foot">Protegido por <img class="wp-footlogo" src="logo-wompi.png" alt="Wompi"/> · <img class="wp-footlogo" src="logo-bancolombia.png" alt="Bancolombia"/></div>
         </div>
       </div>
     </article>
