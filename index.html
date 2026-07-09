@@ -548,7 +548,7 @@ section{padding:120px 5vw;position:relative}
 .ct-items{flex:1;display:flex;flex-direction:column;padding:3px 16px}
 .ct-it{display:flex;align-items:center;gap:11px;padding:8px 0;border-bottom:1px dashed rgba(10,65,116,.12);animation:rowIn .5s var(--ease)}
 .ct-th{width:42px;height:42px;border-radius:10px;overflow:hidden;flex-shrink:0;background:linear-gradient(140deg,#eef4fa,#d9e6f2);box-shadow:inset 0 0 0 1px rgba(10,65,116,.08),0 2px 5px rgba(10,65,116,.1)}
-.ct-th svg{width:100%;height:100%;display:block}
+.ct-th svg,.ct-th img{width:100%;height:100%;display:block;object-fit:cover}
 .ct-nm{flex:1;min-width:0}
 .ct-nm b{display:block;font-size:.64rem;color:var(--navy)}
 .ct-nm small{font-size:.52rem;color:var(--faint)}
@@ -1721,11 +1721,10 @@ section{padding:120px 5vw;position:relative}
   }
   function press(C, el) { el.classList.add('press'); C.wait(380, function () { el.classList.remove('press'); }); }
 
-  /* miniaturas de joyería renderizadas (SVG con gradientes) */
+  /* miniaturas de joyería: fotos reales de producto */
   var JEWEL = {
-    anillo: '<svg viewBox="0 0 44 44" xmlns="http://www.w3.org/2000/svg"><defs><radialGradient id="jab" cx="38%" cy="28%" r="80%"><stop offset="0" stop-color="#ffffff"/><stop offset="45%" stop-color="#d7e0e8"/><stop offset="100%" stop-color="#8195a8"/></radialGradient><radialGradient id="jap" cx="36%" cy="30%" r="72%"><stop offset="0" stop-color="#ffffff"/><stop offset="55%" stop-color="#eef1f6"/><stop offset="100%" stop-color="#bcc7d6"/></radialGradient></defs><ellipse cx="22" cy="29" rx="11.5" ry="11.5" fill="none" stroke="url(#jab)" stroke-width="4.4"/><circle cx="22" cy="13.5" r="6.6" fill="url(#jap)"/><circle cx="19.6" cy="11.2" r="1.7" fill="#fff" opacity=".9"/></svg>',
-    collar: '<svg viewBox="0 0 44 44" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="jcc" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f8dd95"/><stop offset="1" stop-color="#c99a3e"/></linearGradient><radialGradient id="jcs" cx="38%" cy="30%" r="72%"><stop offset="0" stop-color="#ffefb8"/><stop offset="50%" stop-color="#f4cf6a"/><stop offset="100%" stop-color="#c8962f"/></radialGradient></defs><path d="M7 11 Q22 27 37 11" fill="none" stroke="url(#jcc)" stroke-width="2.4" stroke-linecap="round"/><g><circle cx="22" cy="27" r="7.4" fill="url(#jcs)"/><circle cx="19.8" cy="24.6" r="1.7" fill="#fff" opacity=".85"/></g><g stroke="url(#jcc)" stroke-width="1.5" stroke-linecap="round"><path d="M22 16.4V13"/><path d="M31 20 33.4 17.8"/><path d="M13 20 10.6 17.8"/><path d="M29.8 27.5 33 28"/><path d="M14.2 27.5 11 28"/></g></svg>',
-    aretes: '<svg viewBox="0 0 44 44" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="jra" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ffe1ec"/><stop offset="1" stop-color="#d98aa8"/></linearGradient></defs><circle cx="15" cy="14" r="4.6" fill="none" stroke="#c99a3e" stroke-width="1.8"/><circle cx="29" cy="14" r="4.6" fill="none" stroke="#c99a3e" stroke-width="1.8"/><path d="M15 18.6 L11.5 31 L18.5 31 Z" fill="url(#jra)"/><path d="M29 18.6 L25.5 31 L32.5 31 Z" fill="url(#jra)"/></svg>'
+    anillo: '<img src="producto-anillo.jpg" alt="Anillo Luna"/>',
+    collar: '<img src="producto-collar.jpg" alt="Collar Sol"/>'
   };
 
   var RICH = {
