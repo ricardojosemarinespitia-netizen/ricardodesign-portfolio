@@ -617,24 +617,23 @@ section{padding:120px 5vw;position:relative}
 .cb-mail{font-size:.55rem;font-weight:700;color:#15803d;opacity:0;transition:opacity .4s ease}
 .cb-mail.on{opacity:1}
 
-/* ---- ENVÍOS: cotizador con selects reales ---- */
-.sh{flex:1;display:flex;flex-direction:column;gap:6px;background:#fbfdff;padding:13px 16px 12px}
-.sh-title{font-size:.72rem;color:var(--navy)}
-.sh label{font-size:.52rem;font-weight:700;letter-spacing:.13em;text-transform:uppercase;color:var(--faint)}
-.sh-sel{position:relative;border:1.5px solid rgba(10,65,116,.18);border-radius:9px;background:#fff;padding:7px 11px;display:flex;align-items:center;font-size:.64rem;color:var(--dim);transition:border-color .3s ease}
-.sh-sel i{margin-left:auto;font-style:normal;color:var(--faint);transition:transform .3s ease}
-.sh-sel.open{border-color:var(--blue)}
-.sh-sel.open i{transform:rotate(180deg)}
-.sh-sel.filled .sh-val{color:var(--navy);font-weight:700}
-.sh-opts{position:absolute;top:calc(100% + 3px);left:-1.5px;right:-1.5px;background:#fff;border:1.5px solid rgba(10,65,116,.18);border-radius:9px;box-shadow:0 14px 30px rgba(10,65,116,.18);z-index:5;opacity:0;transform:translateY(-6px);pointer-events:none;transition:all .3s var(--ease);overflow:hidden}
-.sh-sel.open .sh-opts{opacity:1;transform:none}
-.sh-opts span{display:block;padding:6px 11px;font-size:.6rem;color:var(--dim)}
-.sh-opts span.hl{background:rgba(123,189,232,.18);color:var(--navy);font-weight:700}
-.sh-quote{display:flex;align-items:baseline;gap:10px;padding:5px 2px 0}
-.sh-quote span{font-size:.52rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--faint)}
-.sh-quote b{font-size:.95rem;color:var(--blue);font-variant-numeric:tabular-nums;min-width:4ch;min-height:1.2em}
-.sh-quote em{font-style:normal;font-size:.55rem;color:var(--faint)}
-.sh-track{margin-top:auto;padding:12px 2px 2px}
+/* ---- ENVÍOS: guía generada + notificación al cliente ---- */
+.sh{flex:1;display:flex;flex-direction:column;gap:9px;background:#fff;padding:13px 16px 12px}
+.sh-title{display:flex;align-items:center;gap:6px;font-size:.72rem;color:var(--navy)}
+.sh-title svg{width:15px;height:15px;fill:var(--blue)}
+.sh-cli{display:flex;align-items:center;gap:10px;padding:8px 10px;border-radius:10px;background:#f7faf8;border:1px solid rgba(10,65,116,.08)}
+.sh-av{width:30px;height:30px;border-radius:50%;background:linear-gradient(135deg,var(--blue),var(--sky));color:#fff;display:flex;align-items:center;justify-content:center;font-size:.6rem;font-weight:700;flex-shrink:0}
+.sh-cli-info{flex:1;min-width:0}
+.sh-cli-info b{display:block;font-size:.66rem;color:var(--navy);min-height:1.1em}
+.sh-cli-info small{font-size:.53rem;color:var(--faint);min-height:1em}
+.sh-fields{display:flex;gap:9px}
+.sh-field{flex:1;display:flex;flex-direction:column;gap:3px;min-width:0}
+.sh-field label{font-size:.5rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--faint)}
+.sh-carrier{font-size:.66rem;color:var(--navy);font-weight:700;min-height:1.15em;display:flex;align-items:center;gap:5px}
+.sh-carrier::before{content:'';width:9px;height:9px;border-radius:2px;background:var(--carrier-c,var(--steel));flex-shrink:0}
+.sh-guide{font-size:.66rem;color:var(--navy);font-weight:700;font-family:monospace;letter-spacing:.02em;min-height:1.15em}
+/* progreso */
+.sh-track{padding:4px 2px 2px}
 .sh-road{position:relative;height:3px;border-radius:2px;background:rgba(10,65,116,.13)}
 .sh-road::before{content:'';position:absolute;inset:0;border-radius:2px;background:linear-gradient(90deg,var(--blue),var(--sky));transform-origin:left;transform:scaleX(var(--p,0));transition:transform .9s var(--ease)}
 .sh-truck{position:absolute;top:-15px;left:calc(var(--p,0)*100% - 10px);font-size:.95rem;transition:left .9s var(--ease)}
@@ -643,6 +642,12 @@ section{padding:120px 5vw;position:relative}
 .sh-steps span.on{color:var(--blue)}
 .sh-steps span.done{color:#15803d}
 .sh-track.snap .sh-road::before,.sh-track.snap .sh-truck{transition:none !important}
+/* notificación al cliente */
+.sh-notify{margin-top:auto;display:flex;align-items:center;gap:9px;padding:9px 11px;border-radius:11px;background:rgba(123,189,232,.12);border:1px solid rgba(123,189,232,.4);opacity:0;transform:translateY(8px);transition:all .5s var(--ease)}
+.sh-notify.on{opacity:1;transform:none}
+.sh-notify-ic{width:25px;height:25px;border-radius:50%;background:#25D366;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.sh-notify-ic svg{width:14px;height:14px;fill:#fff}
+.sh-notify-txt{font-size:.55rem;font-weight:600;color:var(--navy);line-height:1.4;min-height:1.1em}
 
 /* ---- PERFIL: página de cuenta ---- */
 .pf{flex:1;display:flex;flex-direction:column;background:#fbfdff}
@@ -734,6 +739,8 @@ section{padding:120px 5vw;position:relative}
   object-fit:cover;object-position:50% 42%;
   will-change:transform;transform:scale(1.02);
 }
+/* imágenes que rotan: overscan para que las esquinas nunca muestren el fondo al girar */
+.col-panel img[data-rotate]{inset:auto;top:-18%;left:-18%;width:136%;height:136%}
 /* alterna imagen desktop/móvil sin depender de <picture> (evita bugs de letterbox en iOS) */
 .col-img-dt{display:none}
 .col-img-mb{display:block}
@@ -1211,18 +1218,25 @@ section{padding:120px 5vw;position:relative}
 
     <!-- ENVÍOS: cotizador con selects reales -->
     <article class="demo lg tilt reveal-scale mdemo" data-tilt>
-      <div class="win-bar"><span></span><span></span><span></span><em>Envíos — cotizador automático</em><img class="wb-logo" src="logo-mark.png" alt=""/></div>
+      <div class="win-bar"><span></span><span></span><span></span><em>Envíos — guía y rastreo automático</em><img class="wb-logo" src="logo-mark.png" alt=""/></div>
       <div class="demo-body" data-demo="ship" aria-hidden="true">
         <div class="sh">
-          <b class="sh-title">📦 Calcula tu envío</b>
-          <label>Departamento</label>
-          <div class="sh-sel sh-s1"><span class="sh-val">Selecciona…</span><i>▾</i><div class="sh-opts"></div></div>
-          <label>Ciudad</label>
-          <div class="sh-sel sh-s2"><span class="sh-val">Selecciona…</span><i>▾</i><div class="sh-opts"></div></div>
-          <div class="sh-quote"><span>Tarifa</span><b class="sh-fee"></b><em class="sh-eta"></em></div>
+          <b class="sh-title"><svg viewBox="0 0 24 24"><path d="M20 8h-3V4H3c-1.1 0-2 .9-2 2v11h2c0 1.66 1.34 3 3 3s3-1.34 3-3h6c0 1.66 1.34 3 3 3s3-1.34 3-3h2v-5l-3-4zM6 18.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zm12 0c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zm1.5-9L21 12h-4V9.5h2.5z"/></svg>Guía de envío generada</b>
+          <div class="sh-cli">
+            <span class="sh-av"></span>
+            <span class="sh-cli-info"><b class="sh-cli-nm"></b><small class="sh-cli-addr"></small></span>
+          </div>
+          <div class="sh-fields">
+            <div class="sh-field"><label>Transportadora</label><b class="sh-carrier"></b></div>
+            <div class="sh-field"><label>N° de guía</label><b class="sh-guide"></b></div>
+          </div>
           <div class="sh-track">
             <div class="sh-road"><span class="sh-truck">🚚</span></div>
             <div class="sh-steps"><span>Recogido</span><span>En ruta</span><span>Entregado</span></div>
+          </div>
+          <div class="sh-notify">
+            <span class="sh-notify-ic"><svg viewBox="0 0 24 24"><path d="M17.5 14.4c-.3-.15-1.7-.85-2-.95-.27-.1-.46-.15-.66.15s-.75.94-.92 1.14c-.17.2-.34.22-.63.07-.3-.15-1.24-.46-2.37-1.46-.87-.78-1.47-1.74-1.64-2.04-.17-.3-.02-.46.13-.6.13-.13.3-.34.44-.5s.2-.3.3-.5c.1-.2.05-.37-.02-.52-.07-.15-.66-1.6-.9-2.18-.24-.58-.48-.5-.66-.5h-.56c-.2 0-.5.07-.77.37-.27.3-1 .98-1 2.4s1.03 2.78 1.17 2.97c.15.2 2.03 3.1 4.93 4.35.69.3 1.22.48 1.64.6.69.22 1.32.19 1.82.12.55-.08 1.7-.7 1.94-1.37.24-.68.24-1.25.17-1.37-.07-.13-.27-.2-.57-.35z"/><path d="M12 2a10 10 0 0 0-8.5 15.3L2 22l4.8-1.46A10 10 0 1 0 12 2z" opacity=".55"/></svg></span>
+            <span class="sh-notify-txt"></span>
           </div>
         </div>
       </div>
@@ -1926,72 +1940,56 @@ section{padding:120px 5vw;position:relative}
           F(function () { me.run(st, C, ix + 1); })]);
       }
     },
-    /* ENVÍOS: selects que se abren y eligen + camión con estados */
+    /* ENVÍOS: genera la guía con los datos del cliente y lo notifica para que rastree */
     ship: {
       reset: function (st) {
-        [].forEach.call(st.querySelectorAll('.sh-sel'), function (s) {
-          s.classList.remove('open', 'filled');
-          s.querySelector('.sh-val').textContent = 'Selecciona…';
-          s.querySelector('.sh-opts').innerHTML = '';
-        });
-        st.querySelector('.sh-fee').textContent = '';
-        st.querySelector('.sh-eta').textContent = '';
+        st.querySelector('.sh-av').textContent = '';
+        st.querySelector('.sh-cli-nm').textContent = '';
+        st.querySelector('.sh-cli-addr').textContent = '';
+        var car = st.querySelector('.sh-carrier'); car.textContent = ''; car.style.removeProperty('--carrier-c');
+        st.querySelector('.sh-guide').textContent = '';
         var tr = st.querySelector('.sh-track');
         tr.classList.add('snap');
         st.querySelector('.sh-road').style.setProperty('--p', 0);
         void tr.offsetWidth;
         tr.classList.remove('snap');
         [].forEach.call(st.querySelectorAll('.sh-steps span'), function (s) { s.classList.remove('on', 'done'); });
+        st.querySelector('.sh-notify').classList.remove('on');
+        st.querySelector('.sh-notify-txt').textContent = '';
       },
       run: function (st, C, ix) {
         var me = this; me.reset(st);
-        var DEPS = ['Atlántico', 'Antioquia', 'Cundinamarca', 'Valle del Cauca'];
-        var R = [['Atlántico', 'Barranquilla', 8000, '24–48 h', ['Barranquilla', 'Soledad', 'Puerto Colombia']],
-                 ['Cundinamarca', 'Bogotá', 15000, '2–4 días', ['Bogotá', 'Chía', 'Cajicá']],
-                 ['Valle del Cauca', 'Cali', 15000, '2–4 días', ['Cali', 'Jamundí', 'Palmira']]][ix % 3];
-        var s1 = st.querySelector('.sh-s1'), s2 = st.querySelector('.sh-s2');
-        var fee = st.querySelector('.sh-fee'), eta = st.querySelector('.sh-eta');
-        var road = st.querySelector('.sh-road'), stepsEl = st.querySelectorAll('.sh-steps span');
-        function pickSeq(sel, options, target) {
-          var out = [];
-          out.push(F(function () {
-            var box = sel.querySelector('.sh-opts'); box.innerHTML = '';
-            options.forEach(function (o) { var sp = document.createElement('span'); sp.textContent = o; box.appendChild(sp); });
-            sel.classList.add('open');
-          }));
-          out.push(W(C, 380));
-          var ti = options.indexOf(target);
-          for (var h = 0; h <= ti; h++) {
-            (function (h) {
-              out.push(F(function () {
-                var ops = sel.querySelectorAll('.sh-opts span');
-                [].forEach.call(ops, function (o) { o.classList.remove('hl'); });
-                ops[h].classList.add('hl');
-              }));
-              out.push(W(C, 250));
-            })(h);
-          }
-          out.push(F(function () {
-            sel.classList.remove('open'); sel.classList.add('filled');
-            sel.querySelector('.sh-val').textContent = target;
-          }));
-          out.push(W(C, 320));
-          return out;
-        }
-        var seq = [W(C, 350)];
-        seq = seq.concat(pickSeq(s1, DEPS, R[0]));
-        seq = seq.concat(pickSeq(s2, R[4], R[1]));
-        seq.push(F(function () { countTo(fee, 0, R[2], 500); eta.textContent = '· llega en ' + R[3]; }));
-        seq.push(W(C, 650));
+        // [avatar, nombre, dirección, transportadora, color, N° de guía]
+        var D = [['LG', 'Laura Gómez', 'Bogotá · Cra 27 #45-12', 'Servientrega', '#00873c', '240 072 819 34'],
+                 ['CR', 'Carlos Ruiz', 'Medellín · Cll 10 #43-55', 'Coordinadora', '#e30613', '189 553 402 71'],
+                 ['AT', 'Ana Torres', 'Barranquilla · Cra 53 #76-20', 'Interrapidísimo', '#f39200', '470 918 336 05']][ix % 3];
+        var av = st.querySelector('.sh-av'), nm = st.querySelector('.sh-cli-nm'), addr = st.querySelector('.sh-cli-addr'),
+            car = st.querySelector('.sh-carrier'), guide = st.querySelector('.sh-guide'),
+            road = st.querySelector('.sh-road'), stepsEl = st.querySelectorAll('.sh-steps span'),
+            notify = st.querySelector('.sh-notify'), ntxt = st.querySelector('.sh-notify-txt');
+        var first = D[1].split(' ')[0];
+        var seq = [W(C, 350),
+          F(function () { av.textContent = D[0]; }),
+          TY(C, nm, D[1], 28),
+          TY(C, addr, D[2], 14), W(C, 250),
+          F(function () { car.style.setProperty('--carrier-c', D[4]); }),
+          TY(C, car, D[3], 26), W(C, 300),
+          function (n) { C.type(guide, D[5], 40, n); }, W(C, 400)];
         [[0.18, 0], [0.55, 1], [1, 2]].forEach(function (pp) {
           seq.push(F(function () {
             road.style.setProperty('--p', pp[0]);
             stepsEl[pp[1]].classList.add(pp[1] === 2 ? 'done' : 'on');
             if (pp[1] > 0) stepsEl[pp[1] - 1].classList.add('done');
           }));
-          seq.push(W(C, 950));
+          seq.push(W(C, 850));
         });
-        seq.push(W(C, 2300));
+        seq.push(W(C, 300));
+        seq.push(F(function () { notify.classList.add('on'); }));
+        seq.push(TY(C, ntxt, 'Enviando la guía al cliente…', 16));
+        seq.push(W(C, 750));
+        seq.push(F(function () { ntxt.textContent = ''; }));
+        seq.push(TY(C, ntxt, '✓ Guía enviada por WhatsApp — ' + first + ' ya rastrea su pedido', 13));
+        seq.push(W(C, 3000));
         seq.push(F(function () { me.run(st, C, ix + 1); }));
         chain(C, seq);
       }
