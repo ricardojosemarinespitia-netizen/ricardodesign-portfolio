@@ -376,14 +376,24 @@ section{padding:120px 5vw;position:relative}
 .shead-live .live-em-inline{font-weight:800}
 @media(min-width:821px){.shead-live h2{font-size:clamp(2.4rem,4.6vw,3.9rem)}}
 
-/* ---- En vivo: reveal secuencial robusto (una sola vía, sin pin) ---- */
+/* ---- En vivo: cabecera con pin corto + reveal por scroll, uno a uno ----
+   (la textura ya NO depende del progreso -- queda fija al viewport via JS --
+   asi este pin no reintroduce el bug de tonos congelados de antes) */
+.live-scroller{position:relative;height:230vh}
+.live-pin{
+  position:sticky;top:0;
+  height:100vh;height:100dvh;
+  display:flex;flex-direction:column;justify-content:center;
+}
 .shead-live .rv{
-  opacity:0;transform:translateY(28px);
+  opacity:0;transform:translateY(34px);
   transition:opacity .7s var(--ease),transform .7s var(--ease);
   will-change:opacity,transform;
 }
-.shead-live.seq-in .rv{opacity:1;transform:none}
+.shead-live .rv.in{opacity:1;transform:none}
 @media(prefers-reduced-motion:reduce){
+  .live-scroller{height:auto}
+  .live-pin{position:static;height:auto;padding:100px 0 40px}
   .shead-live .rv{opacity:1;transform:none;transition:none}
 }
 
@@ -1162,10 +1172,14 @@ section{padding:120px 5vw;position:relative}
 <!-- ============ DEMOS EN VIVO ============ -->
 <!-- ============ DEMOS + AUTOMATIZACIÓN (grupo unificado) ============ -->
 <section id="demos">
-  <div class="shead shead-live" id="liveHead">
-    <h2><span class="dm-line1 rv">Mira tu web</span> <em class="live-em dm-line2 rv" style="transition-delay:.17s">trabajando sola</em></h2>
-    <p class="rv" style="transition-delay:.5s">Esto es lo que hacen nuestras páginas mientras duermes. <em class="live-em live-em-inline">No es un video:</em> está pasando ahora mismo, frente a ti.</p>
-    <span class="live-badge rv" style="transition-delay:.34s;margin-top:32px"><i class="live-dot"></i><em class="live-em live-badge-text">en vivo</em></span>
+  <div class="live-scroller" id="liveScroller">
+    <div class="live-pin">
+      <div class="shead shead-live" id="liveHead">
+        <h2><span class="dm-line1 rv" data-rv>Mira tu web</span> <em class="live-em dm-line2 rv" data-rv>trabajando sola</em></h2>
+        <p class="rv" data-rv>Esto es lo que hacen nuestras páginas mientras duermes. <em class="live-em live-em-inline">No es un video:</em> está pasando ahora mismo, frente a ti.</p>
+        <span class="live-badge rv" data-rv style="margin-top:32px"><i class="live-dot"></i><em class="live-em live-badge-text">en vivo</em></span>
+      </div>
+    </div>
   </div>
 
   <div class="auto-grid">
@@ -1713,20 +1727,38 @@ section{padding:120px 5vw;position:relative}
     update();
   })();
 
-  /* ---------- EN VIVO: reveal secuencial (una sola vía) + foto FIJA al viewport ---------- */
+  /* ---------- EN VIVO: reveal uno-por-uno al deslizar (pin corto) + foto FIJA al viewport ---------- */
   (function () {
     var head = document.getElementById('liveHead');
     if (!head) return;
 
-    // 1) revelar los textos en secuencia cuando la cabecera entra (no se re-oculta al subir)
-    if (reduceMotion) { head.classList.add('seq-in'); }
-    else {
-      var rio = new IntersectionObserver(function (es) {
-        es.forEach(function (e) {
-          if (e.isIntersecting) { head.classList.add('seq-in'); rio.disconnect(); }
-        });
-      }, { threshold: 0.35 });
-      rio.observe(head);
+    // 1) revelar cada elemento en secuencia SEGÚN el scroll (igual que el hero):
+    //    deslizo -> sale "Mira tu web" -> sale "trabajando sola" -> sale el texto -> sale "en vivo".
+    //    Reversible: si subo, se ocultan en el mismo orden. La textura ya no depende
+    //    de este progreso (queda fija al viewport, paso 2), así que no se congela.
+    var liveScroller = document.getElementById('liveScroller');
+    if (liveScroller) {
+      var rvItems = [].slice.call(liveScroller.querySelectorAll('[data-rv]'));
+      if (reduceMotion || !rvItems.length) {
+        rvItems.forEach(function (el) { el.classList.add('in'); });
+      } else {
+        var n = rvItems.length;
+        var rvThresholds = rvItems.map(function (_, i) { return (i) / n * 0.82; });
+        var rvTicking = false;
+        var rvUpdate = function () {
+          var rect = liveScroller.getBoundingClientRect();
+          var maxScroll = liveScroller.offsetHeight - window.innerHeight;
+          var progress = maxScroll > 0 ? (-rect.top) / maxScroll : 0;
+          if (progress < 0) progress = 0; if (progress > 1) progress = 1;
+          rvItems.forEach(function (el, i) { el.classList.toggle('in', progress >= rvThresholds[i]); });
+          rvTicking = false;
+        };
+        var rvOnScroll = function () { if (rvTicking) return; rvTicking = true; requestAnimationFrame(rvUpdate); };
+        window.addEventListener('scroll', rvOnScroll, { passive: true });
+        window.addEventListener('resize', rvOnScroll, { passive: true });
+        if (window.__lenis) window.__lenis.on('scroll', rvOnScroll);
+        rvUpdate();
+      }
     }
 
     // 2) la foto (gradiente) queda FIJA al viewport: anclamos background-size/position
