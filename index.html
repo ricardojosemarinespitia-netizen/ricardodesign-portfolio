@@ -1139,7 +1139,6 @@ section{padding:120px 5vw;position:relative}
   /* menos capas compositadas simultáneas = menos presión de memoria GPU */
   .aurora{display:none}
   .tilt{will-change:auto}
-  .shead-live .live-em{will-change:auto}  /* textura estática en móvil */
   /* el brillo especular que sigue al cursor no aplica en táctil */
   .lg::after,.navy-panel::after{display:none}
 }
@@ -1841,21 +1840,12 @@ section{padding:120px 5vw;position:relative}
       }
     }
 
-    // 2) la foto (gradiente) como fondo del texto.
-    //    ESCRITORIO: se ancla al viewport y el texto "pasa por encima" al deslizar.
-    //    MÓVIL: re-posicionar un background-clip:text cada frame obliga a
-    //    re-rasterizar la máscara del texto en cada scroll = lo que más traba
-    //    en celular. Ahí lo dejamos ESTÁTICO (se ve igual de bonito, sin costo).
+    // 2) la foto (gradiente) queda FIJA al viewport en TODOS los dispositivos:
+    //    el texto es una ventana y al deslizar "pasa por encima" de la imagen
+    //    quieta. Solo se escribe el estilo cuando el valor cambia (barato:
+    //    el navegador recorta el repintado a la caja del texto, no la pantalla).
     var ems = [].slice.call(document.querySelectorAll('.shead-live .live-em'));
     if (!ems.length) return;
-    if (!finePointer) {
-      // fondo estático agradable, una sola escritura, cero trabajo en scroll
-      for (var k = 0; k < ems.length; k++) {
-        ems[k].style.backgroundSize = '160% 160%';
-        ems[k].style.backgroundPosition = '50% 60%';
-      }
-      return;
-    }
     var ticking = false;
     function lock() {
       var vw = window.innerWidth, vh = window.innerHeight;
