@@ -1136,6 +1136,7 @@ section{padding:120px 5vw;position:relative}
   /* menos capas compositadas simultáneas = menos presión de memoria GPU */
   .aurora{display:none}
   .tilt{will-change:auto}
+  .shead-live .live-em{will-change:auto}  /* textura estática en móvil */
   /* el brillo especular que sigue al cursor no aplica en táctil */
   .lg::after,.navy-panel::after{display:none}
 }
@@ -1723,14 +1724,27 @@ section{padding:120px 5vw;position:relative}
     var loc = gl.getAttribLocation(pr, 'a');
     gl.enableVertexAttribArray(loc); gl.vertexAttribPointer(loc, 2, gl.FLOAT, false, 0, 0);
     var ut = gl.getUniformLocation(pr, 't'), ur = gl.getUniformLocation(pr, 'r');
+    var lastW = 0, lastH = 0, rzTimer = 0;
     function size() {
       /* más resolución en desktop (nitidez del sol), mucho más liviano en móvil */
       var d = Math.min(window.devicePixelRatio || 1, small ? 1.5 : 2) * (small ? 0.5 : 0.85);
       cv.width = Math.max(2, Math.round(cv.clientWidth * d));
       cv.height = Math.max(2, Math.round(cv.clientHeight * d));
       gl.viewport(0, 0, cv.width, cv.height);
+      lastW = window.innerWidth; lastH = window.innerHeight;
     }
-    window.addEventListener('resize', size, { passive: true }); size();
+    size();
+    /* iOS/Safari (y navegadores in-app tipo Instagram) muestran/ocultan la
+       barra de direcciones al deslizar y disparan 'resize' sin parar;
+       reasignar el canvas WebGL en cada uno traba TODO el scroll. Solo
+       redimensionamos si cambió el ANCHO (rotación) o el alto por mucho —
+       no por el vaivén de la barra — y con debounce. */
+    window.addEventListener('resize', function () {
+      var changedW = window.innerWidth !== lastW;
+      var bigH = Math.abs(window.innerHeight - lastH) > 140;
+      if (!changedW && !bigH) return;
+      clearTimeout(rzTimer); rzTimer = setTimeout(size, 160);
+    }, { passive: true });
     var t0 = performance.now();
     /* pausa del render cuando el hero sale de pantalla: libera la GPU
        para que el resto de la página deslice fluido */
@@ -1738,11 +1752,21 @@ section{padding:120px 5vw;position:relative}
     if ('IntersectionObserver' in window) {
       new IntersectionObserver(function (es) { heroVis = es[0].isIntersecting; }).observe(cv);
     }
+    /* en móvil CONGELAMOS el shader mientras se desliza: 0 trabajo de GPU
+       durante el scroll = scroll perfecto en Safari; reanuda al soltar. */
+    var scrolling = false, scTimer = 0;
+    if (small) {
+      window.addEventListener('scroll', function () {
+        scrolling = true;
+        clearTimeout(scTimer);
+        scTimer = setTimeout(function () { scrolling = false; }, 110);
+      }, { passive: true });
+    }
     /* en móvil limitamos a ~30fps: la mitad de trabajo de GPU y libera
        el hilo para que el scroll compositado vaya fluido */
     var minDelta = small ? 33 : 0, last = 0;
     function frame(now) {
-      if (heroVis && (now - last) >= minDelta) {
+      if (heroVis && !scrolling && (now - last) >= minDelta) {
         last = now;
         gl.uniform1f(ut, (performance.now() - t0) / 1000);
         gl.uniform2f(ur, cv.width, cv.height);
