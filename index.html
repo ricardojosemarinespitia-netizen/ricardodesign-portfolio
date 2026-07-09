@@ -150,8 +150,10 @@ main,header,footer{position:relative;z-index:2}
 .hnav>*{pointer-events:auto}
 .hnav.hidden{transform:translateY(-160%)}
 .glassd{
-  background:rgba(22,30,47,.58);
-  backdrop-filter:blur(16px) saturate(150%);-webkit-backdrop-filter:blur(16px) saturate(150%);
+  position:relative;overflow:hidden;isolation:isolate;
+  background:rgba(22,30,47,.5);
+  backdrop-filter:blur(3px) saturate(150%) brightness(1.05) url(#glass-distortion);
+  -webkit-backdrop-filter:blur(16px) saturate(150%);
   border:1px solid rgba(255,255,255,.16);
   box-shadow:
     inset 4px 4px 12px 2px rgba(255,255,255,.2),
@@ -159,6 +161,20 @@ main,header,footer{position:relative;z-index:2}
     inset 0 0 15px 2px rgba(255,255,255,.2),
     0 12px 34px rgba(22,30,47,.4);
 }
+/* navegadores sin url() en backdrop-filter: mantienen el desenfoque clásico */
+@supports not (backdrop-filter:url(#glass-distortion)){
+  .glassd{backdrop-filter:blur(16px) saturate(150%)}
+}
+.glassd>*{position:relative;z-index:2}
+/* brillo especular líquido que recorre el cristal */
+.glassd::after{
+  content:"";position:absolute;inset:0;z-index:1;pointer-events:none;border-radius:inherit;
+  background:linear-gradient(115deg,transparent 30%,rgba(255,255,255,.28) 47%,rgba(255,255,255,.05) 54%,transparent 70%);
+  background-size:250% 250%;mix-blend-mode:overlay;
+  animation:lgSheen 7s ease-in-out infinite;
+}
+@keyframes lgSheen{0%,100%{background-position:0% 0%}50%{background-position:100% 100%}}
+@media(prefers-reduced-motion:reduce){.glassd::after{animation:none}}
 .hnav-brand{
   display:flex;align-items:center;gap:9px;
   border-radius:999px;padding:9px 20px 9px 12px;
@@ -983,14 +999,23 @@ section{padding:120px 5vw;position:relative}
 </head>
 <body>
 
+<!-- Filtro SVG · distorsión líquida del cristal (liquid glass) -->
+<svg class="lg-defs" aria-hidden="true" width="0" height="0" style="position:absolute;pointer-events:none">
+  <filter id="glass-distortion" x="0%" y="0%" width="100%" height="100%">
+    <feTurbulence type="fractalNoise" baseFrequency="0.008 0.012" numOctaves="2" seed="7" result="noise"/>
+    <feGaussianBlur in="noise" stdDeviation="1.4" result="soft"/>
+    <feDisplacementMap in="SourceGraphic" in2="soft" scale="42" xChannelSelector="R" yChannelSelector="G"/>
+  </filter>
+</svg>
+
 <div class="aurora" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>
 
 <!-- ============ NAV FLOTANTE ============ -->
 <header class="hnav" id="navPill">
   <a href="#hero" class="hnav-brand glassd"><img src="logo-mark.png" alt="Ricardo Design" class="logo-img"/><span>ricardo design</span></a>
   <nav class="hnav-links glassd" aria-label="Navegación principal">
-    <a href="#services">servicios</a>
     <a href="#demos">en vivo</a>
+    <a href="#services">servicios</a>
     <a href="#automatiza">automatización</a>
     <a href="#portfolio">proyectos</a>
   </nav>
@@ -1024,31 +1049,6 @@ section{padding:120px 5vw;position:relative}
   </div>
 
   <div class="hero-fade" aria-hidden="true"></div>
-</section>
-
-<!-- ============ SERVICIOS ============ -->
-<section id="services">
-  <div class="shead reveal">
-    <span class="kicker">Servicios</span>
-    <h2>Todo lo que tu negocio necesita <em>para vivir en internet</em></h2>
-  </div>
-  <div class="services-grid">
-    <article class="svc lg tilt reveal" data-tilt>
-      <div class="icon-sq" aria-hidden="true">🌐</div>
-      <h3>Creación Web</h3>
-      <p>Arquitectura digital a medida. Sitios rápidos, responsivos y visualmente impactantes, con interfaces diseñadas según la función de tu empresa: tu información clara y entendible para tus clientes.</p>
-    </article>
-    <article class="svc lg tilt reveal" data-tilt style="transition-delay:.08s">
-      <div class="icon-sq t2" aria-hidden="true">🔧</div>
-      <h3>Mantenimiento</h3>
-      <p>Soporte continuo, actualizaciones de seguridad, respaldos y optimización de rendimiento. Tu página siempre en línea, siempre rápida, sin que tengas que tocar nada.</p>
-    </article>
-    <article class="svc lg tilt reveal" data-tilt style="transition-delay:.16s">
-      <div class="icon-sq t3" aria-hidden="true">📣</div>
-      <h3>Publicidad Digital</h3>
-      <p>Campañas Meta Ads de alto impacto dirigidas a la audiencia correcta de tu ciudad y tu sector. Convertimos clics en clientes reales.</p>
-    </article>
-  </div>
 </section>
 
 <!-- ============ DEMOS EN VIVO ============ -->
@@ -1337,6 +1337,31 @@ section{padding:120px 5vw;position:relative}
       </div>
     </article>
 
+  </div>
+</section>
+
+<!-- ============ SERVICIOS ============ -->
+<section id="services">
+  <div class="shead reveal">
+    <span class="kicker">Servicios</span>
+    <h2>Todo lo que tu negocio necesita <em>para vivir en internet</em></h2>
+  </div>
+  <div class="services-grid">
+    <article class="svc lg tilt reveal" data-tilt>
+      <div class="icon-sq" aria-hidden="true">🌐</div>
+      <h3>Creación Web</h3>
+      <p>Arquitectura digital a medida. Sitios rápidos, responsivos y visualmente impactantes, con interfaces diseñadas según la función de tu empresa: tu información clara y entendible para tus clientes.</p>
+    </article>
+    <article class="svc lg tilt reveal" data-tilt style="transition-delay:.08s">
+      <div class="icon-sq t2" aria-hidden="true">🔧</div>
+      <h3>Mantenimiento</h3>
+      <p>Soporte continuo, actualizaciones de seguridad, respaldos y optimización de rendimiento. Tu página siempre en línea, siempre rápida, sin que tengas que tocar nada.</p>
+    </article>
+    <article class="svc lg tilt reveal" data-tilt style="transition-delay:.16s">
+      <div class="icon-sq t3" aria-hidden="true">📣</div>
+      <h3>Publicidad Digital</h3>
+      <p>Campañas Meta Ads de alto impacto dirigidas a la audiencia correcta de tu ciudad y tu sector. Convertimos clics en clientes reales.</p>
+    </article>
   </div>
 </section>
 
