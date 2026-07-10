@@ -444,9 +444,21 @@ section{padding:120px 5vw;position:relative}
 .svc-scroller{position:relative;height:340vh}
 .svc-pin{
   position:sticky;top:0;height:100vh;overflow:hidden;
-  background:radial-gradient(130% 100% at 50% 30%,#5E1E2C 0%,#461621 55%,#2A0D15 100%);
+  background:#2A0D15; /* color de respaldo mientras carga la foto */
 }
-#flagGrid{position:absolute;inset:0;width:100%;height:100%;display:block;pointer-events:none;opacity:.9}
+/* foto real de fondo (textura de papel) + tinte vino en multiply: el
+   multiply oscurece el papel claro y le da el tono vino, conservando
+   la fibra y las manchas de la foto en vez de un degradado plano */
+.svc-pin::before{
+  content:'';position:absolute;inset:0;z-index:0;
+  background:url('LOGOS/servicio.jpg') center/cover no-repeat;
+}
+.svc-pin::after{
+  content:'';position:absolute;inset:0;z-index:0;
+  background:radial-gradient(130% 100% at 50% 30%,#8A2A38 0%,#5E1E2C 45%,#2A0D15 100%);
+  mix-blend-mode:multiply;
+}
+#flagGrid{position:absolute;inset:0;width:100%;height:100%;display:block;pointer-events:none;opacity:.9;z-index:1}
 .svc-stage{
   position:relative;z-index:2;height:100%;max-width:1320px;margin:0 auto;
   display:flex;flex-direction:column;justify-content:center;gap:clamp(14px,2.6vh,30px);
