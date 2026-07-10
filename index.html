@@ -1343,6 +1343,11 @@ section{padding:120px 5vw;position:relative}
   max-width:900px;width:100%;text-align:center;
   padding:clamp(28px,6vw,90px);
 }
+/* el panel de vidrio ocupa toda la pantalla: al entrar debe SOLO
+   desvanecerse, no escalar (un scale-in en un panel full-bleed deja ver
+   un anillo del fondo alrededor durante la animación). Se anula la escala
+   del reveal-scale y se conserva únicamente el fade de opacidad. */
+.cta-glass.reveal-scale{transform:none}
 .cta-box h2{font-weight:700;font-size:clamp(1.6rem,4.4vw,2.8rem);line-height:1.2;margin-bottom:18px;color:var(--navy)}
 .cta-box h2 em{
   font-style:italic;
@@ -1511,6 +1516,15 @@ section{padding:120px 5vw;position:relative}
   .tilt{will-change:auto}
   /* el brillo especular que sigue al cursor no aplica en táctil */
   .lg::after,.navy-panel::after{display:none}
+  /* BRUMA (demos): a pantalla completa con blur+blend es lo más pesado del
+     sitio en móvil. Se aligera SIN perder el efecto de colores vivos:
+       · la foto base deja de animar su escala (re-rasterizar un blur
+         a pantalla completa por frame es lo que más traba) y baja el blur
+       · las manchas mantienen su deriva+pulso (el efecto pedido) pero con
+         blur mucho más barato y 2 menos de las 5 capas */
+  .dm-paper{animation:none!important;transform:scale(1.05)!important;filter:blur(10px) saturate(1.1)!important}
+  .dm-bruma i{filter:blur(42px)!important}
+  .dm-bruma i:nth-child(4),.dm-bruma i:nth-child(5){display:none}
 }
 
 /* ================= REDUCED MOTION ================= */
