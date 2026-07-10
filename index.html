@@ -451,7 +451,7 @@ section{padding:120px 5vw;position:relative}
    la fibra y las manchas de la foto en vez de un degradado plano */
 .svc-pin::before{
   content:'';position:absolute;inset:0;z-index:0;
-  background:url('LOGOS/papel.jpg') center/cover no-repeat;
+  background:url('LOGOS/bruma.jpg') center/cover no-repeat;
 }
 .svc-pin::after{
   content:'';position:absolute;inset:0;z-index:0;
@@ -1287,35 +1287,45 @@ section{padding:120px 5vw;position:relative}
 
 /* ================= AUTOMATIZACIÓN (En vivo + demos): papel + BRUMA en movimiento ================= */
 #demos{position:relative;clip-path:inset(0);isolation:isolate}
+/* base: la foto bruma DIFUMINADA (blur) + un leve zoom-drift para que
+   la propia textura respire, no quede quieta */
 .dm-paper{
   position:fixed;inset:0;z-index:0;pointer-events:none;
-  background:url('LOGOS/papel.jpg') center/cover no-repeat;
+  background:url('LOGOS/bruma.jpg') center/cover no-repeat;
+  filter:blur(14px) saturate(1.15);
+  transform:scale(1.12);
+  animation:brumaZoom 34s ease-in-out infinite;
 }
-/* bruma: manchas blancas suaves que derivan sin parar sobre el papel,
-   dándole aire de neblina; overflow oculto para que las manchas no
-   asomen fuera de la sección */
+@keyframes brumaZoom{0%,100%{transform:scale(1.12) translate(0,0)}50%{transform:scale(1.22) translate(-2%,1.5%)}}
+/* colores VIVOS: manchas de la paleta que derivan Y pulsan su opacidad
+   (aparecen y desaparecen en distintos tiempos), sobre la foto difuminada */
 .dm-bruma{
   position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden;
-  mix-blend-mode:screen;opacity:.9;
+  mix-blend-mode:screen;
 }
-.dm-bruma i{position:absolute;border-radius:50%;filter:blur(60px);will-change:transform}
-.dm-bruma i:nth-child(1){width:70vw;height:70vw;top:-18%;left:-14%;
-  background:radial-gradient(circle,rgba(255,252,246,.85),transparent 62%);animation:bruma1 26s ease-in-out infinite}
-.dm-bruma i:nth-child(2){width:60vw;height:60vw;bottom:-16%;right:-10%;
-  background:radial-gradient(circle,rgba(255,250,242,.7),transparent 62%);animation:bruma2 33s ease-in-out infinite}
-.dm-bruma i:nth-child(3){width:48vw;height:48vw;top:34%;left:46%;
-  background:radial-gradient(circle,rgba(255,255,255,.6),transparent 60%);animation:bruma1 22s ease-in-out infinite 4s}
-.dm-bruma i:nth-child(4){width:40vw;height:40vw;top:8%;left:28%;
-  background:radial-gradient(circle,rgba(255,253,248,.5),transparent 60%);animation:bruma2 19s ease-in-out infinite 2s}
-@keyframes bruma1{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(7vw,-5vw) scale(1.18)}}
-@keyframes bruma2{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(-8vw,6vw) scale(1.22)}}
-@media(prefers-reduced-motion:reduce){.dm-bruma i{animation:none!important}}
+.dm-bruma i{position:absolute;border-radius:50%;filter:blur(70px);will-change:transform,opacity}
+.dm-bruma i:nth-child(1){width:66vw;height:66vw;top:-16%;left:-12%;
+  background:radial-gradient(circle,rgba(255,165,134,.95),transparent 60%);animation:mistA 24s ease-in-out infinite}
+.dm-bruma i:nth-child(2){width:60vw;height:60vw;bottom:-14%;right:-10%;
+  background:radial-gradient(circle,rgba(181,26,43,.9),transparent 60%);animation:mistB 30s ease-in-out infinite}
+.dm-bruma i:nth-child(3){width:52vw;height:52vw;top:32%;left:44%;
+  background:radial-gradient(circle,rgba(196,121,106,.85),transparent 60%);animation:mistC 20s ease-in-out infinite 3s}
+.dm-bruma i:nth-child(4){width:46vw;height:46vw;top:6%;left:26%;
+  background:radial-gradient(circle,rgba(247,220,206,.8),transparent 60%);animation:mistA 27s ease-in-out infinite 5s}
+.dm-bruma i:nth-child(5){width:40vw;height:40vw;bottom:6%;left:6%;
+  background:radial-gradient(circle,rgba(255,120,95,.85),transparent 60%);animation:mistB 22s ease-in-out infinite 2s}
+/* cada keyframe combina deriva (translate/scale) + pulso de opacidad en
+   fases distintas → los colores aparecen y desaparecen sin sincronía */
+@keyframes mistA{0%,100%{transform:translate(0,0) scale(1);opacity:.22}45%{opacity:.9}55%{transform:translate(8vw,-6vw) scale(1.28);opacity:.85}}
+@keyframes mistB{0%,100%{transform:translate(0,0) scale(1.15);opacity:.75}40%{opacity:.15}55%{transform:translate(-9vw,7vw) scale(1);opacity:.35}}
+@keyframes mistC{0%,100%{transform:translate(0,0) scale(1);opacity:.12}35%{opacity:.7}60%{transform:translate(6vw,8vw) scale(1.3);opacity:.9}}
+@media(prefers-reduced-motion:reduce){.dm-paper,.dm-bruma i{animation:none!important}}
 #demos .live-scroller,#demos .auto-grid{position:relative;z-index:1}
 
 /* ================= CTA: vidrio líquido sobre papel ================= */
 .cta-section{
   display:flex;justify-content:center;perspective:1100px;
-  background:url('LOGOS/papel.jpg') center/cover no-repeat;
+  background:url('LOGOS/bruma.jpg') center/cover no-repeat;
 }
 .cta-box{
   max-width:900px;width:100%;text-align:center;
@@ -1556,7 +1566,7 @@ section{padding:120px 5vw;position:relative}
 <!-- ============ DEMOS + AUTOMATIZACIÓN (grupo unificado) ============ -->
 <section id="demos">
   <div class="dm-paper" aria-hidden="true"></div>
-  <div class="dm-bruma" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+  <div class="dm-bruma" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>
   <div class="live-scroller" id="liveScroller">
     <div class="live-pin">
       <div class="shead shead-live" id="liveHead">
