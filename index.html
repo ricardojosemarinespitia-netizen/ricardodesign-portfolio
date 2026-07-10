@@ -1285,12 +1285,31 @@ section{padding:120px 5vw;position:relative}
 @keyframes zoomAle{from{transform:scale(1.07)}to{transform:scale(1)}}
 .pshot-ale::after{content:'';position:absolute;inset:0;z-index:1;background:linear-gradient(to top,rgba(20,15,10,.4),transparent 55%)}
 
-/* ================= AUTOMATIZACIÓN (En vivo + demos): papel ESTÁTICO de fondo ================= */
-#demos{position:relative;clip-path:inset(0)}
+/* ================= AUTOMATIZACIÓN (En vivo + demos): papel + BRUMA en movimiento ================= */
+#demos{position:relative;clip-path:inset(0);isolation:isolate}
 .dm-paper{
   position:fixed;inset:0;z-index:0;pointer-events:none;
   background:url('LOGOS/papel.jpg') center/cover no-repeat;
 }
+/* bruma: manchas blancas suaves que derivan sin parar sobre el papel,
+   dándole aire de neblina; overflow oculto para que las manchas no
+   asomen fuera de la sección */
+.dm-bruma{
+  position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden;
+  mix-blend-mode:screen;opacity:.9;
+}
+.dm-bruma i{position:absolute;border-radius:50%;filter:blur(60px);will-change:transform}
+.dm-bruma i:nth-child(1){width:70vw;height:70vw;top:-18%;left:-14%;
+  background:radial-gradient(circle,rgba(255,252,246,.85),transparent 62%);animation:bruma1 26s ease-in-out infinite}
+.dm-bruma i:nth-child(2){width:60vw;height:60vw;bottom:-16%;right:-10%;
+  background:radial-gradient(circle,rgba(255,250,242,.7),transparent 62%);animation:bruma2 33s ease-in-out infinite}
+.dm-bruma i:nth-child(3){width:48vw;height:48vw;top:34%;left:46%;
+  background:radial-gradient(circle,rgba(255,255,255,.6),transparent 60%);animation:bruma1 22s ease-in-out infinite 4s}
+.dm-bruma i:nth-child(4){width:40vw;height:40vw;top:8%;left:28%;
+  background:radial-gradient(circle,rgba(255,253,248,.5),transparent 60%);animation:bruma2 19s ease-in-out infinite 2s}
+@keyframes bruma1{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(7vw,-5vw) scale(1.18)}}
+@keyframes bruma2{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(-8vw,6vw) scale(1.22)}}
+@media(prefers-reduced-motion:reduce){.dm-bruma i{animation:none!important}}
 #demos .live-scroller,#demos .auto-grid{position:relative;z-index:1}
 
 /* ================= CTA: vidrio líquido sobre papel ================= */
@@ -1537,6 +1556,7 @@ section{padding:120px 5vw;position:relative}
 <!-- ============ DEMOS + AUTOMATIZACIÓN (grupo unificado) ============ -->
 <section id="demos">
   <div class="dm-paper" aria-hidden="true"></div>
+  <div class="dm-bruma" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
   <div class="live-scroller" id="liveScroller">
     <div class="live-pin">
       <div class="shead shead-live" id="liveHead">
