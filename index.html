@@ -1338,7 +1338,14 @@ section{padding:120px 5vw;position:relative}
 #portfolio{position:relative;clip-path:inset(0)}
 .pjs-red{
   position:fixed;inset:0;z-index:0;pointer-events:none;
-  background:radial-gradient(120% 90% at 50% 22%,#8E1B12 0%,#701409 55%,#420B05 100%);
+  background-color:#420B05; /* respaldo mientras carga la foto */
+  /* la foto real (misma textura de papel que Servicios) + tinte rojo en
+     multiply -- ya no el degradado plano de antes */
+  background-image:radial-gradient(120% 90% at 50% 22%,#B23A2A 0%,#8E1B12 45%,#420B05 100%),
+                    url('LOGOS/servicio.jpg');
+  background-size:cover,cover;
+  background-position:center,center;
+  background-blend-mode:multiply;
 }
 .pjs-white{
   position:absolute;inset:0;z-index:1;pointer-events:none;
