@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"/>
+<title>Cláusulas y Políticas | Ricardo Design</title>
+<meta name="description" content="Cláusulas y políticas de Ricardo Design: tiempos de entrega, pagos, mantenimiento web y gestión de Meta Ads."/>
+<link rel="canonical" href="https://ricardodesign.co/politicas.html"/>
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png"/>
+<link rel="apple-touch-icon" href="apple-touch-icon.png"/>
+<meta name="theme-color" content="#F3EFE8"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Readex+Pro:wght@200;300;400;500;600&display=swap" rel="stylesheet"/>
+<style>
+/* ===== Página de políticas: editorial, limpia, en blanco/crema ===== */
+:root{
+  --paper:#F3EFE8;      /* crema del lienzo */
+  --card:#FFFFFF;
+  --ink:#2A2622;        /* tinta principal */
+  --soft:#6E655B;       /* texto secundario */
+  --line:rgba(42,38,34,.12);
+  --accent:#8A4A4E;     /* rosa-vino apagado de la paleta rd */
+  --serif:'Cormorant Garamond',Georgia,'Times New Roman',serif;
+  --sans:'Readex Pro',system-ui,-apple-system,'Segoe UI',sans-serif;
+}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--paper);color:var(--ink);font-family:var(--sans);font-weight:300;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+img{max-width:100%;display:block}
+
+/* barra superior blanca */
+.top{
+  position:sticky;top:0;z-index:50;
+  display:flex;align-items:center;justify-content:space-between;gap:14px;
+  background:#fff;border-bottom:1px solid var(--line);
+  padding:14px clamp(18px,5vw,54px);
+}
+.top .brand{display:flex;align-items:center;gap:12px}
+.top .brand img{height:34px;width:auto}
+.top .brand span{font-family:var(--serif);font-size:1.15rem;letter-spacing:.04em}
+.top .back{
+  display:inline-flex;align-items:center;gap:8px;
+  font-size:.68rem;font-weight:500;letter-spacing:.22em;text-transform:uppercase;color:var(--soft);
+  transition:color .3s ease;white-space:nowrap;
+}
+.top .back:hover{color:var(--ink)}
+
+/* cabecera editorial */
+.hero{max-width:860px;margin:0 auto;padding:clamp(48px,8vw,88px) 22px 10px;text-align:center}
+.hero .kicker{
+  display:block;font-size:.62rem;font-weight:500;letter-spacing:.42em;text-transform:uppercase;
+  color:var(--accent);margin-bottom:26px;
+}
+.hero h1{
+  font-family:var(--serif);font-weight:500;
+  font-size:clamp(2.2rem,6vw,3.6rem);line-height:1.08;letter-spacing:.01em;
+  margin-bottom:26px;
+}
+.hero p{color:var(--soft);font-size:.92rem;line-height:1.9;max-width:600px;margin:0 auto}
+
+/* píldoras de navegación */
+.pills{display:flex;flex-wrap:wrap;justify-content:center;gap:12px;max-width:760px;margin:38px auto 0;padding:0 18px}
+.pills a{
+  font-size:.66rem;font-weight:500;letter-spacing:.18em;text-transform:uppercase;color:var(--ink);
+  background:#fff;border:1px solid var(--line);border-radius:999px;padding:13px 26px;
+  transition:border-color .3s ease,box-shadow .3s ease;white-space:nowrap;
+}
+.pills a:hover{border-color:var(--accent);box-shadow:0 4px 14px rgba(42,38,34,.08)}
+
+/* tarjetas blancas de contenido */
+main{max-width:900px;margin:0 auto;padding:44px 18px 70px;display:flex;flex-direction:column;gap:26px}
+.card{
+  background:var(--card);border:1px solid var(--line);border-radius:14px;
+  padding:clamp(28px,5vw,52px);
+  scroll-margin-top:90px;
+}
+.card>h2{font-family:var(--serif);font-weight:500;font-size:clamp(1.5rem,3.4vw,2.05rem);margin-bottom:6px}
+.card>.sub{color:var(--soft);font-size:.82rem;margin-bottom:26px}
+.card h3{font-family:var(--serif);font-weight:600;font-size:1.12rem;margin:26px 0 10px}
+.card h3:first-of-type{margin-top:0}
+.card p{color:var(--soft);font-size:.86rem;line-height:1.9;margin-bottom:12px}
+.card p strong,.card li strong{color:var(--ink);font-weight:500}
+.card ul{list-style:none;margin:2px 0 14px}
+.card li{
+  position:relative;padding:5px 0 5px 22px;
+  color:var(--soft);font-size:.86rem;line-height:1.75;
+}
+.card li::before{content:'';position:absolute;left:2px;top:.95em;width:5px;height:5px;border-radius:50%;background:var(--accent)}
+.precio{
+  display:flex;flex-wrap:wrap;align-items:baseline;gap:8px;
+  padding:14px 0 4px;
+}
+.precio b{font-family:var(--serif);font-weight:600;font-size:1.7rem;letter-spacing:.01em}
+.precio span{color:var(--soft);font-size:.76rem}
+.tabla{width:100%;border-collapse:collapse;margin:6px 0 14px;font-size:.84rem}
+.tabla td{padding:11px 4px;color:var(--soft);border-bottom:1px solid var(--line)}
+.tabla td:last-child{text-align:right;color:var(--ink);font-weight:500;font-variant-numeric:tabular-nums}
+.tabla tr:last-child td{border-bottom:none}
+.aviso{
+  border-left:2px solid var(--accent);
+  padding:4px 0 4px 18px;margin:18px 0 6px;
+  color:var(--soft);font-size:.83rem;line-height:1.85;
+}
+.divisor{height:1px;background:var(--line);margin:30px 0}
+
+/* pie */
+.pie{
+  border-top:1px solid var(--line);
+  padding:34px 22px 44px;text-align:center;
+}
+.pie p{color:var(--soft);font-size:.74rem;line-height:1.9}
+.pie a{color:var(--accent)}
+.pie .marca{font-family:var(--serif);font-size:1rem;margin-bottom:8px;color:var(--ink)}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <a class="brand" href="index.html"><img src="logo-mark.png" alt="Ricardo Design"/><span>Ricardo Design</span></a>
+  <a class="back" href="index.html">← Volver al inicio</a>
+</header>
+
+<section class="hero">
+  <span class="kicker">Ricardo Design · Diseño Web</span>
+  <h1>Cláusulas y políticas</h1>
+  <p>Reglas claras para una relación tranquila. Aquí encuentras todo lo que necesitas saber sobre tiempos de entrega, pagos, alcance de cada servicio y garantías.</p>
+  <nav class="pills" aria-label="Secciones">
+    <a href="#web">Creación web</a>
+    <a href="#mantenimiento">Mantenimiento</a>
+    <a href="#ads">Meta Ads</a>
+    <a href="#generales">Cláusulas generales</a>
+  </nav>
+</section>
+
+<main>
+
+  <!-- ================= CREACIÓN WEB ================= -->
+  <article class="card" id="web">
+    <h2>Creación web</h2>
+    <p class="sub">Tiempos de entrega, cotización y pagos.</p>
+
+    <h3>Tiempos de entrega</h3>
+    <p>El desarrollo se entrega en un plazo de <strong>10 días hábiles</strong>, contados a partir de la recepción de la <strong>totalidad de la información</strong> del cliente: textos, imágenes, accesos y demás insumos necesarios para la página. Se entiende por día hábil de lunes a viernes, excluyendo festivos oficiales de Colombia.</p>
+    <ul>
+      <li>Si el cliente entrega información adicional o solicita cambios sustanciales después de iniciado el conteo, el plazo se <strong>reinicia</strong> desde la fecha de esa nueva entrega.</li>
+      <li>Si una entrega o avance queda pendiente de aprobación y transcurren más de <strong>5 días hábiles</strong> sin respuesta del cliente, se entenderá aprobado tácitamente para continuar con las siguientes etapas.</li>
+    </ul>
+
+    <h3>Cotización y pago</h3>
+    <ul>
+      <li>La cotización tiene una vigencia de <strong>1 mes</strong> a partir de su emisión.</li>
+      <li>Para iniciar el proyecto se requiere el pago del <strong>50% del valor acordado</strong>.</li>
+      <li>Si el cliente no se pone en contacto ni realiza gestiones relacionadas con el proyecto durante <strong>1 mes</strong> después de acordado el pago, el desarrollo se suspende, el dominio queda inhabilitado y el 50% pagado <strong>no será reembolsado</strong>.</li>
+      <li>Si el cliente cancela el proyecto a mitad de su ejecución, el anticipo no se devuelve y el saldo se cobra de forma <strong>proporcional al avance</strong> real del desarrollo.</li>
+    </ul>
+
+    <div class="aviso">Los precios establecidos <strong>incluyen IVA</strong>: el cliente no asume cargos adicionales por impuestos. El <strong>dominio y el hosting</strong> no están incluidos en la tarifa de creación web y se cobran por separado.</div>
+
+    <h3>Garantía post-entrega</h3>
+    <p>Se otorgan <strong>15 días hábiles</strong> de corrección gratuita sobre errores del desarrollo original entregado. Pasado este plazo, cualquier modificación, ajuste o nueva funcionalidad se gestiona bajo el plan de mantenimiento.</p>
+  </article>
+
+  <!-- ================= MANTENIMIENTO ================= -->
+  <article class="card" id="mantenimiento">
+    <h2>Mantenimiento web</h2>
+    <p class="sub">Dos modalidades: por hora o suscripción mensual.</p>
+
+    <h3>Plan por hora</h3>
+    <div class="precio"><b>$65.000</b><span>COP · por hora de modificación realizada</span></div>
+
+    <div class="divisor"></div>
+
+    <h3>Suscripción mensual</h3>
+    <div class="precio"><b>$250.000</b><span>COP · al mes</span></div>
+    <p>Incluye asistencia personalizada y soporte continuo para realizar las modificaciones que el cliente requiera en su sitio web. Todas las solicitudes se atienden en un plazo estimado de <strong>24 a 48 horas hábiles</strong>, dependiendo de su complejidad.</p>
+
+    <h3>Incluye</h3>
+    <ul>
+      <li>Modificación de textos, imágenes y contenido.</li>
+      <li>Creación y edición de páginas o secciones.</li>
+      <li>Cambios de diseño y distribución de elementos.</li>
+      <li>Actualización de banners, galerías y formularios.</li>
+      <li>Optimización básica de velocidad y rendimiento.</li>
+      <li>Actualización de plugins, temas y CMS.</li>
+      <li>Corrección de errores y fallos del sitio.</li>
+      <li>Configuración de funciones existentes.</li>
+      <li>Soporte técnico y asesoría ilimitada.</li>
+    </ul>
+
+    <h3>No incluye</h3>
+    <ul>
+      <li>Desarrollo de funcionalidades complejas o a medida: sistemas de reservas, e-commerce completo, paneles administrativos, integraciones mediante API o desarrollos personalizados.</li>
+      <li>Rediseños completos del sitio web.</li>
+      <li>Cambios que impliquen más de <strong>8 horas continuas</strong> de desarrollo para una única solicitud; estos se cotizan como proyecto independiente.</li>
+    </ul>
+
+    <div class="aviso">La cancelación de la suscripción requiere un preaviso de <strong>30 días</strong>. Las suscripciones mensuales tienen una <strong>permanencia mínima de 3 meses</strong>.</div>
+  </article>
+
+  <!-- ================= META ADS ================= -->
+  <article class="card" id="ads">
+    <h2>Gestión de Meta Ads</h2>
+    <p class="sub">Pauta individual, suscripción mensual y grandes presupuestos.</p>
+
+    <h3>Pauta individual</h3>
+    <div class="precio"><b>$90.000</b><span>COP · por campaña</span></div>
+    <ul>
+      <li>Configuración de 1 campaña en Meta Ads.</li>
+      <li>Segmentación del público.</li>
+      <li>Configuración del objetivo de campaña.</li>
+      <li>Configuración de ubicaciones y presupuesto.</li>
+      <li>Publicación y verificación de la campaña.</li>
+    </ul>
+
+    <div class="divisor"></div>
+
+    <h3>Suscripción mensual</h3>
+    <div class="precio"><b>$290.000</b><span>COP · al mes</span></div>
+    <ul>
+      <li>Hasta 5 campañas de Meta Ads al mes.</li>
+      <li>Configuración y publicación de campañas.</li>
+      <li><strong>Alta optimización con el público objetivo</strong> durante la ejecución.</li>
+      <li>Ajustes de segmentación, presupuesto y anuncios.</li>
+      <li>Monitoreo del rendimiento.</li>
+      <li>Asistencia personalizada con tiempo de respuesta de 24 horas hábiles.</li>
+    </ul>
+
+    <div class="aviso">La pauta se realiza únicamente sobre contenido <strong>ya publicado</strong> en las redes sociales del cliente; no incluye diseño de piezas gráficas ni video. La <strong>inversión publicitaria</strong> es asumida directamente por el cliente ante Meta y no está incluida en la suscripción. Cancelación con preaviso de <strong>30 días</strong> y <strong>permanencia mínima de 3 meses</strong> en la suscripción mensual.</div>
+
+    <h3>Gestión de grandes presupuestos</h3>
+    <p>Para campañas con una inversión mensual superior a <strong>$2.000.000 COP</strong>, los honorarios corresponden al <strong>15% del presupuesto publicitario mensual</strong> y reemplazan la tarifa fija de la suscripción.</p>
+    <table class="tabla">
+      <tr><td>Inversión de $3.000.000</td><td>$450.000</td></tr>
+      <tr><td>Inversión de $5.000.000</td><td>$750.000</td></tr>
+      <tr><td>Inversión de $10.000.000</td><td>$1.500.000</td></tr>
+    </table>
+
+    <h3>Condiciones del servicio</h3>
+    <ul>
+      <li>No se garantizan resultados de ventas ni retorno de inversión (ROI): estos dependen de Meta, el mercado y el producto o servicio del cliente.</li>
+      <li>La cuenta publicitaria (Business Manager) y sus datos, incluido el píxel, quedan registrados a nombre del cliente.</li>
+      <li>No se asume responsabilidad por rechazos, restricciones o suspensiones de cuentas impuestas por Meta, al ser ajenas al control del prestador del servicio.</li>
+    </ul>
+  </article>
+
+  <!-- ================= CLÁUSULAS GENERALES ================= -->
+  <article class="card" id="generales">
+    <h2>Cláusulas generales</h2>
+    <p class="sub">Aplican a los tres servicios.</p>
+
+    <h3>Propiedad intelectual</h3>
+    <p>El código y el diseño final se transfieren en propiedad al cliente únicamente tras el pago del <strong>100% del valor acordado</strong>. Hasta entonces, el material es propiedad de Ricardo Design.</p>
+
+    <h3>Confidencialidad</h3>
+    <p>La información entregada por el cliente se trata de forma confidencial y no se comparte con terceros sin autorización.</p>
+
+    <h3>Responsabilidad sobre el contenido</h3>
+    <p>El cliente garantiza que los textos, imágenes y demás material que entrega no infringen derechos de autor ni derechos de terceros. Ricardo Design no asume responsabilidad por reclamaciones derivadas de dicho contenido.</p>
+
+    <h3>Ley aplicable</h3>
+    <p>Este documento y la prestación del servicio se rigen por las leyes de la <strong>República de Colombia</strong>.</p>
+  </article>
+
+</main>
+
+<footer class="pie">
+  <p class="marca">Ricardo Design</p>
+  <p>Última actualización: julio de 2026 · Sujeto a cambios sin previo aviso.<br/>
+  <a href="index.html">ricardodesign.co</a> · <a href="https://wa.me/573027981468" target="_blank" rel="noopener">WhatsApp +57 302 798 1468</a></p>
+</footer>
+
+</body>
+</html>
