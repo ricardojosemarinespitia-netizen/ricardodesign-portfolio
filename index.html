@@ -1405,11 +1405,15 @@ section{padding:120px 5vw;position:relative}
 #portfolio .shead h2{color:var(--navy)}
 #portfolio .shead h2 .pjs-hollow{
   font-style:italic;
+  /* SIN background-attachment:fixed -- en iOS Safari falla (ya lo vimos
+     con el hero); aquí no aporta nada porque el degradado es generado por
+     CSS, no una foto que deba alinearse con algo más. Al quedar relativo
+     a la propia caja del texto (no al viewport), el degradado se ve
+     completo dentro de las letras -- más contraste, no menos. */
   background-image:radial-gradient(120% 140% at 30% 20%,#C4463A 0%,#8E1B12 45%,#3A0C06 100%),
                     url('LOGOS/papel.jpg');
   background-size:cover,cover;background-position:center,center;
   background-blend-mode:multiply;
-  background-attachment:fixed;
   -webkit-background-clip:text;background-clip:text;
   -webkit-text-fill-color:transparent;color:transparent;
 }
