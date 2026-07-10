@@ -394,13 +394,11 @@ section{padding:120px 5vw;position:relative}
    de la imagen quieta (la foto no se mueve, solo lo que se ve de ella). */
 .shead-live .live-em{
   position:relative;font-style:italic;
-  background-image:url('LOGOS/rojo.jpg');
-  background-repeat:no-repeat;
-  background-size:100vw 100vh;      /* el JS la ajusta a cover real */
-  background-position:0 0;           /* lo actualiza el JS */
-  -webkit-background-clip:text;background-clip:text;
-  -webkit-text-fill-color:transparent;color:transparent;
-  will-change:background-position;
+  /* antes: texto hueco mostrando LOGOS/rojo.jpg a través (background-clip:text).
+     Con la bruma de color detrás, ese rojo-sobre-rojo se volvía ilegible.
+     Ahora: blanco sólido, con sombra sutil para separarlo del fondo. */
+  color:#fff;-webkit-text-fill-color:#fff;
+  text-shadow:0 2px 14px rgba(0,0,0,.35),0 1px 3px rgba(0,0,0,.3);
 }
 .shead-live p{font-size:.92rem;color:var(--dim)}
 .shead-live .live-em-inline{font-weight:800}
