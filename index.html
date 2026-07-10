@@ -1338,14 +1338,27 @@ section{padding:120px 5vw;position:relative}
 #portfolio{position:relative;clip-path:inset(0)}
 .pjs-red{
   position:fixed;inset:0;z-index:0;pointer-events:none;
-  background-color:#420B05; /* respaldo mientras carga la foto */
-  /* la foto real (misma textura de papel que Servicios) + tinte rojo en
-     multiply -- ya no el degradado plano de antes */
-  background-image:radial-gradient(120% 90% at 50% 22%,#B23A2A 0%,#8E1B12 45%,#420B05 100%),
+  background-color:#E7DFC9; /* respaldo mientras carga la foto */
+  /* solo el papel, sin tinte rojo -- el rojo ahora vive únicamente en el
+     texto (ver .pjs-hollow más abajo) */
+  background-image:url('LOGOS/servicio.jpg');
+  background-size:cover;
+  background-position:center;
+}
+/* texto hueco: las letras muestran la foto (con el tinte rojo) a través,
+   igual técnica que "trabajando sola" en En vivo -- aquí el fondo de la
+   sección quedó en papel puro, así que el color rojo se concentra en el
+   propio texto en vez del fondo completo */
+#portfolio .shead h2{color:var(--navy)}
+#portfolio .shead h2 .pjs-hollow{
+  font-style:italic;
+  background-image:radial-gradient(120% 140% at 30% 20%,#C4463A 0%,#8E1B12 45%,#3A0C06 100%),
                     url('LOGOS/servicio.jpg');
-  background-size:cover,cover;
-  background-position:center,center;
+  background-size:cover,cover;background-position:center,center;
   background-blend-mode:multiply;
+  background-attachment:fixed;
+  -webkit-background-clip:text;background-clip:text;
+  -webkit-text-fill-color:transparent;color:transparent;
 }
 .pjs-white{
   position:absolute;inset:0;z-index:1;pointer-events:none;
@@ -1941,7 +1954,7 @@ section{padding:120px 5vw;position:relative}
   <div class="pjs-white" aria-hidden="true"></div>
   <div class="shead reveal">
     <span class="kicker">Proyectos</span>
-    <h2>Sistemas reales, <em>vendiendo hoy</em></h2>
+    <h2>Sistemas reales, <em class="pjs-hollow">vendiendo hoy</em></h2>
   </div>
 
   <div class="live-projects">
