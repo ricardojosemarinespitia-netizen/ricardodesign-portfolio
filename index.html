@@ -1320,9 +1320,13 @@ section{padding:120px 5vw;position:relative}
 @media(prefers-reduced-motion:reduce){.dm-paper,.dm-bruma i{animation:none!important}}
 #demos .live-scroller,#demos .auto-grid{position:relative;z-index:1}
 
-/* ================= CTA: vidrio líquido sobre papel ================= */
+/* ================= CTA: vidrio líquido sobre papel, pantalla completa ================= */
 .cta-section{
-  display:flex;justify-content:center;perspective:1100px;
+  padding:0 clamp(16px,4vw,32px); /* solo lateral: full-bleed vertical, sin pegar la tarjeta a los bordes */
+  /* 100vh (no dvh): estable en iOS, no crece/encoge con la barra de Safari
+     (mismo criterio ya usado en el hero) */
+  min-height:100vh;
+  display:flex;align-items:center;justify-content:center;perspective:1100px;
   background:url('LOGOS/bruma.jpg') center/cover no-repeat;
 }
 .cta-box{
@@ -1990,7 +1994,7 @@ section{padding:120px 5vw;position:relative}
   <div class="cta-box glass-cta tilt reveal-scale" data-tilt>
     <h2>¿Necesitas una web <em>que trabaje por ti?</em></h2>
     <p>Inicia tu proyecto hoy. Hablemos sobre cómo automatizar y elevar la presencia digital de tu marca al siguiente nivel.</p>
-    <a class="btn btn-sky" href="https://wa.me/573027981468?text=Hola%20Ricardo%2C%20quiero%20cotizar%20mi%20p%C3%A1gina%20web" target="_blank" rel="noopener">Iniciar Conversación 🚀</a>
+    <a class="btn btn-sky" href="https://wa.me/573027981468?text=Hola%20Ricardo%2C%20quiero%20cotizar%20mi%20p%C3%A1gina%20web" target="_blank" rel="noopener">Iniciar Conversación</a>
   </div>
 </section>
 </main>
