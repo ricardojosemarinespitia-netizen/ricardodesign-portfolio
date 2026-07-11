@@ -457,7 +457,7 @@ section{padding:120px 5vw;position:relative}
   mix-blend-mode:multiply;
 }
 #flagGrid{position:absolute;inset:0;width:100%;height:100%;display:block;pointer-events:none;opacity:.9;z-index:1}
-#footerWave{position:absolute;inset:0;width:100%;height:100%;display:block;pointer-events:none;opacity:.9;z-index:0}
+#footerWave{position:absolute;inset:0;width:100%;height:100%;display:block;pointer-events:none;opacity:.9;z-index:1}
 .svc-stage{
   position:relative;z-index:2;height:100%;max-width:1320px;margin:0 auto;
   display:flex;flex-direction:column;justify-content:center;gap:clamp(14px,2.6vh,30px);
@@ -1364,13 +1364,16 @@ section{padding:120px 5vw;position:relative}
 .footer{
   margin:0;border-radius:0!important;
   padding:78px 6vw 40px;
-  background:rgba(20,15,20,.35);
-  backdrop-filter:blur(22px) saturate(140%);
-  -webkit-backdrop-filter:blur(22px) saturate(140%);
+  background:#2A0D15;
+  backdrop-filter:none!important;
+  -webkit-backdrop-filter:none!important;
 }
+.ft-bg-tex{position:absolute;inset:0;z-index:0;background:url('LOGOS/bruma.jpg') center/cover no-repeat;pointer-events:none}
+.ft-bg-grad{position:absolute;inset:0;z-index:0;background:radial-gradient(130% 100% at 50% 30%,#8A2A38 0%,#5E1E2C 45%,#2A0D15 100%);mix-blend-mode:multiply;pointer-events:none}
 .ft-grid{
   display:grid;grid-template-columns:1fr;gap:44px;
   max-width:1180px;margin:0 auto;text-align:left;
+  position:relative;z-index:2;
 }
 @media(min-width:860px){.ft-grid{grid-template-columns:1.5fr 1fr 1fr;gap:48px}}
 .ft-brand img{height:48px;width:auto;display:block;margin-bottom:20px}
@@ -1390,6 +1393,7 @@ section{padding:120px 5vw;position:relative}
   max-width:1180px;margin:50px auto 0;padding-top:24px;
   border-top:1px solid rgba(255,255,255,.12);
   display:flex;flex-wrap:wrap;gap:10px 24px;justify-content:space-between;align-items:center;
+  position:relative;z-index:2;
 }
 .ft-bottom span{color:var(--wfaint);font-size:.72rem}
 
@@ -1485,9 +1489,9 @@ section{padding:120px 5vw;position:relative}
   /* footer (también .navy-panel, que arriba fuerza solido sin blur):
      misma excepción para que siga siendo el mismo vidrio esmerilado */
   .footer.navy-panel{
-    backdrop-filter:blur(10px) saturate(140%)!important;
-    -webkit-backdrop-filter:blur(10px) saturate(140%)!important;
-    background:rgba(20,15,20,.4)!important;
+    backdrop-filter:none!important;
+    -webkit-backdrop-filter:none!important;
+    background:#2A0D15!important;
   }
   /* el nav es pequeño y fijo (no las tarjetas grandes que trababan el
      scroll): mismo vidrio limpio y transparente que en escritorio, con
@@ -2033,6 +2037,8 @@ section{padding:120px 5vw;position:relative}
 
 <!-- ============ FOOTER ============ -->
 <footer class="footer navy-panel">
+  <div class="ft-bg-tex" aria-hidden="true"></div>
+  <div class="ft-bg-grad" aria-hidden="true"></div>
   <canvas id="footerWave" aria-hidden="true"></canvas>
   <div class="ft-grid">
     <div class="ft-brand">
