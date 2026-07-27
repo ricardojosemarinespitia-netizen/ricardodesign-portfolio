@@ -31,7 +31,9 @@
    Ratios medidos sobre --papel #F3EFE8:
      --tinta 14.53:1 · --tinta-suave 8.03:1 · --tinta-tenue 5.09:1
      --acento-suave 5.78:1     (todos AA o AAA) */
-html{scroll-behavior:smooth}
+/* overscroll-behavior-y: evita que el navegador integrado de Instagram/
+   Facebook se robe el swipe vertical (mismo arreglo que index.html). */
+html{scroll-behavior:smooth;overscroll-behavior-y:contain}
 body{
   background:var(--papel);color:var(--tinta);
   font-family:var(--fuente);font-size:var(--paso-0);line-height:var(--lh-normal);

@@ -86,6 +86,11 @@ html{
   overflow-x:clip;
   width:100%;
   overscroll-behavior-x:none;
+  /* -y:contain (antes solo había -x): dentro del navegador integrado de
+     Instagram/Facebook, el swipe vertical se lo roba su propia capa de
+     "pull" en vez de dejarlo hacer scroll a la página, y se siente como
+     si la página "saltara" a otra parte. */
+  overscroll-behavior-y:contain;
 }
 html.lenis,html.lenis body{height:auto}
 html.lenis.lenis-smooth{scroll-behavior:auto!important}
@@ -103,6 +108,7 @@ body{
   overflow-x:clip;
   width:100%;
   overscroll-behavior-x:none;
+  overscroll-behavior-y:contain;
   -webkit-font-smoothing:antialiased;
   font-synthesis-weight:none;  /* que el navegador no falsifique negritas */
 }
