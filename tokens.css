@@ -1,0 +1,253 @@
+/* ============================================================================
+   tokens.css — Ricardo Design. Un solo lugar, una sola verdad.
+   ----------------------------------------------------------------------------
+   Antes de este archivo había DOS :root con los MISMOS nombres y VALORES
+   DISTINTOS (index.html --ink:#161E2F / politicas.html --ink:#2A2622;
+   --soft era coral en uno y gris en el otro). Eso no es un sistema: es una
+   trampa. Aquí hay uno solo, enlazado desde las dos páginas.
+
+   Regla dura: ningún color, tamaño, espacio, radio o duración se escribe
+   suelto. Si no existe como token, se agrega aquí con criterio, o no se
+   necesita.
+
+   Los nombres son de ROL, no de cromatismo. El sitio venía de --blue que era
+   carmesí, --teal que era rosa y --steel que era vino: quien leía var(--blue)
+   esperaba azul y obtenía sangre. Ese nombre habría seguido mintiendo para
+   siempre.
+   ========================================================================= */
+
+/* ═══════════════════════════════════════════════════════════════
+   1 · COLOR
+   El ratio anotado al lado de cada token NO es adorno: es lo que
+   impide que se degrade con el tiempo "porque se veía más elegante
+   más claro". Calculado con WCAG 2.1 relative luminance contra el
+   fondo que le corresponde, no estimado a ojo.
+   ═══════════════════════════════════════════════════════════════ */
+:root {
+  /* — Lienzos — */
+  --crema-alta:  #fbf1ec;   /* arranque del degradado del cuerpo */
+  --crema-baja:  #f0d8cf;   /* final del degradado — el peor caso de contraste */
+  --papel:       #F3EFE8;   /* lienzo de politicas.html */
+  --vino-hondo:  #2A0D15;   /* pie de página y respaldo de la bandera */
+
+  /* — Tinta — espresso frío. Nunca negro puro: sobre crema se vería sucio. */
+  --tinta:       #161E2F;              /* sobre crema-alta 14.99:1  AAA
+                                          sobre crema-baja 12.24:1  AAA
+                                          sobre papel      14.53:1  AAA */
+  --tinta-suave: rgba(22,30,47,.80);   /* sobre crema-alta  8.19:1  AAA
+                                          sobre crema-baja  7.18:1  AAA
+                                          (venía en .66 = 4.73:1 — pasaba justo,
+                                           sin margen para el degradado) */
+  --tinta-tenue: rgba(22,30,47,.66);   /* sobre crema-alta  5.16:1  AA
+                                          sobre crema-baja  4.73:1  AA
+                                          sobre blanco      5.39:1  AA
+                                          Era .45 = 2.77:1 — FALLABA. Es el
+                                          suelo del sistema: por debajo de este
+                                          valor no hay texto, solo decoración. */
+
+  /* — Acento — un solo acento manda. El carmesí es la marca; el durazno es
+       destello y NUNCA texto sobre fondo claro (1.72:1). */
+  --acento:        #B51A2B;   /* sobre crema-alta 6.00:1  AA
+                                 sobre blanco     6.67:1  AA
+                                 sobre papel      5.82:1  AA */
+  --acento-hondo:  #6E2733;   /* sobre crema-alta 9.44:1  AAA
+                                 sobre blanco    10.49:1  AAA */
+  --acento-suave:  #8A4A4E;   /* sobre crema-alta 5.96:1  AA */
+  --destello:      #FFA586;   /* sobre vino-hondo 9.41:1  AAA
+                                 sobre crema-alta 1.72:1  ← PROHIBIDO como texto
+                                 sobre fondo claro. Solo sobre oscuro. */
+  --destello-palido:#F7DCCE;  /* sobre vino-hondo 13.78:1  AAA */
+
+  /* — Sobre superficies oscuras — */
+  --blanco:       #ffffff;              /* sobre vino-hondo 18.00:1  AAA */
+  --blanco-suave: rgba(255,255,255,.72);/* sobre vino-hondo  9.60:1  AAA */
+  --blanco-tenue: rgba(255,255,255,.55);/* sobre vino-hondo  6.03:1  AA
+                                           Era .45 = 4.42:1 — no llegaba. */
+
+  /* — Vidrio —
+       El sustrato del nav lleva tinta, no blanco. Con relleno blanco al 8% el
+       texto blanco daba 1.21:1 sobre los tramos claros del shader y sobre las
+       secciones crema: invisible. Ahumado al 62% sigue dejando ver el fondo
+       (38% de transmisión + blur) y el texto blanco pasa AA en el peor caso. */
+  --vidrio-ahumado: rgba(22,30,47,.62); /* texto BLANCO PURO encima:
+                                           sobre crema #fbf1ec  5.06:1  AA
+                                           sobre shader crema   5.59:1  AA
+                                           sobre shader durazno 7.07:1  AAA
+                                           Con el blanco al .72 que había antes
+                                           caería a 3.50:1: por eso el texto del
+                                           nav es --blanco, no --blanco-suave. */
+  --vidrio-filo:    rgba(255,255,255,.45);
+  --linea:          rgba(42,38,34,.12);
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   2 · TIPOGRAFÍA
+   Escala fluida con clamp(): interpola entre 390px y 1440px sin
+   saltos por breakpoint. Razón 1.22 en móvil y 1.30 en escritorio
+   — la escala se ABRE donde hay sitio para que los títulos manden.
+
+   Antes había ~30 tamaños sueltos (trece distintos solo entre 7px
+   y 10px: .44 .46 .48 .5 .51 .52 .53 .54 .55 .57 .58 .6 .62 rem).
+   Eso no es jerarquía, es acumulación.
+   ═══════════════════════════════════════════════════════════════ */
+:root {
+  /* Ya se descargaban las dos familias y se usaban en 4 selectores: se pagaba
+     el coste de red completo y se cosechaba el 7%. Ahora Readex Pro es la
+     fuente del sitio (Verdana es de 1996, diseñada para CRT de baja
+     resolución) y Cormorant queda para el display editorial del portafolio. */
+  --fuente:         'Readex Pro', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --fuente-display: 'Cormorant Garamond', Georgia, 'Times New Roman', serif;
+  --fuente-mono:    ui-monospace, Consolas, Menlo, monospace;
+
+  --paso--2: clamp(0.688rem, 0.664rem + 0.10vw, 0.750rem);  /* 11.0 → 12.0 px */
+  --paso--1: clamp(0.813rem, 0.775rem + 0.16vw, 0.913rem);  /* 13.0 → 14.6 px */
+  --paso-0:  clamp(1.000rem, 0.954rem + 0.19vw, 1.125rem);  /* 16.0 → 18.0 px */
+  --paso-1:  clamp(1.220rem, 1.130rem + 0.37vw, 1.463rem);  /* 19.5 → 23.4 px */
+  --paso-2:  clamp(1.488rem, 1.335rem + 0.63vw, 1.901rem);  /* 23.8 → 30.4 px */
+  --paso-3:  clamp(1.816rem, 1.572rem + 1.00vw, 2.472rem);  /* 29.1 → 39.5 px */
+  --paso-4:  clamp(2.215rem, 1.845rem + 1.52vw, 3.213rem);  /* 35.4 → 51.4 px */
+  --paso-5:  clamp(2.703rem, 2.155rem + 2.25vw, 4.177rem);  /* 43.2 → 66.8 px */
+  --paso-6:  clamp(3.297rem, 2.505rem + 3.25vw, 5.430rem);  /* 52.8 → 86.9 px */
+  --paso-7:  clamp(3.400rem, 0.000rem + 13.0vw, 11.70rem);  /* 54.4 → 187 px · solo el héroe */
+  /* --paso-2 y --paso-6 hoy no los usa nadie. Se mantienen: una escala con
+     huecos es lo que hace que el siguiente que necesite "algo entre el 1 y el 3"
+     escriba un literal y vuelva a arrancar la acumulación. Lo mismo con --e-10
+     y --sombra-2. */
+
+  /* --- Escala de MAQUETA ------------------------------------------------
+     Las diez simulaciones del sitio (Gmail, Excel, Wompi, carrito, PageSpeed…)
+     son ilustraciones: van marcadas aria-hidden="true" y dibujan otra interfaz
+     a un tercio de su tamaño real. No pueden usar la escala del documento —
+     pero tampoco pueden seguir teniendo 41 tamaños sueltos, con TRECE valores
+     distintos entre 7px y 10px (.44 .46 .48 .5 .51 .52 .53 .54 .55 .57 .58
+     .6 .62 rem). Ocho pasos, y ninguno subió de tamaño al consolidar: cada
+     valor se redondeó hacia abajo o se quedó igual, para no desbordar las
+     ventanas de altura fija que las contienen. */
+  --maq-1: 0.4375rem;  /*  7px — versalitas diminutas */
+  --maq-2: 0.5rem;     /*  8px — etiquetas, meta */
+  --maq-3: 0.5625rem;  /*  9px — subtítulos de fila */
+  --maq-4: 0.625rem;   /* 10px — cuerpo de la maqueta */
+  --maq-5: 0.6875rem;  /* 11px — datos y cifras */
+  --maq-6: 0.75rem;    /* 12px — títulos de la maqueta */
+  --maq-7: 0.875rem;   /* 14px — cifra destacada */
+  --maq-8: 1.125rem;   /* 18px — el número grande (total, código, score) */
+
+  /* Las maquetas necesitan su propio interlineado. El del documento (1.6) es el
+     correcto para prosa y el equivocado dentro de una ventana de 172px de alto
+     fija: medido, subía .ad-kpis de 30px a 37 y .mt2-r de 35 a 39, y las filas
+     acababan pisándose. 1.2 es más apretado incluso que el `normal` heredado. */
+  --lh-maqueta: 1.2;
+
+  --lh-apretado: 1.05;   /* display grande: a 4rem, 1.5 abre un abismo */
+  --lh-corto:    1.25;
+  --lh-normal:   1.6;
+  --lh-suelto:   1.85;   /* prosa larga */
+
+  --track-apretado: -0.03em;
+  --track-normal:    0;
+  --track-medio:     0.10em;   /* etiquetas de barra de ventana: versalitas que
+                                  deben caber en una sola línea */
+  --track-amplio:    0.14em;
+  --track-marca:     0.30em;   /* versalitas / eyebrows */
+
+  /* La medida es el token de legibilidad más importante y el más ignorado.
+     Por encima de 75 caracteres el ojo pierde el renglón al volver. */
+  --medida:          65ch;
+  --medida-estrecha: 46ch;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   3 · ESPACIO — base 4px, escala casi geométrica.
+   Los saltos son suficientemente distintos como para que elegir
+   "el siguiente" sea una decisión y no una duda de 2px.
+   ═══════════════════════════════════════════════════════════════ */
+:root {
+  --e-1: 0.25rem;  /*  4px */
+  --e-2: 0.5rem;   /*  8px */
+  --e-3: 0.75rem;  /* 12px */
+  --e-4: 1rem;     /* 16px */
+  --e-5: 1.5rem;   /* 24px */
+  --e-6: 2rem;     /* 32px */
+  --e-7: 3rem;     /* 48px */
+  --e-8: 4rem;     /* 64px */
+  --e-9:  clamp(4.5rem, 3rem + 6vw, 7.5rem);   /* separación entre secciones */
+  --e-10: clamp(6rem, 4rem + 10vw, 14rem);     /* respiro mayor */
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   4 · FORMA, SOMBRA, MOVIMIENTO
+   Cuatro radios. Doce valores distintos no son un vocabulario de
+   forma: son ruido.
+   ═══════════════════════════════════════════════════════════════ */
+:root {
+  --radio-1: 10px;
+  --radio-2: 14px;
+  --radio-3: 22px;
+  --radio-4: 34px;
+  --radio-pleno: 999px;
+
+  /* Las sombras se tiñen con el color de la escena, nunca con negro:
+     una sombra negra sobre papel cálido mata el sitio. */
+  --sombra-1: 0 4px 14px -4px rgba(110,39,51,.18);
+  --sombra-2: 0 18px 44px -18px rgba(110,39,51,.34);
+  --sombra-3: 0 30px 70px -24px rgba(181,26,43,.30);
+  /* --sombra-2 es el peldaño intermedio de la escala. Hoy no lo usa nadie, y se
+     mantiene a propósito: una escala con huecos es lo que hace que el siguiente
+     que necesite "algo entre 1 y 3" escriba un literal. */
+  --sombra-tinta: 0 30px 70px -24px rgba(22,30,47,.45);
+
+  /* Cinco curvas y cinco duraciones. Un vocabulario corto obliga a la
+     coherencia: 54 transiciones con `ease` genérico significaban que un botón
+     y un panel de pantalla completa se movían igual. */
+  /* Cuatro curvas en uso, no cincuenta y cuatro  genéricos. */
+  --ease-suave:   cubic-bezier(.22,1,.36,1);    /* la firma del sitio */
+  --ease-expo:    cubic-bezier(.19,1,.22,1);    /* entradas largas y decididas */
+  --ease-salida:  cubic-bezier(.33,1,.68,1);    /* micro-interacción */
+  --ease-resorte: cubic-bezier(.34,1.56,.64,1); /* confirmaciones, checks */
+
+  /* Entradas rápidas, salidas más rápidas: nadie espera a que algo desaparezca. */
+  --dur-rapido: 300ms;   /* botones, píldoras, enlaces */
+  --dur-medio:  500ms;   /* paneles, tarjetas, el nav que se esconde */
+  --dur-lento:  700ms;   /* reveals de sección y del héroe */
+
+  --z-nav: 100;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   5 · BASE COMPARTIDA
+   ═══════════════════════════════════════════════════════════════ */
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+a { color: inherit; text-decoration: none; }
+img, video { max-width: 100%; display: block; }
+button { font-family: inherit; }
+
+h1, h2, h3, h4 { text-wrap: balance; }
+p { text-wrap: pretty; }   /* evita la palabra huérfana en la última línea */
+
+/* Foco visible, siempre. El sitio tenía CERO reglas de outline en 3.400
+   líneas: sobre vidrio translúcido el anillo nativo es invisible y navegar
+   con teclado era imposible. El doble anillo (claro + oscuro) se ve tanto
+   sobre el héroe oscuro como sobre el papel crema. */
+:focus-visible {
+  outline: 2px solid var(--acento);
+  outline-offset: 3px;
+  box-shadow: 0 0 0 5px rgba(255,255,255,.85);
+  border-radius: var(--radio-1);
+}
+:focus:not(:focus-visible) { outline: none; }
+
+::selection { background: var(--destello); color: var(--tinta); }
+
+/* Movimiento reducido. No es "desactivar animaciones": es dejarlas casi
+   instantáneas para que los estados finales se apliquen igual. Poner
+   animation:none rompe cualquier elemento que dependa de la animación para
+   volverse visible. */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .2s !important;
+    scroll-behavior: auto !important;
+  }
+}

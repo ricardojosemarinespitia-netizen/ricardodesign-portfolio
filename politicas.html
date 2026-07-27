@@ -2,6 +2,14 @@
 <html lang="es">
 <head>
 <meta charset="utf-8"/>
+<!-- ===== SEGURIDAD =====================================================
+     Misma CSP que index.html (ver comentario allí). Esta página hoy no
+     tiene ni un <script>: se deja la misma política por coherencia y para
+     que un futuro rediseño con JS inline no se rompa en silencio.
+     frame-ancestors / HSTS / nosniff no son posibles vía <meta>: están
+     en /_headers, listos para el día que se migre de GitHub Pages. -->
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://unpkg.com; script-src-elem 'self' 'unsafe-inline' https://unpkg.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; style-src-elem 'self' 'unsafe-inline' https://fonts.googleapis.com; style-src-attr 'unsafe-inline'; font-src 'self' data: https://fonts.gstatic.com; img-src 'self' data: blob: https://felipevergel.com https://alejandravergel.com; media-src 'self' blob:; connect-src 'self' https://unpkg.com https://fonts.googleapis.com https://fonts.gstatic.com; frame-src 'self'; child-src 'self'; worker-src 'self' blob:; manifest-src 'self'; form-action 'self' https://wa.me; base-uri 'self'; object-src 'none'"/>
+<meta name="referrer" content="strict-origin-when-cross-origin"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"/>
 <title>Cláusulas y Políticas | Ricardo Design</title>
 <meta name="description" content="Cláusulas y políticas de Ricardo Design: tiempos de entrega, pagos, mantenimiento web y gestión de Meta Ads."/>
@@ -12,113 +20,119 @@
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Readex+Pro:wght@200;300;400;500;600&display=swap" rel="stylesheet"/>
+<!-- El mismo tokens.css que index.html: un solo :root para todo el sitio.
+     Antes esta página declaraba el suyo con los MISMOS nombres y valores
+     DISTINTOS (--ink era #2A2622 aquí y #161E2F allí; --soft era gris aquí y
+     coral allí). Dos verdades con el mismo nombre es peor que ninguna. -->
+<link rel="stylesheet" href="tokens.css"/>
 <style>
-/* ===== Página de políticas: editorial, limpia, en blanco/crema ===== */
-:root{
-  --paper:#F3EFE8;      /* crema del lienzo */
-  --card:#FFFFFF;
-  --ink:#2A2622;        /* tinta principal */
-  --soft:#6E655B;       /* texto secundario */
-  --line:rgba(42,38,34,.12);
-  --accent:#8A4A4E;     /* rosa-vino apagado de la paleta rd */
-  --serif:'Cormorant Garamond',Georgia,'Times New Roman',serif;
-  --sans:'Readex Pro',system-ui,-apple-system,'Segoe UI',sans-serif;
-}
-*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+/* ===== Página de políticas: editorial, limpia, en papel crema =====
+   El :root vive en tokens.css. Aquí no se declara ninguna variable global.
+   Ratios medidos sobre --papel #F3EFE8:
+     --tinta 14.53:1 · --tinta-suave 8.03:1 · --tinta-tenue 5.09:1
+     --acento-suave 5.78:1     (todos AA o AAA) */
 html{scroll-behavior:smooth}
-body{background:var(--paper);color:var(--ink);font-family:var(--sans);font-weight:300;-webkit-font-smoothing:antialiased}
-a{color:inherit;text-decoration:none}
-img{max-width:100%;display:block}
+body{
+  background:var(--papel);color:var(--tinta);
+  font-family:var(--fuente);font-size:var(--paso-0);line-height:var(--lh-normal);
+  font-weight:300;-webkit-font-smoothing:antialiased;font-synthesis-weight:none;
+}
 
 /* barra superior blanca */
 .top{
-  position:sticky;top:0;z-index:50;
-  display:flex;align-items:center;justify-content:space-between;gap:14px;
-  background:#fff;border-bottom:1px solid var(--line);
-  padding:14px clamp(18px,5vw,54px);
+  position:sticky;top:0;z-index:var(--z-nav);
+  display:flex;align-items:center;justify-content:space-between;gap:var(--e-3);
+  background:var(--blanco);border-bottom:1px solid var(--linea);
+  padding:var(--e-3) clamp(18px,5vw,54px);
 }
-.top .brand{display:flex;align-items:center;gap:12px}
+.top .brand{display:flex;align-items:center;gap:var(--e-3);min-height:44px}
 .top .brand img{height:34px;width:auto}
-.top .brand span{font-family:var(--serif);font-size:1.15rem;letter-spacing:.04em}
+.top .brand span{font-family:var(--fuente-display);font-size:var(--paso-1);letter-spacing:.04em}
 .top .back{
   display:inline-flex;align-items:center;gap:8px;
-  font-size:.68rem;font-weight:500;letter-spacing:.22em;text-transform:uppercase;color:var(--soft);
-  transition:color .3s ease;white-space:nowrap;
+  font-size:var(--paso--2);font-weight:500;letter-spacing:var(--track-marca);text-transform:uppercase;color:var(--tinta-suave);
+  padding-left:var(--track-marca);
+  min-height:44px;   /* WCAG 2.5.5 */
+  transition:color var(--dur-rapido) var(--ease-salida);white-space:nowrap;
 }
-.top .back:hover{color:var(--ink)}
+.top .back:hover{color:var(--tinta)}
 
 /* cabecera editorial */
-.hero{max-width:860px;margin:0 auto;padding:clamp(48px,8vw,88px) 22px 10px;text-align:center}
+.hero{max-width:860px;margin:0 auto;padding:var(--e-9) var(--e-5) var(--e-2);text-align:center}
 .hero .kicker{
-  display:block;font-size:.62rem;font-weight:500;letter-spacing:.42em;text-transform:uppercase;
-  color:var(--accent);margin-bottom:26px;
+  display:block;font-size:var(--paso--2);font-weight:500;letter-spacing:var(--track-marca);text-transform:uppercase;
+  color:var(--acento-suave);margin-bottom:var(--e-5);
+  padding-left:var(--track-marca);
 }
 .hero h1{
-  font-family:var(--serif);font-weight:500;
-  font-size:clamp(2.2rem,6vw,3.6rem);line-height:1.08;letter-spacing:.01em;
-  margin-bottom:26px;
+  font-family:var(--fuente-display);font-weight:500;
+  font-size:var(--paso-5);line-height:var(--lh-apretado);letter-spacing:.01em;
+  margin-bottom:var(--e-5);
 }
-.hero p{color:var(--soft);font-size:.92rem;line-height:1.9;max-width:600px;margin:0 auto}
+.hero p{color:var(--tinta-suave);font-size:var(--paso-0);line-height:var(--lh-suelto);max-width:var(--medida);margin:0 auto}
 
 /* píldoras de navegación */
-.pills{display:flex;flex-wrap:wrap;justify-content:center;gap:12px;max-width:760px;margin:38px auto 0;padding:0 18px}
+.pills{display:flex;flex-wrap:wrap;justify-content:center;gap:var(--e-3);max-width:900px;margin:var(--e-7) auto 0;padding:0 var(--e-4)}
 .pills a{
-  font-size:.66rem;font-weight:500;letter-spacing:.18em;text-transform:uppercase;color:var(--ink);
-  background:#fff;border:1px solid var(--line);border-radius:999px;padding:13px 26px;
-  transition:border-color .3s ease,box-shadow .3s ease;white-space:nowrap;
+  font-size:var(--paso--2);font-weight:500;letter-spacing:var(--track-amplio);text-transform:uppercase;color:var(--tinta);
+  background:var(--blanco);border:1px solid var(--linea);border-radius:var(--radio-pleno);
+  min-height:44px;display:inline-flex;align-items:center;
+  padding:var(--e-3) var(--e-5);padding-left:calc(var(--e-5) + var(--track-amplio));
+  transition:border-color var(--dur-rapido) var(--ease-salida),box-shadow var(--dur-rapido) var(--ease-salida);white-space:nowrap;
 }
-.pills a:hover{border-color:var(--accent);box-shadow:0 4px 14px rgba(42,38,34,.08)}
+.pills a:hover{border-color:var(--acento-suave);box-shadow:var(--sombra-1)}
 
 /* tarjetas blancas de contenido */
-main{max-width:900px;margin:0 auto;padding:44px 18px 70px;display:flex;flex-direction:column;gap:26px}
+main{max-width:900px;margin:0 auto;padding:var(--e-7) var(--e-4) var(--e-8);display:flex;flex-direction:column;gap:var(--e-5)}
 .card{
-  background:var(--card);border:1px solid var(--line);border-radius:14px;
+  background:var(--blanco);border:1px solid var(--linea);border-radius:var(--radio-2);
   padding:clamp(28px,5vw,52px);
   scroll-margin-top:90px;
 }
-.card>h2{font-family:var(--serif);font-weight:500;font-size:clamp(1.5rem,3.4vw,2.05rem);margin-bottom:6px}
-.card>.sub{color:var(--soft);font-size:.82rem;margin-bottom:26px}
-.card h3{font-family:var(--serif);font-weight:600;font-size:1.12rem;margin:26px 0 10px}
+.card>h2{font-family:var(--fuente-display);font-weight:500;font-size:var(--paso-3);line-height:var(--lh-corto);margin-bottom:var(--e-1)}
+.card>.sub{color:var(--tinta-suave);font-size:var(--paso--1);margin-bottom:var(--e-5)}
+.card h3{font-family:var(--fuente-display);font-weight:600;font-size:var(--paso-1);line-height:var(--lh-corto);margin:var(--e-5) 0 var(--e-2)}
 .card h3:first-of-type{margin-top:0}
-.card p{color:var(--soft);font-size:.86rem;line-height:1.9;margin-bottom:12px}
-.card p strong,.card li strong{color:var(--ink);font-weight:500}
+.card p{color:var(--tinta-suave);font-size:var(--paso-0);line-height:var(--lh-suelto);max-width:var(--medida);margin-bottom:var(--e-3)}
+.card p strong,.card li strong{color:var(--tinta);font-weight:500}
 .card ul{list-style:none;margin:2px 0 14px}
 .card li{
-  position:relative;padding:5px 0 5px 22px;
-  color:var(--soft);font-size:.86rem;line-height:1.75;
+  position:relative;padding:var(--e-1) 0 var(--e-1) var(--e-5);
+  color:var(--tinta-suave);font-size:var(--paso-0);line-height:var(--lh-suelto);max-width:var(--medida);
 }
-.card li::before{content:'';position:absolute;left:2px;top:.95em;width:5px;height:5px;border-radius:50%;background:var(--accent)}
+.card li::before{content:'';position:absolute;left:2px;top:.95em;width:5px;height:5px;border-radius:50%;background:var(--acento-suave)}
 .precio{
   display:flex;flex-wrap:wrap;align-items:baseline;gap:8px;
   padding:14px 0 4px;
 }
-.precio b{font-family:var(--serif);font-weight:600;font-size:1.7rem;letter-spacing:.01em}
-.precio span{color:var(--soft);font-size:.76rem}
-.tabla{width:100%;border-collapse:collapse;margin:6px 0 14px;font-size:.84rem}
-.tabla td{padding:11px 4px;color:var(--soft);border-bottom:1px solid var(--line)}
-.tabla td:last-child{text-align:right;color:var(--ink);font-weight:500;font-variant-numeric:tabular-nums}
+.precio b{font-family:var(--fuente-display);font-weight:600;font-size:var(--paso-3);letter-spacing:.01em}
+.precio span{color:var(--tinta-suave);font-size:var(--paso--1)}
+.tabla{width:100%;border-collapse:collapse;margin:var(--e-1) 0 var(--e-3);font-size:var(--paso--1)}
+.tabla td{padding:11px 4px;color:var(--tinta-suave);border-bottom:1px solid var(--linea)}
+.tabla td:last-child{text-align:right;color:var(--tinta);font-weight:500;font-variant-numeric:tabular-nums}
 .tabla tr:last-child td{border-bottom:none}
 .aviso{
-  border-left:2px solid var(--accent);
-  padding:4px 0 4px 18px;margin:18px 0 6px;
-  color:var(--soft);font-size:.83rem;line-height:1.85;
+  border-left:2px solid var(--acento-suave);
+  padding:var(--e-1) 0 var(--e-1) var(--e-4);margin:var(--e-4) 0 var(--e-1);
+  color:var(--tinta-suave);font-size:var(--paso-0);line-height:var(--lh-suelto);max-width:var(--medida);
 }
-.divisor{height:1px;background:var(--line);margin:30px 0}
+.divisor{height:1px;background:var(--linea);margin:30px 0}
 
 /* pie */
 .pie{
-  border-top:1px solid var(--line);
+  border-top:1px solid var(--linea);
   padding:34px 22px 44px;text-align:center;
 }
-.pie p{color:var(--soft);font-size:.74rem;line-height:1.9}
-.pie a{color:var(--accent)}
-.pie .marca{font-family:var(--serif);font-size:1rem;margin-bottom:8px;color:var(--ink)}
+.pie p{color:var(--tinta-suave);font-size:var(--paso--1);line-height:var(--lh-suelto)}
+/* enlaces del pie: caja táctil real de 44px (medían 16px de alto) */
+.pie a{color:var(--acento-suave);display:inline-flex;align-items:center;min-height:44px;padding:0 var(--e-1)}
+.pie .marca{font-family:var(--fuente-display);font-size:var(--paso-1);margin-bottom:var(--e-2);color:var(--tinta)}
 </style>
 </head>
 <body>
 
 <header class="top">
-  <a class="brand" href="index.html"><img src="logo-mark.png" alt="Ricardo Design"/><span>Ricardo Design</span></a>
+  <a class="brand" href="index.html"><img src="logo-mark.png" alt="Ricardo Design" width="159" height="96"/><span>Ricardo Design</span></a>
   <a class="back" href="index.html">← Volver al inicio</a>
 </header>
 
