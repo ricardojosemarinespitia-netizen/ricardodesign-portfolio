@@ -1,0 +1,228 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Proyectos de Ricardo Design",
+  "type": "object",
+  "required": [
+    "version",
+    "proyectos"
+  ],
+  "properties": {
+    "version": {
+      "const": 1
+    },
+    "proyectos": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "slug",
+          "publicado",
+          "cliente",
+          "rubro",
+          "titulo",
+          "resumen",
+          "servicios",
+          "imagen"
+        ],
+        "properties": {
+          "slug": {
+            "type": "string",
+            "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$"
+          },
+          "publicado": {
+            "type": "boolean"
+          },
+          "destacado": {
+            "type": "boolean"
+          },
+          "orden": {
+            "type": "integer"
+          },
+          "cliente": {
+            "type": "string",
+            "minLength": 1
+          },
+          "rubro": {
+            "type": "string",
+            "minLength": 1
+          },
+          "titulo": {
+            "type": "string",
+            "minLength": 1
+          },
+          "resumen": {
+            "type": "string",
+            "minLength": 1
+          },
+          "url": {
+            "type": "string"
+          },
+          "fecha": {
+            "type": "string",
+            "description": "AAAA-MM o vacío"
+          },
+          "servicios": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "enum": [
+                "web",
+                "mantenimiento",
+                "ads",
+                "contenido"
+              ]
+            }
+          },
+          "etiquetas": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "imagen": {
+            "type": "object",
+            "required": [
+              "desktop",
+              "alt"
+            ],
+            "properties": {
+              "desktop": {
+                "type": "string",
+                "description": "URL/ruta con extensión, o ruta SIN extensión para generar <picture> AVIF/WebP/JPG (-480/-800/-1200)"
+              },
+              "movil": {
+                "type": "string"
+              },
+              "ancho": {
+                "type": "integer"
+              },
+              "alto": {
+                "type": "integer"
+              },
+              "alt": {
+                "type": "string",
+                "minLength": 5
+              },
+              "altMovil": {
+                "type": "string"
+              },
+              "foco": {
+                "type": "string"
+              }
+            }
+          },
+          "caso": {
+            "type": "object",
+            "properties": {
+              "reto": {
+                "type": "string"
+              },
+              "solucion": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "resultado": {
+                "type": "string"
+              },
+              "galeria": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "src": {
+                      "type": "string"
+                    },
+                    "alt": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "metricas": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": [
+                "label",
+                "valor",
+                "periodo",
+                "fuente",
+                "autorizado"
+              ],
+              "properties": {
+                "label": {
+                  "type": "string"
+                },
+                "valor": {
+                  "type": "string"
+                },
+                "periodo": {
+                  "type": "string"
+                },
+                "base": {
+                  "type": "string"
+                },
+                "fuente": {
+                  "type": "string"
+                },
+                "autorizado": {
+                  "type": "boolean"
+                }
+              }
+            }
+          },
+          "testimonio": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "object",
+                "required": [
+                  "cita",
+                  "autor",
+                  "autorizado"
+                ],
+                "properties": {
+                  "cita": {
+                    "type": "string"
+                  },
+                  "autor": {
+                    "type": "string"
+                  },
+                  "cargo": {
+                    "type": "string"
+                  },
+                  "foto": {
+                    "type": "string"
+                  },
+                  "autorizado": {
+                    "type": "boolean"
+                  }
+                }
+              }
+            ]
+          },
+          "frase": {
+            "type": "string",
+            "description": "≤ 12 palabras; se muestra en la tarjeta del mosaico"
+          },
+          "acento": {
+            "enum": [
+              "vidrio",
+              "joyeria",
+              "bosque",
+              "sepia",
+              "cobre",
+              "azul"
+            ]
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,83 +1,63 @@
 /* ============================================================================
-   tokens.css — Ricardo Design. Un solo lugar, una sola verdad.
-   ----------------------------------------------------------------------------
-   Antes de este archivo había DOS :root con los MISMOS nombres y VALORES
-   DISTINTOS (index.html --ink:#161E2F / politicas.html --ink:#2A2622;
-   --soft era coral en uno y gris en el otro). Eso no es un sistema: es una
-   trampa. Aquí hay uno solo, enlazado desde las dos páginas.
-
-   Regla dura: ningún color, tamaño, espacio, radio o duración se escribe
-   suelto. Si no existe como token, se agrega aquí con criterio, o no se
-   necesita.
-
-   Los nombres son de ROL, no de cromatismo. El sitio venía de --blue que era
-   carmesí, --teal que era rosa y --steel que era vino: quien leía var(--blue)
-   esperaba azul y obtenía sangre. Ese nombre habría seguido mintiendo para
-   siempre.
+   tokens.css — Ricardo Design · identidad "Cielo vivo" (oct-2026)
+   Fondos SIEMPRE claros (blanco, celeste suave, lavanda). Azul vivo,
+   celeste y violeta con degradados fluidos. Naranja/amarillo reservado a
+   botones principales, precios y CTAs. Ningún fondo de sección oscuro.
+   Los nombres antiguos se conservan por ROL: "crema" = lienzo claro,
+   "tinta" = texto azul marino. Ratios WCAG en LEEME.md.
    ========================================================================= */
 
-/* ═══════════════════════════════════════════════════════════════
-   1 · COLOR
-   El ratio anotado al lado de cada token NO es adorno: es lo que
-   impide que se degrade con el tiempo "porque se veía más elegante
-   más claro". Calculado con WCAG 2.1 relative luminance contra el
-   fondo que le corresponde, no estimado a ojo.
-   ═══════════════════════════════════════════════════════════════ */
+/* 1 · COLOR */
 :root {
-  /* — Lienzos — */
-  --crema-alta:  #fbf1ec;   /* arranque del degradado del cuerpo */
-  --crema-baja:  #f0d8cf;   /* final del degradado — el peor caso de contraste */
-  --papel:       #F3EFE8;   /* lienzo de politicas.html */
-  --vino-hondo:  #2A0D15;   /* pie de página y respaldo de la bandera */
+  /* — Lienzos claros — */
+  --blanco:       #ffffff;
+  --cielo:        #EEF7FF;   /* celeste suave */
+  --lavanda:      #F3F0FF;   /* lavanda muy clara */
+  --hielo:        #E0F2FE;   /* celeste un punto más vivo */
+  --crema-alta:   #FFFFFF;
+  --crema-baja:   #EEF7FF;
+  --papel:        #F7FAFF;
+  --rosa-bruma:   #F3F0FF;   /* nombre heredado: ahora lavanda */
+  --superficie:   #FFFFFF;
 
-  /* — Tinta — espresso frío. Nunca negro puro: sobre crema se vería sucio. */
-  --tinta:       #161E2F;              /* sobre crema-alta 14.99:1  AAA
-                                          sobre crema-baja 12.24:1  AAA
-                                          sobre papel      14.53:1  AAA */
-  --tinta-suave: rgba(22,30,47,.80);   /* sobre crema-alta  8.19:1  AAA
-                                          sobre crema-baja  7.18:1  AAA
-                                          (venía en .66 = 4.73:1 — pasaba justo,
-                                           sin margen para el degradado) */
-  --tinta-tenue: rgba(22,30,47,.66);   /* sobre crema-alta  5.16:1  AA
-                                          sobre crema-baja  4.73:1  AA
-                                          sobre blanco      5.39:1  AA
-                                          Era .45 = 2.77:1 — FALLABA. Es el
-                                          suelo del sistema: por debajo de este
-                                          valor no hay texto, solo decoración. */
+  /* — Texto (azul marino, nunca negro) — */
+  --tinta:        #0F1B4C;              /* blanco 16.39 · cielo 15.13 · lavanda 14.61 · hielo 14.28 */
+  --tinta-suave:  rgba(15,27,76,.78);   /* blanco 8.22 · hielo 7.55 */
+  --tinta-tenue:  rgba(15,27,76,.66);   /* blanco 5.40 · hielo 5.11 (suelo del sistema) */
+  --blanco-suave: rgba(255,255,255,.90);/* sobre degradado azul→violeta ≥ 5.6 */
+  --blanco-tenue: rgba(255,255,255,.80);
 
-  /* — Acento — un solo acento manda. El carmesí es la marca; el durazno es
-       destello y NUNCA texto sobre fondo claro (1.72:1). */
-  --acento:        #B51A2B;   /* sobre crema-alta 6.00:1  AA
-                                 sobre blanco     6.67:1  AA
-                                 sobre papel      5.82:1  AA */
-  --acento-hondo:  #6E2733;   /* sobre crema-alta 9.44:1  AAA
-                                 sobre blanco    10.49:1  AAA */
-  --acento-suave:  #8A4A4E;   /* sobre crema-alta 5.96:1  AA */
-  --destello:      #FFA586;   /* sobre vino-hondo 9.41:1  AAA
-                                 sobre crema-alta 1.72:1  ← PROHIBIDO como texto
-                                 sobre fondo claro. Solo sobre oscuro. */
-  --destello-palido:#F7DCCE;  /* sobre vino-hondo 13.78:1  AAA */
+  /* — Color — */
+  --azul:         #2563EB;   /* azul vivo; texto en blanco 5.17 (no sobre hielo) */
+  --azul-hondo:   #1D4ED8;   /* texto/enlaces: blanco 6.70 · hielo 5.84 */
+  --celeste:      #38BDF8;   /* SÓLO decorativo */
+  --violeta:      #7C3AED;   /* blanco encima 5.70 */
+  --violeta-hondo:#6D28D9;   /* texto: blanco 7.10 · hielo 6.19 */
+  --cta:          #FF8A00;   /* ★ naranja: botones principales, CTAs (texto tinta 6.94) */
+  --cta-hover:    #FFA51F;
+  --cta-texto:    #0F1B4C;
+  --amarillo:     #FFC531;   /* detalles de acento (texto tinta 10.37) */
+  --precio:       #C2410C;   /* precios como TEXTO: blanco 5.18 · hielo 4.51 */
+  --exito:        #15803D;   /* WhatsApp: blanco encima 5.02 */
 
-  /* — Sobre superficies oscuras — */
-  --blanco:       #ffffff;              /* sobre vino-hondo 18.00:1  AAA */
-  --blanco-suave: rgba(255,255,255,.72);/* sobre vino-hondo  9.60:1  AAA */
-  --blanco-tenue: rgba(255,255,255,.55);/* sobre vino-hondo  6.03:1  AA
-                                           Era .45 = 4.42:1 — no llegaba. */
+  /* Alias de rol heredados */
+  --acento:        var(--violeta-hondo);
+  --acento-hondo:  var(--azul-hondo);
+  --acento-suave:  var(--azul-hondo);
+  --destello:      var(--amarillo);
+  --destello-palido:#FFF4D6;
+  --vino-hondo:    #0F1B4C;   /* sólo como color de texto; nunca fondo de sección */
+  --vino-medio:    var(--azul-hondo);
+  --pizarra:       var(--azul);
+  --pizarra-honda: var(--violeta-hondo);
+  --rojo-texto:    var(--violeta-hondo);
+  --marino:        var(--azul-hondo);
+  --marino-2:      var(--cielo);
+  --carbon:        var(--cielo);
 
-  /* — Vidrio —
-       El sustrato del nav lleva tinta, no blanco. Con relleno blanco al 8% el
-       texto blanco daba 1.21:1 sobre los tramos claros del shader y sobre las
-       secciones crema: invisible. Ahumado al 62% sigue dejando ver el fondo
-       (38% de transmisión + blur) y el texto blanco pasa AA en el peor caso. */
-  --vidrio-ahumado: rgba(22,30,47,.62); /* texto BLANCO PURO encima:
-                                           sobre crema #fbf1ec  5.06:1  AA
-                                           sobre shader crema   5.59:1  AA
-                                           sobre shader durazno 7.07:1  AAA
-                                           Con el blanco al .72 que había antes
-                                           caería a 3.50:1: por eso el texto del
-                                           nav es --blanco, no --blanco-suave. */
-  --vidrio-filo:    rgba(255,255,255,.45);
-  --linea:          rgba(42,38,34,.12);
+  --vidrio-ahumado: rgba(255,255,255,.75);
+  --vidrio-filo:    rgba(255,255,255,.8);
+  --linea:          rgba(15,27,76,.10);
 }
 
 /* ═══════════════════════════════════════════════════════════════
@@ -95,8 +75,8 @@
      el coste de red completo y se cosechaba el 7%. Ahora Readex Pro es la
      fuente del sitio (Verdana es de 1996, diseñada para CRT de baja
      resolución) y Cormorant queda para el display editorial del portafolio. */
-  --fuente:         'Readex Pro', system-ui, -apple-system, 'Segoe UI', sans-serif;
-  --fuente-display: 'Cormorant Garamond', Georgia, 'Times New Roman', serif;
+  --fuente:         'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --fuente-display: 'Sora', Georgia, 'Times New Roman', serif;
   --fuente-mono:    ui-monospace, Consolas, Menlo, monospace;
 
   --paso--2: clamp(0.688rem, 0.664rem + 0.10vw, 0.750rem);  /* 11.0 → 12.0 px */
@@ -188,13 +168,13 @@
 
   /* Las sombras se tiñen con el color de la escena, nunca con negro:
      una sombra negra sobre papel cálido mata el sitio. */
-  --sombra-1: 0 4px 14px -4px rgba(110,39,51,.18);
-  --sombra-2: 0 18px 44px -18px rgba(110,39,51,.34);
-  --sombra-3: 0 30px 70px -24px rgba(181,26,43,.30);
+  --sombra-1: 0 1px 2px rgba(15,27,76,.06), 0 8px 22px -10px rgba(37,99,235,.25);
+  --sombra-2: 0 2px 6px rgba(15,27,76,.06), 0 22px 44px -18px rgba(37,99,235,.35), 0 12px 30px -20px rgba(124,58,237,.30);
+  --sombra-3: 0 12px 28px -10px rgba(255,138,0,.55);
   /* --sombra-2 es el peldaño intermedio de la escala. Hoy no lo usa nadie, y se
      mantiene a propósito: una escala con huecos es lo que hace que el siguiente
      que necesite "algo entre 1 y 3" escriba un literal. */
-  --sombra-tinta: 0 30px 70px -24px rgba(22,30,47,.45);
+  --sombra-tinta: 0 30px 60px -24px rgba(29,78,216,.40);
 
   /* Cinco curvas y cinco duraciones. Un vocabulario corto obliga a la
      coherencia: 54 transiciones con `ease` genérico significaban que un botón
@@ -230,14 +210,14 @@ p { text-wrap: pretty; }   /* evita la palabra huérfana en la última línea */
    con teclado era imposible. El doble anillo (claro + oscuro) se ve tanto
    sobre el héroe oscuro como sobre el papel crema. */
 :focus-visible {
-  outline: 2px solid var(--acento);
+  outline: 3px solid var(--azul-hondo);
   outline-offset: 3px;
-  box-shadow: 0 0 0 5px rgba(255,255,255,.85);
+  box-shadow: 0 0 0 5px rgba(255,255,255,.9);
   border-radius: var(--radio-1);
 }
 :focus:not(:focus-visible) { outline: none; }
 
-::selection { background: var(--destello); color: var(--tinta); }
+::selection { background: var(--cta); color: var(--cta-texto); }
 
 /* Movimiento reducido. No es "desactivar animaciones": es dejarlas casi
    instantáneas para que los estados finales se apliquen igual. Poner
@@ -250,4 +230,106 @@ p { text-wrap: pretty; }   /* evita la palabra huérfana en la última línea */
     transition-duration: .2s !important;
     scroll-behavior: auto !important;
   }
+}
+
+/* 6 · DEGRADADOS Y EFECTOS */
+:root {
+  --destello-a12:  rgba(56,189,248,.14);
+  --destello-a35:  rgba(56,189,248,.30);
+  --acento-a12:    rgba(124,58,237,.10);
+  --blanco-a90:    rgba(255,255,255,.92);
+  --blanco-a60:    rgba(255,255,255,.72);
+  --tinta-a06:     rgba(15,27,76,.06);
+  --overlay-foto:  linear-gradient(to top, rgba(29,78,216,.88) 0%, rgba(29,78,216,.55) 45%, rgba(29,78,216,0) 78%);
+  --brillo-borde:  inset 0 1px 0 rgba(255,255,255,.9);
+  --grad-celeste:  linear-gradient(135deg, #38BDF8 0%, #2563EB 100%);
+  --grad-vivo:     linear-gradient(120deg, #2563EB 0%, #7C3AED 100%);
+  --grad-texto:    linear-gradient(120deg, #1D4ED8 0%, #6D28D9 100%);   /* blanco ≥ 6.70 */
+  --grad-suave:    linear-gradient(180deg, #FFFFFF 0%, #EEF7FF 100%);
+  --grad-lavanda:  linear-gradient(135deg, #F3F0FF 0%, #E0F2FE 100%);
+  --grad-cta:      linear-gradient(120deg, #FFC531 0%, #FF8A00 100%);  /* texto tinta ≥ 6.94 */
+  --grad-borde:    linear-gradient(135deg, rgba(56,189,248,.8), rgba(255,255,255,.4) 45%, rgba(124,58,237,.6));
+  --grad-fondo:    radial-gradient(900px 500px at 90% -10%, rgba(56,189,248,.22), transparent 60%),
+                   radial-gradient(800px 500px at -10% 20%, rgba(124,58,237,.12), transparent 60%),
+                   linear-gradient(180deg, #FFFFFF 0%, #F7FAFF 100%);
+  --sombra-color:  0 14px 30px -12px rgba(37,99,235,.45);
+  --alto-viewport: 100svh;
+  --tactil-min:    44px;
+  --ancho-max:     1200px;
+  --ancho-texto:   var(--medida);
+  --gutter:        clamp(16px, 4vw, 40px);
+  --dur-pausa:     0ms;
+}
+
+/* 7 · VIVEZA (oct-2026): colores más eléctricos.
+   Decorativos (formas, bordes, wordmark, números): cian #00C2FF, azul
+   eléctrico #2F5BFF, violeta vivo #8B2CF5, magenta-violeta #D21FD8.
+   Degradado con TEXTO BLANCO encima: #1D4ED8 → #7E22CE → #A21CAF
+   (blanco ≥ 6.32 en cualquier punto). */
+:root {
+  --cian:        #00C2FF;
+  --electrico:   #2F5BFF;
+  --violeta-vivo:#8B2CF5;
+  --magenta:     #D21FD8;
+  --grad-vivo:   linear-gradient(120deg, #00C2FF 0%, #2F5BFF 35%, #8B2CF5 70%, #D21FD8 100%);
+  --grad-texto:  linear-gradient(120deg, #1D4ED8 0%, #7E22CE 60%, #A21CAF 100%);
+  --grad-celeste:linear-gradient(135deg, #00C2FF 0%, #2F5BFF 100%);
+  --grad-borde:  linear-gradient(135deg, #00C2FF, #2F5BFF 40%, #8B2CF5 75%, #D21FD8);
+  --grad-cta:    linear-gradient(120deg, #FFD23F 0%, #FF8A00 100%);
+  --grad-fondo:  radial-gradient(800px 480px at 92% -8%, rgba(0,194,255,.30), transparent 60%),
+                 radial-gradient(700px 460px at -8% 18%, rgba(139,44,245,.18), transparent 60%),
+                 radial-gradient(600px 400px at 60% 105%, rgba(210,31,216,.10), transparent 60%),
+                 linear-gradient(180deg, #FFFFFF 0%, #F4F9FF 100%);
+  --grad-lavanda:linear-gradient(135deg, #F1EBFF 0%, #DDF3FF 100%);
+  --sombra-color:0 16px 34px -14px rgba(47,91,255,.55), 0 8px 20px -12px rgba(139,44,245,.45);
+}
+
+/* 8 · FONDOS AQUA (oct-2026) — reemplaza los fondos lavanda/celeste anteriores.
+   Fondos de sección: blanco · aqua #ECFEFF · celeste #EFF8FF · crema #FFFBEB
+   (texto #0F1B4C ≥ 15.25; precio #C2410C ≥ 4.82; azul #1D4ED8 ≥ 6.24).
+   Bloques de color (CTA final, Quién está detrás, cinta, Arma tu plan):
+   #1D4ED8 → #0369A1 → #0F766E, blanco ≥ 5.47 (amarillo sólo en texto grande ≥ 3.46). */
+:root {
+  --fondo-aqua:    #ECFEFF;
+  --fondo-celeste: #EFF8FF;
+  --fondo-crema:   #FFFBEB;
+  --aqua:          #5EEAD4;   /* decorativo */
+  --turquesa:      #2DD4BF;   /* decorativo */
+  --cielo-vivo:    #7DD3FC;   /* decorativo */
+  --melocoton:     #FFE6C7;   /* decorativo */
+  --mantequilla:   #FFF3B0;   /* decorativo */
+  --cielo:         var(--fondo-celeste);
+  --lavanda:       var(--fondo-aqua);
+  --grad-texto:    linear-gradient(120deg, #1D4ED8 0%, #0369A1 55%, #0F766E 100%);
+  --grad-lavanda:  linear-gradient(135deg, #ECFEFF 0%, #EFF8FF 100%);
+  --grad-suave:    linear-gradient(180deg, #FFFFFF 0%, #ECFEFF 100%);
+  --grad-fondo:    radial-gradient(800px 480px at 92% -8%, rgba(94,234,212,.32), transparent 60%),
+                   radial-gradient(700px 460px at -8% 18%, rgba(125,211,252,.30), transparent 60%),
+                   radial-gradient(500px 360px at 100% 100%, rgba(255,230,199,.55), transparent 60%),
+                   radial-gradient(420px 300px at 0% 100%, rgba(255,243,176,.45), transparent 60%),
+                   linear-gradient(180deg, #FFFFFF 0%, #F6FDFF 100%);
+}
+
+/* 9 · MARCA: wordmark con Unbounded (Google Fonts, OFL), sólo para el nombre. */
+:root { --fuente-marca: 'Unbounded', 'Sora', system-ui, sans-serif; }
+
+/* 10 · ACENTOS POR PROYECTO (campo "acento" en proyectos.json). Blanco encima ≥ 5.48. */
+:root {
+  --ac-vidrio:  #047857;  /* verde vidrio · blanco 5.48 */
+  --ac-joyeria: #8A5A12;  /* tierra/dorado · blanco 5.91 */
+  --ac-bosque:  #166534;  /* verde bosque · blanco 7.13 */
+  --ac-sepia:   #7C4A1E;  /* sepia/ámbar · blanco 7.35 */
+  --ac-cobre:   #9A3412;  /* cobre · blanco 7.31 */
+  --ac-azul:    #1D4ED8;
+  --overlay-tarjeta: linear-gradient(to top, rgba(11,20,55,.88) 0%, rgba(11,20,55,.78) 38%, rgba(11,20,55,.25) 68%, rgba(11,20,55,0) 85%);
+}
+
+/* 11 · ACENTOS DE SERVICIO y PASOS. Texto del chip de precio:
+   morado #6D28D9 + blanco 7.10 · azul #1D4ED8 + blanco 6.70 ·
+   naranja #FF8A00 + marino #0F1B4C 6.94 · turquesa #0F766E + blanco 5.47 */
+:root {
+  --sv-morado:  #6D28D9;
+  --sv-azul:    #1D4ED8;
+  --sv-naranja: #FF8A00;
+  --sv-turquesa:#0F766E;
 }

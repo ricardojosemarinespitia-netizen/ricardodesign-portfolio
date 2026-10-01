@@ -1,291 +1,230 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es-CO">
 <head>
-<meta charset="utf-8"/>
-<!-- ===== SEGURIDAD =====================================================
-     Misma CSP que index.html (ver comentario allí). Esta página hoy no
-     tiene ni un <script>: se deja la misma política por coherencia y para
-     que un futuro rediseño con JS inline no se rompa en silencio.
-     frame-ancestors / HSTS / nosniff no son posibles vía <meta>: están
-     en /_headers, listos para el día que se migre de GitHub Pages. -->
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://unpkg.com; script-src-elem 'self' 'unsafe-inline' https://unpkg.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; style-src-elem 'self' 'unsafe-inline' https://fonts.googleapis.com; style-src-attr 'unsafe-inline'; font-src 'self' data: https://fonts.gstatic.com; img-src 'self' data: blob: https://felipevergel.com https://alejandravergel.com; media-src 'self' blob:; connect-src 'self' https://unpkg.com https://fonts.googleapis.com https://fonts.gstatic.com; frame-src 'self'; child-src 'self'; worker-src 'self' blob:; manifest-src 'self'; form-action 'self' https://wa.me; base-uri 'self'; object-src 'none'"/>
-<meta name="referrer" content="strict-origin-when-cross-origin"/>
-<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"/>
-<title>Cláusulas y Políticas | Ricardo Design</title>
-<meta name="description" content="Cláusulas y políticas de Ricardo Design: tiempos de entrega, pagos, mantenimiento web y gestión de Meta Ads."/>
-<link rel="canonical" href="https://ricardodesign.co/politicas.html"/>
-<link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png"/>
-<link rel="apple-touch-icon" href="apple-touch-icon.png"/>
-<meta name="theme-color" content="#F3EFE8"/>
-<link rel="preconnect" href="https://fonts.googleapis.com"/>
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Readex+Pro:wght@200;300;400;500;600&display=swap" rel="stylesheet"/>
-<!-- El mismo tokens.css que index.html: un solo :root para todo el sitio.
-     Antes esta página declaraba el suyo con los MISMOS nombres y valores
-     DISTINTOS (--ink era #2A2622 aquí y #161E2F allí; --soft era gris aquí y
-     coral allí). Dos verdades con el mismo nombre es peor que ninguna. -->
-<link rel="stylesheet" href="tokens.css"/>
-<style>
-/* ===== Página de políticas: editorial, limpia, en papel crema =====
-   El :root vive en tokens.css. Aquí no se declara ninguna variable global.
-   Ratios medidos sobre --papel #F3EFE8:
-     --tinta 14.53:1 · --tinta-suave 8.03:1 · --tinta-tenue 5.09:1
-     --acento-suave 5.78:1     (todos AA o AAA) */
-/* overscroll-behavior-y: evita que el navegador integrado de Instagram/
-   Facebook se robe el swipe vertical (mismo arreglo que index.html). */
-html{scroll-behavior:smooth;overscroll-behavior-y:contain}
-body{
-  background:var(--papel);color:var(--tinta);
-  font-family:var(--fuente);font-size:var(--paso-0);line-height:var(--lh-normal);
-  font-weight:300;-webkit-font-smoothing:antialiased;font-synthesis-weight:none;
-}
-
-/* barra superior blanca */
-.top{
-  position:sticky;top:0;z-index:var(--z-nav);
-  display:flex;align-items:center;justify-content:space-between;gap:var(--e-3);
-  background:var(--blanco);border-bottom:1px solid var(--linea);
-  padding:var(--e-3) clamp(18px,5vw,54px);
-}
-.top .brand{display:flex;align-items:center;gap:var(--e-3);min-height:44px}
-.top .brand img{height:34px;width:auto}
-.top .brand span{font-family:var(--fuente-display);font-size:var(--paso-1);letter-spacing:.04em}
-.top .back{
-  display:inline-flex;align-items:center;gap:8px;
-  font-size:var(--paso--2);font-weight:500;letter-spacing:var(--track-marca);text-transform:uppercase;color:var(--tinta-suave);
-  padding-left:var(--track-marca);
-  min-height:44px;   /* WCAG 2.5.5 */
-  transition:color var(--dur-rapido) var(--ease-salida);white-space:nowrap;
-}
-.top .back:hover{color:var(--tinta)}
-
-/* cabecera editorial */
-.hero{max-width:860px;margin:0 auto;padding:var(--e-9) var(--e-5) var(--e-2);text-align:center}
-.hero .kicker{
-  display:block;font-size:var(--paso--2);font-weight:500;letter-spacing:var(--track-marca);text-transform:uppercase;
-  color:var(--acento-suave);margin-bottom:var(--e-5);
-  padding-left:var(--track-marca);
-}
-.hero h1{
-  font-family:var(--fuente-display);font-weight:500;
-  font-size:var(--paso-5);line-height:var(--lh-apretado);letter-spacing:.01em;
-  margin-bottom:var(--e-5);
-}
-.hero p{color:var(--tinta-suave);font-size:var(--paso-0);line-height:var(--lh-suelto);max-width:var(--medida);margin:0 auto}
-
-/* píldoras de navegación */
-.pills{display:flex;flex-wrap:wrap;justify-content:center;gap:var(--e-3);max-width:900px;margin:var(--e-7) auto 0;padding:0 var(--e-4)}
-.pills a{
-  font-size:var(--paso--2);font-weight:500;letter-spacing:var(--track-amplio);text-transform:uppercase;color:var(--tinta);
-  background:var(--blanco);border:1px solid var(--linea);border-radius:var(--radio-pleno);
-  min-height:44px;display:inline-flex;align-items:center;
-  padding:var(--e-3) var(--e-5);padding-left:calc(var(--e-5) + var(--track-amplio));
-  transition:border-color var(--dur-rapido) var(--ease-salida),box-shadow var(--dur-rapido) var(--ease-salida);white-space:nowrap;
-}
-.pills a:hover{border-color:var(--acento-suave);box-shadow:var(--sombra-1)}
-
-/* tarjetas blancas de contenido */
-main{max-width:900px;margin:0 auto;padding:var(--e-7) var(--e-4) var(--e-8);display:flex;flex-direction:column;gap:var(--e-5)}
-.card{
-  background:var(--blanco);border:1px solid var(--linea);border-radius:var(--radio-2);
-  padding:clamp(28px,5vw,52px);
-  scroll-margin-top:90px;
-}
-.card>h2{font-family:var(--fuente-display);font-weight:500;font-size:var(--paso-3);line-height:var(--lh-corto);margin-bottom:var(--e-1)}
-.card>.sub{color:var(--tinta-suave);font-size:var(--paso--1);margin-bottom:var(--e-5)}
-.card h3{font-family:var(--fuente-display);font-weight:600;font-size:var(--paso-1);line-height:var(--lh-corto);margin:var(--e-5) 0 var(--e-2)}
-.card h3:first-of-type{margin-top:0}
-.card p{color:var(--tinta-suave);font-size:var(--paso-0);line-height:var(--lh-suelto);max-width:var(--medida);margin-bottom:var(--e-3)}
-.card p strong,.card li strong{color:var(--tinta);font-weight:500}
-.card ul{list-style:none;margin:2px 0 14px}
-.card li{
-  position:relative;padding:var(--e-1) 0 var(--e-1) var(--e-5);
-  color:var(--tinta-suave);font-size:var(--paso-0);line-height:var(--lh-suelto);max-width:var(--medida);
-}
-.card li::before{content:'';position:absolute;left:2px;top:.95em;width:5px;height:5px;border-radius:50%;background:var(--acento-suave)}
-.precio{
-  display:flex;flex-wrap:wrap;align-items:baseline;gap:8px;
-  padding:14px 0 4px;
-}
-.precio b{font-family:var(--fuente-display);font-weight:600;font-size:var(--paso-3);letter-spacing:.01em}
-.precio span{color:var(--tinta-suave);font-size:var(--paso--1)}
-.tabla{width:100%;border-collapse:collapse;margin:var(--e-1) 0 var(--e-3);font-size:var(--paso--1)}
-.tabla td{padding:11px 4px;color:var(--tinta-suave);border-bottom:1px solid var(--linea)}
-.tabla td:last-child{text-align:right;color:var(--tinta);font-weight:500;font-variant-numeric:tabular-nums}
-.tabla tr:last-child td{border-bottom:none}
-.aviso{
-  border-left:2px solid var(--acento-suave);
-  padding:var(--e-1) 0 var(--e-1) var(--e-4);margin:var(--e-4) 0 var(--e-1);
-  color:var(--tinta-suave);font-size:var(--paso-0);line-height:var(--lh-suelto);max-width:var(--medida);
-}
-.divisor{height:1px;background:var(--linea);margin:30px 0}
-
-/* pie */
-.pie{
-  border-top:1px solid var(--linea);
-  padding:34px 22px 44px;text-align:center;
-}
-.pie p{color:var(--tinta-suave);font-size:var(--paso--1);line-height:var(--lh-suelto)}
-/* enlaces del pie: caja táctil real de 44px (medían 16px de alto) */
-.pie a{color:var(--acento-suave);display:inline-flex;align-items:center;min-height:44px;padding:0 var(--e-1)}
-.pie .marca{font-family:var(--fuente-display);font-size:var(--paso-1);margin-bottom:var(--e-2);color:var(--tinta)}
-</style>
+<meta charset="utf-8">
+<!-- Generado por scripts/build.mjs — no edites este archivo a mano: edita data/*.json o scripts/paginas.mjs y vuelve a ejecutar el build. -->
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https://felipevergel.com https://alejandravergel.com https://vegasdelverde.co https://armandomartinez.co https://accesoriosencobre.co; connect-src 'self'; frame-src 'none'; object-src 'none'; base-uri 'self'; form-action 'self' https://wa.me; upgrade-insecure-requests">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Cláusulas y políticas | Ricardo Design</title>
+<meta name="description" content="Tiempos de entrega, pagos, alcance y garantías de nuestros servicios.">
+<link rel="canonical" href="https://ricardodesign.co/politicas.html">
+<meta name="theme-color" content="#EEF7FF">
+<link rel="icon" href="favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+<meta property="og:title" content="Cláusulas y políticas | Ricardo Design">
+<meta property="og:description" content="Tiempos de entrega, pagos, alcance y garantías de nuestros servicios.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://ricardodesign.co/politicas.html">
+<meta property="og:image" content="https://ricardodesign.co/favicon-512.png">
+<meta property="og:image:alt" content="Logotipo de Ricardo Design">
+<meta property="og:locale" content="es_CO">
+<meta property="og:site_name" content="Ricardo Design">
+<meta name="twitter:card" content="summary">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;800&amp;family=Sora:wght@500;600;700&amp;family=Inter:wght@400;500;600;700&amp;display=swap">
+<link rel="stylesheet" href="tokens.css">
+<link rel="stylesheet" href="assets/css/app.css">
+<script src="assets/js/config-medicion.js" defer></script>
+<script src="assets/js/busqueda-indice.js" defer></script>
+<script src="assets/js/app.js" defer></script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"Cláusulas y políticas","url":"https://ricardodesign.co/politicas.html","inLanguage":"es-CO","publisher":{"@id":"https://ricardodesign.co/#negocio"}}</script>
 </head>
-<body>
-
-<header class="top">
-  <a class="brand" href="index.html"><img src="logo-mark.png" alt="Ricardo Design" width="159" height="96"/><span>Ricardo Design</span></a>
-  <a class="back" href="index.html">← Volver al inicio</a>
+<body class="legal" data-wa="573027981468" data-raiz="">
+<a class="skip" href="#contenido-principal">Saltar al contenido</a>
+<header class="cab">
+  <div class="wrap cab-in">
+    <a class="marca" href="index.html" aria-label="Ricardo Design, ir al inicio"><span class="marca-mono" aria-hidden="true">rd</span><span class="marca-txt">Ricardo Design</span></a>
+    <nav class="nav" aria-label="Principal">
+      <ul class="nav-lista">
+        <li><button class="nav-btn" type="button" aria-expanded="false" aria-controls="desp-servicios">Servicios <svg viewBox="0 0 12 12" aria-hidden="true"><path d="M2 4l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></button>
+          <ul class="desp" id="desp-servicios" hidden><li><a href="diseno-web/index.html"><b>Diseño web</b><small>Tu página a la medida, rápida y lista para vender.</small></a></li><li><a href="mantenimiento-web/index.html"><b>Mantenimiento</b><small>Tu web siempre al día, sin que tengas que tocar código.</small></a></li><li><a href="publicidad-digital/index.html"><b>Publicidad digital</b><small>Anuncios en Facebook, Instagram y WhatsApp, medidos de punta a punta.</small></a></li><li><a href="contenido-redes-sociales/index.html"><b>Contenido para redes · nuevo</b><small>Publicaciones, carruseles y reels que muestran tu marca como es.</small></a></li></ul></li>
+        <li><a class="nav-a" href="proyectos/index.html">Proyectos</a></li>
+        <li><a class="nav-a" href="index.html#como-trabajamos">Cómo trabajamos</a></li>
+        <li><a class="nav-a" href="index.html#preguntas">Preguntas</a></li>
+      </ul>
+    </nav>
+    <div class="cab-acc">
+      <a class="btn btn-pri btn-sm cab-cotizar" href="https://wa.me/573027981468?text=Hola%20Ricardo%2C%20quiero%20cotizar%20un%20proyecto%20para%20mi%20negocio." target="_blank" rel="noopener noreferrer" data-ubicacion="nav">Cotizar<span class="sr-only"> (se abre en otra pestaña)</span></a>
+      <button class="btn-redondo btn-buscar" type="button" aria-expanded="false" aria-controls="buscador" aria-label="Buscar en el sitio"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="M16 16l4.5 4.5"/></svg></button>
+      <button class="btn-redondo btn-menu" type="button" aria-expanded="false" aria-controls="menu-movil" aria-label="Abrir menú"><i aria-hidden="true"></i></button>
+    </div>
+  </div>
 </header>
+<div class="menu-movil" id="menu-movil" role="dialog" aria-modal="true" aria-labelledby="menu-t" hidden>
+  <div class="menu-fondo" data-cerrar-menu></div>
+  <div class="menu-panel">
+    <div class="menu-top"><p class="menu-t" id="menu-t">Menú</p><button class="btn-redondo menu-x" type="button" data-cerrar-menu aria-label="Cerrar menú"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>
+    <nav aria-label="Menú principal">
+      <h2>Servicios</h2>
+      <a href="diseno-web/index.html">Diseño web</a>
+      <a href="mantenimiento-web/index.html">Mantenimiento</a>
+      <a href="publicidad-digital/index.html">Publicidad digital</a>
+      <a href="contenido-redes-sociales/index.html">Contenido para redes</a>
+      <h2>Estudio</h2>
+      <a href="proyectos/index.html">Proyectos</a>
+      <a href="index.html#como-trabajamos">Cómo trabajamos</a>
+      <a href="index.html#preguntas">Preguntas</a>
+      <a href="politicas.html" aria-current="page">Políticas</a>
+      <a href="index.html#contacto">Contacto</a>
+      <a href="https://wa.me/573027981468" target="_blank" rel="noopener noreferrer">WhatsApp +57 302 798 1468<span class="sr-only"> (se abre en otra pestaña)</span></a>
+    </nav>
+    <a class="btn btn-pri menu-cta" href="https://wa.me/573027981468?text=Hola%20Ricardo%2C%20quiero%20cotizar%20un%20proyecto%20para%20mi%20negocio." target="_blank" rel="noopener noreferrer" data-ubicacion="menu">Cotizar mi proyecto<span class="sr-only"> (se abre en otra pestaña)</span></a>
+  </div>
+</div>
+<div class="buscador" id="buscador" role="dialog" aria-modal="true" aria-labelledby="buscador-t" hidden>
+  <div class="menu-fondo" data-cerrar-buscador></div>
+  <div class="buscador-panel">
+    <div class="menu-top"><p class="menu-t" id="buscador-t">Buscar en el sitio</p><button class="btn-redondo" type="button" data-cerrar-buscador aria-label="Cerrar búsqueda"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>
+    <label class="sr-only" for="buscador-q">Qué buscas</label>
+    <div class="buscador-campo"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="M16 16l4.5 4.5"/></svg><input id="buscador-q" type="search" autocomplete="off" placeholder="Ej.: Meta Ads, precios, tienda…" aria-controls="buscador-res" aria-describedby="buscador-estado"></div>
+    <p class="buscador-sug" data-sugerencias>Populares: <button type="button">Meta Ads</button> <button type="button">Diseño web</button> <button type="button">Mantenimiento</button> <button type="button">Proyectos</button> <button type="button">Precios</button></p>
+    <p class="sr-only" id="buscador-estado" aria-live="polite"></p>
+    <ul class="buscador-res" id="buscador-res"></ul>
+  </div>
+</div>
+<main id="contenido-principal">
 
-<section class="hero">
-  <span class="kicker">Ricardo Design · Diseño Web</span>
+<div class="legal-main">
+<section class="legal-hero">
+  <p class="kicker">Ricardo Design</p>
   <h1>Cláusulas y políticas</h1>
   <p>Reglas claras para una relación tranquila. Aquí encuentras todo lo que necesitas saber sobre tiempos de entrega, pagos, alcance de cada servicio y garantías.</p>
-  <nav class="pills" aria-label="Secciones">
-    <a href="#web">Creación web</a>
-    <a href="#mantenimiento">Mantenimiento</a>
-    <a href="#ads">Meta Ads</a>
-    <a href="#generales">Cláusulas generales</a>
-  </nav>
+  <nav class="pills" aria-label="Secciones"><a href="#web">Creación web</a><a href="#mantenimiento">Mantenimiento</a><a href="#ads">Meta Ads</a><a href="#contenido">Contenido para redes</a><a href="#medicion">Medición</a><a href="#generales">Cláusulas generales</a></nav>
 </section>
 
-<main>
+<article class="card" id="web">
+  <h2>Creación web</h2><p class="sub">Tiempos de entrega, cotización y pagos.</p>
+  <h3>Tiempos de entrega</h3>
+  <p>El desarrollo se entrega en un plazo de <strong>10 días hábiles</strong>, contados a partir de la recepción de la <strong>totalidad de la información</strong> del cliente: textos, imágenes, accesos y demás insumos necesarios para la página. Se entiende por día hábil de lunes a viernes, excluyendo festivos oficiales de Colombia.</p>
+  <ul>
+    <li>Si el cliente entrega información adicional o solicita cambios sustanciales después de iniciado el conteo, el plazo se <strong>reinicia</strong> desde la fecha de esa nueva entrega.</li>
+    <li>Si una entrega o avance queda pendiente de aprobación y transcurren más de <strong>5 días hábiles</strong> sin respuesta del cliente, se entenderá aprobado tácitamente para continuar con las siguientes etapas.</li>
+  </ul>
+  <!-- [DECISIÓN ABIERTA D13 — propuesta, NO publicada] "Si no hay respuesta en 5 días hábiles enviaremos un recordatorio; tras 5 días hábiles más, el avance se considera aprobado." -->
+  <h3>Cotización y pago</h3>
+  <ul>
+    <li>La cotización tiene una vigencia de <strong>1 mes</strong> a partir de su emisión.</li>
+    <li>Para iniciar el proyecto se requiere el pago del <strong>50% del valor acordado</strong>.</li>
+    <li>Si el cliente no se pone en contacto ni realiza gestiones relacionadas con el proyecto durante <strong>1 mes</strong> después de acordado el pago, el desarrollo se suspende, el dominio queda inhabilitado y el 50% pagado <strong>no será reembolsado</strong>.</li>
+    <li>Si el cliente cancela el proyecto a mitad de su ejecución, el anticipo no se devuelve y el saldo se cobra de forma <strong>proporcional al avance</strong> real del desarrollo.</li>
+  </ul>
+  <!-- [DECISIÓN ABIERTA D13 — propuesta, NO publicada] "el proyecto se suspende; el dominio, si fue registrado a nombre del cliente, sigue siendo suyo". Revisar con abogado (Ley 1480). -->
+  <div class="aviso">Los precios establecidos <strong>incluyen IVA</strong>: el cliente no asume cargos adicionales por impuestos. El <strong>dominio y el hosting</strong> no están incluidos en la tarifa de creación web y se cobran por separado.</div>
+  <!-- [DECISIÓN ABIERTA D12] Confirmar régimen de IVA. Si no es responsable de IVA: "No somos responsables de IVA; los precios son finales." -->
+  <h3>Garantía post-entrega</h3>
+  <p>Se otorgan <strong>15 días hábiles</strong> de corrección gratuita sobre errores del desarrollo original entregado. Pasado este plazo, cualquier modificación, ajuste o nueva funcionalidad se gestiona bajo el plan de mantenimiento.</p>
+</article>
 
-  <!-- ================= CREACIÓN WEB ================= -->
-  <article class="card" id="web">
-    <h2>Creación web</h2>
-    <p class="sub">Tiempos de entrega, cotización y pagos.</p>
+<article class="card" id="mantenimiento">
+  <h2>Mantenimiento web</h2><p class="sub">Dos modalidades: por hora o suscripción mensual.</p>
+  <h3>Plan por hora</h3><div class="precio"><b>$65.000</b><span>COP · por hora de modificación realizada</span></div>
+  <div class="divisor"></div>
+  <h3>Suscripción mensual</h3><div class="precio"><b>$250.000</b><span>COP · al mes</span></div>
+  <p>Incluye asistencia personalizada y soporte continuo para realizar las modificaciones que el cliente requiera en su sitio web. Todas las solicitudes se atienden en un plazo estimado de <strong>24 a 48 horas hábiles</strong>, dependiendo de su complejidad.</p>
+  <h3>Incluye</h3><ul><li>Modificación de textos, imágenes y contenido.</li><li>Creación y edición de páginas o secciones.</li><li>Cambios de diseño y distribución de elementos.</li><li>Actualización de banners, galerías y formularios.</li><li>Optimización básica de velocidad y rendimiento.</li><li>Actualización de dependencias y servicios conectados.</li><li>Corrección de errores y fallos del sitio.</li><li>Configuración de funciones existentes.</li><li>Soporte técnico y asesoría ilimitada.</li></ul>
+  <!-- [D16] Antes decía "Actualización de plugins, temas y CMS". Neutralizado a "dependencias y servicios conectados" hasta confirmar si se atienden sitios con CMS. -->
+  <h3>No incluye</h3><ul><li>Desarrollo de funcionalidades complejas o a medida: sistemas de reservas, e-commerce completo, paneles administrativos, integraciones mediante API o desarrollos personalizados.</li><li>Rediseños completos del sitio web.</li><li>Cambios que impliquen más de 8 horas continuas de desarrollo para una única solicitud; se cotizan como proyecto independiente.</li></ul>
+  <div class="aviso">La cancelación de la suscripción requiere un preaviso de <strong>30 días</strong>. Las suscripciones mensuales tienen una <strong>permanencia mínima de 3 meses</strong>.</div>
+</article>
 
-    <h3>Tiempos de entrega</h3>
-    <p>El desarrollo se entrega en un plazo de <strong>10 días hábiles</strong>, contados a partir de la recepción de la <strong>totalidad de la información</strong> del cliente: textos, imágenes, accesos y demás insumos necesarios para la página. Se entiende por día hábil de lunes a viernes, excluyendo festivos oficiales de Colombia.</p>
-    <ul>
-      <li>Si el cliente entrega información adicional o solicita cambios sustanciales después de iniciado el conteo, el plazo se <strong>reinicia</strong> desde la fecha de esa nueva entrega.</li>
-      <li>Si una entrega o avance queda pendiente de aprobación y transcurren más de <strong>5 días hábiles</strong> sin respuesta del cliente, se entenderá aprobado tácitamente para continuar con las siguientes etapas.</li>
-    </ul>
+<article class="card" id="ads">
+  <h2>Gestión de Meta Ads</h2><p class="sub">Pauta individual, suscripción mensual y grandes presupuestos.</p>
+  <h3>Pauta individual</h3><div class="precio"><b>$90.000</b><span>COP · por campaña</span></div>
+  <ul><li>Configuración de 1 campaña en Meta Ads.</li><li>Segmentación del público.</li><li>Configuración del objetivo de campaña.</li><li>Configuración de ubicaciones y presupuesto.</li><li>Publicación y verificación de la campaña.</li></ul>
+  <div class="divisor"></div>
+  <h3>Suscripción mensual</h3><div class="precio"><b>$290.000</b><span>COP · al mes</span></div>
+  <ul><li>Hasta 5 campañas de Meta Ads al mes.</li><li>Configuración y publicación de campañas.</li><li><strong>Alta optimización con el público objetivo</strong> durante la ejecución.</li><li>Ajustes de segmentación, presupuesto y anuncios.</li><li>Monitoreo del rendimiento.</li><li>Asistencia personalizada con tiempo de respuesta de 24 horas hábiles.</li></ul>
+  <h3>Estudio de público</h3>
+  <p>Cuando se contrata, incluye la definición de hasta 3 perfiles de cliente ideal y la creación de públicos personalizados y similares en la cuenta del cliente. Su valor se indica en la cotización.</p>
+  <div class="aviso">La pauta se realiza únicamente sobre contenido <strong>ya publicado</strong> en las redes sociales del cliente; no incluye diseño de piezas gráficas ni video (disponible con el servicio de <a href="#contenido">Contenido para redes</a>). La <strong>inversión publicitaria</strong> es asumida directamente por el cliente ante Meta y no está incluida en la suscripción. Cancelación con preaviso de <strong>30 días</strong> y <strong>permanencia mínima de 3 meses</strong> en la suscripción mensual.</div>
+  <h3>Gestión de grandes presupuestos</h3>
+  <p>Para campañas con una inversión mensual superior a <strong>$2.000.000 COP</strong>, los honorarios corresponden al <strong>15% del presupuesto publicitario mensual</strong> y reemplazan la tarifa fija de la suscripción.</p>
+  <div class="tabla-scroll"><table class="tabla"><caption class="sr-only">Ejemplos de honorarios del 15 %</caption><thead><tr><th scope="col">Inversión mensual</th><th scope="col">Honorarios</th></tr></thead><tbody><tr><td>$3.000.000</td><td>$450.000</td></tr><tr><td>$5.000.000</td><td>$750.000</td></tr><tr><td>$10.000.000</td><td>$1.500.000</td></tr></tbody></table></div>
+  <h3>Condiciones del servicio</h3>
+  <ul><li>No se garantizan resultados de ventas ni retorno de inversión (ROI): estos dependen de Meta, el mercado y el producto o servicio del cliente.</li><li>La cuenta publicitaria (Business Manager) y sus datos, incluido el píxel, quedan registrados a nombre del cliente.</li><li>No se asume responsabilidad por rechazos, restricciones o suspensiones de cuentas impuestas por Meta, al ser ajenas al control del prestador del servicio.</li></ul>
+</article>
 
-    <h3>Cotización y pago</h3>
-    <ul>
-      <li>La cotización tiene una vigencia de <strong>1 mes</strong> a partir de su emisión.</li>
-      <li>Para iniciar el proyecto se requiere el pago del <strong>50% del valor acordado</strong>.</li>
-      <li>Si el cliente no se pone en contacto ni realiza gestiones relacionadas con el proyecto durante <strong>1 mes</strong> después de acordado el pago, el desarrollo se suspende, el dominio queda inhabilitado y el 50% pagado <strong>no será reembolsado</strong>.</li>
-      <li>Si el cliente cancela el proyecto a mitad de su ejecución, el anticipo no se devuelve y el saldo se cobra de forma <strong>proporcional al avance</strong> real del desarrollo.</li>
-    </ul>
+<article class="card" id="contenido">
+  <h2>Contenido para redes sociales</h2><p class="sub">Servicio nuevo. Condiciones generales.</p>
+  <!-- [POR VALIDAR D3] Número de revisiones, permanencia mínima y entrega de archivos editables: se definen en cada cotización hasta que el dueño fije valores. -->
+  <ul>
+    <li>Los <strong>derechos de uso</strong> de las piezas se transfieren al cliente al completar el pago.</li>
+    <li>El número de rondas de revisión, la permanencia mínima y la entrega de archivos editables se indican en la cotización.</li>
+    <li>Las piezas se entregan listas para publicar o se programan en Meta Business Suite, según se acuerde.</li>
+    <li>La música se usa sólo de bibliotecas comerciales con licencia.</li>
+    <li>El cliente garantiza que tiene derechos sobre las fotos, logos y demás material que entrega.</li>
+  </ul>
+</article>
 
-    <div class="aviso">Los precios establecidos <strong>incluyen IVA</strong>: el cliente no asume cargos adicionales por impuestos. El <strong>dominio y el hosting</strong> no están incluidos en la tarifa de creación web y se cobran por separado.</div>
+<article class="card" id="medicion">
+  <h2>Configuración de medición</h2><p class="sub">Meta Pixel, Google Analytics, Google Tag Manager y Microsoft Clarity en sitios de clientes.</p>
+  <ul>
+    <li>Las cuentas de medición (píxel, Google Analytics, Google Tag Manager, Clarity) se crean <strong>a nombre del cliente</strong>.</li>
+    <li>El cliente es el <strong>responsable</strong> del tratamiento de los datos de sus visitantes y de publicar su política de datos y su aviso de cookies; Ricardo Design actúa como <strong>encargado</strong> y sólo trata esos datos según sus instrucciones.</li>
+    <li>Su valor se indica en la cotización.</li>
+  </ul>
+</article>
 
-    <h3>Garantía post-entrega</h3>
-    <p>Se otorgan <strong>15 días hábiles</strong> de corrección gratuita sobre errores del desarrollo original entregado. Pasado este plazo, cualquier modificación, ajuste o nueva funcionalidad se gestiona bajo el plan de mantenimiento.</p>
-  </article>
-
-  <!-- ================= MANTENIMIENTO ================= -->
-  <article class="card" id="mantenimiento">
-    <h2>Mantenimiento web</h2>
-    <p class="sub">Dos modalidades: por hora o suscripción mensual.</p>
-
-    <h3>Plan por hora</h3>
-    <div class="precio"><b>$65.000</b><span>COP · por hora de modificación realizada</span></div>
-
-    <div class="divisor"></div>
-
-    <h3>Suscripción mensual</h3>
-    <div class="precio"><b>$250.000</b><span>COP · al mes</span></div>
-    <p>Incluye asistencia personalizada y soporte continuo para realizar las modificaciones que el cliente requiera en su sitio web. Todas las solicitudes se atienden en un plazo estimado de <strong>24 a 48 horas hábiles</strong>, dependiendo de su complejidad.</p>
-
-    <h3>Incluye</h3>
-    <ul>
-      <li>Modificación de textos, imágenes y contenido.</li>
-      <li>Creación y edición de páginas o secciones.</li>
-      <li>Cambios de diseño y distribución de elementos.</li>
-      <li>Actualización de banners, galerías y formularios.</li>
-      <li>Optimización básica de velocidad y rendimiento.</li>
-      <li>Actualización de plugins, temas y CMS.</li>
-      <li>Corrección de errores y fallos del sitio.</li>
-      <li>Configuración de funciones existentes.</li>
-      <li>Soporte técnico y asesoría ilimitada.</li>
-    </ul>
-
-    <h3>No incluye</h3>
-    <ul>
-      <li>Desarrollo de funcionalidades complejas o a medida: sistemas de reservas, e-commerce completo, paneles administrativos, integraciones mediante API o desarrollos personalizados.</li>
-      <li>Rediseños completos del sitio web.</li>
-      <li>Cambios que impliquen más de <strong>8 horas continuas</strong> de desarrollo para una única solicitud; estos se cotizan como proyecto independiente.</li>
-    </ul>
-
-    <div class="aviso">La cancelación de la suscripción requiere un preaviso de <strong>30 días</strong>. Las suscripciones mensuales tienen una <strong>permanencia mínima de 3 meses</strong>.</div>
-  </article>
-
-  <!-- ================= META ADS ================= -->
-  <article class="card" id="ads">
-    <h2>Gestión de Meta Ads</h2>
-    <p class="sub">Pauta individual, suscripción mensual y grandes presupuestos.</p>
-
-    <h3>Pauta individual</h3>
-    <div class="precio"><b>$90.000</b><span>COP · por campaña</span></div>
-    <ul>
-      <li>Configuración de 1 campaña en Meta Ads.</li>
-      <li>Segmentación del público.</li>
-      <li>Configuración del objetivo de campaña.</li>
-      <li>Configuración de ubicaciones y presupuesto.</li>
-      <li>Publicación y verificación de la campaña.</li>
-    </ul>
-
-    <div class="divisor"></div>
-
-    <h3>Suscripción mensual</h3>
-    <div class="precio"><b>$290.000</b><span>COP · al mes</span></div>
-    <ul>
-      <li>Hasta 5 campañas de Meta Ads al mes.</li>
-      <li>Configuración y publicación de campañas.</li>
-      <li><strong>Alta optimización con el público objetivo</strong> durante la ejecución.</li>
-      <li>Ajustes de segmentación, presupuesto y anuncios.</li>
-      <li>Monitoreo del rendimiento.</li>
-      <li>Asistencia personalizada con tiempo de respuesta de 24 horas hábiles.</li>
-    </ul>
-
-    <div class="aviso">La pauta se realiza únicamente sobre contenido <strong>ya publicado</strong> en las redes sociales del cliente; no incluye diseño de piezas gráficas ni video. La <strong>inversión publicitaria</strong> es asumida directamente por el cliente ante Meta y no está incluida en la suscripción. Cancelación con preaviso de <strong>30 días</strong> y <strong>permanencia mínima de 3 meses</strong> en la suscripción mensual.</div>
-
-    <h3>Gestión de grandes presupuestos</h3>
-    <p>Para campañas con una inversión mensual superior a <strong>$2.000.000 COP</strong>, los honorarios corresponden al <strong>15% del presupuesto publicitario mensual</strong> y reemplazan la tarifa fija de la suscripción.</p>
-    <table class="tabla">
-      <tr><td>Inversión de $3.000.000</td><td>$450.000</td></tr>
-      <tr><td>Inversión de $5.000.000</td><td>$750.000</td></tr>
-      <tr><td>Inversión de $10.000.000</td><td>$1.500.000</td></tr>
-    </table>
-
-    <h3>Condiciones del servicio</h3>
-    <ul>
-      <li>No se garantizan resultados de ventas ni retorno de inversión (ROI): estos dependen de Meta, el mercado y el producto o servicio del cliente.</li>
-      <li>La cuenta publicitaria (Business Manager) y sus datos, incluido el píxel, quedan registrados a nombre del cliente.</li>
-      <li>No se asume responsabilidad por rechazos, restricciones o suspensiones de cuentas impuestas por Meta, al ser ajenas al control del prestador del servicio.</li>
-    </ul>
-  </article>
-
-  <!-- ================= CLÁUSULAS GENERALES ================= -->
-  <article class="card" id="generales">
-    <h2>Cláusulas generales</h2>
-    <p class="sub">Aplican a los tres servicios.</p>
-
-    <h3>Propiedad intelectual</h3>
-    <p>El código y el diseño final se transfieren en propiedad al cliente únicamente tras el pago del <strong>100% del valor acordado</strong>. Hasta entonces, el material es propiedad de Ricardo Design.</p>
-
-    <h3>Confidencialidad</h3>
-    <p>La información entregada por el cliente se trata de forma confidencial y no se comparte con terceros sin autorización.</p>
-
-    <h3>Responsabilidad sobre el contenido</h3>
-    <p>El cliente garantiza que los textos, imágenes y demás material que entrega no infringen derechos de autor ni derechos de terceros. Ricardo Design no asume responsabilidad por reclamaciones derivadas de dicho contenido.</p>
-
-    <h3>Ley aplicable</h3>
-    <p>Este documento y la prestación del servicio se rigen por las leyes de la <strong>República de Colombia</strong>.</p>
-  </article>
-
+<article class="card" id="generales">
+  <h2>Cláusulas generales</h2><p class="sub">Aplican a todos los servicios.</p>
+  <h3>Propiedad intelectual</h3><p>El código y el diseño final se transfieren en propiedad al cliente únicamente tras el pago del <strong>100% del valor acordado</strong>. Hasta entonces, el material es propiedad de Ricardo Design.</p>
+  <h3>Confidencialidad</h3><p>La información entregada por el cliente se trata de forma confidencial y no se comparte con terceros sin autorización.</p>
+  <h3>Datos personales</h3><p>Tratamos los datos personales según nuestra <a href="privacidad/index.html">Política de tratamiento de datos</a>. Consultas y reclamos: <a href="mailto:ricardodesingwebs@gmail.com">ricardodesingwebs@gmail.com</a> o WhatsApp +57 302 798 1468.</p>
+  <h3>Responsabilidad sobre el contenido</h3><p>El cliente garantiza que los textos, imágenes y demás material que entrega no infringen derechos de autor ni derechos de terceros. Ricardo Design no asume responsabilidad por reclamaciones derivadas de dicho contenido.</p>
+  <h3>Ley aplicable</h3><p>Este documento y la prestación del servicio se rigen por las leyes de la <strong>República de Colombia</strong>.</p>
+  <p class="nota">Última actualización: julio de 2026 · Sujeto a cambios sin previo aviso.</p>
+  <!-- [DECISIÓN ABIERTA D13 — propuesta] "Los cambios se publican con su fecha y no afectan contratos ya firmados." -->
+</article>
+</div>
 </main>
-
 <footer class="pie">
-  <p class="marca">Ricardo Design</p>
-  <p>Última actualización: julio de 2026 · Sujeto a cambios sin previo aviso.<br/>
-  <a href="index.html">ricardodesign.co</a> · <a href="https://wa.me/573027981468" target="_blank" rel="noopener">WhatsApp +57 302 798 1468</a></p>
+  <div class="wrap">
+    <div class="pie-grid">
+      <div>
+        <span class="marca-txt">Ricardo Design</span>
+        <p>Páginas web, publicidad en Meta y contenido para redes que venden. Bucaramanga y área metropolitana · Atención en toda Colombia.</p>
+        <div class="pie-contacto">
+          <a href="https://wa.me/573027981468" target="_blank" rel="noopener noreferrer">WhatsApp +57 302 798 1468<span class="sr-only"> (se abre en otra pestaña)</span></a><br>
+          <a href="mailto:ricardodesingwebs@gmail.com">ricardodesingwebs@gmail.com</a>
+        </div>
+      </div>
+      <nav aria-label="Servicios"><h2 class="ft-h">Servicios</h2><ul>
+        <li><a href="diseno-web/index.html">Diseño web</a></li><li><a href="mantenimiento-web/index.html">Mantenimiento</a></li><li><a href="publicidad-digital/index.html">Publicidad digital</a></li><li><a href="contenido-redes-sociales/index.html">Contenido para redes</a></li>
+      </ul></nav>
+      <nav aria-label="Estudio"><h2 class="ft-h">Estudio</h2><ul>
+        <li><a href="proyectos/index.html">Proyectos</a></li>
+        <li><a href="index.html#como-trabajamos">Cómo trabajamos</a></li>
+        <li><a href="index.html#preguntas">Preguntas</a></li>
+        <li><a href="index.html#contacto">Contacto</a></li>
+      </ul></nav>
+      <nav aria-label="Legal"><h2 class="ft-h">Legal</h2><ul>
+        <li><a href="politicas.html">Cláusulas y políticas</a></li>
+        <li><a href="privacidad/index.html">Privacidad</a></li>
+        <li><a href="cookies/index.html">Cookies</a></li>
+        <li><button class="ft-btn" type="button" data-config-cookies data-href="cookies/index.html">Configurar cookies</button></li>
+      </ul></nav>
+    </div>
+    <div class="pie-base"><span>© 2026 Ricardo Design</span><span>Hecho en Bucaramanga, Santander</span></div>
+  </div>
 </footer>
-
+<a class="wa-float" href="https://wa.me/573027981468" target="_blank" rel="noopener noreferrer" aria-label="Escríbenos por WhatsApp (se abre en otra pestaña)" data-ubicacion="flotante"><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M16 3C9.4 3 4 8.4 4 15c0 2.1.6 4.2 1.6 6L4 29l8.2-1.5c1.7.9 3.6 1.4 5.8 1.4 6.6 0 12-5.4 12-12S22.6 3 16 3zm0 21.8c-1.8 0-3.5-.5-5-1.3l-.4-.2-4.9.9.9-4.7-.2-.4c-1-1.6-1.5-3.4-1.5-5.1 0-5.4 4.5-9.8 10-9.8s10 4.4 10 9.8-4.4 9.8-9.9 9.8zm5.5-7.3c-.3-.2-1.8-.9-2-1-.3-.1-.5-.2-.7.2s-.8 1-.9 1.2c-.2.2-.3.2-.6.1-.3-.2-1.3-.5-2.4-1.5-.9-.8-1.5-1.8-1.7-2.1-.2-.3 0-.5.1-.6l.5-.6c.2-.2.2-.3.3-.5.1-.2 0-.4 0-.5-.1-.2-.7-1.7-1-2.3-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.5s1.1 2.9 1.2 3.1c.2.2 2.1 3.2 5.1 4.5.7.3 1.3.5 1.7.6.7.2 1.4.2 1.9.1.6-.1 1.8-.7 2-1.4.3-.7.3-1.3.2-1.4-.1-.2-.3-.2-.6-.4z"/></svg></a>
+<div class="cookies" id="cookies" role="dialog" aria-labelledby="cookies-t" hidden>
+  <h2 id="cookies-t">Tu privacidad</h2>
+  <p>Usamos cookies propias necesarias para que el sitio funcione y, si lo autorizas, cookies de analítica (Google Analytics, Microsoft Clarity) y de publicidad (Meta) para medir visitas y mejorar nuestros anuncios. Puedes cambiar tu decisión cuando quieras en "Configurar cookies". <a href="cookies/index.html">Más información</a>.</p>
+  <div class="cookies-cfg" hidden>
+    <label><input type="checkbox" checked disabled> Necesarias (siempre activas)</label>
+    <label><input type="checkbox" name="c-analitica"> Analítica</label>
+    <label><input type="checkbox" name="c-publicidad"> Publicidad</label>
+    <button class="btn btn-sec btn-sm" type="button" data-c="guardar">Guardar preferencias</button>
+  </div>
+  <div class="acciones">
+    <button class="btn btn-sec btn-sm" type="button" data-c="todas">Aceptar todas</button>
+    <button class="btn btn-sec btn-sm" type="button" data-c="rechazar">Rechazar</button>
+    <button class="btn btn-sec btn-sm" type="button" data-c="config">Configurar</button>
+  </div>
+</div>
 </body>
 </html>
