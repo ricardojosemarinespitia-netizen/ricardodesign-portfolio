@@ -851,7 +851,7 @@ ${otros.length ? `<section class="sec" aria-labelledby="otros-h"><div class="wra
   <h3>Datos personales</h3><p>Tratamos los datos personales según nuestra <a href="${L.a('privacidad/')}">Política de tratamiento de datos</a>. Consultas y reclamos: <a href="mailto:${esc(C.correo)}">${esc(C.correo)}</a> o WhatsApp ${esc(C.whatsappVisible)}.</p>
   <h3>Responsabilidad sobre el contenido</h3><p>El cliente garantiza que los textos, imágenes y demás material que entrega no infringen derechos de autor ni derechos de terceros. Ricardo Design no asume responsabilidad por reclamaciones derivadas de dicho contenido.</p>
   <h3>Ley aplicable</h3><p>Este documento y la prestación del servicio se rigen por las leyes de la <strong>República de Colombia</strong>.</p>
-  <p class="nota">Última actualización: julio de 2026 · Sujeto a cambios sin previo aviso.</p>
+  <p class="nota">Última actualización: octubre de 2026 · Sujeto a cambios sin previo aviso.</p>
   <!-- [DECISIÓN ABIERTA D13 — propuesta] "Los cambios se publican con su fecha y no afectan contratos ya firmados." -->
 </article>
 </div>`;

@@ -1600,3 +1600,14 @@ html.motion-paused .hero-wordmark::after{animation-play-state:paused}
 .pl-enlace .fl{transition:transform var(--dur-rapido)}.pl-enlace:hover .fl{transform:translateX(4px)}
 .js .pl-paso.rv{transform:none}
 @media (prefers-reduced-motion:reduce){.pl-paso,.pl-num{transition:none}}
+
+/* ---------- Compatibilidad con el navegador integrado de Instagram/Facebook ----------
+   Mismo arreglo que ya tiene producción (commit 9393bbc): sin overscroll-behavior-y:contain
+   el swipe vertical lo captura la capa "pull" del navegador integrado y la página "salta".
+   (Se vuelve a aplicar: antes se había retirado por el pull-to-refresh, pero el dueño prioriza
+   que no haya saltos dentro de Instagram/Facebook.)
+   background-attachment:fixed provoca repintados y saltos en webviews móviles: en pantallas
+   táctiles el fondo se desplaza con la página. */
+html{overscroll-behavior-y:contain;overscroll-behavior-x:none}
+body{overscroll-behavior-y:contain}
+@media (pointer:coarse){body{background-attachment:scroll}}
