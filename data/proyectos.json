@@ -1,0 +1,223 @@
+{
+  "version": 1,
+  "_nota": "Para añadir un proyecto: copia un bloque, cambia slug/textos/servicios/imagen y ejecuta `node scripts/build.mjs`. Ver LEEME.md. Métricas sólo se muestran con autorizado:true, periodo y fuente. \"frase\" (≤12 palabras) y \"acento\" (vidrio|joyeria|bosque|sepia|cobre|azul) alimentan las tarjetas del mosaico.",
+  "proyectos": [
+    {
+      "slug": "felipe-vergel",
+      "publicado": true,
+      "destacado": true,
+      "orden": 1,
+      "cliente": "Felipe Vergel",
+      "rubro": "Arte en vidrio",
+      "titulo": "Tienda virtual",
+      "resumen": "Tienda en línea para piezas de arte en vidrio, con pagos en línea y pedidos que llegan solos. Además gestionamos su publicidad en Meta Ads.",
+      "url": "https://felipevergel.com",
+      "fecha": "",
+      "servicios": [
+        "web",
+        "ads"
+      ],
+      "etiquetas": [
+        "Tienda en línea",
+        "Pagos en línea",
+        "Meta Ads"
+      ],
+      "imagen": {
+        "desktop": "https://felipevergel.com/img/florero-alto-irregular/florero-alto-irregular-03.jpg",
+        "movil": "",
+        "ancho": 1200,
+        "alto": 800,
+        "alt": "Florero alto de vidrio soplado de forma irregular, pieza de la tienda felipevergel.com",
+        "foco": "50% 45%"
+      },
+      "caso": {
+        "reto": "",
+        "solucion": [
+          "Diseñamos una tienda en línea a la medida para mostrar cada pieza de vidrio con fotos grandes y descripciones claras.",
+          "Conectamos pagos en línea para que el cliente compre sin salir de la página.",
+          "Los pedidos llegan solos: el vendedor recibe el aviso y el comprador su confirmación.",
+          "Gestionamos su publicidad en Meta Ads para llevar visitantes a la tienda."
+        ],
+        "resultado": "",
+        "galeria": []
+      },
+      "metricas": [],
+      "testimonio": null,
+      "frase": "Tienda virtual de arte en vidrio con pagos en línea.",
+      "acento": "vidrio"
+    },
+    {
+      "slug": "alejandra-vergel",
+      "publicado": true,
+      "destacado": true,
+      "orden": 2,
+      "cliente": "Alejandra Vergel",
+      "rubro": "Joyería artesanal",
+      "titulo": "Catálogo editorial",
+      "resumen": "Catálogo de joyería con club de clientes y código de descuento único, y envíos a toda Colombia. Los correos y registros se hacen de forma automática.",
+      "url": "https://alejandravergel.com",
+      "fecha": "",
+      "servicios": [
+        "web"
+      ],
+      "etiquetas": [
+        "Catálogo",
+        "Club de clientes",
+        "Correos automáticos"
+      ],
+      "imagen": {
+        "desktop": "https://alejandravergel.com/img/collares/azur-gota-1.jpg",
+        "movil": "https://alejandravergel.com/img/collares/prisma-rectangular-1.jpg",
+        "ancho": 1200,
+        "alto": 800,
+        "alt": "Collar artesanal con dije en forma de gota azul, del catálogo alejandravergel.com",
+        "altMovil": "Collar artesanal con dije prismático rectangular, del catálogo alejandravergel.com",
+        "foco": "50% 50%"
+      },
+      "caso": {
+        "reto": "",
+        "solucion": [
+          "Diseñamos un catálogo editorial que presenta cada joya como en una revista.",
+          "Creamos un club de clientes que entrega un código de descuento único a cada miembro.",
+          "Configuramos envíos a toda Colombia.",
+          "Los correos de confirmación y el registro de cada cliente se hacen de forma automática."
+        ],
+        "resultado": "",
+        "galeria": []
+      },
+      "metricas": [],
+      "testimonio": null,
+      "frase": "Catálogo de joyería con club de clientes y envíos a Colombia.",
+      "acento": "joyeria"
+    },
+    {
+      "slug": "vegas-del-verde",
+      "publicado": true,
+      "destacado": true,
+      "orden": 3,
+      "cliente": "Vegas del Verde",
+      "rubro": "Recreación y ecoturismo",
+      "titulo": "Sitio de presentación",
+      "resumen": "Sitio de un refugio natural de 4 hectáreas en Floridablanca, Santander: alquiler de espacios para eventos, sendero ecológico, aves registradas y vivero.",
+      "url": "https://vegasdelverde.co",
+      "fecha": "",
+      "servicios": [
+        "web"
+      ],
+      "etiquetas": [
+        "Sitio de presentación",
+        "Galería de aves",
+        "WhatsApp"
+      ],
+      "imagen": {
+        "desktop": "https://vegasdelverde.co/img/aereo-predio.jpg",
+        "movil": "",
+        "ancho": 1200,
+        "alto": 800,
+        "alt": "Vista aérea del predio arbolado de Vegas del Verde en Floridablanca, Santander",
+        "foco": "50% 50%"
+      },
+      "caso": {
+        "reto": "",
+        "solucion": [
+          "Presentamos el refugio y sus espacios para eventos en una sola página clara.",
+          "Mostramos el sendero ecológico y una galería de aves con el nombre de cada especie.",
+          "Incluimos el vivero y la ubicación en el mapa de Santander.",
+          "Contacto directo por WhatsApp."
+        ],
+        "resultado": "",
+        "galeria": []
+      },
+      "metricas": [],
+      "testimonio": null,
+      "frase": "Refugio natural en Floridablanca: eventos, sendero ecológico, aves y vivero.",
+      "acento": "bosque"
+    },
+    {
+      "slug": "armando-martinez-garnica",
+      "publicado": true,
+      "destacado": false,
+      "orden": 4,
+      "cliente": "Armando Martínez Garnica",
+      "rubro": "Archivo digital de historiador",
+      "titulo": "Archivo digital",
+      "resumen": "Archivo digital del historiador Armando Martínez Garnica: biografía, biblioteca digitalizada, podcast, apariciones en prensa, trayectoria y contacto.",
+      "url": "https://armandomartinez.co",
+      "fecha": "",
+      "servicios": [
+        "web"
+      ],
+      "etiquetas": [
+        "Biblioteca digital",
+        "Podcast",
+        "Archivo personal"
+      ],
+      "imagen": {
+        "desktop": "https://armandomartinez.co/img/retrato.webp",
+        "movil": "",
+        "ancho": 1200,
+        "alto": 800,
+        "alt": "Retrato del historiador Armando Martínez Garnica",
+        "foco": "50% 25%"
+      },
+      "caso": {
+        "reto": "",
+        "solucion": [
+          "Organizamos su biografía y trayectoria en secciones fáciles de recorrer.",
+          "Creamos una biblioteca con sus libros digitalizados.",
+          "Integramos su podcast y sus apariciones en prensa.",
+          "Añadimos una sección de contacto por correo."
+        ],
+        "resultado": "",
+        "galeria": []
+      },
+      "metricas": [],
+      "testimonio": null,
+      "frase": "Archivo digital del historiador: biografía, biblioteca, podcast y prensa.",
+      "acento": "sepia"
+    },
+    {
+      "slug": "accesorios-en-cobre",
+      "publicado": true,
+      "destacado": false,
+      "orden": 5,
+      "cliente": "Accesorios en Cobre",
+      "rubro": "Duchas y grifería artesanal en cobre",
+      "titulo": "Catálogo por encargo",
+      "resumen": "Catálogo de duchas, grifos, toalleros y accesorios en cobre hechos a mano en Bucaramanga, fabricados por encargo.",
+      "url": "https://accesoriosencobre.co",
+      "fecha": "",
+      "servicios": [
+        "web"
+      ],
+      "etiquetas": [
+        "Catálogo",
+        "Por encargo",
+        "Envíos"
+      ],
+      "imagen": {
+        "desktop": "https://accesoriosencobre.co/img/hero-ducha-1080.jpg",
+        "movil": "",
+        "ancho": 1200,
+        "alto": 800,
+        "alt": "Ducha artesanal de cobre instalada al aire libre",
+        "foco": "50% 50%"
+      },
+      "caso": {
+        "reto": "",
+        "solucion": [
+          "Diseñamos un catálogo por categorías: duchas, grifos, toalleros y accesorios.",
+          "Mostramos el taller y piezas ya instaladas en una galería de fotos.",
+          "Publicamos la información de envíos y políticas.",
+          "Añadimos un contacto para pedir piezas por encargo según la medida del espacio."
+        ],
+        "resultado": "",
+        "galeria": []
+      },
+      "metricas": [],
+      "testimonio": null,
+      "frase": "Catálogo por encargo de duchas y grifería artesanal en cobre.",
+      "acento": "cobre"
+    }
+  ]
+}

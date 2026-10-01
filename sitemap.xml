@@ -1,8 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url>
-    <loc>https://ricardodesign.co/</loc>
-    <changefreq>monthly</changefreq>
-    <priority>1.0</priority>
-  </url>
+  <url><loc>https://ricardodesign.co/</loc><lastmod>2026-09-30</lastmod></url>
+  <url><loc>https://ricardodesign.co/publicidad-digital/</loc><lastmod>2026-09-30</lastmod></url>
+  <url><loc>https://ricardodesign.co/contenido-redes-sociales/</loc><lastmod>2026-09-30</lastmod></url>
+  <url><loc>https://ricardodesign.co/diseno-web/</loc><lastmod>2026-09-30</lastmod></url>
+  <url><loc>https://ricardodesign.co/mantenimiento-web/</loc><lastmod>2026-09-30</lastmod></url>
+  <url><loc>https://ricardodesign.co/proyectos/</loc><lastmod>2026-09-30</lastmod></url>
+  <url><loc>https://ricardodesign.co/proyectos/felipe-vergel/</loc><lastmod>2026-09-30</lastmod></url>
+  <url><loc>https://ricardodesign.co/proyectos/alejandra-vergel/</loc><lastmod>2026-09-30</lastmod></url>
+  <url><loc>https://ricardodesign.co/proyectos/vegas-del-verde/</loc><lastmod>2026-09-30</lastmod></url>
+  <url><loc>https://ricardodesign.co/proyectos/armando-martinez-garnica/</loc><lastmod>2026-09-30</lastmod></url>
+  <url><loc>https://ricardodesign.co/proyectos/accesorios-en-cobre/</loc><lastmod>2026-09-30</lastmod></url>
+  <url><loc>https://ricardodesign.co/politicas.html</loc><lastmod>2026-09-30</lastmod></url>
+  <url><loc>https://ricardodesign.co/cookies/</loc><lastmod>2026-09-30</lastmod></url>
 </urlset>

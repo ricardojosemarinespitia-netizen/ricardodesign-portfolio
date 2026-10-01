@@ -1,0 +1,138 @@
+{
+  "version": 1,
+  "_nota": "Precios vigentes = los publicados en politicas.html (julio 2026). Paquetes con estado 'por_validar' NO se publican salvo que el build se ejecute con --incluir-por-validar. Ver LEEME.md > Pendientes.",
+  "contacto": {
+    "whatsapp": "573027981468",
+    "whatsappVisible": "+57 302 798 1468",
+    "correo": "ricardodesingwebs@gmail.com",
+    "_correoNota": "POR CONFIRMAR: el sitio actual usa 'ricardodesingwebs' (posible errata de 'ricardodesignwebs'). Se mantiene tal cual hasta que el dueño confirme cuál buzón recibe correo.",
+    "ciudad": "Bucaramanga",
+    "region": "Santander",
+    "cobertura": "Bucaramanga y área metropolitana · Atención en toda Colombia",
+    "whatsappGeneral": "Hola Ricardo, quiero cotizar un proyecto para mi negocio."
+  },
+  "servicios": [
+    {
+      "id": "web",
+      "nombre": "Diseño web",
+      "nombreLargo": "Creación de páginas web",
+      "ruta": "diseno-web/",
+      "frase": "Tu página a la medida, rápida y lista para vender.",
+      "bullets": [
+        "Diseño a medida para celular y computador",
+        "Pagos en línea, correos y registros automáticos",
+        "Textos claros y SEO básico para Google",
+        "Entrega en 10 días hábiles con 15 días de garantía"
+      ],
+      "precio": { "texto": "Cotización a la medida en 24 h", "detalle": "Dominio y hosting aparte" },
+      "whatsappTexto": "Hola Ricardo, quiero cotizar una página web para mi negocio.",
+      "paquetes": [],
+      "noIncluye": [
+        "Dominio y hosting (se cobran aparte y quedan a tu nombre).",
+        "Redacción de textos y producción de fotos, salvo acuerdo en la cotización.",
+        "Funciones adicionales no descritas en la cotización aprobada."
+      ]
+    },
+    {
+      "id": "mantenimiento",
+      "nombre": "Mantenimiento",
+      "nombreLargo": "Mantenimiento web",
+      "ruta": "mantenimiento-web/",
+      "frase": "Tu web siempre al día, sin que tengas que tocar código.",
+      "bullets": [
+        "Cambios de textos, fotos, precios y secciones",
+        "Renovación de dominio y servicios conectados",
+        "Corrección de errores y mejoras de velocidad",
+        "Respuesta en 24-48 horas hábiles"
+      ],
+      "precio": { "texto": "Desde $65.000 por hora", "detalle": "o $250.000 al mes" },
+      "whatsappTexto": "Hola Ricardo, quiero información sobre el mantenimiento de mi página web.",
+      "paquetes": [
+        { "nombre": "Por hora", "precio": "$65.000", "unidad": "COP · por hora de modificación realizada", "estado": "vigente",
+          "incluye": ["Pagas sólo el tiempo usado", "Ideal para cambios puntuales"] },
+        { "nombre": "Suscripción mensual", "precio": "$250.000", "unidad": "COP · al mes", "estado": "vigente", "destacado": true,
+          "incluye": ["Asistencia personalizada y soporte continuo", "Solicitudes atendidas en 24 a 48 horas hábiles", "Permanencia mínima de 3 meses", "Cancelación con preaviso de 30 días"] }
+      ],
+      "incluye": [
+        "Modificación de textos, imágenes y contenido.",
+        "Creación y edición de páginas o secciones.",
+        "Cambios de diseño y distribución de elementos.",
+        "Actualización de banners, galerías y formularios.",
+        "Optimización básica de velocidad y rendimiento.",
+        "Actualización de dependencias y servicios conectados.",
+        "Corrección de errores y fallos del sitio.",
+        "Configuración de funciones existentes.",
+        "Soporte técnico y asesoría ilimitada."
+      ],
+      "noIncluye": [
+        "Desarrollo de funcionalidades complejas o a medida: sistemas de reservas, e-commerce completo, paneles administrativos, integraciones mediante API o desarrollos personalizados.",
+        "Rediseños completos del sitio web.",
+        "Cambios que impliquen más de 8 horas continuas de desarrollo para una única solicitud; se cotizan como proyecto independiente."
+      ]
+    },
+    {
+      "id": "ads",
+      "nombre": "Publicidad digital",
+      "nombreLargo": "Publicidad en Meta Ads",
+      "ruta": "publicidad-digital/",
+      "frase": "Anuncios en Facebook, Instagram y WhatsApp, medidos de punta a punta.",
+      "bullets": [
+        "Estudio de tu público objetivo",
+        "Medición conectada a tu web (Meta Pixel, GA4)",
+        "Campañas en Meta Ads optimizadas cada semana",
+        "Informe mensual en lenguaje claro"
+      ],
+      "precio": { "texto": "Desde $90.000 por campaña", "detalle": "o $290.000 al mes · la inversión en Meta va aparte" },
+      "whatsappTexto": "Hola Ricardo, quiero cotizar publicidad en Meta Ads para mi negocio.",
+      "paquetes": [
+        { "nombre": "Campaña puntual", "precio": "$90.000", "unidad": "COP · por campaña", "estado": "vigente",
+          "incluye": ["Configuración de 1 campaña en Meta Ads", "Segmentación del público", "Objetivo, ubicaciones y presupuesto", "Publicación y verificación de la campaña"] },
+        { "nombre": "Plan mensual", "precio": "$290.000", "unidad": "COP · al mes · permanencia 3 meses", "estado": "vigente", "destacado": true,
+          "incluye": ["Hasta 5 campañas al mes", "Configuración y publicación de campañas", "Optimización continua con tu público objetivo", "Ajustes de segmentación, presupuesto y anuncios", "Monitoreo del rendimiento", "Respuesta en 24 horas hábiles"] },
+        { "nombre": "Grandes presupuestos", "precio": "15 %", "unidad": "de la inversión mensual, si supera $2.000.000", "estado": "vigente",
+          "incluye": ["Reemplaza la tarifa fija del plan mensual", "Inversión de $3.000.000 → $450.000", "Inversión de $5.000.000 → $750.000", "Inversión de $10.000.000 → $1.500.000"] },
+        { "nombre": "Estudio de público", "precio": "{{PRECIO_ESTUDIO_PUBLICO}}", "unidad": "pago único", "estado": "por_validar",
+          "incluye": ["Hasta 3 perfiles de cliente ideal", "Públicos personalizados y similares creados en tu cuenta"] },
+        { "nombre": "Configuración de medición", "precio": "{{PRECIO_SETUP_MEDICION}}", "unidad": "pago único", "estado": "por_validar",
+          "incluye": ["Meta Pixel + API de Conversiones", "GA4 y Google Tag Manager", "Microsoft Clarity", "Eventos, verificación de dominio y aviso de cookies"] }
+      ],
+      "noIncluye": [
+        "Diseño de piezas gráficas o video (disponible con Contenido para redes).",
+        "La inversión publicitaria: se paga directamente a Meta.",
+        "Responsabilidad por rechazos, restricciones o bloqueos de cuentas impuestos por Meta.",
+        "Desarrollo de la página web."
+      ]
+    },
+    {
+      "id": "contenido",
+      "nombre": "Contenido para redes",
+      "nombreLargo": "Contenido para redes sociales",
+      "ruta": "contenido-redes-sociales/",
+      "nuevo": true,
+      "frase": "Publicaciones, carruseles y reels que muestran tu marca como es.",
+      "bullets": [
+        "Calendario mensual de contenido",
+        "Diseño de posts, carruseles e historias",
+        "Edición de reels con subtítulos",
+        "Textos con llamado a la acción"
+      ],
+      "precio": { "texto": "Cotiza por WhatsApp", "detalle": "Paquete a la medida de tu marca" },
+      "whatsappTexto": "Hola Ricardo, quiero información sobre creación de contenido para mis redes.",
+      "paquetes": [
+        { "nombre": "Básico", "precio": "{{PRECIO_CONTENIDO_BASICO}}", "unidad": "al mes", "estado": "por_validar",
+          "incluye": ["8 piezas al mes", "6 posts o carruseles", "2 reels editados con tu material"] },
+        { "nombre": "Crecimiento", "precio": "{{PRECIO_CONTENIDO_CRECIMIENTO}}", "unidad": "al mes", "estado": "por_validar",
+          "incluye": ["12-16 piezas al mes", "8 posts o carruseles + 4 reels", "8 historias", "Calendario editorial"] },
+        { "nombre": "Pro", "precio": "{{PRECIO_CONTENIDO_PRO}}", "unidad": "al mes", "estado": "por_validar",
+          "incluye": ["20+ piezas al mes", "Sesión mensual de foto/video", "Gestión ligera de comentarios"] },
+        { "nombre": "Combo Contenido + Ads", "precio": "{{PRECIO_COMBO}}", "unidad": "al mes", "estado": "por_validar",
+          "incluye": ["Paquete de contenido", "Plan mensual de Meta Ads"] }
+      ],
+      "noIncluye": [
+        "La inversión publicitaria en Meta (si se combina con Ads).",
+        "Música sin licencia: sólo se usa biblioteca comercial autorizada.",
+        "Fotos, logos o material sobre el que no tengas derechos de uso."
+      ]
+    }
+  ]
+}

@@ -1,4 +1,7 @@
 User-agent: *
 Allow: /
+Disallow: /_original/
+Disallow: /scripts/
+Disallow: /data/
 
 Sitemap: https://ricardodesign.co/sitemap.xml
