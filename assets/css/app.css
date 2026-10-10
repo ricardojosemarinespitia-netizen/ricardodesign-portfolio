@@ -1620,3 +1620,12 @@ html.motion-paused .hero-wordmark::after{animation-play-state:paused}
 html{overscroll-behavior-y:contain;overscroll-behavior-x:none}
 body{overscroll-behavior-y:contain}
 @media (pointer:coarse){body{background-attachment:scroll}}
+
+/* ===== Arreglos auditoría 2026-10-09 ===== */
+/* Hero en una columna (todo lo que está por debajo de 1024px, incluido < 768): la columna
+   implícita se medía por el contenido más ancho (560px a 375) y overflow-x:clip escondía
+   el recorte. minmax(0,1fr) la ata al ancho disponible. */
+@media (max-width:1023px){
+  .hero-split{grid-template-columns:minmax(0,1fr)}
+  .hero-txt,.hero-split>.collage{min-width:0;max-width:100%}
+}
