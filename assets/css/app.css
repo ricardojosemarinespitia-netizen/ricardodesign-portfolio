@@ -22,7 +22,7 @@ body{
   color:var(--tinta);font-family:var(--fuente);font-size:var(--paso-0);
   line-height:var(--lh-normal);font-weight:400;
   -webkit-font-smoothing:antialiased;font-synthesis-weight:none;
-  overflow-x:clip;min-height:100vh;
+  overflow-x:clip;min-height:100vh;min-height:100svh;
 }
 body.legal{background:var(--papel)}
 img{height:auto}
@@ -101,7 +101,7 @@ section{position:relative}
 
 /* ---------- Cabecera / navegación ---------- */
 .cab{
-  position:sticky;top:0;z-index:var(--z-nav);
+  position:fixed;top:0;left:0;right:0;z-index:var(--z-nav); /* fixed, no sticky: WebView de Meta (commit 53f7963) */
   background:var(--blanco-a90);border-bottom:1px solid var(--linea);
 }
 @supports (backdrop-filter:blur(1px)){
@@ -229,8 +229,8 @@ html.oculta .aurora i{animation-play-state:paused}
 .hecho span{display:block;font-size:var(--paso--1);color:var(--tinta-suave)}
 .hecho svg{flex:none;width:22px;height:22px;stroke:var(--acento);fill:none;stroke-width:1.6;margin-top:2px}
 @media (min-width:768px){.hechos{grid-template-columns:repeat(3,1fr)}}
-@media (min-width:1024px){.hero{padding:var(--e-9) 0 var(--e-9);min-height:calc(var(--alto-viewport) - 68px);display:flex;align-items:center}}
-@media (prefers-reduced-motion:reduce){.hero-kinetic span>i{animation:none}}
+@media (min-width:1024px){.hero{padding:var(--e-9) 0 var(--e-9);min-height:calc(100vh - 68px);min-height:calc(var(--alto-viewport) - 68px);display:flex;align-items:center}}
+@media (prefers-reduced-motion:reduce){.hero-kinetic span>i{animation-duration:.01ms!important;animation-delay:0s!important;animation-iteration-count:1!important}}
 
 /* marquee de capacidades (decorativo, aria-hidden, pausable) */
 .cinta{border-block:1px solid var(--linea);overflow:hidden;padding:var(--e-4) 0;background:var(--blanco-a60)}
@@ -238,7 +238,7 @@ html.oculta .aurora i{animation-play-state:paused}
 .cinta-pista span{font-family:var(--fuente-display);font-size:var(--paso-2);font-style:italic;color:var(--tinta-suave);white-space:nowrap;display:inline-flex;align-items:center;gap:var(--e-7)}
 .cinta-pista span::after{content:'✦';font-style:normal;font-size:var(--paso-0);color:var(--acento-suave)}
 @keyframes cinta{to{transform:translateX(-50%)}}
-@media (prefers-reduced-motion:reduce){.cinta-pista{animation:none}}
+@media (prefers-reduced-motion:reduce){.cinta-pista{animation-duration:.01ms!important;animation-delay:0s!important;animation-iteration-count:1!important}}
 
 /* ---------- Tarjetas de servicio ---------- */
 .svc-grid{display:grid;gap:var(--e-5)}
@@ -408,7 +408,7 @@ html.oculta .aurora i{animation-play-state:paused}
 .d-aviso .b{background:var(--superficie);border-radius:12px 12px 12px 4px;padding:10px 12px;box-shadow:var(--sombra-1);animation:nuevo 5s infinite}
 .d-aviso .b:nth-child(2){animation-delay:.4s}
 .d-aviso small{color:var(--tinta-tenue)}
-@media (prefers-reduced-motion:reduce){.d-pago .ok{opacity:0}.ventana *{animation:none!important}}
+@media (prefers-reduced-motion:reduce){.d-pago .ok{opacity:0}.ventana *{animation-duration:.01ms!important;animation-delay:0s!important;animation-iteration-count:1!important}}
 
 /* ---------- Proyectos ---------- */
 .pj-grid{display:grid;gap:var(--e-5)}
@@ -730,7 +730,7 @@ mark.ph{background:var(--destello-palido);color:var(--tinta);padding:0 4px;borde
   .hc-col:nth-child(3) .hc-track{animation-duration:52s}
 }
 .hero-cols:hover .hc-track{animation-play-state:paused}
-@media (prefers-reduced-motion:reduce){.hc-track{animation:none!important}}
+@media (prefers-reduced-motion:reduce){.hc-track{animation-duration:.01ms!important;animation-delay:0s!important;animation-iteration-count:1!important}}
 
 /* ============ PROYECTOS: filas alternadas (zig-zag) ============ */
 .pj-filas{display:grid;gap:clamp(var(--e-8),9vw,var(--e-10))}
@@ -1091,7 +1091,7 @@ mark.ph{background:var(--amarillo);color:var(--tinta)}
 @media (max-width:600px){.sec-head::after{font-size:4.2rem}.hero-wordmark{white-space:normal}}
 @media (prefers-reduced-motion:reduce){
   .hero-luces i,.hero-luces::after,.hero-wordmark,.mk,.flt,.mini,.collage .dc,.btn-pulso,.pj-fila-media::after,.wa-float::after,.p-hero::after,
-  #servicios::after,#demostraciones::after,#proyectos::after,#preguntas::after,.h1-gigante .ln>span,.h1-gigante .clave::after,.hero-desc,.hero .acciones{animation:none!important}
+  #servicios::after,#demostraciones::after,#proyectos::after,#preguntas::after,.h1-gigante .ln>span,.h1-gigante .clave::after,.hero-desc,.hero .acciones{animation-duration:.01ms!important;animation-delay:0s!important;animation-iteration-count:1!important}
   .js .sec-head.rv .h-sec{transform:none;opacity:1}.h-sec em::after{transition:none;transform:scaleX(1)}.svc-card::after,.pj-fila::after{display:none}
 }
 
@@ -1129,7 +1129,7 @@ mark.ph{background:var(--amarillo);color:var(--tinta)}
   .collage .mk-nav{display:block;width:48%;left:-6%;top:auto;bottom:6%;z-index:3}
 }
 .hero-cols:hover .hc-track{animation-play-state:paused}
-@media (prefers-reduced-motion:reduce){.hc-track{animation:none!important}}
+@media (prefers-reduced-motion:reduce){.hc-track{animation-duration:.01ms!important;animation-delay:0s!important;animation-iteration-count:1!important}}
 
 /* ═══════════════ INTRO + VIVEZA + TARJETAS CREATIVAS + CAMINO (oct-2026) ═══════════════ */
 /* — Wordmark letra a letra — */
@@ -1205,7 +1205,7 @@ html.intro-fin .hechos{animation:entrada .8s var(--ease-expo) .35s both}
 
 .paso:hover{transform:translateY(-6px);box-shadow:var(--sombra-color)}
 
-@media (prefers-reduced-motion:reduce){.hero-wordmark i,.intro-wm i,.intro-wm::after{animation:none!important}.intro-capa{display:none}}
+@media (prefers-reduced-motion:reduce){.hero-wordmark i,.intro-wm i,.intro-wm::after{animation-duration:.01ms!important;animation-delay:0s!important;animation-iteration-count:1!important}.intro-capa{display:none}}
 html.motion-paused .intro-capa{display:none}
 
 /* ═══════════════ SPLASH + HEADER (lupa + hamburguesa) + MENÚ + BUSCADOR ═══════════════ */
@@ -1288,7 +1288,7 @@ html.splash body{overflow:hidden}
 .buscador-res b{font-weight:600;color:var(--tinta)}
 .buscador-res span{font-size:var(--paso--1);color:var(--tinta-suave)}
 .buscador-res .vacio{color:var(--tinta-suave);padding:var(--e-3)}
-@media (prefers-reduced-motion:reduce){.menu-panel,.menu-panel nav a,.buscador-panel,.menu-fondo{animation:none!important}}
+@media (prefers-reduced-motion:reduce){.menu-panel,.menu-panel nav a,.buscador-panel,.menu-fondo{animation-duration:.01ms!important;animation-delay:0s!important;animation-iteration-count:1!important}}
 
 /* Fix: la cursiva de "Design" se recortaba en el borde derecho (background-clip:text) */
 .hero-wordmark .wm-pal:last-child i{padding-inline-end:.1em;margin-inline-end:-.1em}
@@ -1488,7 +1488,7 @@ main>section.sec:nth-of-type(4n+3):not([id]):not(.p-hero){background:var(--fondo
 .splash-nombre{font-weight:800;letter-spacing:-.03em}.splash-nombre span:last-child{font-weight:400;font-style:normal}
 .marca-txt{font-weight:800;font-size:var(--paso-0);letter-spacing:-.02em}
 @media (max-width:420px){.marca-txt{font-size:.92rem}}
-@media (prefers-reduced-motion:reduce){.hero-wordmark i,.hero-wordmark::after{animation:none!important}}
+@media (prefers-reduced-motion:reduce){.hero-wordmark i,.hero-wordmark::after{animation-duration:.01ms!important;animation-delay:0s!important;animation-iteration-count:1!important}}
 html.motion-paused .hero-wordmark::after{animation-play-state:paused}
 
 /* ═══════════════ Proyectos en MOSAICO + ventana emergente (oct-2026) ═══════════════
@@ -1539,7 +1539,7 @@ html.motion-paused .hero-wordmark::after{animation-play-state:paused}
 .pj-modal .pj-tags{margin:var(--e-3) 0 var(--e-2)}
 .pjm-links{display:flex;flex-wrap:wrap;gap:var(--e-2);margin-top:var(--e-4)}
 .caso-img{box-shadow:0 0 0 3px var(--pj-ac,transparent),var(--sombra-2)}
-@media (prefers-reduced-motion:reduce){.pj-mos,.pj-mos-img img,.pj-mos-btn,.pj-modal-panel{transition:none!important;animation:none!important}}
+@media (prefers-reduced-motion:reduce){.pj-mos,.pj-mos-img img,.pj-mos-btn,.pj-modal-panel{transition-duration:.01ms!important;animation-duration:.01ms!important;animation-delay:0s!important;animation-iteration-count:1!important}}
 
 /* ═══════════════ SERVICIOS v2: tarjetas con acento, modal y 2 vistas (oct-2026) ═══════════════ */
 [data-acento="morado"]{--pj-ac:var(--sv-morado);--sv-ac:var(--sv-morado);--sv-txt:#fff}
@@ -1580,7 +1580,7 @@ html.motion-paused .hero-wordmark::after{animation-play-state:paused}
 .svc2-mas{font-size:var(--paso--1);font-weight:700;color:var(--azul-hondo)}
 .svc-sello{position:absolute;top:16px;right:-38px;rotate:40deg;width:150px;text-align:center;padding:5px 0;background:var(--grad-cta);color:var(--cta-texto);
   font-size:var(--paso--2);font-weight:800;letter-spacing:.1em;text-transform:uppercase;box-shadow:0 6px 14px -6px rgba(255,138,0,.6)}
-@media (prefers-reduced-motion:reduce){.svc-icono2{transition:none}}
+@media (prefers-reduced-motion:reduce){.svc-icono2{transition-duration:.01ms}}
 
 
 
@@ -1608,7 +1608,7 @@ html.motion-paused .hero-wordmark::after{animation-play-state:paused}
 .pl-enlace:hover{color:#6D28D9}
 .pl-enlace .fl{transition:transform var(--dur-rapido)}.pl-enlace:hover .fl{transform:translateX(4px)}
 .js .pl-paso.rv{transform:none}
-@media (prefers-reduced-motion:reduce){.pl-paso,.pl-num{transition:none}}
+@media (prefers-reduced-motion:reduce){.pl-paso,.pl-num{transition-duration:.01ms}}
 
 /* ---------- Compatibilidad con el navegador integrado de Instagram/Facebook ----------
    Mismo arreglo que ya tiene producción (commit 9393bbc): sin overscroll-behavior-y:contain
@@ -1629,3 +1629,7 @@ body{overscroll-behavior-y:contain}
   .hero-split{grid-template-columns:minmax(0,1fr)}
   .hero-txt,.hero-split>.collage{min-width:0;max-width:100%}
 }
+/* Nav fixed: el contenido arranca debajo de la cabecera (antes la reservaba el sticky). */
+body{padding-top:var(--alto-cab)}
+[id]{scroll-margin-top:calc(var(--alto-cab) + 17px)}
+@media print{body{padding-top:0}}
