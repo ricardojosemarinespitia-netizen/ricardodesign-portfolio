@@ -254,6 +254,7 @@ p { text-wrap: pretty; }   /* evita la palabra huérfana en la última línea */
                    linear-gradient(180deg, #FFFFFF 0%, #F7FAFF 100%);
   --sombra-color:  0 14px 30px -12px rgba(37,99,235,.45);
   --alto-viewport: 100svh;
+  --alto-cab:      71px;  /* .cab-in 70px + borde 1px: reserva bajo la nav fixed */
   --tactil-min:    44px;
   --ancho-max:     1200px;
   --ancho-texto:   var(--medida);
