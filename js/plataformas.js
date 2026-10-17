@@ -143,10 +143,10 @@
     rd.addEventListener('keydown',function(e){if(e.key==='ArrowLeft'||e.key==='ArrowRight'){angVel+=(e.key==='ArrowLeft'?-1:1)*420;e.preventDefault()}})}
 
   /* ======================= reloj único ======================= */
-  var corriendo=false,usaGsap=false,ultimo=0,rafId=0;
+  var corriendo=false,usaGsap=false,ultimo=0,rafId=0,t0=0;
   function paso(ms){
     var dt=Math.min(0.05,(ms-ultimo)/1000||0.016);ultimo=ms;reloj+=dt;
-    if(entrada<1)entrada=Math.min(1,entrada+dt/2.4);
+    if(entrada<1){var ahora=performance.now();if(!t0)t0=ahora;entrada=Math.min(1,(ahora-t0)/2400)}   /* por reloj real: no se atasca si el equipo va lento */
     vel+=(velObj-vel)*Math.min(1,dt*3);giro+=vel*dt;
     px+=(tx-px)*Math.min(1,dt*5);py+=(ty-py)*Math.min(1,dt*5);
     var r=sec.getBoundingClientRect(),vh=innerHeight;
