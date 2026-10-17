@@ -140,3 +140,24 @@ html.quieto .pl-pulso.es-activa{animation-duration:.01ms;animation-iteration-cou
 .pl-rd.es-hoja .pl-rd__poster{visibility:hidden}
 .pl-rd__pista{position:absolute;left:50%;top:-2%;translate:-50% 0;white-space:nowrap;font:600 var(--t-xs)/1 var(--f-texto);letter-spacing:.08em;color:var(--texto-2);padding:var(--s-1) var(--s-2);border:1px solid var(--c-linea);border-radius:var(--r-1);background:var(--c-papel-2);opacity:0;pointer-events:none;transition:opacity var(--d-ui) var(--ease-casa)}
 .pl-escena.es-girable:not(.ya-girado) .pl-rd__pista{opacity:1}
+/* ===== Plataformas v4 · ecosistema en colisión (17 oct 2026) =====
+   Física propia en js/plataformas.js. Volteo = hoja Blender de 16 cuadros (media vuelta) x 10 medallas, bajo demanda.
+   Estallido = esquirlas de cromo y latón de Blender (4x4). Onda del color de la marca al activar una medalla. */
+.pl-voz{position:absolute!important;width:1px;height:1px;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.pl-escena.es-fisica{touch-action:pan-y}
+.pl-escena.es-fisica .pl-ficha{transition:none}
+.pl-ficha.es-volteo .pl-ficha__cara{background:var(--pl-hoja-v) calc(var(--vf,0) * 100% / 15) calc(var(--i) * 100% / 9)/1600% 1000% no-repeat}
+.pl-ficha.es-volteo .pl-ficha__cara::after,.pl-ficha.es-volteo .pl-logo--color,.pl-ficha.es-volteo .pl-ficha__brillo{opacity:0!important;transition:none}
+.pl-ficha.es-volteo .pl-ficha__cuerpo{box-shadow:none}
+.pl-estallido{position:absolute;inset:-45%;background:0 0/400% 400% no-repeat;opacity:0;pointer-events:none;z-index:3}
+.pl-onda{position:absolute;left:50%;top:50%;width:46%;aspect-ratio:1;margin:-23% 0 0 -23%;border-radius:50%;pointer-events:none;z-index:0;
+  border:2px solid var(--c,var(--pl-tono));background:radial-gradient(closest-side,transparent 55%,color-mix(in oklab,var(--c,var(--pl-tono)) 22%,transparent));opacity:0;scale:.15}
+.pl-onda.es-viva{animation:pl-onda var(--d-firma,.9s) var(--ease-casa) both}
+@keyframes pl-onda{0%{opacity:.85;scale:.15}100%{opacity:0;scale:1.9}}
+/* la activa tiñe la escena con su color de marca, sin perder el gris del resto */
+.pl-escena.es-fisica.hay-activa .pl-fondo::after{background:radial-gradient(closest-side,color-mix(in oklab,var(--tono) 20%,transparent),transparent)}
+.pl-rd__poster img,.pl-rd__hoja{filter:brightness(calc(1 + var(--golpe,0) * .6))}
+.pl-escena.es-iman{cursor:grabbing}
+/* calidad adaptable */
+.pl-escena.pl-q1 .pl-ficha.es-fondo .pl-ficha__cuerpo{filter:none}
+.pl-escena.pl-q0 .pl-hilos{display:none}
