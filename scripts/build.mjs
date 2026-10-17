@@ -88,58 +88,42 @@ ctx.ICO_WA = ICO_WA;
 const EXT = '<span class="sr-only"> (se abre en otra pestaña)</span>';
 ctx.EXT = EXT;
 
-/* ---------- Cabecera y pie comunes ---------- */
+/* ---------- Cabecera y pie comunes ----------
+   Desde oct 2026 las páginas internas usan el mismo nav y pie del home nuevo
+   (index.html hecho a mano, que este build ya NO escribe). Estilos: css/paginas.css. */
+const FLECHA = '<svg class="ico flecha" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6"/></svg>';
+ctx.FLECHA = FLECHA;
+const NAV_HOME = [['#dispositivos', 'Dispositivos'], ['#garantia', 'Garantía'], ['#servicios', 'Servicios'], ['#casos', 'Casos'], ['#planes', 'Planes'], ['#proceso', 'Proceso']];
+function logo(L, cls, lazy = '') {
+  return `<picture><source type="image/webp" srcset="${L.r}img/logo_negro-80.webp 2x, ${L.r}img/logo_negro-120.webp 3x"><img src="${L.r}logo_negro.png" alt="" width="741" height="439" class="${cls}"${lazy}></picture>`;
+}
 function cabecera(L, actual, mainId = 'contenido') {
-  const cur = (k) => (actual === k ? ' aria-current="page"' : '');
-  const items = S.servicios.map((s) => `<li><a href="${L.a(s.ruta)}"${cur(s.id)}><b>${esc(s.nombre)}${s.nuevo ? ' · nuevo' : ''}</b><small>${esc(s.frase)}</small></a></li>`).join('');
-  const LUPA = '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="M16 16l4.5 4.5"/></svg>';
+  const items = NAV_HOME.map(([h, t]) => `<li><a href="${L.a(h)}">${t}</a></li>`).join('\n        ');
+  const cot = `href="${wa(C.whatsappGeneral)}" target="_blank" rel="noopener noreferrer"`;
   return `<a class="skip" href="#${mainId}">Saltar al contenido</a>
-<header class="cab">
-  <div class="wrap cab-in">
-    <a class="marca" href="${L.a('')}" aria-label="Ricardo Design, ir al inicio"><span class="marca-mono" aria-hidden="true">rd</span><span class="marca-txt">Ricardo Design</span></a>
-    <nav class="nav" aria-label="Principal">
-      <ul class="nav-lista">
-        <li><button class="nav-btn" type="button" aria-expanded="false" aria-controls="desp-servicios">Servicios <svg viewBox="0 0 12 12" aria-hidden="true"><path d="M2 4l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></button>
-          <ul class="desp" id="desp-servicios" hidden>${items}</ul></li>
-        <li><a class="nav-a" href="${L.a('proyectos/')}"${cur('proyectos')}>Proyectos</a></li>
-        <li><a class="nav-a" href="${L.a('#como-trabajamos')}">Cómo trabajamos</a></li>
-        <li><a class="nav-a" href="${L.a('#preguntas')}">Preguntas</a></li>
+<header class="nav">
+  <div class="wrap nav__in">
+    <a class="marca" href="${L.a('')}" aria-label="Ricardo Design, ir al inicio">${logo(L, 'marca__logo')}</a>
+    <nav aria-label="Principal">
+      <ul class="nav__links">
+        ${items}
       </ul>
     </nav>
-    <div class="cab-acc">
-      <a class="btn btn-pri btn-sm cab-cotizar" href="${wa(C.whatsappGeneral)}" target="_blank" rel="noopener noreferrer" data-ubicacion="nav">Cotizar${EXT}</a>
-      <button class="btn-redondo btn-buscar" type="button" aria-expanded="false" aria-controls="buscador" aria-label="Buscar en el sitio">${LUPA}</button>
-      <button class="btn-redondo btn-menu" type="button" aria-expanded="false" aria-controls="menu-movil" aria-label="Abrir menú"><i aria-hidden="true"></i></button>
+    <div class="nav__acc">
+      <a class="btn btn--laton" ${cot} data-ubicacion="nav">Cotizar${EXT}</a>
+      <button type="button" class="btn btn--linea nav__menu" aria-expanded="false" aria-controls="panel">Menú</button>
     </div>
   </div>
+  <span class="progreso" aria-hidden="true"></span>
 </header>
-<div class="menu-movil" id="menu-movil" role="dialog" aria-modal="true" aria-labelledby="menu-t" hidden>
-  <div class="menu-fondo" data-cerrar-menu></div>
-  <div class="menu-panel">
-    <div class="menu-top"><p class="menu-t" id="menu-t">Menú</p><button class="btn-redondo menu-x" type="button" data-cerrar-menu aria-label="Cerrar menú"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>
-    <nav aria-label="Menú principal">
-      <h2>Servicios</h2>
-      ${S.servicios.map((s) => `<a href="${L.a(s.ruta)}"${cur(s.id)}>${esc(s.nombre)}</a>`).join('\n      ')}
-      <h2>Estudio</h2>
-      <a href="${L.a('proyectos/')}"${cur('proyectos')}>Proyectos</a>
-      <a href="${L.a('#como-trabajamos')}">Cómo trabajamos</a>
-      <a href="${L.a('#preguntas')}">Preguntas</a>
-      <a href="${L.a('politicas.html')}"${cur('politicas')}>Políticas</a>
-      <a href="${L.a('#contacto')}">Contacto</a>
-      <a href="https://wa.me/${C.whatsapp}" target="_blank" rel="noopener noreferrer">WhatsApp ${esc(C.whatsappVisible)}${EXT}</a>
-    </nav>
-    <a class="btn btn-pri menu-cta" href="${wa(C.whatsappGeneral)}" target="_blank" rel="noopener noreferrer" data-ubicacion="menu">Cotizar mi proyecto${EXT}</a>
-  </div>
-</div>
-<div class="buscador" id="buscador" role="dialog" aria-modal="true" aria-labelledby="buscador-t" hidden>
-  <div class="menu-fondo" data-cerrar-buscador></div>
-  <div class="buscador-panel">
-    <div class="menu-top"><p class="menu-t" id="buscador-t">Buscar en el sitio</p><button class="btn-redondo" type="button" data-cerrar-buscador aria-label="Cerrar búsqueda"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>
-    <label class="sr-only" for="buscador-q">Qué buscas</label>
-    <div class="buscador-campo">${LUPA}<input id="buscador-q" type="search" autocomplete="off" placeholder="Ej.: Meta Ads, precios, tienda…" aria-controls="buscador-res" aria-describedby="buscador-estado"></div>
-    <p class="buscador-sug" data-sugerencias>Populares: <button type="button">Meta Ads</button> <button type="button">Diseño web</button> <button type="button">Mantenimiento</button> <button type="button">Proyectos</button> <button type="button">Precios</button></p>
-    <p class="sr-only" id="buscador-estado" aria-live="polite"></p>
-    <ul class="buscador-res" id="buscador-res"></ul>
+<div class="panel" id="panel" role="dialog" aria-modal="true" aria-label="Menú">
+  <button type="button" class="btn btn--linea panel__cerrar" data-cerrar>Cerrar <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 5l14 14M19 5L5 19"/></svg></button>
+  <ul>
+    ${NAV_HOME.map(([h, t]) => `<li><a href="${L.a(h)}">${t}</a></li>`).join('\n    ')}
+  </ul>
+  <div class="panel__pie">
+    <a class="btn btn--laton" ${cot} data-ubicacion="menu">Cotizar por WhatsApp ${FLECHA}${EXT}</a>
+    <span class="versal">${esc(C.whatsappVisible)} · Atención en toda Colombia</span>
   </div>
 </div>`;
 }
@@ -147,35 +131,24 @@ function cabecera(L, actual, mainId = 'contenido') {
 function pie(L) {
   return `<footer class="pie">
   <div class="wrap">
-    <div class="pie-grid">
+    <ul class="pie__nav">
+      ${NAV_HOME.slice(1).map(([h, t]) => `<li><a href="${L.a(h)}">${t}</a></li>`).join('')}<li><a class="pie__subir" href="#top">Volver arriba ${FLECHA}</a></li>
+    </ul>
+    <img class="pie__logo" data-logo-pie src="${L.r}logo_negro.png" alt="Ricardo Design" width="741" height="439" loading="lazy" decoding="async">
+    <div class="pie__in">
       <div>
-        <span class="marca-txt">Ricardo Design</span>
-        <p>Páginas web, publicidad en Meta y contenido para redes que venden. ${esc(C.cobertura)}.</p>
-        <div class="pie-contacto">
-          <a href="https://wa.me/${C.whatsapp}" target="_blank" rel="noopener noreferrer">WhatsApp ${esc(C.whatsappVisible)}${EXT}</a><br>
-          <a href="mailto:${esc(C.correo)}">${esc(C.correo)}</a>
-        </div>
+        <p>Ricardo Design · Bucaramanga, Santander · Atención en toda Colombia</p>
+        <a href="${wa(C.whatsappGeneral)}" target="_blank" rel="noopener noreferrer">WhatsApp ${esc(C.whatsappVisible)}${EXT}</a>
       </div>
-      <nav aria-label="Servicios"><h2 class="ft-h">Servicios</h2><ul>
-        ${S.servicios.map((s) => `<li><a href="${L.a(s.ruta)}">${esc(s.nombre)}</a></li>`).join('')}
-      </ul></nav>
-      <nav aria-label="Estudio"><h2 class="ft-h">Estudio</h2><ul>
-        <li><a href="${L.a('proyectos/')}">Proyectos</a></li>
-        <li><a href="${L.a('#como-trabajamos')}">Cómo trabajamos</a></li>
-        <li><a href="${L.a('#preguntas')}">Preguntas</a></li>
-        <li><a href="${L.a('#contacto')}">Contacto</a></li>
-      </ul></nav>
-      <nav aria-label="Legal"><h2 class="ft-h">Legal</h2><ul>
-        <li><a href="${L.a('politicas.html')}">Cláusulas y políticas</a></li>
+      <ul class="pie__links">
+        <li><a href="${L.a('politicas.html')}">Políticas</a></li>
         <li><a href="${L.a('privacidad/')}">Privacidad</a></li>
         <li><a href="${L.a('cookies/')}">Cookies</a></li>
-        <li><button class="ft-btn" type="button" data-config-cookies data-href="${L.a('cookies/')}">Configurar cookies</button></li>
-      </ul></nav>
+        <li><span class="pie__copy">© 2026 Ricardo Design</span></li>
+      </ul>
     </div>
-    <div class="pie-base"><span>© 2026 Ricardo Design</span><span>Hecho en Bucaramanga, Santander</span></div>
   </div>
 </footer>
-<a class="wa-float" href="https://wa.me/${C.whatsapp}" target="_blank" rel="noopener noreferrer" aria-label="Escríbenos por WhatsApp (se abre en otra pestaña)" data-ubicacion="flotante">${ICO_WA.replace('class="ico" ', '')}</a>
 <div class="cookies" id="cookies" role="dialog" aria-labelledby="cookies-t" hidden>
   <h2 id="cookies-t">Tu privacidad</h2>
   <p>Usamos cookies propias necesarias para que el sitio funcione y, si lo autorizas, cookies de analítica (Google Analytics, Microsoft Clarity) y de publicidad (Meta) para medir visitas y mejorar nuestros anuncios. Puedes cambiar tu decisión cuando quieras en "Configurar cookies". <a href="${L.a('cookies/')}">Más información</a>.</p>
@@ -183,16 +156,15 @@ function pie(L) {
     <label><input type="checkbox" checked disabled> Necesarias (siempre activas)</label>
     <label><input type="checkbox" name="c-analitica"> Analítica</label>
     <label><input type="checkbox" name="c-publicidad"> Publicidad</label>
-    <button class="btn btn-sec btn-sm" type="button" data-c="guardar">Guardar preferencias</button>
+    <button class="btn btn--linea" type="button" data-c="guardar">Guardar preferencias</button>
   </div>
   <div class="acciones">
-    <button class="btn btn-sec btn-sm" type="button" data-c="todas">Aceptar todas</button>
-    <button class="btn btn-sec btn-sm" type="button" data-c="rechazar">Rechazar</button>
-    <button class="btn btn-sec btn-sm" type="button" data-c="config">Configurar</button>
+    <button class="btn btn--linea" type="button" data-c="todas">Aceptar todas</button>
+    <button class="btn btn--linea" type="button" data-c="rechazar">Rechazar</button>
+    <button class="btn btn--linea" type="button" data-c="config">Configurar</button>
   </div>
 </div>`;
 }
-
 
 /* Splash del home: capa decorativa (aria-hidden). Sólo se muestra si
    assets/js/splash.js añadió html.splash antes de pintar. Sin JS no aparece. */
@@ -227,7 +199,7 @@ function documento(pg, L) {
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>${esc(pg.title)}</title>
 ${pg.desc ? `<meta name="description" content="${esc(pg.desc)}">\n` : ''}${robots}<link rel="canonical" href="${url}">
-<meta name="theme-color" content="#EEF7FF">
+<meta name="theme-color" content="#fafafa">
 <link rel="icon" href="${L.r}favicon.ico" sizes="any">
 <link rel="icon" type="image/png" sizes="32x32" href="${L.r}favicon-32x32.png">
 <link rel="apple-touch-icon" sizes="180x180" href="${L.r}apple-touch-icon.png">
@@ -239,18 +211,15 @@ ${pg.desc ? `<meta property="og:description" content="${esc(pg.desc)}">\n` : ''}
 <meta property="og:locale" content="es_CO">
 <meta property="og:site_name" content="Ricardo Design">
 <meta name="twitter:card" content="summary">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;800&amp;family=Sora:wght@500;600;700&amp;family=Inter:wght@400;500;600;700&amp;display=swap">
-<link rel="stylesheet" href="${L.r === '/' ? '/' : L.r}tokens.css">
-<link rel="stylesheet" href="${L.r === '/' ? '/' : L.r}assets/css/app.css">
-${pg.salida === 'index.html' ? '<script src="assets/js/splash.js"></script>\n' : ''}<script src="${L.r === '/' ? '/' : L.r}assets/js/config-medicion.js" defer></script>
-<script src="${L.r === '/' ? '/' : L.r}assets/js/busqueda-indice.js" defer></script>
-<script src="${L.r === '/' ? '/' : L.r}assets/js/app.js" defer></script>
+<link rel="preload" as="font" type="font/woff2" href="/fonts/figtree-var.woff2" crossorigin>
+<link rel="stylesheet" href="/css/paginas.min.css">
+<script src="/assets/js/config-medicion.js" defer></script>
+<script src="/assets/js/app.js" defer></script>
+<script src="/js/paginas.min.js" defer></script>
 ${ld}
 </head>
-<body${pg.legal ? ' class="legal"' : ''} data-wa="${C.whatsapp}" data-raiz="${L.r === '/' ? '/' : L.r}"${pg.servicio ? ` data-servicio="${pg.servicio}"` : ''}>
-${pg.salida === 'index.html' ? SPLASH : ''}${pg.legal ? '' : '<div class="aurora" aria-hidden="true"><i></i><i></i><i></i></div>\n'}${cabecera(L, pg.actual, pg.mainId || 'contenido')}
+<body id="top" class="pg${pg.legal ? ' legal' : ''}" data-wa="${C.whatsapp}" data-raiz="${L.r === '/' ? '/' : L.r}"${pg.servicio ? ` data-servicio="${pg.servicio}"` : ''}>
+${cabecera(L, pg.actual, pg.mainId || 'contenido')}
 <main id="${pg.mainId || 'contenido'}">
 ${pg.cuerpo}
 </main>
@@ -269,7 +238,8 @@ for (const pg of lista) {
   if (OPC.produccion && !pg.noindex && htmlDoc.includes('{{')) { console.error(`✖ ${pg.salida} es indexable y contiene "{{". Completa los datos o márcala noindex.`); process.exit(1); }
   const destino = path.join(ROOT, pg.salida);
   fs.mkdirSync(path.dirname(destino), { recursive: true });
-  fs.writeFileSync(destino, htmlDoc);
+  // El home (index.html) se mantiene a mano desde oct 2026: el build no lo sobrescribe.
+  if (pg.salida !== 'index.html') fs.writeFileSync(destino, htmlDoc);
   escritos.push(pg);
 }
 
