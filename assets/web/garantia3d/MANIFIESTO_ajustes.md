@@ -19,3 +19,14 @@ Tres sliders con perilla en aro (izquierda-derecha-centro: arriba a la derecha, 
 - Alfa verificado (0..255). La sombra se desvanece en el 12 % exterior de cada cuadro para que no se vea el corte.
 - En WebP la sombra pierde suavidad (alfa cuantizado para entrar en peso); AVIF es la fuente buena: úsalo primero en `<picture>`.
 - Render: Cycles OptiX, 96 muestras con denoise a 320 px, reducido a 160 con Lanczos.
+
+## ajustes-gira72 (reemplaza en la web a ajustes-gira; el anterior queda sin tocar)
+- Hoja 1920x960, rejilla 12 columnas x 6 filas, cuadros de 160x160 px con alfa.
+- Orden: lectura normal; cuadro i = yaw 5 grados x i (i = 0..71), fila = i div 12, columna = i mod 12. Loop perfecto: el cuadro 71 (355 grados) enlaza con el 0.
+- Sin sombra horneada: solo el objeto sobre fondo transparente (la sombra va por CSS). Alfa limpio (0 fuera del objeto, sin halos).
+- Pivote: eje vertical por el centro geométrico (x=0, fondo al centro del volumen); verificado con tira de contacto superpuesta, sin desplazamiento de las barras entre cuadros.
+- Margen: el objeto ocupa como máximo 81 % del cuadro (cámara ortográfica) en todos los giros.
+- Perillas más pegadas a las barras y barras empotradas en el aro: de perfil ya no hay segmentos sueltos.
+- Render: Cycles OptiX 128 muestras, denoise, 480 px reducido a 160 con Lanczos en alfa premultiplicado.
+- Pesos: AVIF q52 = 104,7 KB, WebP q55 (alfa 100) = 140,4 KB.
+- Velocidad sugerida: una vuelta cada 8 s = 111 ms por cuadro (9 cuadros por segundo; interpolar con CSS steps no hace falta).
