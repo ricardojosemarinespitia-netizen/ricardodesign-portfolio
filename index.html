@@ -354,39 +354,58 @@ if(!matchMedia('(min-width:901px) and (hover:hover) and (pointer:fine)').matches
     </div>
   </section>
 
-  <!-- ================= Servicios (corto: rejilla de 4 oficios, sin láminas) ================= -->
-  <section class="sec serv" id="servicios" aria-labelledby="h-serv">
+  <!-- ================= Servicios (v3: escenario 3D + índice de 4 oficios; escenas en assets/web/servicios3d, ver js/servicios.js) ================= -->
+  <section class="sec serv sv" id="servicios" aria-labelledby="h-serv">
     <div class="wrap">
       <div class="sec__cab r-sube">
         <div><span class="versal">Servicios</span><h2 id="h-serv" data-lineas>Cuatro oficios, una sola casa.</h2></div>
         <p>Todo se cotiza según tu negocio.</p>
       </div>
-      <ul class="oficios">
-        <li class="oficio">
-          <div class="oficio__tit"><svg class="ico" aria-hidden="true"><use href="#i-web"/></svg><h3><a class="oficio__ir" href="diseno-web/">Diseño web</a></h3></div>
-          <p>Tu página a la medida, rápida y lista para vender.</p>
-          <ul><li>Diseño para celular y computador</li><li>Pagos en línea, correos y registros automáticos</li><li>Entrega en 10 días hábiles</li></ul>
-          <a class="enlace" data-wa="Hola Ricardo, quiero cotizar una página web." href="https://wa.me/573027981468">Cotizar web <svg class="ico flecha" aria-hidden="true"><use href="#i-flecha"/></svg></a>
-        </li>
-        <li class="oficio">
-          <div class="oficio__tit"><svg class="ico" aria-hidden="true"><use href="#i-meta"/></svg><h3><a class="oficio__ir" href="publicidad-digital/">Meta Ads</a></h3></div>
-          <p>Anuncios en Facebook, Instagram y WhatsApp, medidos de punta a punta.</p>
-          <ul><li>Estudio de público</li><li>Medición conectada (Meta Pixel y GA4)</li><li>Optimización semanal e informe mensual</li></ul>
-          <a class="enlace" data-wa="Hola Ricardo, quiero cotizar campañas de Meta Ads." href="https://wa.me/573027981468">Cotizar pauta <svg class="ico flecha" aria-hidden="true"><use href="#i-flecha"/></svg></a>
-        </li>
-        <li class="oficio">
-          <div class="oficio__tit"><svg class="ico" aria-hidden="true"><use href="#i-calendario"/></svg><h3><a class="oficio__ir" href="contenido-redes-sociales/">Contenido para redes</a></h3></div>
-          <p>Publicaciones, carruseles y reels que muestran tu marca como es.</p>
-          <ul><li>Calendario mensual</li><li>Publicaciones, carruseles e historias</li><li>Reels con subtítulos</li></ul>
-          <a class="enlace" data-wa="Hola Ricardo, quiero cotizar contenido para redes." href="https://wa.me/573027981468">Cotizar contenido <svg class="ico flecha" aria-hidden="true"><use href="#i-flecha"/></svg></a>
-        </li>
-        <li class="oficio">
-          <div class="oficio__tit"><svg class="ico" aria-hidden="true"><use href="#i-llave"/></svg><h3><a class="oficio__ir" href="mantenimiento-web/">Mantenimiento web</a></h3></div>
-          <p>Tu web siempre al día, sin que tengas que tocar código.</p>
-          <ul><li>Cambios de textos, fotos y secciones</li><li>Corrección de errores y velocidad</li><li>Respuesta en 24-48 h hábiles</li></ul>
-          <a class="enlace" data-wa="Hola Ricardo, quiero cotizar el mantenimiento de mi web." href="https://wa.me/573027981468">Cotizar mantenimiento <svg class="ico flecha" aria-hidden="true"><use href="#i-flecha"/></svg></a>
-        </li>
-      </ul>
+      <div class="sv-grid">
+        <div class="sv-escenario r-sube" aria-hidden="true">
+          <div class="sv-marco">
+            <figure class="sv-esc es-activa" data-n="diseno-web" data-listo="0"><svg class="ico sv-hueco"><use href="#i-web"/></svg></figure>
+            <figure class="sv-esc" data-n="meta-ads" data-listo="0"><svg class="ico sv-hueco"><use href="#i-meta"/></svg></figure>
+            <figure class="sv-esc" data-n="contenido" data-listo="0"><svg class="ico sv-hueco"><use href="#i-calendario"/></svg></figure>
+            <figure class="sv-esc" data-n="mantenimiento" data-listo="0"><svg class="ico sv-hueco"><use href="#i-llave"/></svg></figure>
+          </div>
+          <div class="sv-reg"><span class="sv-cuenta"><b>01</b> / 04</span><span class="sv-marcas"><i class="es-activa"></i><i></i><i></i><i></i></span></div>
+        </div>
+        <ul class="sv-lista">
+          <li class="sv-fila r-sube es-activa">
+            <span class="sv-num" aria-hidden="true">01</span>
+            <div class="sv-cab"><h3><a class="oficio__ir" href="diseno-web/">Diseño web</a></h3>
+            <a class="enlace" data-wa="Hola Ricardo, quiero cotizar una página web." href="https://wa.me/573027981468">Cotizar web <svg class="ico flecha" aria-hidden="true"><use href="#i-flecha"/></svg></a></div>
+            <p>Tu página a la medida, rápida y lista para vender.</p>
+            <ul><li>Diseño para celular y computador</li><li>Pagos en línea, correos y registros automáticos</li><li>Entrega en 10 días hábiles</li></ul>
+            <i class="sv-prog" aria-hidden="true"></i>
+          </li>
+          <li class="sv-fila r-sube">
+            <span class="sv-num" aria-hidden="true">02</span>
+            <div class="sv-cab"><h3><a class="oficio__ir" href="publicidad-digital/">Meta Ads</a></h3>
+            <a class="enlace" data-wa="Hola Ricardo, quiero cotizar campañas de Meta Ads." href="https://wa.me/573027981468">Cotizar pauta <svg class="ico flecha" aria-hidden="true"><use href="#i-flecha"/></svg></a></div>
+            <p>Anuncios en Facebook, Instagram y WhatsApp, medidos de punta a punta.</p>
+            <ul><li>Estudio de público</li><li>Medición conectada (Meta Pixel y GA4)</li><li>Optimización semanal e informe mensual</li></ul>
+            <i class="sv-prog" aria-hidden="true"></i>
+          </li>
+          <li class="sv-fila r-sube">
+            <span class="sv-num" aria-hidden="true">03</span>
+            <div class="sv-cab"><h3><a class="oficio__ir" href="contenido-redes-sociales/">Contenido para redes</a></h3>
+            <a class="enlace" data-wa="Hola Ricardo, quiero cotizar contenido para redes." href="https://wa.me/573027981468">Cotizar contenido <svg class="ico flecha" aria-hidden="true"><use href="#i-flecha"/></svg></a></div>
+            <p>Publicaciones, carruseles y reels que muestran tu marca como es.</p>
+            <ul><li>Calendario mensual</li><li>Publicaciones, carruseles e historias</li><li>Reels con subtítulos</li></ul>
+            <i class="sv-prog" aria-hidden="true"></i>
+          </li>
+          <li class="sv-fila r-sube">
+            <span class="sv-num" aria-hidden="true">04</span>
+            <div class="sv-cab"><h3><a class="oficio__ir" href="mantenimiento-web/">Mantenimiento web</a></h3>
+            <a class="enlace" data-wa="Hola Ricardo, quiero cotizar el mantenimiento de mi web." href="https://wa.me/573027981468">Cotizar mantenimiento <svg class="ico flecha" aria-hidden="true"><use href="#i-flecha"/></svg></a></div>
+            <p>Tu web siempre al día, sin que tengas que tocar código.</p>
+            <ul><li>Cambios de textos, fotos y secciones</li><li>Corrección de errores y velocidad</li><li>Respuesta en 24-48 h hábiles</li></ul>
+            <i class="sv-prog" aria-hidden="true"></i>
+          </li>
+        </ul>
+      </div>
     </div>
   </section>
 
@@ -563,7 +582,7 @@ if(!matchMedia('(min-width:901px) and (hover:hover) and (pointer:fine)').matches
    primera interacción (scroll, toque, tecla, puntero) o a los 4,5 s, o ya si la URL trae #ancla; cada pieza en su propia tarea. */
 (function(){
   var A=['js/vendor/gsap.min.js','js/vendor/ScrollTrigger.min.js','js/sitio.min.js','js/hero.min.js'],
-      B=['js/dispositivos.min.js','js/secciones.min.js','js/fx.min.js','js/garantia.min.js','js/casos.min.js','js/descuento.min.js','js/plataformas.min.js'];
+      B=['js/dispositivos.min.js','js/secciones.min.js','js/fx.min.js','js/garantia.min.js','js/casos.min.js','js/descuento.min.js','js/plataformas.min.js','js/servicios.min.js'];
   var EV=['pointerdown','touchstart','keydown','wheel','scroll','mousemove'];
   var e1=false,quiere=false,pidio=false,hecha=false,cola=[];
   function ceder(f){if(window.scheduler&&scheduler.yield)scheduler.yield().then(f);else setTimeout(f,0)}
