@@ -85,8 +85,8 @@ Opciones: `--incluir-por-validar` (publica los paquetes sin precio aprobado) y
 - Retirado (auditoría): "en vivo", "No es un video", demo de seguridad, 98/100, 95 %,
   +100 % ventas, 99,98 % uptime, 24/7, "nivel bancario", "+15 formas de pago",
   "talla mundial", KPIs inventados, "Excel" (→ "hoja de cálculo").
-- Precios visibles: sólo los vigentes de políticas ($65.000/h, $250.000/mes, $90.000,
-  $290.000, 15 %). Web = "Cotización a la medida en 24 h"; Contenido = "Cotiza por WhatsApp".
+- Precios visibles: ninguno (17 oct 2026, orden de Ricardo): todo se cotiza según el negocio
+  y el botón lleva a WhatsApp con el plan prellenado.
 - Filtros de proyectos visibles siempre (el plan pedía > 6 proyectos; el dueño pidió filtros).
 - Logo: monograma tipográfico "rd" en CSS (los PNG del logo no están en esta carpeta).
 - Medición (GTM/GA4/Pixel/Clarity) preparada pero apagada; sin banner hasta tener IDs.
@@ -107,9 +107,8 @@ Opciones: `--incluir-por-validar` (publica los paquetes sin precio aprobado) y
 5. D3/D5: precios y composición de Contenido (Básico 8 piezas, Crecimiento 12-16, Pro 20+),
    permanencia, número de revisiones (el texto dice "hasta 2 rondas") y si se entregan editables.
    ¿Existe el combo Contenido + Ads y a qué precio?
-6. D4: precio del Estudio de público (sugerido $150.000-$250.000) y de la Configuración de
-   medición (sugerido $250.000-$450.000). ¿El informe mensual + reunión de 30 min entra en el
-   plan de $290.000? (la página lo describe en la fase 6).
+6. D4: el Estudio de público y la Configuración de medición se cotizan aparte. ¿El informe
+   mensual + reunión de 30 min entra en los planes de Meta Ads? (la página lo describe en la fase 6).
 7. D6: inversión mínima diaria recomendada en Meta (hoy se omite la cifra).
 8. D17: rangos del presupuesto del mini-brief (< $500.000 / $500.000-$1.500.000 / > $1.500.000).
 
