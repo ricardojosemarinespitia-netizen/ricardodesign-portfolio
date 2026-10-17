@@ -21,3 +21,11 @@ Fila = pitch, columna = yaw. Valores por índice 0..4: -25, -12.5, 0, +12.5, +25
 - WebP de las dos hojas: para entrar en el peso, la sombra del WebP de la hoja de inclinación queda con pocos niveles de alfa (bandas planas, algo más marcada que en AVIF). Servir AVIF primero; WebP es solo respaldo.
 - plazos-gira.webp pesa 45.774 (tope pedido 46.080).
 - Por detrás el reloj se ve en espejo (es un objeto real, no una cara dibujada).
+
+## Giro limpio de 72 cuadros (plazos-gira72) — reemplaza a plazos-gira en la web
+- Archivos: `plazos-gira72.avif` (78.382 bytes, q55) y `plazos-gira72.webp` (136.812 bytes, q72). Hoja 1728×864, rejilla 12 columnas × 6 filas, cuadros de 144×144 (bajé de 160 a 144 para entrar en peso sin tocar el alfa).
+- Orden: lectura izquierda a derecha, arriba a abajo; cuadro i (0..71) = yaw 5°·i alrededor del eje vertical. El cuadro 72 (360°) es el 0: loop perfecto. Velocidad sugerida 1 vuelta cada 8 s (111 ms por cuadro, steps(72)).
+- Sin sombra horneada ni plano: solo el objeto sobre alfa transparente (RGB puesto en 0 donde alfa < 3, sin halos ni cuadrados). La sombra la pone la web con CSS.
+- Pivote: eje vertical por el centro del aro (x=0, y=0); verificado: el centro vertical del objeto queda en 239,5 px de 480 en los 72 cuadros y el aro no se desplaza. Las agujas, al estar delante, se desplazan lateralmente al girar (es paralaje real).
+- Render: Cycles OptiX, 128 muestras con denoise, 480 px reducidos a 144 (Lanczos), cámara ortográfica, negro mate con luces de borde reforzadas. Script `_build/blender/garantia_v1/plazos_g72.py`.
+- Lo flojo: el WebP queda cerca del tope (137 KB de 140); la textura de goma se ve con grano fino.
