@@ -315,6 +315,16 @@ svg{display:block}
 
 @media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;transition-delay:0s!important}}
 .estatico *,.estatico *::before,.estatico *::after{transition-duration:.01ms!important;transition-delay:0s!important;animation-duration:.01ms!important}
+/* fotos de producto (render Blender, fondo #F0F0F0) */
+:root{--foto:#F0F0F0}
+img.pz{object-fit:contain;background:var(--foto);border-radius:inherit}
+picture{display:block;width:100%;height:100%;border-radius:inherit}
+.t-card .img,.f-minis i,.f-rel i,.cj-item .img,.h-item .img,.anu i,.vuela{padding:0;background:var(--foto);overflow:hidden}
+.t-card .img em{z-index:1}
+.f-img,.p-img:not(.otro){padding:0;background:var(--foto)}
+.p-img .titu{z-index:1}
+.f-img.gira{cursor:ew-resize}
+.h-c .f-img{padding:0}
 </style>
 </head>
 <body>
@@ -349,29 +359,29 @@ svg{display:block}
       <div class="t-hero"><h1>Cerámica de uso diario</h1><p>Piezas torneadas a mano en pequeños lotes. Cada esmalte sale distinto del horno.</p></div>
       <div class="t-filtros" aria-hidden="true"><span>Todo</span><span>Más vendidas</span><span>Para regalar</span><span>Menos de $ 100.000</span></div>
       <div class="t-grid">
-        <article class="t-card" id="card-taza"><div class="img"><em>Nueva</em><svg class="pz"><use href="#p-taza"/></svg></div><h3>Taza Musgo</h3><p><span class="num">$ 89.000</span><span class="estr" aria-label="4,8 de 5"><svg><use href="#i-estr"/></svg>4,8</span></p></article>
-        <article class="t-card"><div class="img"><svg class="pz"><use href="#p-florero"/></svg></div><h3>Florero Noche</h3><p><span class="num">$ 164.000</span><span class="estr"><svg><use href="#i-estr"/></svg>4,9</span></p></article>
-        <article class="t-card"><div class="img"><svg class="pz"><use href="#p-cuenco"/></svg></div><h3>Cuenco Hueso</h3><p><span class="num">$ 72.000</span><span class="estr"><svg><use href="#i-estr"/></svg>4,7</span></p></article>
-        <article class="t-card"><div class="img"><svg class="pz"><use href="#p-vela"/></svg></div><h3>Vela de mesa</h3><p><span class="num">$ 58.000</span><span class="estr"><svg><use href="#i-estr"/></svg>4,6</span></p></article>
+        <article class="t-card" id="card-taza"><div class="img"><em>Nueva</em><img class="pz" src="productos/taza-musgo-400.webp" srcset="productos/taza-musgo-400.webp 400w, productos/taza-musgo-800.webp 800w, productos/taza-musgo-1200.webp 1200w" sizes="(min-width:500px) 180px, 45vw" width="400" height="400" alt="Taza Musgo de gres con banda oscura y asa" decoding="async"></div><h3>Taza Musgo</h3><p><span class="num">$ 89.000</span><span class="estr" aria-label="4,8 de 5"><svg><use href="#i-estr"/></svg>4,8</span></p></article>
+        <article class="t-card"><div class="img"><img class="pz" src="productos/florero-noche-400.webp" srcset="productos/florero-noche-400.webp 400w, productos/florero-noche-800.webp 800w, productos/florero-noche-1200.webp 1200w" sizes="(min-width:500px) 180px, 45vw" width="400" height="400" alt="Florero Noche, cerámica negra ovoide con cuello" decoding="async"></div><h3>Florero Noche</h3><p><span class="num">$ 164.000</span><span class="estr"><svg><use href="#i-estr"/></svg>4,9</span></p></article>
+        <article class="t-card"><div class="img"><img class="pz" src="productos/cuenco-hueso-400.webp" srcset="productos/cuenco-hueso-400.webp 400w, productos/cuenco-hueso-800.webp 800w, productos/cuenco-hueso-1200.webp 1200w" sizes="(min-width:500px) 180px, 45vw" width="400" height="400" alt="Cuenco Hueso de porcelana con borde fino" decoding="async"></div><h3>Cuenco Hueso</h3><p><span class="num">$ 72.000</span><span class="estr"><svg><use href="#i-estr"/></svg>4,7</span></p></article>
+        <article class="t-card"><div class="img"><img class="pz" src="productos/vela-mesa-400.webp" srcset="productos/vela-mesa-400.webp 400w, productos/vela-mesa-800.webp 800w, productos/vela-mesa-1200.webp 1200w" sizes="(min-width:500px) 180px, 45vw" width="400" height="400" alt="Vela de mesa en vaso de vidrio ahumado, encendida" decoding="async"></div><h3>Vela de mesa</h3><p><span class="num">$ 58.000</span><span class="estr"><svg><use href="#i-estr"/></svg>4,6</span></p></article>
       </div>
     </section>
     <section class="pant" data-p="1">
       <p class="f-migas">Inicio / Tazas / <b>Taza Musgo</b></p>
       <div class="f-grid">
-        <div class="f-minis" aria-hidden="true"><i class="sel"><svg class="pz"><use href="#p-taza"/></svg></i><i><svg class="pz"><use href="#p-taza-h"/></svg></i><i><svg class="pz"><use href="#p-cuenco"/></svg></i><i><svg class="pz"><use href="#p-florero"/></svg></i></div>
-        <div class="f-img" id="f-img"><svg class="pz" id="f-pz"><use href="#p-taza"/></svg><span class="lupa"><svg viewBox="0 0 16 16"><circle cx="7" cy="7" r="5"/><path d="M11 11l3.5 3.5"/></svg></span></div>
+        <div class="f-minis" aria-hidden="true"><i class="sel"><img class="pz" src="productos/taza-musgo-400.webp" srcset="productos/taza-musgo-400.webp 400w, productos/taza-musgo-800.webp 800w, productos/taza-musgo-1200.webp 1200w" sizes="80px" width="400" height="400" alt="" loading="lazy" decoding="async"></i><i><img class="pz" src="productos/taza-musgo-34-400.webp" srcset="productos/taza-musgo-34-400.webp 400w, productos/taza-musgo-34-800.webp 800w, productos/taza-musgo-34-1200.webp 1200w" sizes="80px" width="400" height="400" alt="" loading="lazy" decoding="async"></i><i><img class="pz" src="productos/taza-musgo-arriba-400.webp" srcset="productos/taza-musgo-arriba-400.webp 400w, productos/taza-musgo-arriba-800.webp 800w, productos/taza-musgo-arriba-1200.webp 1200w" sizes="80px" width="400" height="400" alt="" loading="lazy" decoding="async"></i><i><img class="pz" src="productos/taza-musgo-detalle-400.webp" srcset="productos/taza-musgo-detalle-400.webp 400w, productos/taza-musgo-detalle-800.webp 800w, productos/taza-musgo-detalle-1200.webp 1200w" sizes="80px" width="400" height="400" alt="" loading="lazy" decoding="async"></i></div>
+        <div class="f-img" id="f-img"><picture><source type="image/avif" id="f-av" srcset="productos/taza-musgo-400.avif 400w, productos/taza-musgo-800.avif 800w, productos/taza-musgo-1200.avif 1200w" sizes="(min-width:500px) 420px, 90vw"><img class="pz" id="f-pz" src="productos/taza-musgo-400.webp" srcset="productos/taza-musgo-400.webp 400w, productos/taza-musgo-800.webp 800w, productos/taza-musgo-1200.webp 1200w" sizes="(min-width:500px) 420px, 90vw" width="400" height="400" alt="Taza Musgo de gres con banda oscura y asa" decoding="async"></picture><span class="lupa"><svg viewBox="0 0 16 16"><circle cx="7" cy="7" r="5"/><path d="M11 11l3.5 3.5"/></svg></span></div>
         <div class="f-info">
           <span class="desde"><i></i>Llegaste desde un anuncio</span>
           <h2>Taza Musgo</h2>
           <div class="f-res"><span class="estr"><svg><use href="#i-estr"/></svg><svg><use href="#i-estr"/></svg><svg><use href="#i-estr"/></svg><svg><use href="#i-estr"/></svg><svg><use href="#i-estr"/></svg></span>4,8 · 126 reseñas</div>
           <div class="f-precio num">$ 89.000<small>o 3 cuotas de $ 29.667</small></div>
           <p>Gres torneado a mano, banda de esmalte musgo. 350 ml, apta para lavavajillas y microondas.</p>
-          <div class="f-op"><span>Esmalte: <b id="esm">Musgo</b></span><div class="chips"><span class="chip sel" id="ch-musgo"><i style="background:#2B2B2B"></i>Musgo</span><span class="chip" id="ch-hueso"><i style="background:#E4E4E4"></i>Hueso</span><span class="chip"><i style="background:#8C8C8C"></i>Barro</span></div></div>
+          <div class="f-op"><span>Esmalte: <b id="esm">Musgo</b></span><div class="chips"><span class="chip sel" id="ch-musgo"><i style="background:#5D6A4C"></i>Musgo</span><span class="chip" id="ch-hueso"><i style="background:#E4DED0"></i>Hueso</span><span class="chip"><i style="background:#A99D89"></i>Barro</span></div></div>
           <div class="f-acc"><span class="cant" aria-hidden="true">−<b>1</b>+</span><button class="btn" id="b-agregar" data-ir="2">Agregar a la bolsa</button></div>
           <div class="f-gar"><span><svg viewBox="0 0 16 16"><path d="M1 4h9v7H1zM10 7h3l2 2v2h-5"/><circle cx="4" cy="12" r="1.4"/><circle cx="12" cy="12" r="1.4"/></svg>Llega en 3 a 5 días</span><span><svg viewBox="0 0 16 16"><path d="M8 1l6 2.5v4C14 11 11.4 14 8 15 4.6 14 2 11 2 7.5v-4z"/><path d="M5.5 8l2 2 3-3.5"/></svg>Compra protegida</span></div>
         </div>
       </div>
-      <div class="f-rel" aria-hidden="true"><b>Combina con</b><i><svg class="pz"><use href="#p-cuenco"/></svg></i><i><svg class="pz"><use href="#p-vela"/></svg></i><i><svg class="pz"><use href="#p-florero"/></svg></i></div>
+      <div class="f-rel" aria-hidden="true"><b>Combina con</b><i><img class="pz" src="productos/plato-piedra-400.webp" srcset="productos/plato-piedra-400.webp 400w, productos/plato-piedra-800.webp 800w, productos/plato-piedra-1200.webp 1200w" sizes="40px" width="400" height="400" alt="" loading="lazy" decoding="async"></i><i><img class="pz" src="productos/jarra-ceniza-400.webp" srcset="productos/jarra-ceniza-400.webp 400w, productos/jarra-ceniza-800.webp 800w, productos/jarra-ceniza-1200.webp 1200w" sizes="40px" width="400" height="400" alt="" loading="lazy" decoding="async"></i><i><img class="pz" src="productos/cuenco-hueso-400.webp" srcset="productos/cuenco-hueso-400.webp 400w, productos/cuenco-hueso-800.webp 800w, productos/cuenco-hueso-1200.webp 1200w" sizes="40px" width="400" height="400" alt="" loading="lazy" decoding="async"></i><i><img class="pz" src="productos/vela-mesa-400.webp" srcset="productos/vela-mesa-400.webp 400w, productos/vela-mesa-800.webp 800w, productos/vela-mesa-1200.webp 1200w" sizes="40px" width="400" height="400" alt="" loading="lazy" decoding="async"></i></div>
     </section>
     <section class="pant" data-p="3">
       <div class="c-grid">
@@ -389,7 +399,7 @@ svg{display:block}
         </div>
         <aside class="c-res">
           <div class="ver">Resumen del pedido</div>
-          <div class="cj-item"><div class="img"><svg class="pz"><use href="#p-taza"/></svg></div><div><h3>Taza Musgo</h3><p>Musgo · 350 ml · 1 unidad</p></div><span class="num">$ 89.000</span></div>
+          <div class="cj-item"><div class="img"><img class="pz" src="productos/taza-musgo-400.webp" srcset="productos/taza-musgo-400.webp 400w, productos/taza-musgo-800.webp 800w, productos/taza-musgo-1200.webp 1200w" sizes="70px" width="400" height="400" alt="Taza Musgo de gres con banda oscura y asa" loading="lazy" decoding="async"></div><div><h3>Taza Musgo</h3><p>Musgo · 350 ml · 1 unidad</p></div><span class="num">$ 89.000</span></div>
           <div class="fila"><span>Subtotal</span><span class="num">$ 89.000</span></div>
           <div class="fila"><span>Envío a Bucaramanga</span><span class="num">$ 8.000</span></div>
           <div class="fila total"><span>Total</span><span class="num">$ 97.000</span></div>
@@ -408,7 +418,7 @@ svg{display:block}
           <span class="e-atrib"><i></i>Venta atribuida al anuncio</span>
         </div>
         <div class="e-card">
-          <div class="cj-item"><div class="img"><svg class="pz"><use href="#p-taza"/></svg></div><div><h3>Taza Musgo</h3><p>Musgo · 1 unidad</p></div><span class="num">$ 89.000</span></div>
+          <div class="cj-item"><div class="img"><img class="pz" src="productos/taza-musgo-400.webp" srcset="productos/taza-musgo-400.webp 400w, productos/taza-musgo-800.webp 800w, productos/taza-musgo-1200.webp 1200w" sizes="70px" width="400" height="400" alt="Taza Musgo de gres con banda oscura y asa" loading="lazy" decoding="async"></div><div><h3>Taza Musgo</h3><p>Musgo · 1 unidad</p></div><span class="num">$ 89.000</span></div>
           <div class="fila"><span>Envío</span><span class="num">$ 8.000</span></div>
           <div class="fila total"><span>Total pagado</span><span class="num">$ 97.000</span></div>
           <div class="segui" aria-label="Seguimiento: confirmado"><span><i></i>Confirmado</span><span><i></i>Preparando</span><span><i></i>En camino</span><span><i></i>Entregado</span></div>
@@ -420,7 +430,7 @@ svg{display:block}
     <aside class="cajon" aria-label="Tu bolsa">
       <div class="cj-cab">Tu bolsa <span>1 pieza</span></div>
       <div class="cj-cuerpo">
-        <div class="cj-item"><div class="img"><svg class="pz"><use href="#p-taza"/></svg></div><div><h3>Taza Musgo</h3><p>Musgo · 350 ml</p><span class="cant" aria-hidden="true">−<b>1</b>+</span></div><span class="num">$ 89.000</span></div>
+        <div class="cj-item"><div class="img"><img class="pz" src="productos/taza-musgo-400.webp" srcset="productos/taza-musgo-400.webp 400w, productos/taza-musgo-800.webp 800w, productos/taza-musgo-1200.webp 1200w" sizes="70px" width="400" height="400" alt="Taza Musgo de gres con banda oscura y asa" loading="lazy" decoding="async"></div><div><h3>Taza Musgo</h3><p>Musgo · 350 ml</p><span class="cant" aria-hidden="true">−<b>1</b>+</span></div><span class="num">$ 89.000</span></div>
         <div class="cj-envio">Te faltan $ 61.000 para envío gratis<i></i></div>
         <div class="cupon" aria-hidden="true"><span>Código de descuento</span><b>Aplicar</b></div>
         <div class="fila"><span>Subtotal</span><span class="num">$ 89.000</span></div>
@@ -443,7 +453,7 @@ svg{display:block}
     </article>
     <article class="post" id="anuncio">
       <div class="p-cab"><span class="av">A</span><div><b>Alfar · tienda de ejemplo</b><small class="pat">Patrocinado</small></div><u>···</u></div>
-      <div class="p-img" id="p-img"><span class="titu">Taza Musgo<small>Torneada a mano · envío a todo el país</small></span><svg class="pz"><use href="#p-taza"/></svg></div>
+      <div class="p-img" id="p-img"><span class="titu">Taza Musgo<small>Torneada a mano · envío a todo el país</small></span><picture><source type="image/avif" srcset="productos/taza-musgo-400.avif 400w, productos/taza-musgo-800.avif 800w" sizes="240px"><img class="pz" src="productos/taza-musgo-400.webp" srcset="productos/taza-musgo-400.webp 400w, productos/taza-musgo-800.webp 800w, productos/taza-musgo-1200.webp 1200w" sizes="240px" width="400" height="400" alt="Taza Musgo de gres con banda oscura y asa" decoding="async"></picture></div>
       <div class="p-cta"><div><small>alfar.ejemplo</small><b class="num">$ 89.000</b></div><button class="btn" id="b-comprar" data-ir="1">Comprar ahora</button></div>
       <div class="p-acc" aria-hidden="true"><svg viewBox="0 0 24 24" class="lat"><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z"/></svg><svg viewBox="0 0 24 24"><path d="M4 18V6h16v10H8z"/></svg><svg viewBox="0 0 24 24"><path d="M21 4L3 11l7 2 2 7z"/></svg><svg viewBox="0 0 24 24"><path d="M6 3h12v18l-6-4-6 4z"/></svg></div>
       <div class="p-txt"><span><b>1.284 Me gusta</b></span><span><b>Alfar</b> Una taza que no se repite: cada esmalte sale distinto del horno.</span><span>Ver los 86 comentarios</span></div>
@@ -454,16 +464,16 @@ svg{display:block}
     <div class="h-prog"></div>
     <div class="h-c" data-h="1">
       <span class="desde"><i></i>Desde el anuncio</span>
-      <div class="f-img"><svg class="pz"><use href="#p-taza"/></svg></div>
+      <div class="f-img"><img class="pz" src="productos/taza-musgo-400.webp" srcset="productos/taza-musgo-400.webp 400w, productos/taza-musgo-800.webp 800w, productos/taza-musgo-1200.webp 1200w" sizes="(min-width:300px) 200px, 60vw" width="400" height="400" alt="Taza Musgo de gres con banda oscura y asa" loading="lazy" decoding="async"></div>
       <h2>Taza Musgo</h2>
       <div class="f-res"><span class="estr"><svg><use href="#i-estr"/></svg><svg><use href="#i-estr"/></svg><svg><use href="#i-estr"/></svg><svg><use href="#i-estr"/></svg><svg><use href="#i-estr"/></svg></span>126 reseñas</div>
       <div class="f-precio num">$ 89.000</div>
-      <div class="chips" aria-hidden="true"><span class="chip sel"><i style="background:#2B2B2B"></i>Musgo</span><span class="chip"><i style="background:#E4E4E4"></i>Hueso</span></div>
+      <div class="chips" aria-hidden="true"><span class="chip sel"><i style="background:#5D6A4C"></i>Musgo</span><span class="chip"><i style="background:#E4DED0"></i>Hueso</span></div>
       <button class="btn" id="h-agregar" data-ir="2">Agregar a la bolsa</button>
     </div>
     <div class="h-c fuera" data-h="2">
       <div class="ver">Tu bolsa · 1 pieza</div>
-      <div class="h-item"><div class="img"><svg class="pz"><use href="#p-taza"/></svg></div><div><b>Taza Musgo</b><small>Musgo · 350 ml</small></div><b class="num">$ 89.000</b></div>
+      <div class="h-item"><div class="img"><img class="pz" src="productos/taza-musgo-400.webp" srcset="productos/taza-musgo-400.webp 400w, productos/taza-musgo-800.webp 800w, productos/taza-musgo-1200.webp 1200w" sizes="56px" width="400" height="400" alt="Taza Musgo de gres con banda oscura y asa" loading="lazy" decoding="async"></div><div><b>Taza Musgo</b><small>Musgo · 350 ml</small></div><b class="num">$ 89.000</b></div>
       <div class="fila"><span>Envío</span><span class="num">$ 8.000</span></div>
       <div class="fila total"><span>Total</span><span class="num">$ 97.000</span></div>
       <button class="btn" id="h-pagar" data-ir="3">Ir a pagar</button>
@@ -502,8 +512,8 @@ svg{display:block}
         <div class="dias"><span>Vie</span><span>Sáb</span><span>Dom</span><span>Lun</span><span>Mar</span><span>Mié</span><span>Hoy</span></div>
       </div>
       <div class="anu"><small>Desglose por anuncio</small>
-        <div><i><svg class="pz"><use href="#p-taza"/></svg></i><span>Anuncio A · Taza</span><b data-n="ana">6</b></div>
-        <div><i><svg class="pz"><use href="#p-florero"/></svg></i><span>Anuncio B · Florero</span><b>2</b></div>
+        <div><i><img class="pz" src="productos/taza-musgo-400.webp" srcset="productos/taza-musgo-400.webp 400w, productos/taza-musgo-800.webp 800w, productos/taza-musgo-1200.webp 1200w" sizes="40px" width="400" height="400" alt="" loading="lazy" decoding="async"></i><span>Anuncio A · Taza</span><b data-n="ana">6</b></div>
+        <div><i><img class="pz" src="productos/florero-noche-400.webp" srcset="productos/florero-noche-400.webp 400w, productos/florero-noche-800.webp 800w, productos/florero-noche-1200.webp 1200w" sizes="40px" width="400" height="400" alt="" loading="lazy" decoding="async"></i><span>Anuncio B · Florero</span><b>2</b></div>
       </div>
       <div class="atrib" id="atrib"><i></i>Venta atribuida al anuncio</div>
       <p class="pn-fuente">Cifras ficticias para mostrar cómo se lee una campaña.</p>
@@ -520,6 +530,14 @@ svg{display:block}
   var q=new URLSearchParams(location.search),V=q.get('v')||'tienda',d=document,B=d.body,$=function(s){return d.querySelector(s)};
   B.setAttribute('data-v',V);
   var reduce=matchMedia('(prefers-reduced-motion:reduce)').matches,est=q.has('estatico')||reduce;if(est)B.classList.add('estatico');
+  /* esmalte elegido y giro de la taza (cuadros Blender; solo con puntero y sin modo estático) */
+  function esmalte(n){var i=$('#f-pz'),a=$('#f-av'),ss=function(x){return [400,800,1200].map(function(w){return 'productos/'+n+'-'+w+'.'+x+' '+w+'w'}).join(', ')};if(a)a.srcset=ss('avif');i.srcset=ss('webp');i.src='productos/'+n+'-400.webp';$('#f-img').dataset.esm=n}
+  (function(){var f=$('#f-img');if(!f||est||!matchMedia('(hover:hover) and (pointer:fine)').matches)return;var N=40,cu=[],listo=0,ini=null;
+    function carga(){if(cu.length)return;for(var k=0;k<N;k++){var im=new Image();im.onload=function(){listo++};im.src='productos/giro/taza-'+(k<10?'0':'')+k+'.webp';cu.push(im)}}
+    f.addEventListener('pointerenter',function(){carga();f.classList.add('gira')});
+    f.addEventListener('pointerleave',function(){if(f.dataset.esm!=='taza-hueso')esmalte('taza-musgo')});
+    f.addEventListener('pointermove',function(e){if(listo<N||f.dataset.esm==='taza-hueso')return;var r=f.getBoundingClientRect(),k=Math.min(N-1,Math.max(0,Math.floor((e.clientX-r.left)/r.width*N)));var i=$('#f-pz');i.srcset='';i.src=cu[k].src;var a=$('#f-av');if(a)a.srcset=''});
+  })();
   var cur=$('#cur'),estela=[].slice.call(d.querySelectorAll('.est')),paso=-1,T=[],pos={x:0,y:0};
   if(V==='feed')B.classList.add('dedo');
   if(V!=='tienda')$('#etq').hidden=true;
@@ -582,7 +600,7 @@ svg{display:block}
   /* imagen de la ficha que vuela hasta la bolsa */
   function volarABolsa(){
     var a=$('#f-img').getBoundingClientRect(),b=$('#bolsa').getBoundingClientRect(),v=d.createElement('div');v.className='vuela';
-    v.innerHTML='<svg class="pz"><use href="#p-taza"/></svg>';v.style.left=(a.left+a.width/2-32)+'px';v.style.top=(a.top+a.height/2-32)+'px';B.appendChild(v);
+    v.innerHTML='<img class="pz" src="productos/taza-musgo-160.webp" width="160" height="160" alt="">';v.style.left=(a.left+a.width/2-32)+'px';v.style.top=(a.top+a.height/2-32)+'px';B.appendChild(v);
     if(est){v.remove();return}
     var dx=b.left+b.width/2-(a.left+a.width/2),dy=b.top+b.height/2-(a.top+a.height/2);
     v.animate([{transform:'translate(0,0) scale(1.6)',opacity:0},{transform:'translate(0,0) scale(1)',opacity:1,offset:.2},{transform:'translate('+dx+'px,'+dy+'px) scale(.2)',opacity:.4}],{duration:700,easing:'cubic-bezier(.65,0,.35,1)'}).onfinish=function(){v.remove();var s=$('#bolsa');s.classList.add('tiene');s.classList.remove('salta');void s.offsetWidth;s.classList.add('salta')};
@@ -603,8 +621,8 @@ svg{display:block}
       else $('#card-taza').classList.remove('va');
       if(!mano)return;
       if(p===1){var c0=centro($('#ch-hueso'));B.classList.add('on-cur');
-        luego(250,function(){toca($('#ch-hueso'),600,function(){$('#ch-musgo').classList.remove('sel');$('#ch-hueso').classList.add('sel');$('#esm').textContent='Hueso';$('#f-pz').innerHTML='<use href="#p-taza-h"/>'})});
-        luego(1250,function(){toca($('#ch-musgo'),380,function(){$('#ch-hueso').classList.remove('sel');$('#ch-musgo').classList.add('sel');$('#esm').textContent='Musgo';$('#f-pz').innerHTML='<use href="#p-taza"/>'})});
+        luego(250,function(){toca($('#ch-hueso'),600,function(){$('#ch-musgo').classList.remove('sel');$('#ch-hueso').classList.add('sel');$('#esm').textContent='Hueso';esmalte('taza-hueso')})});
+        luego(1250,function(){toca($('#ch-musgo'),380,function(){$('#ch-hueso').classList.remove('sel');$('#ch-musgo').classList.add('sel');$('#esm').textContent='Musgo';esmalte('taza-musgo')})});
         luego(2050,function(){toca($('#b-agregar'),520,volarABolsa)});}
       else if(p===2){luego(600,function(){toca($('#b-ir-pagar'),700)})}
       else if(p===3){luego(350,function(){toca($('#met-2'),520,function(){$('#met-1').classList.remove('sel');$('#met-2').classList.add('sel')})});
