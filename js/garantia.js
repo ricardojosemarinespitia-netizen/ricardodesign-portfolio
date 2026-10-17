@@ -2,9 +2,9 @@
    Coreografía por scroll (scrub): 1) entra el papel (fondo fijo + rd), sin texto;
    2) el texto entra por grupos: kicker y su hilo, titular por líneas (máscara), lede, filete de las cláusulas que se dibuja,
       folios 01-04 con su objeto, "Campañas rentables." y letra chica.
-   Íconos: hoja de giro 6x4 (24 cuadros, 360°) de assets/web/garantia3d/<nombre>-gira.(avif|webp), cargada al acercarse;
+   Íconos: hoja de giro 12x6 (72 cuadros de 5°, 360°, sin sombra) de assets/web/garantia3d/<nombre>-gira72.(avif|webp), cargada al acercarse;
    gira por CSS (steps) y se pausa fuera de pantalla. Reducido, ?estatico, WebView de Instagram/Facebook y ahorro de datos:
-   cuadro fijo (<nombre>[-320].avif|webp), sin animación. Si el archivo no existe, queda el SVG. Texto siempre en el DOM. */
+   primer cuadro de la misma hoja, quieto, sin animación. Si el archivo no existe, queda el SVG. Texto siempre en el DOM. */
 (function () {
   var sec = document.getElementById('garantia');
   if (!sec) return;
@@ -17,7 +17,6 @@
   /* ---------- íconos 3D ---------- */
   var DIR = 'assets/web/garantia3d/', VUELTA = 8;             /* segundos por vuelta */
   var fijo = quieto || wv || ahorro;
-  var hi = (window.devicePixelRatio || 1) > 1.4;
   var icos = Q('.g3d');
   var activos = !!sec.querySelector('[data-g3d-on]');           /* se enciende cuando los assets 3D están publicados (evita 404) */
   function probar(urls, ok, i) {
@@ -32,14 +31,16 @@
     var n = g.getAttribute('data-g3d'), capa = document.createElement('i');
     capa.className = 'g3d__giro'; g.insertBefore(capa, g.firstChild);
     var cA = document.createElement('i'); cA.className = 'g3d__c'; capa.appendChild(cA);
-    var base = DIR + n + (fijo ? (hi ? '-320' : '') : '-gira');
+    var h24 = g.getAttribute('data-g3d-hoja') === '24';           /* hoja vieja 6x4 mientras <nombre>-gira72 no esté publicada */
+    if (h24) g.classList.add('g3d--24');
+    var base = DIR + n + (h24 ? '-gira' : '-gira72');
     probar([base + '.avif', base + '.webp'], function (u) {
       cA.style.backgroundImage = 'url(' + u + ')';
       if (fijo) g.classList.add('g3d--fijo');
       else {
         g.style.setProperty('--g3d-t', VUELTA + 's');
-        g.style.setProperty('--g3d-t4', VUELTA / 4 + 's');
-        g.style.setProperty('--g3d-f', (VUELTA / 24).toFixed(4) + 's');   /* un cuadro */
+        g.style.setProperty('--g3d-t6', (VUELTA / (h24 ? 4 : 6)).toFixed(4) + 's');
+        g.style.setProperty('--g3d-f', (VUELTA / (h24 ? 24 : 72)).toFixed(4) + 's');   /* un cuadro */
         var cB = cA.cloneNode(); capa.appendChild(cB);
         g.style.setProperty('--g3d-d', (-k * VUELTA * 0.27).toFixed(2) + 's');   /* desfasados entre sí */
         g.classList.add('g3d--gira');
@@ -72,6 +73,18 @@
       lista.addEventListener('pointermove', function (e) { px = e.clientX; py = e.clientY; if (!pend) { pend = 1; requestAnimationFrame(inclinar); } });
       lista.addEventListener('pointerleave', function () { icos.forEach(function (g) { g.style.setProperty('--rx', '0deg'); g.style.setProperty('--ry', '0deg'); }); });
     }
+  }
+
+  /* rd: se inclina apenas hacia el puntero (variables CSS sobre el <picture>; la entrada usa el contenedor) */
+  var rd = sec.querySelector('.pliego__rd');
+  if (rd && !fijo && matchMedia('(hover:hover) and (pointer:fine)').matches) {
+    var rp = 0, rx = 0, ry = 0;
+    sec.addEventListener('pointermove', function (e) { rx = e.clientX; ry = e.clientY; if (!rp) { rp = 1; requestAnimationFrame(function () {
+      rp = 0; var b = rd.getBoundingClientRect();
+      var dx = Math.max(-1, Math.min(1, (rx - b.left - b.width / 2) / 600)), dy = Math.max(-1, Math.min(1, (ry - b.top - b.height / 2) / 500));
+      rd.style.setProperty('--rd-ry', (dx * 10).toFixed(1) + 'deg'); rd.style.setProperty('--rd-rx', (-dy * 7).toFixed(1) + 'deg');
+    }); } });
+    sec.addEventListener('pointerleave', function () { rd.style.setProperty('--rd-ry', '0deg'); rd.style.setProperty('--rd-rx', '0deg'); });
   }
 
   if (quieto) return;                                          /* reducido o ?estatico: el CSS ya muestra el estado final */
@@ -110,6 +123,9 @@
     /* 0) rd: acompaña al papel antes que cualquier texto */
     if (sello.length) gsap.fromTo(sello, { scale: 1.1, opacity: 0, y: 18 }, { scale: 1, opacity: 1, y: 0, ease: 'power2.out',
       scrollTrigger: { start: function () { return sS() - 0.98 * H(); }, end: function () { return sS() - 0.58 * H(); }, scrub: 0.7, invalidateOnRefresh: true } });
+
+    /* 0a) rd: inclinación sutil con el scroll (de 8° a -4° mientras cruza la pantalla) */
+    if (rd) gsap.fromTo(rd, { '--rd-sy': '8deg' }, { '--rd-sy': '-4deg', ease: 'none', scrollTrigger: { trigger: sec, start: 'top bottom', end: 'bottom top', scrub: 0.8 } });
 
     /* 0b) papel: se asienta y se desplaza apenas dentro del fondo fijo */
     var papel = sec.querySelector('.pliego__fondo img');

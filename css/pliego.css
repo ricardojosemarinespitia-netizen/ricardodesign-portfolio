@@ -1,6 +1,6 @@
 /* Garantía v2 (#garantia .pliego--v2): pliego firmado. Fuente; se minifica y se anexa al final de css/secciones.min.css
    entre las marcas pliego2:ini y pliego2:fin (luego node scripts/resto.mjs). Solo tokens de sitio.min.css. */
-.pliego--v2{--pl-tinta:var(--c-tinta-papel);--pl-tinta-2:#2E2E2E;--pl-regla:rgba(22,22,22,.32);--pl-fina:rgba(22,22,22,.16);--pl-ico:clamp(60px,4.8vw,76px);padding-block:clamp(var(--s-12),5.8vw,88px)}
+.pliego--v2{--pl-tinta:var(--c-tinta-papel);--pl-tinta-2:#2E2E2E;--pl-regla:rgba(22,22,22,.32);--pl-fina:rgba(22,22,22,.16);--pl-ico:80px;padding-block:clamp(var(--s-12),5.8vw,88px)}
 .pliego--v2 .pliego__fondo:after{content:"";position:absolute;inset:0;background:radial-gradient(120% 90% at 30% 35%,rgba(250,250,250,.22),transparent 65%);pointer-events:none}
 .pliego--v2 .pliego__hoja{position:relative}
 .pliego--v2 .registro>.reg{width:18px;height:18px}
@@ -17,8 +17,13 @@
 .pliego--v2 h2 .gl>span{display:inline-block}
 .pliego--v2 h2 .gl--b{font-weight:700;letter-spacing:-.045em}
 .pliego--v2 .pliego__lede{grid-column:1/span 7;font-size:var(--t-md);line-height:1.5;max-width:52ch;color:var(--pl-tinta);margin:0}
-.pliego--v2 .pliego__sello{grid-column:10/-1;grid-row:2/span 2;justify-self:end;align-self:start;margin-top:var(--s-2)}
-.pliego--v2 .pliego__sello .sello--rd{width:clamp(150px,17vw,250px)}
+.pliego--v2 .pliego__cab{position:relative}
+/* rd: pieza editorial anclada al borde derecho de la cabecera, al pie de la lede; fuera del flujo (no cambia la altura) */
+.pliego--v2 .pliego__sello{position:absolute;right:0;bottom:0;width:var(--rd-w,clamp(240px,27vw,400px));margin:0;perspective:900px;pointer-events:none}
+.pliego__rd{position:relative;isolation:isolate}
+.pliego__rd picture{display:block;transform:rotateX(calc(var(--rd-rx,0deg) + var(--rd-sy,0deg))) rotateY(var(--rd-ry,0deg));transition:transform .9s var(--ease-casa);transform-origin:50% 92%}
+.pliego__rd-img{width:100%;height:auto;display:block}
+.pliego__rd:after{content:"";position:absolute;left:9%;right:7%;bottom:-3%;height:7%;border-radius:50%;background:radial-gradient(closest-side,rgba(22,22,22,.42),rgba(22,22,22,.16) 60%,transparent);filter:blur(6px);z-index:-1}
 /* cláusulas: libro de cuatro folios con filete que se dibuja */
 .pliego--v2 .clausulas{position:relative;margin:clamp(var(--s-8),4vw,56px) 0 0;gap:0;border-top:0}
 .pliego--v2 .clausulas:before{content:"";position:absolute;left:0;right:0;top:0;height:1px;background:var(--pl-tinta);transform-origin:0 50%;transform:scaleX(var(--filete,1))}
@@ -31,21 +36,24 @@
 .pliego--v2 .clausula h3{font:600 var(--t-md)/1.1 var(--f-display);letter-spacing:-.015em;margin:0 0 var(--s-2);color:var(--pl-tinta)}
 .pliego--v2 .clausula p{font-size:var(--t-sm);line-height:1.55;color:var(--pl-tinta-2);margin:0;max-width:30ch}
 .pliego--v2 .cifra{font-weight:800;font-size:1.2em;line-height:1;letter-spacing:-.02em;color:var(--pl-tinta);background:linear-gradient(var(--pl-tinta),var(--pl-tinta)) 0 100%/100% 2px no-repeat;padding:0 .06em .04em}
-/* ícono 3D: hoja de giro 6x4 (24 cuadros, 360°) movida por background-position con steps; SVG de respaldo */
+/* ícono 3D: hoja de giro 12x6 (72 cuadros de 5°, 360°) movida por background-position con steps; SVG de respaldo */
 .g3d{position:relative;display:block;width:var(--pl-ico);height:var(--pl-ico);margin:calc(var(--s-2) * -1) calc(var(--s-2) * -1) 0 0;perspective:420px}
 .g3d .ico{position:absolute;inset:22%;width:56%;height:56%;color:var(--pl-tinta);stroke-width:1.25;transition:opacity var(--d-ui) var(--ease-casa)}
 .g3d__giro{position:absolute;inset:0;isolation:isolate;opacity:0;transition:opacity var(--d-ui) var(--ease-casa),transform .7s var(--ease-casa);transform:rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg));will-change:transform}
-.g3d__c{position:absolute;inset:0;background-repeat:no-repeat;background-size:600% 400%;background-position:0 0}
+.g3d__c{position:absolute;inset:0;background-repeat:no-repeat;background-size:1200% 600%;background-position:0 0}
 .g3d__c+.g3d__c{opacity:0}
-.g3d--fijo .g3d__c{background-size:100% 100%}
 .g3d--vivo .g3d__giro{opacity:1}.g3d--vivo .ico{opacity:0}
-/* 24 cuadros en 8 s: fundido cruzado entre el cuadro actual (A) y el siguiente (B) con plus-lighter dentro de un grupo aislado:
+/* sombra propia en CSS: fija, no gira (la hoja ya no trae sombra horneada) */
+.g3d:after{content:"";position:absolute;left:24%;right:24%;bottom:-2%;height:9%;border-radius:50%;background:rgba(22,22,22,.34);filter:blur(5px);opacity:0;transition:opacity var(--d-ui) var(--ease-casa);z-index:-1}
+.g3d--vivo:after{opacity:1}
+.g3d{isolation:isolate}
+/* 72 cuadros (5°) en 8 s, rejilla 12x6: fundido cruzado entre el cuadro actual (A) y el siguiente (B) con plus-lighter dentro de un grupo aislado:
    interpolación lineal exacta, así la sombra fija de la hoja no late entre cuadros */
-.g3d--gira .g3d__c{animation:g3d-x var(--g3d-t4,2s) steps(6) infinite,g3d-y var(--g3d-t,8s) steps(4) infinite,g3d-fo var(--g3d-f,.333s) linear infinite;animation-delay:var(--g3d-d,0s),var(--g3d-d,0s),var(--g3d-d,0s);animation-play-state:paused}
-.g3d--gira .g3d__c+.g3d__c{animation:g3d-x var(--g3d-t4,2s) steps(6) infinite,g3d-y var(--g3d-t,8s) steps(4) infinite,g3d-f var(--g3d-f,.333s) linear infinite;mix-blend-mode:plus-lighter;animation-delay:calc(var(--g3d-d,0s) - var(--g3d-f,.333s)),calc(var(--g3d-d,0s) - var(--g3d-f,.333s)),var(--g3d-d,0s);animation-play-state:paused}
+.g3d--gira .g3d__c{animation:g3d-x var(--g3d-t6,1.333s) steps(12) infinite,g3d-y var(--g3d-t,8s) steps(6) infinite,g3d-fo var(--g3d-f,.333s) linear infinite;animation-delay:var(--g3d-d,0s),var(--g3d-d,0s),var(--g3d-d,0s);animation-play-state:paused}
+.g3d--gira .g3d__c+.g3d__c{animation:g3d-x var(--g3d-t6,1.333s) steps(12) infinite,g3d-y var(--g3d-t,8s) steps(6) infinite,g3d-f var(--g3d-f,.333s) linear infinite;mix-blend-mode:plus-lighter;animation-delay:calc(var(--g3d-d,0s) - var(--g3d-f,.333s)),calc(var(--g3d-d,0s) - var(--g3d-f,.333s)),var(--g3d-d,0s);animation-play-state:paused}
 .g3d--gira.g3d--en .g3d__c{animation-play-state:running}
-@keyframes g3d-x{to{background-position-x:120%}}
-@keyframes g3d-y{to{background-position-y:133.333%}}
+@keyframes g3d-x{to{background-position-x:109.0909%}}
+@keyframes g3d-y{to{background-position-y:120%}}
 @keyframes g3d-f{from{opacity:0}to{opacity:1}}
 @keyframes g3d-fo{from{opacity:1}to{opacity:0}}
 /* cierre editorial */
@@ -64,17 +72,17 @@
  .pliego--v2 .rentables h3{grid-column:1/span 6}
  .pliego--v2 .rentables p{grid-column:7/-1}
  .pliego--v2 .pliego__lede{grid-column:1/span 10}
- .pliego--v2 .pliego__sello{grid-column:11/-1;grid-row:2;align-self:center}
- .pliego--v2 .pliego__sello .sello--rd{width:clamp(110px,13vw,150px)}
+ .pliego--v2{--rd-w:clamp(130px,19vw,170px)}
+ .pliego--v2 .pliego__sello{top:var(--s-8);bottom:auto}
 }
 @media(max-width:760px){
- .pliego--v2{--pl-ico:58px;padding-block:clamp(64px,9.4px + 17vw,92px)}
+ .pliego--v2{--pl-ico:80px;padding-block:clamp(56px,30.3vw - 36.5px,96px)}
  .pliego--v2 .pliego__cab{grid-template-columns:minmax(0,1fr)}
  .pliego--v2 h2,.pliego--v2 .pliego__lede{grid-column:1}
  .pliego--v2 h2{font-size:clamp(2.1rem,9.6vw,3.4rem);margin:var(--s-4) 0 var(--s-6)}
  .pliego--v2 .pliego__lede{font-size:var(--t-base)}
  .pliego--v2 .clausulas{grid-template-columns:minmax(0,1fr)}
- .pliego--v2 .clausula,.pliego--v2 .clausula:nth-child(n){display:grid;grid-template-columns:var(--pl-ico) minmax(0,1fr);column-gap:var(--s-4);padding:var(--s-6) 0;border-left:0;margin-top:0}
+ .pliego--v2 .clausula,.pliego--v2 .clausula:nth-child(n){display:grid;grid-template-columns:var(--pl-ico) minmax(0,1fr);column-gap:var(--s-4);padding:var(--s-4) 0;border-left:0;margin-top:0}
  .pliego--v2 .clausula+.clausula{border-top:1px solid var(--pl-fina)}
  .clausula__cab{grid-row:1/span 2;flex-direction:column-reverse;align-items:center;gap:var(--s-1);margin:0}
  .g3d{margin:0}
@@ -83,6 +91,14 @@
  .pliego--v2 .rentables h3,.pliego--v2 .rentables p{grid-column:1}
  .pliego--v2 .rentables p{padding-left:var(--s-4)}
 }
-@media(min-width:761px) and (max-width:1023px){.pliego--v2{padding-block:96px}}
-@media(min-width:1024px) and (max-width:1279px){.pliego--v2{padding-block:75px}}
+@media(min-width:761px) and (max-width:1023px){.pliego--v2{padding-block:88px}}
+@media(min-width:1024px) and (max-width:1279px){.pliego--v2{padding-block:72px}}
+@media(min-width:761px) and (max-width:1599px){.clausula__cab{margin-bottom:0}}
 @media(min-width:1600px){.pliego--v2{padding-block:82px}}
+@media(min-width:1600px){.pliego--v2{--rd-w:320px}}
+.g3d--24 .g3d__c{background-size:600% 400%}
+.g3d--24:after{display:none}
+.g3d--gira.g3d--24 .g3d__c{animation-name:g3d-x24,g3d-y24,g3d-fo;animation-timing-function:steps(6),steps(4),linear}
+.g3d--gira.g3d--24 .g3d__c+.g3d__c{animation-name:g3d-x24,g3d-y24,g3d-f}
+@keyframes g3d-x24{to{background-position-x:120%}}
+@keyframes g3d-y24{to{background-position-y:133.333%}}
