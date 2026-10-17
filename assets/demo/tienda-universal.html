@@ -7,16 +7,16 @@
 <link rel="icon" href="data:,">
 <title>Tienda de ejemplo · simulación</title>
 <style>
-@font-face{font-family:"Bodoni Moda";src:url("../../fonts/bodoni-moda-var.woff2") format("woff2");font-weight:400 500;font-display:swap}
-@font-face{font-family:"Hanken Grotesk";src:url("../../fonts/hanken-grotesk-var.woff2") format("woff2");font-weight:400 600;font-display:swap}
+@font-face{font-family:"Figtree";src:url("../../fonts/figtree-var.woff2") format("woff2");font-weight:300 800;font-display:swap;unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+2000-206F,U+20AC,U+2122,U+2212}
+@font-face{font-family:"Figtree";src:url("../../fonts/figtree-latin-ext.woff2") format("woff2");font-weight:300 800;font-display:swap;unicode-range:U+0100-02BA,U+02BD-02C5,U+1E00-1E9F,U+2020,U+20A0-20AB,U+2113}
 :root{
-  --papel:#FBFAF7;--papel-2:#FFFFFF;--papel-3:#F3F0E8;--hueso:#ECE5D5;
-  --tinta:#15120E;--tinta-2:#5E5446;--laton:#6B5226;--laton-m:#8A6D38;--laton-c:#BFA06A;
-  --ok:#2F5A3A;            /* verde musgo del éxito · 7,6:1 sobre papel */
-  --linea:rgba(21,18,14,.12);--sombra:0 14px 30px -18px rgba(54,38,16,.45);
+  --papel:#FFFFFF;--papel-2:#FFFFFF;--papel-3:#F2F2F2;--hueso:#E6E6E6;
+  --tinta:#1A1A1A;--tinta-2:#555555;--laton:#1A1A1A;--laton-m:#6B6B6B;--laton-c:#9A9A9A;
+  --ok:#1A1A1A;            /* verde musgo del éxito · 7,6:1 sobre papel */
+  --linea:rgba(26,26,26,.12);--sombra:0 14px 30px -18px rgba(0,0,0,.45);
   /* barro de los productos ilustrados (solo arte, nunca texto) */
-  --barro-1:#C9A27A;--barro-2:#A97B55;--barro-3:#E6D6BE;--esmalte-1:#2B3A36;--esmalte-2:#D9CDB5;
-  --f-d:"Bodoni Moda",Didot,"Times New Roman",serif;--f-t:"Hanken Grotesk",system-ui,sans-serif;
+  --barro-1:#B5B5B5;--barro-2:#8C8C8C;--barro-3:#E0E0E0;--esmalte-1:#2B2B2B;--esmalte-2:#D6D6D6;
+  --f-d:"Figtree",system-ui,sans-serif;--f-t:"Figtree",system-ui,sans-serif;
   --ease:cubic-bezier(.2,.7,.3,1);--d1:.18s;--d2:.32s;--d3:.6s;--d4:.9s;
   --r:3px;
 }
@@ -32,7 +32,7 @@ button:focus-visible{outline:2px solid var(--laton);outline-offset:2px}
 .precio{font-variant-numeric:tabular-nums}
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:44px;padding:0 22px;border-radius:var(--r);background:var(--tinta);color:var(--papel);font-weight:600;letter-spacing:.01em;transition:transform var(--d1) var(--ease),background var(--d2) var(--ease)}
 .btn.pulsa{transform:scale(.95);background:var(--laton)}
-.etq-ej{position:absolute;z-index:30;right:10px;bottom:10px;padding:4px 8px;border-radius:var(--r);background:var(--hueso);color:var(--tinta-2);font:600 9px/1.2 var(--f-t);letter-spacing:.14em;text-transform:uppercase}
+.etq-ej{position:absolute;z-index:30;right:32px;top:68px;padding:4px 8px;border-radius:var(--r);background:var(--hueso);color:var(--tinta-2);font:600 9px/1.2 var(--f-t);letter-spacing:.14em;text-transform:uppercase}
 
 /* ===== Productos (SVG) ===== */
 .pz{display:block;width:100%;height:100%}
@@ -49,7 +49,7 @@ button:focus-visible{outline:2px solid var(--laton);outline-offset:2px}
 .t-cuerpo{position:absolute;inset:58px 0 0 0;overflow:hidden}
 /* inicio */
 .t-hero{display:grid;grid-template-columns:1.1fr 1fr;align-items:end;gap:32px;padding:30px 32px 22px}
-.t-hero h1{font:400 50px/.95 var(--f-d);letter-spacing:-.03em}
+.t-hero h1{font:500 50px/.95 var(--f-d);letter-spacing:-.03em}
 .t-hero p{max-width:34ch;color:var(--tinta-2);font-size:14px}
 .t-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;padding:0 32px}
 .t-card .img{aspect-ratio:4/5;border-radius:var(--r);background:var(--papel-3);padding:14% 12%}
@@ -64,7 +64,7 @@ button:focus-visible{outline:2px solid var(--laton);outline-offset:2px}
 .f-info{display:flex;flex-direction:column;justify-content:center;gap:14px}
 .desde{align-self:flex-start;display:flex;align-items:center;gap:8px;padding:6px 10px;border:1px solid var(--laton-m);border-radius:var(--r);color:var(--laton);font:600 10.5px/1 var(--f-t);letter-spacing:.08em;text-transform:uppercase}
 .desde i{width:6px;height:6px;border-radius:50%;background:var(--laton-m)}
-.f-info h2{font:400 40px/1 var(--f-d);letter-spacing:-.02em}
+.f-info h2{font:500 40px/1 var(--f-d);letter-spacing:-.02em}
 .f-info .precio{font:500 22px/1 var(--f-t)}
 .f-info p{color:var(--tinta-2);max-width:38ch}
 .chips{display:flex;gap:10px}
@@ -77,7 +77,7 @@ button:focus-visible{outline:2px solid var(--laton);outline-offset:2px}
 /* checkout */
 .c-grid{display:grid;grid-template-columns:1.25fr 1fr;height:100%}
 .c-form{padding:26px 32px;display:flex;flex-direction:column;gap:12px}
-.c-form h2{font:400 30px/1 var(--f-d);letter-spacing:-.02em;margin-bottom:4px}
+.c-form h2{font:500 30px/1 var(--f-d);letter-spacing:-.02em;margin-bottom:4px}
 .pasos{display:flex;gap:10px;color:var(--tinta-2);font-size:11.5px}
 .pasos b{color:var(--tinta);font-weight:600}
 .campo{display:grid;gap:4px}
@@ -105,7 +105,7 @@ button:focus-visible{outline:2px solid var(--laton);outline-offset:2px}
 .sello circle{fill:none;stroke:var(--ok);stroke-width:2}
 .sello path{fill:none;stroke:var(--ok);stroke-width:2.6;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:40;stroke-dashoffset:40;transition:stroke-dashoffset var(--d4) var(--ease) .2s}
 .on .sello path{stroke-dashoffset:0}
-.e-wrap h2{font:400 44px/1 var(--f-d);letter-spacing:-.02em}
+.e-wrap h2{font:500 44px/1 var(--f-d);letter-spacing:-.02em}
 .pedido{display:flex;gap:22px;padding:12px 20px;border:1px solid var(--linea);border-radius:var(--r);background:var(--papel-2);font-size:13px}
 .pedido b{display:block;font:600 15px/1.2 var(--f-t)}
 .e-wrap p{color:var(--tinta-2)}
@@ -128,10 +128,10 @@ button:focus-visible{outline:2px solid var(--laton);outline-offset:2px}
 .p-cab b{display:block;font-size:12.5px;line-height:1.2}
 .p-cab small{font-size:10.5px;color:var(--tinta-2)}
 .p-cab .pat{display:inline-flex;align-items:center;gap:4px}
-.p-cab .pat::before{content:"";width:5px;height:5px;border-radius:50%;background:var(--laton-m)}
+.p-cab .pat::before{content:"";width:5px;height:5px;border-radius:50%;background:#BD1220}
 .p-img{aspect-ratio:1;background:var(--papel-3);padding:12% 18%;position:relative}
 .p-img.otro{background:linear-gradient(160deg,var(--hueso),var(--barro-3));padding:0}
-.p-img .pz-txt{position:absolute;left:14px;top:14px;font:400 22px/1 var(--f-d);color:var(--tinta)}
+.p-img .pz-txt{position:absolute;left:14px;top:14px;font:500 22px/1 var(--f-d);color:var(--tinta)}
 .p-cta{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:10px 12px;background:var(--papel-2);border-bottom:1px solid var(--linea)}
 .p-cta small{display:block;font-size:10px;color:var(--tinta-2);letter-spacing:.06em;text-transform:uppercase}
 .p-cta b{font-size:13px}
@@ -139,7 +139,7 @@ button:focus-visible{outline:2px solid var(--laton);outline-offset:2px}
 .p-txt{padding:8px 12px 12px;font-size:12px;color:var(--tinta-2)}
 .p-txt b{color:var(--tinta)}
 /* navegador del app que se abre */
-.hoja{position:absolute;inset:0;z-index:10;background:var(--papel);transform:translate3d(0,102%,0);transition:transform var(--d4) var(--ease);box-shadow:0 -20px 40px -20px rgba(54,38,16,.4)}
+.hoja{position:absolute;inset:0;z-index:10;background:var(--papel);transform:translate3d(0,102%,0);transition:transform var(--d4) var(--ease);box-shadow:0 -20px 40px -20px rgba(0,0,0,.4)}
 .hoja.on{transform:none}
 .h-bar{display:flex;align-items:center;gap:10px;height:42px;padding:0 12px;border-bottom:1px solid var(--linea);font-size:11px;color:var(--tinta-2)}
 .h-bar b{flex:1;text-align:center;color:var(--tinta);font-weight:600}
@@ -148,7 +148,7 @@ button:focus-visible{outline:2px solid var(--laton);outline-offset:2px}
 @keyframes prog{to{transform:scaleX(1);opacity:0}}
 .h-cuerpo{padding:14px}
 .h-cuerpo .f-img{height:250px;padding:8% 20%}
-.h-cuerpo h2{margin-top:12px;font:400 26px/1.05 var(--f-d)}
+.h-cuerpo h2{margin-top:12px;font:500 26px/1.05 var(--f-d)}
 .h-cuerpo .precio{margin:6px 0 12px;font-weight:600}
 .h-cuerpo .btn{width:100%}
 .aviso{position:absolute;z-index:20;left:10px;right:10px;top:8px;display:flex;gap:10px;align-items:center;padding:10px 12px;border-radius:12px;background:var(--papel-2);box-shadow:var(--sombra);transform:translate3d(0,-140%,0);transition:transform var(--d3) var(--ease)}
@@ -163,7 +163,7 @@ button:focus-visible{outline:2px solid var(--laton);outline-offset:2px}
 #panel .pn-cuerpo{flex:1;display:flex;flex-direction:column}
 #panel .log{flex:1}
 .pn-cab{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;margin-bottom:16px}
-.pn-cab h1{font:400 30px/1 var(--f-d);letter-spacing:-.02em}
+.pn-cab h1{font:500 30px/1 var(--f-d);letter-spacing:-.02em}
 .pn-cab p{margin-top:6px;font-size:12px;color:var(--tinta-2)}
 .pn-ej{flex:none;padding:6px 9px;border:1px solid var(--laton-m);border-radius:var(--r);color:var(--laton);font:600 9.5px/1.2 var(--f-t);letter-spacing:.14em;text-transform:uppercase}
 .emb{display:grid;gap:9px}
@@ -206,8 +206,8 @@ button:focus-visible{outline:2px solid var(--laton);outline-offset:2px}
 /* ===== Cursor / dedo ===== */
 .cur{position:absolute;z-index:50;left:0;top:0;width:22px;height:22px;pointer-events:none;transition:transform 1s var(--ease),opacity var(--d2);opacity:0}
 .cur.on{opacity:1}
-.cur svg{width:100%;height:100%;filter:drop-shadow(0 2px 3px rgba(21,18,14,.35))}
-.cur.dedo{width:34px;height:34px;border-radius:50%;background:rgba(21,18,14,.18);border:2px solid rgba(251,250,247,.9)}
+.cur svg{width:100%;height:100%;filter:drop-shadow(0 2px 3px rgba(26,26,26,.35))}
+.cur.dedo{width:34px;height:34px;border-radius:50%;background:rgba(26,26,26,.18);border:2px solid rgba(255,255,255,.9)}
 .cur.dedo::after{content:"";position:absolute;inset:-2px;border-radius:50%;border:2px solid var(--laton-c);opacity:0}
 .cur.toca::after{animation:onda .6s var(--ease)}
 @keyframes onda{from{opacity:1;transform:scale(.6)}to{opacity:0;transform:scale(2)}}
@@ -219,19 +219,19 @@ button:focus-visible{outline:2px solid var(--laton);outline-offset:2px}
 <body>
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
   <defs>
-    <linearGradient id="g-barro" x1="0" x2="1"><stop offset="0" stop-color="#A97B55"/><stop offset=".45" stop-color="#D4AE86"/><stop offset="1" stop-color="#8F6644"/></linearGradient>
-    <linearGradient id="g-esm" x1="0" x2="1"><stop offset="0" stop-color="#1F2B28"/><stop offset=".42" stop-color="#43554F"/><stop offset="1" stop-color="#1A2421"/></linearGradient>
-    <linearGradient id="g-hueso" x1="0" x2="1"><stop offset="0" stop-color="#CFC2A8"/><stop offset=".45" stop-color="#F1E9DA"/><stop offset="1" stop-color="#BDAF94"/></linearGradient>
-    <linearGradient id="g-laton" x1="0" x2="1"><stop offset="0" stop-color="#8A6D38"/><stop offset=".45" stop-color="#D3B886"/><stop offset="1" stop-color="#7A5F2E"/></linearGradient>
-    <radialGradient id="g-sombra"><stop offset="0" stop-color="#36260F" stop-opacity=".28"/><stop offset="1" stop-color="#36260F" stop-opacity="0"/></radialGradient>
+    <linearGradient id="g-barro" x1="0" x2="1"><stop offset="0" stop-color="#8C8C8C"/><stop offset=".45" stop-color="#CFCFCF"/><stop offset="1" stop-color="#7A7A7A"/></linearGradient>
+    <linearGradient id="g-esm" x1="0" x2="1"><stop offset="0" stop-color="#222222"/><stop offset=".42" stop-color="#4A4A4A"/><stop offset="1" stop-color="#1C1C1C"/></linearGradient>
+    <linearGradient id="g-hueso" x1="0" x2="1"><stop offset="0" stop-color="#C8C8C8"/><stop offset=".45" stop-color="#F0F0F0"/><stop offset="1" stop-color="#B0B0B0"/></linearGradient>
+    <linearGradient id="g-laton" x1="0" x2="1"><stop offset="0" stop-color="#6B6B6B"/><stop offset=".45" stop-color="#D0D0D0"/><stop offset="1" stop-color="#6E6E6E"/></linearGradient>
+    <radialGradient id="g-sombra"><stop offset="0" stop-color="#000000" stop-opacity=".28"/><stop offset="1" stop-color="#000000" stop-opacity="0"/></radialGradient>
     <!-- taza -->
-    <symbol id="p-taza" viewBox="0 0 200 220"><ellipse cx="96" cy="206" rx="78" ry="10" fill="url(#g-sombra)"/><path d="M150 92c26-2 34 14 32 30-2 18-18 30-40 30" fill="none" stroke="#8F6644" stroke-width="12" stroke-linecap="round"/><path d="M30 60h132l-10 128c-1 10-9 16-19 16H59c-10 0-18-6-19-16z" fill="url(#g-barro)"/><path d="M33 98h126l-1 12H34z" fill="#2B3A36" opacity=".9"/><ellipse cx="96" cy="60" rx="66" ry="12" fill="#6F4D30"/><ellipse cx="96" cy="62" rx="58" ry="8" fill="#3B2A1C"/></symbol>
+    <symbol id="p-taza" viewBox="0 0 200 220"><ellipse cx="96" cy="206" rx="78" ry="10" fill="url(#g-sombra)"/><path d="M150 92c26-2 34 14 32 30-2 18-18 30-40 30" fill="none" stroke="#7A7A7A" stroke-width="12" stroke-linecap="round"/><path d="M30 60h132l-10 128c-1 10-9 16-19 16H59c-10 0-18-6-19-16z" fill="url(#g-barro)"/><path d="M33 98h126l-1 12H34z" fill="#2B2B2B" opacity=".9"/><ellipse cx="96" cy="60" rx="66" ry="12" fill="#5A5A5A"/><ellipse cx="96" cy="62" rx="58" ry="8" fill="#2E2E2E"/></symbol>
     <!-- florero -->
-    <symbol id="p-florero" viewBox="0 0 200 220"><ellipse cx="100" cy="208" rx="62" ry="9" fill="url(#g-sombra)"/><path d="M78 20h44v18c0 14 34 34 34 86 0 50-24 84-56 84s-56-34-56-84c0-52 34-72 34-86z" fill="url(#g-esm)"/><ellipse cx="100" cy="20" rx="22" ry="5" fill="#0F1614"/><path d="M60 120c10 4 70 4 80 0" stroke="#BFA06A" stroke-width="3" fill="none"/></symbol>
+    <symbol id="p-florero" viewBox="0 0 200 220"><ellipse cx="100" cy="208" rx="62" ry="9" fill="url(#g-sombra)"/><path d="M78 20h44v18c0 14 34 34 34 86 0 50-24 84-56 84s-56-34-56-84c0-52 34-72 34-86z" fill="url(#g-esm)"/><ellipse cx="100" cy="20" rx="22" ry="5" fill="#111111"/><path d="M60 120c10 4 70 4 80 0" stroke="#9A9A9A" stroke-width="3" fill="none"/></symbol>
     <!-- cuenco -->
-    <symbol id="p-cuenco" viewBox="0 0 200 220"><ellipse cx="100" cy="190" rx="84" ry="10" fill="url(#g-sombra)"/><path d="M16 96h168c0 52-38 90-84 90S16 148 16 96z" fill="url(#g-hueso)"/><ellipse cx="100" cy="96" rx="84" ry="18" fill="#E6D6BE"/><ellipse cx="100" cy="98" rx="74" ry="12" fill="#CDBB9C"/><path d="M40 140c30 10 90 10 120 0" stroke="#8A6D38" stroke-width="2" fill="none" opacity=".6"/></symbol>
+    <symbol id="p-cuenco" viewBox="0 0 200 220"><ellipse cx="100" cy="190" rx="84" ry="10" fill="url(#g-sombra)"/><path d="M16 96h168c0 52-38 90-84 90S16 148 16 96z" fill="url(#g-hueso)"/><ellipse cx="100" cy="96" rx="84" ry="18" fill="#E0E0E0"/><ellipse cx="100" cy="98" rx="74" ry="12" fill="#C4C4C4"/><path d="M40 140c30 10 90 10 120 0" stroke="#6B6B6B" stroke-width="2" fill="none" opacity=".6"/></symbol>
     <!-- vela -->
-    <symbol id="p-vela" viewBox="0 0 200 220"><ellipse cx="100" cy="206" rx="64" ry="9" fill="url(#g-sombra)"/><rect x="44" y="70" width="112" height="134" rx="8" fill="url(#g-laton)"/><rect x="50" y="76" width="100" height="18" rx="5" fill="#F1E9DA"/><path d="M100 78v-16" stroke="#15120E" stroke-width="3"/><path d="M100 30c10 12 10 24 0 30-10-6-10-18 0-30z" fill="#E9B65A"/><rect x="62" y="124" width="76" height="40" rx="2" fill="#FBFAF7" opacity=".9"/><path d="M76 138h48M84 150h32" stroke="#6B5226" stroke-width="3"/></symbol>
+    <symbol id="p-vela" viewBox="0 0 200 220"><ellipse cx="100" cy="206" rx="64" ry="9" fill="url(#g-sombra)"/><rect x="44" y="70" width="112" height="134" rx="8" fill="url(#g-laton)"/><rect x="50" y="76" width="100" height="18" rx="5" fill="#F0F0F0"/><path d="M100 78v-16" stroke="#1A1A1A" stroke-width="3"/><path d="M100 30c10 12 10 24 0 30-10-6-10-18 0-30z" fill="#BD1220"/><rect x="62" y="124" width="76" height="40" rx="2" fill="#FFFFFF" opacity=".9"/><path d="M76 138h48M84 150h32" stroke="#1A1A1A" stroke-width="3"/></symbol>
   </defs>
 </svg>
 
@@ -260,7 +260,7 @@ button:focus-visible{outline:2px solid var(--laton);outline-offset:2px}
           <h2>Taza Musgo</h2>
           <p class="precio">$ 89.000</p>
           <p>Gres torneado a mano, banda de esmalte verde musgo. 350 ml, apta para lavavajillas.</p>
-          <div class="chips"><span class="chip sel"><i style="background:#2B3A36"></i>Musgo</span><span class="chip"><i style="background:#E6D6BE"></i>Hueso</span><span class="chip"><i style="background:#A97B55"></i>Barro</span></div>
+          <div class="chips"><span class="chip sel"><i style="background:#2B2B2B"></i>Musgo</span><span class="chip"><i style="background:#E0E0E0"></i>Hueso</span><span class="chip"><i style="background:#8C8C8C"></i>Barro</span></div>
           <div class="f-acc"><button class="btn" id="b-agregar" data-ir="2">Agregar a la bolsa</button></div>
           <div class="f-env"><span>Envío $ 8.000 a todo el país</span><span>Llega en 3 a 5 días</span></div>
         </div>
@@ -360,7 +360,7 @@ button:focus-visible{outline:2px solid var(--laton);outline-offset:2px}
   </div>
 </main>
 
-<div class="cur" id="cur" aria-hidden="true"><svg viewBox="0 0 22 22"><path d="M4 2l13 10-6 1 4 7-3 1-4-7-4 4z" fill="#15120E" stroke="#FBFAF7" stroke-width="1.4" stroke-linejoin="round"/></svg></div>
+<div class="cur" id="cur" aria-hidden="true"><svg viewBox="0 0 22 22"><path d="M4 2l13 10-6 1 4 7-3 1-4-7-4 4z" fill="#1A1A1A" stroke="#FFFFFF" stroke-width="1.4" stroke-linejoin="round"/></svg></div>
 <span class="etq-ej" id="etq">Simulación</span>
 
 <script>
@@ -447,7 +447,7 @@ button:focus-visible{outline:2px solid var(--laton);outline-offset:2px}
   });
   var p0=q.has('paso')?+q.get('paso'):(parent===window?0:-1);
   if(V==='panel')cifras(-1);
-  if(p0>=0){mostrar(0,false);if(p0>0)mostrar(p0,false)}else mostrar(0,false);
+  if(p0>=0){mostrar(0,false);if(p0>0)mostrar(p0,false)}else{mostrar(0,false);paso=-9}  /* dentro de la escena: el primer mensaje vuelve a pintar con cursor */
   if(parent!==window)parent.postMessage({rd:'demo',listo:V},location.origin);
 })();
 </script>
