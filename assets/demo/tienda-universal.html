@@ -1,0 +1,455 @@
+<!doctype html>
+<html lang="es-CO">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex">
+<link rel="icon" href="data:,">
+<title>Tienda de ejemplo · simulación</title>
+<style>
+@font-face{font-family:"Bodoni Moda";src:url("../../fonts/bodoni-moda-var.woff2") format("woff2");font-weight:400 500;font-display:swap}
+@font-face{font-family:"Hanken Grotesk";src:url("../../fonts/hanken-grotesk-var.woff2") format("woff2");font-weight:400 600;font-display:swap}
+:root{
+  --papel:#FBFAF7;--papel-2:#FFFFFF;--papel-3:#F3F0E8;--hueso:#ECE5D5;
+  --tinta:#15120E;--tinta-2:#5E5446;--laton:#6B5226;--laton-m:#8A6D38;--laton-c:#BFA06A;
+  --ok:#2F5A3A;            /* verde musgo del éxito · 7,6:1 sobre papel */
+  --linea:rgba(21,18,14,.12);--sombra:0 14px 30px -18px rgba(54,38,16,.45);
+  /* barro de los productos ilustrados (solo arte, nunca texto) */
+  --barro-1:#C9A27A;--barro-2:#A97B55;--barro-3:#E6D6BE;--esmalte-1:#2B3A36;--esmalte-2:#D9CDB5;
+  --f-d:"Bodoni Moda",Didot,"Times New Roman",serif;--f-t:"Hanken Grotesk",system-ui,sans-serif;
+  --ease:cubic-bezier(.2,.7,.3,1);--d1:.18s;--d2:.32s;--d3:.6s;--d4:.9s;
+  --r:3px;
+}
+*{box-sizing:border-box;margin:0}
+html,body{height:100%;overflow:hidden;background:var(--papel);color:var(--tinta);font:400 14px/1.45 var(--f-t);-webkit-font-smoothing:antialiased}
+button{font:inherit;color:inherit;cursor:pointer;border:0;background:none}
+button:focus-visible{outline:2px solid var(--laton);outline-offset:2px}
+.vista{position:absolute;inset:0;display:none}
+[data-v="tienda"] #tienda,[data-v="feed"] #feed,[data-v="panel"] #panel{display:block}
+.pant{position:absolute;inset:0;opacity:0;visibility:hidden;transition:opacity var(--d3) var(--ease),visibility 0s var(--d3),transform var(--d3) var(--ease);transform:translate3d(0,8px,0)}
+.pant.on{opacity:1;visibility:visible;transform:none;transition-delay:0s}
+.ver{font:600 10px/1 var(--f-t);letter-spacing:.18em;text-transform:uppercase;color:var(--laton)}
+.precio{font-variant-numeric:tabular-nums}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:44px;padding:0 22px;border-radius:var(--r);background:var(--tinta);color:var(--papel);font-weight:600;letter-spacing:.01em;transition:transform var(--d1) var(--ease),background var(--d2) var(--ease)}
+.btn.pulsa{transform:scale(.95);background:var(--laton)}
+.etq-ej{position:absolute;z-index:30;right:10px;bottom:10px;padding:4px 8px;border-radius:var(--r);background:var(--hueso);color:var(--tinta-2);font:600 9px/1.2 var(--f-t);letter-spacing:.14em;text-transform:uppercase}
+
+/* ===== Productos (SVG) ===== */
+.pz{display:block;width:100%;height:100%}
+
+/* ===== TIENDA ===== */
+.t-cab{position:relative;z-index:2;display:flex;align-items:center;justify-content:space-between;height:58px;padding:0 32px;border-bottom:1px solid var(--linea);background:var(--papel)}
+.t-marca{font:500 24px/1 var(--f-d);letter-spacing:-.01em}
+.t-marca small{display:block;margin-top:3px;font:600 8.5px/1 var(--f-t);letter-spacing:.2em;text-transform:uppercase;color:var(--tinta-2)}
+.t-nav{display:flex;gap:26px;color:var(--tinta-2);font-size:13px}
+.t-bolsa{position:relative;display:flex;align-items:center;gap:8px;font-size:13px}
+.t-bolsa svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.5}
+.t-bolsa b{display:grid;place-items:center;min-width:18px;height:18px;padding:0 4px;border-radius:9px;background:var(--laton);color:var(--papel);font-size:10.5px;transform:scale(0);transition:transform var(--d2) var(--ease)}
+.t-bolsa.tiene b{transform:scale(1)}
+.t-cuerpo{position:absolute;inset:58px 0 0 0;overflow:hidden}
+/* inicio */
+.t-hero{display:grid;grid-template-columns:1.1fr 1fr;align-items:end;gap:32px;padding:30px 32px 22px}
+.t-hero h1{font:400 50px/.95 var(--f-d);letter-spacing:-.03em}
+.t-hero p{max-width:34ch;color:var(--tinta-2);font-size:14px}
+.t-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;padding:0 32px}
+.t-card .img{aspect-ratio:4/5;border-radius:var(--r);background:var(--papel-3);padding:14% 12%}
+.t-card h3{margin-top:10px;font:500 15px/1.2 var(--f-d)}
+.t-card p{color:var(--tinta-2);font-size:12.5px}
+/* ficha */
+.f-grid{display:grid;grid-template-columns:1.15fr 1fr;gap:40px;height:100%;padding:24px 32px}
+.f-img{position:relative;border-radius:var(--r);background:var(--papel-3);padding:9% 16%}
+.f-mini{position:absolute;left:14px;bottom:14px;display:flex;gap:8px}
+.f-mini i{width:44px;height:44px;border-radius:var(--r);background:var(--papel);border:1px solid var(--linea)}
+.f-mini i:first-child{border-color:var(--tinta)}
+.f-info{display:flex;flex-direction:column;justify-content:center;gap:14px}
+.desde{align-self:flex-start;display:flex;align-items:center;gap:8px;padding:6px 10px;border:1px solid var(--laton-m);border-radius:var(--r);color:var(--laton);font:600 10.5px/1 var(--f-t);letter-spacing:.08em;text-transform:uppercase}
+.desde i{width:6px;height:6px;border-radius:50%;background:var(--laton-m)}
+.f-info h2{font:400 40px/1 var(--f-d);letter-spacing:-.02em}
+.f-info .precio{font:500 22px/1 var(--f-t)}
+.f-info p{color:var(--tinta-2);max-width:38ch}
+.chips{display:flex;gap:10px}
+.chip{display:flex;align-items:center;gap:8px;min-height:40px;padding:0 14px;border:1px solid var(--linea);border-radius:var(--r);font-size:13px}
+.chip i{width:14px;height:14px;border-radius:50%}
+.chip.sel{border-color:var(--tinta);box-shadow:inset 0 0 0 1px var(--tinta)}
+.f-acc{display:flex;gap:12px;align-items:center}
+.f-acc .btn{flex:1;min-height:50px}
+.f-env{display:flex;gap:18px;color:var(--tinta-2);font-size:12px}
+/* checkout */
+.c-grid{display:grid;grid-template-columns:1.25fr 1fr;height:100%}
+.c-form{padding:26px 32px;display:flex;flex-direction:column;gap:12px}
+.c-form h2{font:400 30px/1 var(--f-d);letter-spacing:-.02em;margin-bottom:4px}
+.pasos{display:flex;gap:10px;color:var(--tinta-2);font-size:11.5px}
+.pasos b{color:var(--tinta);font-weight:600}
+.campo{display:grid;gap:4px}
+.campo span{font-size:11px;color:var(--tinta-2)}
+.campo div{height:38px;display:flex;align-items:center;padding:0 12px;border:1px solid var(--linea);border-radius:var(--r);background:var(--papel-2);font-size:13px}
+.dos{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.pago{display:flex;align-items:center;justify-content:space-between;height:42px;padding:0 12px;border:1px solid var(--tinta);border-radius:var(--r);background:var(--papel-2);font-size:13px}
+.pago em{font-style:normal;font-size:10.5px;color:var(--laton);letter-spacing:.1em;text-transform:uppercase;font-weight:600}
+.c-res{background:var(--papel-3);padding:26px 28px;display:flex;flex-direction:column;gap:12px;border-left:1px solid var(--linea)}
+.c-item{display:grid;grid-template-columns:64px 1fr auto;gap:12px;align-items:center}
+.c-item .img{height:64px;border-radius:var(--r);background:var(--papel);padding:6px 10px}
+.c-item h3{font:500 14px/1.2 var(--f-d)}
+.c-item p{font-size:11.5px;color:var(--tinta-2)}
+.c-fila{display:flex;justify-content:space-between;font-size:13px;color:var(--tinta-2)}
+.c-fila.total{padding-top:10px;border-top:1px solid var(--linea);color:var(--tinta);font-size:16px;font-weight:600}
+.c-res .btn{min-height:50px;margin-top:auto}
+.c-nota{font-size:11px;color:var(--tinta-2);text-align:center}
+.giro{width:16px;height:16px;border:2px solid currentColor;border-right-color:transparent;border-radius:50%;display:none;animation:giro .7s linear infinite}
+.cargando .giro{display:block}
+@keyframes giro{to{transform:rotate(1turn)}}
+/* éxito */
+.e-wrap{height:100%;display:grid;place-items:center;text-align:center}
+.e-wrap>div{display:grid;justify-items:center;gap:12px;max-width:520px}
+.sello{width:74px;height:74px}
+.sello circle{fill:none;stroke:var(--ok);stroke-width:2}
+.sello path{fill:none;stroke:var(--ok);stroke-width:2.6;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:40;stroke-dashoffset:40;transition:stroke-dashoffset var(--d4) var(--ease) .2s}
+.on .sello path{stroke-dashoffset:0}
+.e-wrap h2{font:400 44px/1 var(--f-d);letter-spacing:-.02em}
+.pedido{display:flex;gap:22px;padding:12px 20px;border:1px solid var(--linea);border-radius:var(--r);background:var(--papel-2);font-size:13px}
+.pedido b{display:block;font:600 15px/1.2 var(--f-t)}
+.e-wrap p{color:var(--tinta-2)}
+.e-atrib{display:flex;align-items:center;gap:8px;padding:7px 12px;border-radius:var(--r);background:var(--hueso);color:var(--laton);font:600 11px/1 var(--f-t);letter-spacing:.06em;text-transform:uppercase}
+
+/* ===== FEED (iPhone) ===== */
+#feed{background:var(--papel)}
+.fd-cab{position:relative;z-index:3;background:var(--papel);display:flex;align-items:center;justify-content:space-between;height:46px;padding:0 14px;border-bottom:1px solid var(--linea)}
+.fd-cab b{font:500 20px/1 var(--f-d)}
+.fd-cab span{display:flex;gap:14px}
+.fd-cab i{width:20px;height:20px;border:1.6px solid var(--tinta);border-radius:6px}
+.fd-cab i+i{border-radius:50%}
+.fd-hist{display:flex;gap:12px;padding:10px 14px;border-bottom:1px solid var(--linea)}
+.fd-hist i{flex:none;width:46px;height:46px;border-radius:50%;padding:2px;background:conic-gradient(var(--laton-c),var(--barro-2),var(--laton-c))}
+.fd-hist i::after{content:"";display:block;width:100%;height:100%;border-radius:50%;border:2px solid var(--papel);background:var(--papel-3)}
+.fd-pista{transition:transform 1.4s var(--ease)}
+.post{border-bottom:1px solid var(--linea)}
+.p-cab{display:flex;align-items:center;gap:9px;padding:9px 12px}
+.av{width:30px;height:30px;border-radius:50%;display:grid;place-items:center;background:var(--tinta);color:var(--papel);font:500 14px/1 var(--f-d)}
+.p-cab b{display:block;font-size:12.5px;line-height:1.2}
+.p-cab small{font-size:10.5px;color:var(--tinta-2)}
+.p-cab .pat{display:inline-flex;align-items:center;gap:4px}
+.p-cab .pat::before{content:"";width:5px;height:5px;border-radius:50%;background:var(--laton-m)}
+.p-img{aspect-ratio:1;background:var(--papel-3);padding:12% 18%;position:relative}
+.p-img.otro{background:linear-gradient(160deg,var(--hueso),var(--barro-3));padding:0}
+.p-img .pz-txt{position:absolute;left:14px;top:14px;font:400 22px/1 var(--f-d);color:var(--tinta)}
+.p-cta{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:10px 12px;background:var(--papel-2);border-bottom:1px solid var(--linea)}
+.p-cta small{display:block;font-size:10px;color:var(--tinta-2);letter-spacing:.06em;text-transform:uppercase}
+.p-cta b{font-size:13px}
+.p-cta .btn{min-height:36px;padding:0 14px;font-size:12.5px;white-space:nowrap}
+.p-txt{padding:8px 12px 12px;font-size:12px;color:var(--tinta-2)}
+.p-txt b{color:var(--tinta)}
+/* navegador del app que se abre */
+.hoja{position:absolute;inset:0;z-index:10;background:var(--papel);transform:translate3d(0,102%,0);transition:transform var(--d4) var(--ease);box-shadow:0 -20px 40px -20px rgba(54,38,16,.4)}
+.hoja.on{transform:none}
+.h-bar{display:flex;align-items:center;gap:10px;height:42px;padding:0 12px;border-bottom:1px solid var(--linea);font-size:11px;color:var(--tinta-2)}
+.h-bar b{flex:1;text-align:center;color:var(--tinta);font-weight:600}
+.h-prog{height:2px;background:var(--laton-m);transform-origin:0 50%;transform:scaleX(0)}
+.hoja.on .h-prog{animation:prog 1.1s var(--ease) forwards}
+@keyframes prog{to{transform:scaleX(1);opacity:0}}
+.h-cuerpo{padding:14px}
+.h-cuerpo .f-img{height:250px;padding:8% 20%}
+.h-cuerpo h2{margin-top:12px;font:400 26px/1.05 var(--f-d)}
+.h-cuerpo .precio{margin:6px 0 12px;font-weight:600}
+.h-cuerpo .btn{width:100%}
+.aviso{position:absolute;z-index:20;left:10px;right:10px;top:8px;display:flex;gap:10px;align-items:center;padding:10px 12px;border-radius:12px;background:var(--papel-2);box-shadow:var(--sombra);transform:translate3d(0,-140%,0);transition:transform var(--d3) var(--ease)}
+.aviso.on{transform:none}
+.aviso .av{background:var(--ok)}
+.aviso b{display:block;font-size:12px}
+.aviso small{font-size:11px;color:var(--tinta-2)}
+
+/* ===== PANEL (iPad) ===== */
+#panel{padding:24px 26px;background:var(--papel);display:none;flex-direction:column}
+[data-v="panel"] #panel{display:flex}
+#panel .pn-cuerpo{flex:1;display:flex;flex-direction:column}
+#panel .log{flex:1}
+.pn-cab{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;margin-bottom:16px}
+.pn-cab h1{font:400 30px/1 var(--f-d);letter-spacing:-.02em}
+.pn-cab p{margin-top:6px;font-size:12px;color:var(--tinta-2)}
+.pn-ej{flex:none;padding:6px 9px;border:1px solid var(--laton-m);border-radius:var(--r);color:var(--laton);font:600 9.5px/1.2 var(--f-t);letter-spacing:.14em;text-transform:uppercase}
+.emb{display:grid;gap:9px}
+.et{display:grid;grid-template-columns:96px 1fr 84px;align-items:center;gap:12px;font-size:12.5px;transition:opacity var(--d3) var(--ease)}
+.et span{color:var(--tinta-2)}
+.et .barra{height:26px;border-radius:var(--r);background:var(--papel-3);overflow:hidden}
+.et .barra i{display:block;height:100%;background:var(--hueso);transform-origin:0 50%;transition:transform var(--d4) var(--ease),background var(--d3) var(--ease)}
+.et b{text-align:right;font-weight:600;font-variant-numeric:tabular-nums}
+.et.vivo .barra i{background:var(--laton-c)}
+.et.vivo span{color:var(--tinta);font-weight:600}
+.kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:16px}
+.kpi{padding:12px 14px;border:1px solid var(--linea);border-radius:var(--r);background:var(--papel-2)}
+.kpi small{display:block;font-size:11px;color:var(--tinta-2)}
+.kpi b{display:block;margin-top:4px;font:500 26px/1 var(--f-d);font-variant-numeric:tabular-nums}
+.kpi.roas b{color:var(--laton)}
+.log{margin-top:16px;border-top:1px solid var(--linea)}
+.log h2{margin:12px 0 8px}
+.log ol{list-style:none;padding:0;display:grid;gap:6px}
+.log li{display:flex;justify-content:space-between;gap:10px;padding:8px 10px;border-radius:var(--r);background:var(--papel-3);font-size:12px;animation:entra var(--d3) var(--ease)}
+.log li b{font-weight:600}
+.log li.compra{background:var(--hueso)}
+.log li.compra b{color:var(--ok)}
+@keyframes entra{from{opacity:0;transform:translate3d(0,-6px,0)}}
+.dias{margin-top:16px;padding:12px 14px 10px;border:1px solid var(--linea);border-radius:var(--r);background:var(--papel-2)}
+.dias small{font-size:11px;color:var(--tinta-2)}
+.cols{display:grid;grid-template-columns:repeat(7,1fr);gap:8px;align-items:end;height:var(--alto-cols,96px);margin-top:10px}
+.cols i{display:block;height:100%;border-radius:2px 2px 0 0;background:var(--hueso);transform-origin:50% 100%;transition:transform var(--d4) var(--ease)}
+.cols i:last-child{background:var(--laton-c)}
+.dias-et{display:grid;grid-template-columns:repeat(7,1fr);gap:8px;margin-top:6px;font-size:10px;color:var(--tinta-2);text-align:center}
+@media (max-aspect-ratio:5/4){.dias{--alto-cols:150px}}
+.pn-fuente{margin-top:12px;font-size:10.5px;color:var(--tinta-2)}
+@media (max-aspect-ratio:5/4){.et{grid-template-columns:96px 1fr 70px}.et .barra{height:38px}.emb{gap:12px}.kpi b{font-size:30px}.pn-cab h1{font-size:36px}}
+/* panel horizontal: dos columnas */
+@media (min-aspect-ratio:5/4){
+  #panel .pn-cuerpo{display:grid;flex:none;grid-template-columns:1.25fr 1fr;gap:24px}
+  #panel .log{margin-top:0;border-top:0}
+  #panel .log h2{margin-top:0}
+}
+
+/* ===== Cursor / dedo ===== */
+.cur{position:absolute;z-index:50;left:0;top:0;width:22px;height:22px;pointer-events:none;transition:transform 1s var(--ease),opacity var(--d2);opacity:0}
+.cur.on{opacity:1}
+.cur svg{width:100%;height:100%;filter:drop-shadow(0 2px 3px rgba(21,18,14,.35))}
+.cur.dedo{width:34px;height:34px;border-radius:50%;background:rgba(21,18,14,.18);border:2px solid rgba(251,250,247,.9)}
+.cur.dedo::after{content:"";position:absolute;inset:-2px;border-radius:50%;border:2px solid var(--laton-c);opacity:0}
+.cur.toca::after{animation:onda .6s var(--ease)}
+@keyframes onda{from{opacity:1;transform:scale(.6)}to{opacity:0;transform:scale(2)}}
+
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}
+.estatico *,.estatico *::before,.estatico *::after{transition:none!important;animation-duration:.01ms!important}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <linearGradient id="g-barro" x1="0" x2="1"><stop offset="0" stop-color="#A97B55"/><stop offset=".45" stop-color="#D4AE86"/><stop offset="1" stop-color="#8F6644"/></linearGradient>
+    <linearGradient id="g-esm" x1="0" x2="1"><stop offset="0" stop-color="#1F2B28"/><stop offset=".42" stop-color="#43554F"/><stop offset="1" stop-color="#1A2421"/></linearGradient>
+    <linearGradient id="g-hueso" x1="0" x2="1"><stop offset="0" stop-color="#CFC2A8"/><stop offset=".45" stop-color="#F1E9DA"/><stop offset="1" stop-color="#BDAF94"/></linearGradient>
+    <linearGradient id="g-laton" x1="0" x2="1"><stop offset="0" stop-color="#8A6D38"/><stop offset=".45" stop-color="#D3B886"/><stop offset="1" stop-color="#7A5F2E"/></linearGradient>
+    <radialGradient id="g-sombra"><stop offset="0" stop-color="#36260F" stop-opacity=".28"/><stop offset="1" stop-color="#36260F" stop-opacity="0"/></radialGradient>
+    <!-- taza -->
+    <symbol id="p-taza" viewBox="0 0 200 220"><ellipse cx="96" cy="206" rx="78" ry="10" fill="url(#g-sombra)"/><path d="M150 92c26-2 34 14 32 30-2 18-18 30-40 30" fill="none" stroke="#8F6644" stroke-width="12" stroke-linecap="round"/><path d="M30 60h132l-10 128c-1 10-9 16-19 16H59c-10 0-18-6-19-16z" fill="url(#g-barro)"/><path d="M33 98h126l-1 12H34z" fill="#2B3A36" opacity=".9"/><ellipse cx="96" cy="60" rx="66" ry="12" fill="#6F4D30"/><ellipse cx="96" cy="62" rx="58" ry="8" fill="#3B2A1C"/></symbol>
+    <!-- florero -->
+    <symbol id="p-florero" viewBox="0 0 200 220"><ellipse cx="100" cy="208" rx="62" ry="9" fill="url(#g-sombra)"/><path d="M78 20h44v18c0 14 34 34 34 86 0 50-24 84-56 84s-56-34-56-84c0-52 34-72 34-86z" fill="url(#g-esm)"/><ellipse cx="100" cy="20" rx="22" ry="5" fill="#0F1614"/><path d="M60 120c10 4 70 4 80 0" stroke="#BFA06A" stroke-width="3" fill="none"/></symbol>
+    <!-- cuenco -->
+    <symbol id="p-cuenco" viewBox="0 0 200 220"><ellipse cx="100" cy="190" rx="84" ry="10" fill="url(#g-sombra)"/><path d="M16 96h168c0 52-38 90-84 90S16 148 16 96z" fill="url(#g-hueso)"/><ellipse cx="100" cy="96" rx="84" ry="18" fill="#E6D6BE"/><ellipse cx="100" cy="98" rx="74" ry="12" fill="#CDBB9C"/><path d="M40 140c30 10 90 10 120 0" stroke="#8A6D38" stroke-width="2" fill="none" opacity=".6"/></symbol>
+    <!-- vela -->
+    <symbol id="p-vela" viewBox="0 0 200 220"><ellipse cx="100" cy="206" rx="64" ry="9" fill="url(#g-sombra)"/><rect x="44" y="70" width="112" height="134" rx="8" fill="url(#g-laton)"/><rect x="50" y="76" width="100" height="18" rx="5" fill="#F1E9DA"/><path d="M100 78v-16" stroke="#15120E" stroke-width="3"/><path d="M100 30c10 12 10 24 0 30-10-6-10-18 0-30z" fill="#E9B65A"/><rect x="62" y="124" width="76" height="40" rx="2" fill="#FBFAF7" opacity=".9"/><path d="M76 138h48M84 150h32" stroke="#6B5226" stroke-width="3"/></symbol>
+  </defs>
+</svg>
+
+<!-- =================== TIENDA (MacBook) =================== -->
+<main id="tienda" class="vista" aria-label="Tienda de ejemplo">
+  <header class="t-cab">
+    <div class="t-marca">Alfar<small>Tienda de ejemplo</small></div>
+    <nav class="t-nav" aria-hidden="true"><span>Tazas</span><span>Floreros</span><span>Cuencos</span><span>Velas</span></nav>
+    <div class="t-bolsa" id="bolsa"><svg viewBox="0 0 24 24"><path d="M5 8h14l-1 12H6zM9 8V6a3 3 0 0 1 6 0v2"/></svg>Bolsa <b>1</b></div>
+  </header>
+  <div class="t-cuerpo">
+    <section class="pant" data-p="0">
+      <div class="t-hero"><h1>Cerámica de uso diario</h1><p>Piezas torneadas a mano, esmaltes que no se repiten. Envío a todo Colombia.</p></div>
+      <div class="t-grid">
+        <article class="t-card"><div class="img"><svg class="pz"><use href="#p-taza"/></svg></div><h3>Taza Musgo</h3><p class="precio">$ 89.000</p></article>
+        <article class="t-card"><div class="img"><svg class="pz"><use href="#p-florero"/></svg></div><h3>Florero Noche</h3><p class="precio">$ 164.000</p></article>
+        <article class="t-card"><div class="img"><svg class="pz"><use href="#p-cuenco"/></svg></div><h3>Cuenco Hueso</h3><p class="precio">$ 72.000</p></article>
+        <article class="t-card"><div class="img"><svg class="pz"><use href="#p-vela"/></svg></div><h3>Vela Latón</h3><p class="precio">$ 58.000</p></article>
+      </div>
+    </section>
+    <section class="pant" data-p="1">
+      <div class="f-grid">
+        <div class="f-img"><svg class="pz"><use href="#p-taza"/></svg><div class="f-mini"><i></i><i></i><i></i></div></div>
+        <div class="f-info">
+          <span class="desde"><i></i>Llegaste desde un anuncio</span>
+          <h2>Taza Musgo</h2>
+          <p class="precio">$ 89.000</p>
+          <p>Gres torneado a mano, banda de esmalte verde musgo. 350 ml, apta para lavavajillas.</p>
+          <div class="chips"><span class="chip sel"><i style="background:#2B3A36"></i>Musgo</span><span class="chip"><i style="background:#E6D6BE"></i>Hueso</span><span class="chip"><i style="background:#A97B55"></i>Barro</span></div>
+          <div class="f-acc"><button class="btn" id="b-agregar" data-ir="2">Agregar a la bolsa</button></div>
+          <div class="f-env"><span>Envío $ 8.000 a todo el país</span><span>Llega en 3 a 5 días</span></div>
+        </div>
+      </div>
+    </section>
+    <section class="pant" data-p="2">
+      <div class="c-grid">
+        <div class="c-form">
+          <div class="pasos"><span>Bolsa</span>›<b>Datos y pago</b>›<span>Confirmación</span></div>
+          <h2>Finalizar compra</h2>
+          <div class="campo"><span>Nombre</span><div>Cliente de ejemplo</div></div>
+          <div class="dos"><div class="campo"><span>Ciudad</span><div>Bucaramanga</div></div><div class="campo"><span>Celular</span><div>300 000 0000</div></div></div>
+          <div class="campo"><span>Dirección</span><div>Calle de ejemplo # 00-00</div></div>
+          <div class="pago"><span>Pago de prueba</span><em>Simulado</em></div>
+        </div>
+        <aside class="c-res">
+          <div class="c-item"><div class="img"><svg class="pz"><use href="#p-taza"/></svg></div><div><h3>Taza Musgo</h3><p>Musgo · 1 unidad</p></div><span class="precio">$ 89.000</span></div>
+          <div class="c-fila"><span>Subtotal</span><span class="precio">$ 89.000</span></div>
+          <div class="c-fila"><span>Envío</span><span class="precio">$ 8.000</span></div>
+          <div class="c-fila total"><span>Total</span><span class="precio">$ 97.000</span></div>
+          <button class="btn" id="b-pagar" data-ir="3"><i class="giro"></i><span>Pagar $ 97.000 (simulado)</span></button>
+          <p class="c-nota">Simulación: no se cobra nada ni se envían datos.</p>
+        </aside>
+      </div>
+    </section>
+    <section class="pant" data-p="3">
+      <div class="e-wrap"><div>
+        <svg class="sello" viewBox="0 0 74 74" aria-hidden="true"><circle cx="37" cy="37" r="35"/><path d="M23 38l9 9 19-20"/></svg>
+        <span class="ver">Pago aprobado</span>
+        <h2>Gracias por tu compra</h2>
+        <div class="pedido"><span>Pedido<b>EJ-4821</b></span><span>Total<b class="precio">$ 97.000</b></span><span>Llega<b>en 3 a 5 días</b></span></div>
+        <span class="e-atrib">Venta atribuida al anuncio</span>
+        <p>Pedido inventado para la demostración.</p>
+      </div></div>
+    </section>
+  </div>
+</main>
+
+<!-- =================== FEED (iPhone) =================== -->
+<main id="feed" class="vista" aria-label="Feed de una red social con un anuncio de ejemplo">
+  <div class="fd-cab"><b>Inicio</b><span aria-hidden="true"><i></i><i></i></span></div>
+  <div class="fd-pista" id="fd-pista">
+    <div class="fd-hist" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>
+    <article class="post" aria-hidden="true">
+      <div class="p-cab"><span class="av" style="background:var(--barro-2)">m</span><div><b>mesa.de.domingo</b><small>Hace 2 h</small></div></div>
+      <div class="p-img otro"></div>
+    </article>
+    <article class="post" id="anuncio">
+      <div class="p-cab"><span class="av">A</span><div><b>Alfar · tienda de ejemplo</b><small class="pat">Anuncio patrocinado</small></div></div>
+      <div class="p-img"><span class="pz-txt">Taza Musgo</span><svg class="pz"><use href="#p-taza"/></svg></div>
+      <div class="p-cta"><div><small>alfar.ejemplo</small><b>$ 89.000</b></div><button class="btn" id="b-comprar" data-ir="1">Comprar ahora</button></div>
+      <p class="p-txt"><b>Alfar</b> Una taza que no se repite. Envío a todo Colombia.</p>
+    </article>
+  </div>
+  <div class="hoja" id="hoja">
+    <div class="h-bar"><span>✕</span><b>alfar.ejemplo</b><span>···</span></div>
+    <div class="h-prog"></div>
+    <div class="h-cuerpo">
+      <span class="desde"><i></i>Desde el anuncio</span>
+      <div class="f-img"><svg class="pz"><use href="#p-taza"/></svg></div>
+      <h2>Taza Musgo</h2><p class="precio">$ 89.000</p>
+      <button class="btn" data-ir="2">Agregar a la bolsa</button>
+    </div>
+  </div>
+  <div class="aviso" id="aviso"><span class="av">✓</span><div><b>Pedido EJ-4821 confirmado</b><small>Alfar · $ 97.000 · ejemplo</small></div></div>
+</main>
+
+<!-- =================== PANEL (iPad) =================== -->
+<main id="panel" class="vista" aria-label="Panel del embudo de una campaña de ejemplo">
+  <div class="pn-cab">
+    <div><span class="ver">Campaña · Taza Musgo</span><h1>Del anuncio a la venta</h1><p>Últimos 7 días · cada compra se atribuye al anuncio que la trajo.</p></div>
+    <span class="pn-ej">Ejemplo ilustrativo</span>
+  </div>
+  <div class="pn-cuerpo">
+    <div>
+      <div class="emb" id="emb">
+        <div class="et" data-e="0"><span>Impresiones</span><div class="barra"><i style="transform:scaleX(1)"></i></div><b data-n="imp">12.480</b></div>
+        <div class="et" data-e="1"><span>Clics</span><div class="barra"><i style="transform:scaleX(.62)"></i></div><b data-n="cli">312</b></div>
+        <div class="et" data-e="2"><span>Carritos</span><div class="barra"><i style="transform:scaleX(.4)"></i></div><b data-n="car">41</b></div>
+        <div class="et" data-e="3"><span>Compras</span><div class="barra"><i style="transform:scaleX(.23)"></i></div><b data-n="com">8</b></div>
+      </div>
+      <div class="kpis">
+        <div class="kpi"><small>Inversión</small><b class="precio">$ 180 mil</b></div>
+        <div class="kpi"><small>Ventas atribuidas</small><b class="precio" data-n="ven">$ 776 mil</b></div>
+        <div class="kpi roas"><small>ROAS</small><b data-n="roas">4,3</b></div>
+      </div>
+      <div class="dias"><small>Compras por día</small>
+        <div class="cols" id="cols" aria-hidden="true"><i style="transform:scaleY(.333)"></i><i style="transform:scaleY(.667)"></i><i style="transform:scaleY(.333)"></i><i style="transform:scaleY(.333)"></i><i style="transform:scaleY(.333)"></i><i style="transform:scaleY(.333)"></i><i style="transform:scaleY(.333)"></i></div>
+        <div class="dias-et" aria-hidden="true"><span>Vie</span><span>Sáb</span><span>Dom</span><span>Lun</span><span>Mar</span><span>Mié</span><span>Hoy</span></div>
+      </div>
+    </div>
+    <div class="log">
+      <h2 class="ver">En vivo</h2>
+      <ol id="log"><li><span>Compra atribuida · hace 2 h</span><b>$ 97.000</b></li><li><span>Agregó a la bolsa · hace 3 h</span><b>+1</b></li><li><span>Clic en el anuncio · hace 3 h</span><b>+1</b></li><li><span>Compra atribuida · ayer</span><b>$ 97.000</b></li></ol>
+      <p class="pn-fuente">Cifras ficticias para mostrar cómo se lee una campaña. Barras en escala logarítmica.</p>
+    </div>
+  </div>
+</main>
+
+<div class="cur" id="cur" aria-hidden="true"><svg viewBox="0 0 22 22"><path d="M4 2l13 10-6 1 4 7-3 1-4-7-4 4z" fill="#15120E" stroke="#FBFAF7" stroke-width="1.4" stroke-linejoin="round"/></svg></div>
+<span class="etq-ej" id="etq">Simulación</span>
+
+<script>
+(function(){
+  var q=new URLSearchParams(location.search),V=q.get('v')||'tienda',d=document,B=d.body;
+  B.setAttribute('data-v',V);
+  var est=q.has('estatico');if(est)B.classList.add('estatico');
+  var $=function(s){return d.querySelector(s)},cur=$('#cur'),paso=-1,t1,t2;
+  if(V==='feed'){cur.className='cur dedo';cur.innerHTML='';$('#etq').hidden=true}
+  if(V==='panel')$('#etq').hidden=true;
+
+  /* ----- cifras del panel (ficticias) ----- */
+  var BASE={imp:12480,cli:312,car:41,com:8},TICKET=97000,INV=180000;
+  function fmt(n){return n.toLocaleString('es-CO')}
+  function cifras(p){
+    var n={imp:BASE.imp+(p>=0?0:0),cli:BASE.cli+(p>=1?1:0),car:BASE.car+(p>=2?1:0),com:BASE.com+(p>=3?1:0)};
+    for(var k in n){var el=d.querySelector('[data-n="'+k+'"]');if(el)el.textContent=fmt(n[k])}
+    var ven=n.com*TICKET;$('[data-n="ven"]').textContent='$ '+fmt(Math.round(ven/1000))+' mil';
+    $('[data-n="roas"]').textContent=(ven/INV).toFixed(2).replace('.',',').replace(/0$/,'');
+    var max=Math.log10(BASE.imp);
+    d.querySelectorAll('.et').forEach(function(et,i){
+      var key=['imp','cli','car','com'][i];et.querySelector('.barra i').style.transform='scaleX('+(Math.log10(n[key])/max).toFixed(3)+')';
+      et.classList.toggle('vivo',i===p)});
+    var hoy=d.querySelector('#cols i:last-child');if(hoy)hoy.style.transform='scaleY('+(p>=3?.667:.333)+')';
+  }
+  var LOG=[['Vio el anuncio','12.480'],['Clic en el anuncio','+1'],['Agregó a la bolsa','+1'],['Compra atribuida','$ 97.000']];
+  function registrar(p){
+    if(p<0||est)return;var ol=$('#log'),li=d.createElement('li');if(p===3)li.className='compra';
+    li.innerHTML='<span>'+LOG[p][0]+'</span><b>'+LOG[p][1]+'</b>';ol.insertBefore(li,ol.firstChild);
+    while(ol.children.length>(innerHeight>innerWidth?7:4))ol.removeChild(ol.lastChild);
+  }
+
+  /* ----- cursor ----- */
+  function apuntar(el,alPulsar){
+    clearTimeout(t1);clearTimeout(t2);
+    if(!el||est){cur.classList.remove('on');return}
+    var r=el.getBoundingClientRect(),w=cur.offsetWidth;
+    var x=r.left+r.width*.62-(V==='feed'?w/2:4),y=r.top+r.height*.55-(V==='feed'?w/2:2);
+    cur.classList.add('on');cur.style.transform='translate3d('+x+'px,'+y+'px,0)';
+    t1=setTimeout(function(){
+      cur.classList.remove('toca');void cur.offsetWidth;cur.classList.add('toca');
+      el.classList.add('pulsa');t2=setTimeout(function(){el.classList.remove('pulsa');alPulsar&&alPulsar()},220);
+    },1300);
+  }
+  function inicioCursor(){var r=d.documentElement;cur.style.transition='none';cur.style.transform='translate3d('+(r.clientWidth*.7)+'px,'+(r.clientHeight*.85)+'px,0)';void cur.offsetWidth;cur.style.transition=''}
+
+  /* ----- pasos ----- */
+  function mostrar(p,auto){
+    if(p===paso)return;var antes=paso;paso=p;
+    if(V==='tienda'){
+      var vis=Math.max(0,p);
+      d.querySelectorAll('#tienda .pant').forEach(function(s){s.classList.toggle('on',+s.getAttribute('data-p')===vis)});
+      $('#bolsa').classList.toggle('tiene',p>=2);
+      $('#b-pagar').classList.remove('cargando');
+      if(p<=0)inicioCursor();
+      if(auto){
+        if(p===1)setTimeout(function(){apuntar($('#b-agregar'))},500);
+        else if(p===2)setTimeout(function(){apuntar($('#b-pagar'),function(){$('#b-pagar').classList.add('cargando')})},500);
+        else{cur.classList.remove('on')}
+      }else cur.classList.remove('on');
+    }
+    if(V==='feed'){
+      $('#hoja').classList.toggle('on',p>=1&&p<3);
+      $('#aviso').classList.toggle('on',p===3);
+      var pista=$('#fd-pista'),an=$('#anuncio');
+      pista.style.transform=p>=0?'translate3d(0,'+(-(an.offsetTop-46-8))+'px,0)':'none';
+      if(p===0&&auto){inicioCursor();setTimeout(function(){apuntar($('#b-comprar'))},1200)}
+      else if(p===1&&auto){setTimeout(function(){apuntar($('#hoja .btn'))},1400)}
+      else cur.classList.remove('on');
+    }
+    if(V==='panel'){cifras(p);if(p>antes)registrar(p)}
+  }
+
+  /* ----- mensajes con la página madre ----- */
+  addEventListener('message',function(e){
+    if(e.origin!==location.origin||!e.data||e.data.rd!=='demo')return;
+    if(typeof e.data.paso==='number')mostrar(e.data.paso,!!e.data.auto);
+  });
+  /* el visitante toma el control: cualquier botón con data-ir avanza el recorrido en las tres pantallas */
+  d.addEventListener('click',function(e){
+    var b=e.target.closest('[data-ir]');if(!b)return;
+    var p=+b.getAttribute('data-ir');
+    if(parent!==window)parent.postMessage({rd:'demo',ir:p},location.origin);else mostrar(p,false);
+  });
+  var p0=q.has('paso')?+q.get('paso'):(parent===window?0:-1);
+  if(V==='panel')cifras(-1);
+  if(p0>=0){mostrar(0,false);if(p0>0)mostrar(p0,false)}else mostrar(0,false);
+  if(parent!==window)parent.postMessage({rd:'demo',listo:V},location.origin);
+})();
+</script>
+</body>
+</html>

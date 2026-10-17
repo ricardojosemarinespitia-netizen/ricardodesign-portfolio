@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 192 64" width="192" height="64" role="img" aria-label="RSILVA">
+  <g fill="none" stroke="#F4F2EE" stroke-width="6.5" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M10 52 V12 h10 a10 10 0 0 1 0 20 H10"/>
+    <path d="M20 32 C26 36.5 30.5 43.5 32.5 51.2"/>
+    <path d="M60.72 14.28 A9.5 9.5 0 1 0 54 30.5 A10.5 10.5 0 1 1 46.58 48.42"/>
+    <path d="M78 12 V52"/>
+    <path d="M91.5 12 V40 A12 12 0 0 0 103.5 52 H112"/>
+    <path d="M124.5 12 L134.94 50.6 Q136 54.5 137.06 50.6 L147.5 12"/>
+    <path d="M159 52 L169.44 13.4 Q170.5 9.5 171.56 13.4 L182 52"/>
+    <path d="M162.25 40 H178.75"/>
+  </g>
+  <circle cx="32.5" cy="51.2" r="3.7" fill="#C88A4A"/>
+</svg>
