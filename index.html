@@ -579,7 +579,7 @@ if(!matchMedia('(min-width:901px) and (hover:hover) and (pointer:fine)').matches
     var fns=window.rdTarde||[];
     (function paso(){var f=fns.shift();
       if(f){try{f()}catch(x){console.error(x)}ceder(paso)}
-      else cargar(B,function(){ceder(function(){hecha=true;var q=cola.splice(0);q.forEach(function(g){g()})})});
+      else cargar(B,function(){ceder(function(){if(window.ScrollTrigger)ScrollTrigger.refresh();ceder(function(){hecha=true;/* Lenis reajusta su límite con 250 ms de espera: el ancla pendiente se repite después */setTimeout(function(){cola.splice(0).forEach(function(g){g()})},450)})})});
     })();
   }
   EV.forEach(function(n){addEventListener(n,despertar,{capture:true,passive:true})});
