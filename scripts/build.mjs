@@ -24,7 +24,7 @@ const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const ARGS = new Set(process.argv.slice(2));
 const OPC = { porValidar: ARGS.has('--incluir-por-validar'), produccion: ARGS.has('--produccion') };
 const SITIO = 'https://ricardodesign.co';
-const LASTMOD = '2026-09-30'; // fecha fija → build idempotente. Actualízala al publicar.
+const LASTMOD = '2026-10-17'; // fecha fija → build idempotente. Actualízala al publicar.
 
 const leer = (f) => JSON.parse(fs.readFileSync(path.join(ROOT, f), 'utf8'));
 const S = leer('data/servicios.json');
@@ -94,6 +94,8 @@ ctx.EXT = EXT;
 const FLECHA = '<svg class="ico flecha" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6"/></svg>';
 ctx.FLECHA = FLECHA;
 const NAV_HOME = [['#dispositivos', 'Dispositivos'], ['#garantia', 'Garantía'], ['#servicios', 'Servicios'], ['#casos', 'Casos'], ['#planes', 'Planes'], ['#proceso', 'Proceso']];
+/* Pie: mismos enlaces en el home y en las internas (servicios, proyectos). Si cambias esto, cambia también el <footer> de index.html. */
+const NAV_PIE = [['diseno-web/', 'Diseño web'], ['publicidad-digital/', 'Meta Ads'], ['contenido-redes-sociales/', 'Contenido para redes'], ['mantenimiento-web/', 'Mantenimiento web'], ['proyectos/', 'Proyectos']];
 function logo(L, cls, lazy = '') {
   return `<picture><source type="image/webp" srcset="${L.r}img/logo_negro-80.webp 2x, ${L.r}img/logo_negro-120.webp 3x"><img src="${L.r}logo_negro.png" alt="" width="741" height="439" class="${cls}"${lazy}></picture>`;
 }
@@ -132,7 +134,7 @@ function pie(L) {
   return `<footer class="pie">
   <div class="wrap">
     <ul class="pie__nav">
-      ${NAV_HOME.slice(1).map(([h, t]) => `<li><a href="${L.a(h)}">${t}</a></li>`).join('')}<li><a class="pie__subir" href="#top">Volver arriba ${FLECHA}</a></li>
+      ${NAV_PIE.map(([h, t]) => `<li><a href="${L.a(h)}">${t}</a></li>`).join('')}<li><a class="pie__subir" href="#top">Volver arriba ${FLECHA}</a></li>
     </ul>
     <img class="pie__logo" data-logo-pie src="${L.r}logo_negro.png" alt="Ricardo Design" width="741" height="439" loading="lazy" decoding="async">
     <div class="pie__in">
@@ -151,7 +153,7 @@ function pie(L) {
 </footer>
 <div class="cookies" id="cookies" role="dialog" aria-labelledby="cookies-t" hidden>
   <h2 id="cookies-t">Tu privacidad</h2>
-  <p>Usamos cookies propias necesarias para que el sitio funcione y, si lo autorizas, cookies de analítica (Google Analytics, Microsoft Clarity) y de publicidad (Meta) para medir visitas y mejorar nuestros anuncios. Puedes cambiar tu decisión cuando quieras en "Configurar cookies". <a href="${L.a('cookies/')}">Más información</a>.</p>
+  <p>Usamos cookies propias necesarias para que el sitio funcione y, si lo autorizas, cookies de analítica (Google Analytics, Microsoft Clarity) y de publicidad (Meta) para medir visitas y mejorar nuestros anuncios. Puedes cambiar tu decisión cuando quieras en "Configurar cookies". Lee la <a href="${L.a('cookies/')}">política de cookies</a>.</p>
   <div class="cookies-cfg" hidden>
     <label><input type="checkbox" checked disabled> Necesarias (siempre activas)</label>
     <label><input type="checkbox" name="c-analitica"> Analítica</label>
@@ -222,6 +224,7 @@ ${ld}
 ${cabecera(L, pg.actual, pg.mainId || 'contenido')}
 <main id="${pg.mainId || 'contenido'}">
 ${pg.cuerpo}
+${pg.legal || pg.salida === '404.html' ? '' : `<div class="wrap volver-fin"><a class="btn btn--linea" href="${L.a('')}">Volver al inicio ${FLECHA}</a></div>`}
 </main>
 ${pie(L)}
 </body>

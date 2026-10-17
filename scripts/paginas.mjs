@@ -258,7 +258,7 @@ ${ids.map((id, i) => `<div class="sim-panel" role="tabpanel" id="${pre}-p-${id}"
       ['¿Cuánto se demora?', '10 días hábiles desde que recibimos toda tu información (textos, fotos y accesos).'],
       ['¿El dominio y el hosting están incluidos?', 'No. Se cobran aparte y quedan a tu nombre.'],
       ['¿Cuánto debo invertir en Meta Ads?', 'La inversión se paga directo a Meta y es aparte de nuestros honorarios. En la cotización te recomendamos un monto diario según tu objetivo, para que la campaña tenga datos útiles.'],
-      ['¿Me garantizan ventas?', 'No. Nadie puede garantizarlas honestamente: dependen del producto, el precio, el mercado y Meta. Sí garantizamos método, medición y un informe claro cada mes.'],
+      ['¿Me garantizan ventas?', 'Las ventas son el objetivo que medimos contigo, pero nadie controla el mercado ni el algoritmo de Meta, y por eso no te prometemos una cifra. Garantizamos lo que depende de nosotros: lo entregable, los plazos, los reportes y los ajustes quedan escritos desde el primer día. Garantía sujeta a las condiciones del contrato.'],
       ['¿De quién son las cuentas?', 'Tuyas. Business Manager, píxel, Google Analytics y el código final quedan a tu nombre (el código, al completar el pago).'],
       ['¿Hacen el contenido para los anuncios?', 'Sí, con el servicio de Contenido para redes. La gestión de Meta Ads por sí sola trabaja con contenido que ya tengas publicado.'],
       ['¿Trabajan fuera de Bucaramanga?', 'Sí, atendemos clientes en toda Colombia de forma remota.']
@@ -379,7 +379,7 @@ ${testimonios.length >= 2 ? `<section class="sec" id="testimonios" aria-labelled
       </div>
     </div>
     <div class="rv rv-d1">${formWa(L, 'Hola Ricardo, quiero cotizar.',
-      opciones('servicio', 'Servicio', ['Diseño web', 'Mantenimiento', 'Meta Ads', 'Contenido para redes', 'No estoy seguro']) +
+      opciones('servicio', 'Servicio', ['Diseño web', 'Mantenimiento web', 'Meta Ads', 'Contenido para redes', 'No estoy seguro']) +
       opciones('web', '¿Tienes página web?', ['Sí', 'No']) +
       `<div class="campo" data-label="Presupuesto aproximado"><label class="lbl" for="b-pres">Presupuesto aproximado</label><select id="b-pres" name="presupuesto"><option value="">Elige una opción</option><option>Menos de $500.000</option><option>$500.000-$1.500.000</option><option>Más de $1.500.000</option><option>Prefiero conversarlo</option></select></div>` +
       opciones('plazo', '¿Para cuándo?', ['Este mes', 'Próximos 3 meses', 'Sólo explorando']) +
@@ -420,7 +420,7 @@ ${testimonios.length >= 2 ? `<section class="sec" id="testimonios" aria-labelled
       ['¿Cuándo veo resultados?', 'Las primeras 2-4 semanas son de aprendizaje y pruebas. A partir de ahí optimizamos con datos.'],
       ['¿Puedo ver mis campañas?', 'Sí, siempre: la cuenta es tuya.'],
       ['¿Qué pasa con mis datos y los de mis clientes?', `Los tratamos sólo para prestar el servicio y según tus instrucciones. Lee nuestra <a href="${L.a('privacidad/')}">Política de privacidad</a>.`],
-      ['¿Me garantizan ventas?', 'No. Dependen del producto, el mercado y Meta. Sí garantizamos método, medición y transparencia.']
+      ['¿Me garantizan ventas?', 'Las ventas son el objetivo que medimos contigo, pero nadie controla el mercado ni el algoritmo de Meta, y por eso no te prometemos una cifra. Garantizamos lo que depende de nosotros: lo entregable, los plazos, los reportes y los ajustes quedan escritos desde el primer día. Garantía sujeta a las condiciones del contrato.']
     ];
     const MIGAS = [['Inicio', ''], ['Meta Ads', 'publicidad-digital/']];
     const nodos = [['Anuncio', 'Facebook · Instagram'], ['Visita a tu web', 'con enlace UTM'], ['Evento', 'carrito · WhatsApp · compra'], ['Píxel y GA4', 'registran el evento'], ['Informe', 'qué funciona y qué no']];
@@ -462,9 +462,9 @@ ${migas(L, MIGAS)}
       <p class="entregable"><b>Entregable:</b> plan de medición (tabla de eventos) y accesos.</p>
       <p class="aviso-caja"><b>¿No tienes web?</b> Medimos con los resultados de Meta y las conversaciones de WhatsApp, y te recomendamos cuándo vale la pena dar el paso.</p></li>
     <li class="fase rv" data-n="4"><h3>Estrategia y montaje</h3><p>Armamos campañas por etapa: darte a conocer, generar interés y cerrar ventas (incluido el remarketing a quien ya te visitó). Probamos de 3 a 5 anuncios por grupo para descubrir cuál funciona.</p></li>
-    <li class="fase rv" data-n="5"><h3>Optimización</h3><p>Revisamos las campañas dos veces por semana: ajustamos presupuesto, públicos y anuncios, y renovamos piezas cuando el público se cansa de verlas.</p></li>
-    <li class="fase rv" data-n="6"><h3>Informe mensual</h3><!-- [POR VALIDAR] informe mensual + reunión de 30 min dentro de los planes (D4) -->
-      <p>Recibes un tablero y un informe en lenguaje claro: cuánto invertiste, a cuántas personas llegaste, cuántos clics, mensajes o ventas obtuviste, cuánto te costó cada resultado y qué haremos el mes siguiente. Incluye una reunión de 30 minutos.</p>
+    <li class="fase rv" data-n="5"><h3>Optimización</h3><p>Revisamos las campañas con la frecuencia de tu plan (seguimiento mensual, análisis cada 15 días o seguimiento diario): ajustamos presupuesto, públicos y anuncios, y renovamos piezas cuando el público se cansa de verlas.</p></li>
+    <li class="fase rv" data-n="6"><h3>Informes</h3><!-- La reunión de 30 min de la versión anterior se quitó: no está en los planes del home (revisar con Ricardo). -->
+      <p>Recibes un informe en lenguaje claro, con 1, 2 o 4 reportes al mes según tu plan: cuánto invertiste, a cuántas personas llegaste, cuántos clics, mensajes o ventas obtuviste, cuánto te costó cada resultado y qué haremos después.</p>
       <p class="nota">Indicadores que verás:</p>
       <ul class="indicadores">${['Alcance', 'Frecuencia', 'CPM', 'CTR', 'Costo por clic', 'Costo por mensaje o cliente potencial', 'Costo por compra', 'ROAS (si hay compras medidas)'].map((x) => `<li class="chip">${x}</li>`).join('')}</ul></li>
   </ol></div>
@@ -490,7 +490,7 @@ ${migas(L, MIGAS)}
   
   <div class="avisos">
     <p class="aviso-caja rv"><b>La inversión en anuncios</b> se paga directamente a Meta y no está incluida en los honorarios.</p>
-    <p class="aviso-caja rv"><b>No garantizamos ventas ni retorno de la inversión:</b> dependen del producto, el mercado y Meta. Sí garantizamos método, medición y transparencia.</p>
+    <p class="aviso-caja rv"><b>Garantizamos lo que depende de nosotros:</b> lo entregable, los plazos, los reportes y los ajustes quedan escritos desde el primer día. Las ventas son el objetivo que medimos contigo; nadie controla el mercado ni el algoritmo de Meta, y por eso no te prometemos una cifra. Garantía sujeta a las condiciones del contrato.</p>
     <p class="aviso-caja rv"><b>La gestión trabaja sobre contenido ya publicado.</b> ¿Necesitas piezas nuevas? Mira <a class="enlace" href="${L.a('contenido-redes-sociales/')}">Contenido para redes</a>.</p>
   </div>
 </div></section>
@@ -585,7 +585,7 @@ ${proyectosDe('contenido', L)}
 ${ctaFinal('Que tus redes se vean <em>como tu marca</em>', 'Te proponemos un calendario y un paquete según tu ritmo de publicación.', s.whatsappTexto, 'Cotizar contenido', 'contenido')}
 ${relacionados(L, 'contenido')}`;
     out.push({ salida, actual: 'contenido', servicio: 'contenido', cuerpo,
-      title: 'Contenido para redes sociales en Bucaramanga | Ricardo Design',
+      title: 'Contenido para redes en Bucaramanga | Ricardo Design',
       desc: 'Posts, carruseles, historias y reels para Instagram, Facebook y TikTok con calendario mensual y textos que venden. Bucaramanga y toda Colombia.',
       jsonld: [serviceLd(s, SITIO + '/contenido-redes-sociales/'), migasLd(MIGAS), faqLd(FAQ)] });
   }
@@ -646,7 +646,7 @@ ${proyectosDe('web', L)}
 ${ctaFinal('¿Empezamos <em>tu página?</em>', 'Cuéntanos qué vendes y cómo te contactan tus clientes. Te enviamos la cotización en 24 horas hábiles.', s.whatsappTexto, 'Cotizar mi página', 'web')}
 ${relacionados(L, 'web')}`;
     out.push({ salida, actual: 'web', servicio: 'web', cuerpo,
-      title: 'Diseño de páginas web en Bucaramanga | Ricardo Design',
+      title: 'Diseño web en Bucaramanga | Ricardo Design',
       desc: 'Páginas web a la medida con pagos en línea, correos automáticos y entrega en 10 días hábiles. Bucaramanga y toda Colombia.',
       jsonld: [serviceLd(s, SITIO + '/diseno-web/'), migasLd(MIGAS), faqLd(FAQ)] });
   }
@@ -694,7 +694,7 @@ ${proyectosDe('mantenimiento', L)}
 ${ctaFinal('¿Tu página necesita <em>un cambio?</em>', 'Escríbenos qué quieres actualizar y te decimos cuánto tiempo toma.', s.whatsappTexto, 'Pedir mantenimiento', 'mantenimiento')}
 ${relacionados(L, 'mantenimiento')}`;
     out.push({ salida, actual: 'mantenimiento', servicio: 'mantenimiento', cuerpo,
-      title: 'Mantenimiento de páginas web | Ricardo Design',
+      title: 'Mantenimiento web | Ricardo Design',
       desc: 'Cambios, actualizaciones y soporte para tu página web, por hora o en suscripción mensual. Se cotiza según tu página. Respuesta en 24-48 horas hábiles.',
       jsonld: [serviceLd(s, SITIO + '/mantenimiento-web/'), migasLd(MIGAS), faqLd(FAQ)] });
   }
@@ -718,11 +718,12 @@ ${migas(L, MIGAS)}
   <h2 class="sr-only" id="lista-h">Lista de proyectos</h2>
   ${filtros}
   ${pjMosaico(proyectos, L)}
+  <p class="pj-externos"><b>Meta Ads sin página propia.</b> También gestionamos la pauta de <a class="enlace" href="https://www.instagram.com/abbart.rt/" target="_blank" rel="noopener noreferrer">Abbárt${EXT} <span aria-hidden="true">↗</span></a> y de <a class="enlace" href="https://piracanto.com" target="_blank" rel="noopener noreferrer">Piracanto × María Pía${EXT} <span aria-hidden="true">↗</span></a>.</p>
 </div></section>
 ${ctaFinal('¿Quieres algo <em>así?</em>', 'Cuéntanos tu idea y te enviamos una propuesta.', C.whatsappGeneral, 'Cotizar mi proyecto', 'general')}`;
     out.push({ salida, actual: 'proyectos', cuerpo,
-      title: 'Proyectos de diseño web y publicidad | Ricardo Design',
-      desc: 'Tiendas en línea, catálogos y campañas que hemos construido para negocios en Colombia.',
+      title: 'Proyectos de diseño web y Meta Ads | Ricardo Design',
+      desc: 'Tiendas en línea, catálogos y campañas de Meta Ads que hemos construido para negocios en Colombia.',
       jsonld: [migasLd(MIGAS)] });
   }
 
@@ -776,8 +777,10 @@ ${otros.length ? `<section class="sec" aria-labelledby="otros-h"><div class="wra
 
   {
     const salida = 'politicas.html', L = crearLinks(salida);
+    const MIGAS_LEGAL = [['Inicio', ''], ['Políticas', 'politicas.html']];
     const cuerpo = `
 <div class="legal-main">
+${migas(L, MIGAS_LEGAL).replace('migas wrap', 'migas')}
 <section class="legal-hero">
   <p class="kicker">Ricardo Design</p>
   <h1>Cláusulas y políticas</h1>
@@ -828,7 +831,7 @@ ${otros.length ? `<section class="sec" aria-labelledby="otros-h"><div class="wra
   <p>Cuando se contrata, incluye la definición de hasta 3 perfiles de cliente ideal y la creación de públicos personalizados y similares en la cuenta del cliente. Su valor se indica en la cotización.</p>
   <div class="aviso">La pauta se realiza únicamente sobre contenido <strong>ya publicado</strong> en las redes sociales del cliente; no incluye diseño de piezas gráficas ni video (disponible con el servicio de <a href="#contenido">Contenido para redes</a>). La <strong>inversión publicitaria</strong> es asumida directamente por el cliente ante Meta y no está incluida en el plan. Las condiciones de cancelación y permanencia se indican en la cotización.</div>
   <h3>Condiciones del servicio</h3>
-  <ul><li>No se garantizan resultados de ventas ni retorno de inversión (ROI): estos dependen de Meta, el mercado y el producto o servicio del cliente.</li><li>La cuenta publicitaria (Business Manager) y sus datos, incluido el píxel, quedan registrados a nombre del cliente.</li><li>No se asume responsabilidad por rechazos, restricciones o suspensiones de cuentas impuestas por Meta, al ser ajenas al control del prestador del servicio.</li></ul>
+  <ul><li>Se garantiza lo que depende del prestador del servicio: lo entregable, los plazos, los reportes y los ajustes quedan escritos desde el primer día. Las ventas son el objetivo que se mide con el cliente; nadie controla el mercado ni el algoritmo de Meta, por lo que no se promete una cifra de ventas ni de retorno de inversión (ROI), que dependen de Meta, el mercado y el producto o servicio del cliente. Garantía sujeta a las condiciones del contrato.</li><li>La cuenta publicitaria (Business Manager) y sus datos, incluido el píxel, quedan registrados a nombre del cliente.</li><li>No se asume responsabilidad por rechazos, restricciones o suspensiones de cuentas impuestas por Meta, al ser ajenas al control del prestador del servicio.</li></ul>
 </article>
 
 <article class="card" id="contenido">
@@ -866,13 +869,15 @@ ${otros.length ? `<section class="sec" aria-labelledby="otros-h"><div class="wra
     out.push({ salida, actual: 'politicas', legal: true, mainId: 'contenido-principal', cuerpo: conIndice(cuerpo, L, true), canonical: 'politicas.html',
       title: 'Cláusulas y políticas | Ricardo Design',
       desc: 'Tiempos de entrega, pagos, alcance y garantías de nuestros servicios.',
-      jsonld: [{ '@context': 'https://schema.org', '@type': 'WebPage', name: 'Cláusulas y políticas', url: SITIO + '/politicas.html', inLanguage: 'es-CO', publisher: { '@id': NEGOCIO_ID } }] });
+      jsonld: [{ '@context': 'https://schema.org', '@type': 'WebPage', name: 'Cláusulas y políticas', url: SITIO + '/politicas.html', inLanguage: 'es-CO', publisher: { '@id': NEGOCIO_ID } }, migasLd(MIGAS_LEGAL)] });
   }
 
   {
     const salida = 'privacidad/index.html', L = crearLinks(salida);
+    const MIGAS_LEGAL = [['Inicio', ''], ['Privacidad', 'privacidad/']];
     const cuerpo = `
 <div class="legal-main">
+${migas(L, MIGAS_LEGAL).replace('migas wrap', 'migas')}
 <section class="legal-hero">
   <p class="kicker">Ley 1581 de 2012 · Decreto 1377 de 2013</p>
   <h1>Política de tratamiento de datos personales</h1>
@@ -902,9 +907,11 @@ ${otros.length ? `<section class="sec" aria-labelledby="otros-h"><div class="wra
 
   {
     const salida = 'cookies/index.html', L = crearLinks(salida);
+    const MIGAS_LEGAL = [['Inicio', ''], ['Cookies', 'cookies/']];
     const fila = (c, p, f, d, cat) => `<tr><td><code>${c}</code></td><td>${p}</td><td>${f}</td><td>${d}</td><td>${cat}</td></tr>`;
     const cuerpo = `
 <div class="legal-main">
+${migas(L, MIGAS_LEGAL).replace('migas wrap', 'migas')}
 <section class="legal-hero">
   <p class="kicker">Transparencia</p>
   <h1>Política de cookies</h1>
@@ -923,7 +930,7 @@ ${otros.length ? `<section class="sec" aria-labelledby="otros-h"><div class="wra
   </tbody></table></div></article>
 <article class="card"><h2>Cómo borrarlas</h2><p>Puedes borrar las cookies y el almacenamiento local desde la configuración de privacidad de tu navegador (Chrome, Safari, Firefox o Edge). Más información sobre tus datos en nuestra <a href="${L.a('privacidad/')}">Política de tratamiento de datos</a>.</p></article>
 </div>`;
-    out.push({ salida, legal: true, cuerpo: conIndice(cuerpo, L, true), title: 'Política de cookies | Ricardo Design', desc: 'Qué cookies usa ricardodesign.co, para qué sirven y cómo controlarlas.' });
+    out.push({ salida, legal: true, cuerpo: conIndice(cuerpo, L, true), title: 'Política de cookies | Ricardo Design', desc: 'Qué cookies usa ricardodesign.co, para qué sirven y cómo controlarlas.', jsonld: [migasLd(MIGAS_LEGAL)] });
   }
 
   {

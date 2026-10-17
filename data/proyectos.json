@@ -52,7 +52,7 @@
       "destacado": true,
       "orden": 2,
       "cliente": "Alejandra Vergel",
-      "rubro": "Joyería artesanal",
+      "rubro": "Joyas de autor",
       "titulo": "Catálogo editorial",
       "resumen": "Catálogo de joyería con club de clientes y código de descuento único, y envíos a toda Colombia. Los correos y registros se hacen de forma automática.",
       "url": "https://alejandravergel.com",
@@ -96,18 +96,20 @@
       "destacado": true,
       "orden": 3,
       "cliente": "Vegas del Verde",
-      "rubro": "Recreación y ecoturismo",
+      "rubro": "Espacio natural en Floridablanca",
       "titulo": "Sitio de presentación",
-      "resumen": "Sitio de un refugio natural de 4 hectáreas en Floridablanca, Santander: alquiler de espacios para eventos, sendero ecológico, aves registradas y vivero.",
+      "resumen": "Sitio de un refugio natural de 4 hectáreas en Floridablanca, Santander: alquiler de espacios para eventos, sendero ecológico, aves registradas y vivero. Además gestionamos su publicidad en Meta Ads.",
       "url": "https://vegasdelverde.co",
       "fecha": "",
       "servicios": [
-        "web"
+        "web",
+        "ads"
       ],
       "etiquetas": [
         "Sitio de presentación",
         "Galería de aves",
-        "WhatsApp"
+        "WhatsApp",
+        "Meta Ads"
       ],
       "imagen": {
         "desktop": "https://vegasdelverde.co/img/aereo-predio.jpg",
@@ -123,7 +125,8 @@
           "Presentamos el refugio y sus espacios para eventos en una sola página clara.",
           "Mostramos el sendero ecológico y una galería de aves con el nombre de cada especie.",
           "Incluimos el vivero y la ubicación en el mapa de Santander.",
-          "Contacto directo por WhatsApp."
+          "Contacto directo por WhatsApp.",
+          "Gestionamos su publicidad en Meta Ads para llevar visitantes al refugio."
         ],
         "resultado": "",
         "galeria": []
@@ -139,7 +142,7 @@
       "destacado": false,
       "orden": 4,
       "cliente": "Armando Martínez Garnica",
-      "rubro": "Archivo digital de historiador",
+      "rubro": "Historiador",
       "titulo": "Archivo digital",
       "resumen": "Archivo digital del historiador Armando Martínez Garnica: biografía, biblioteca digitalizada, podcast, apariciones en prensa, trayectoria y contacto.",
       "url": "https://armandomartinez.co",

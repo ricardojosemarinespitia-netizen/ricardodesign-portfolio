@@ -38,7 +38,7 @@
     },
     {
       "id": "mantenimiento",
-      "nombre": "Mantenimiento",
+      "nombre": "Mantenimiento web",
       "nombreLargo": "Mantenimiento web",
       "ruta": "mantenimiento-web/",
       "frase": "Tu web siempre al día, sin que tengas que tocar código.",
@@ -224,7 +224,7 @@
           ]
         },
         {
-          "nombre": "Combo Contenido + Ads",
+          "nombre": "Combo Contenido + Meta Ads",
           "precio": "Se cotiza según tu negocio",
           "unidad": "al mes",
           "estado": "por_validar",
@@ -235,7 +235,7 @@
         }
       ],
       "noIncluye": [
-        "La inversión publicitaria en Meta (si se combina con Ads).",
+        "La inversión publicitaria en Meta (si se combina con Meta Ads).",
         "Música sin licencia: sólo se usa biblioteca comercial autorizada.",
         "Fotos, logos o material sobre el que no tengas derechos de uso."
       ]
