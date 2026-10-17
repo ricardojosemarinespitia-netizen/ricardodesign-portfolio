@@ -118,8 +118,10 @@ if(!matchMedia('(min-width:901px) and (hover:hover) and (pointer:fine)').matches
               <source type="image/avif" srcset="assets/_efectos/blender/rd_v1/rd16-768.avif 768w, assets/_efectos/blender/rd_v1/rd16-1280.avif 1280w, assets/_efectos/blender/rd_v1/rd16-1920.avif 1920w," sizes="115vw">
               <img class="hv-foto" src="assets/_efectos/blender/rd_v1/rd16-1920.webp" srcset="assets/_efectos/blender/rd_v1/rd16-768.webp 768w, assets/_efectos/blender/rd_v1/rd16-1280.webp 1280w, assets/_efectos/blender/rd_v1/rd16-1920.webp 1920w," sizes="115vw" width="1920" height="1080" alt="" fetchpriority="high" decoding="async">
             </picture>
-            
-            
+            <video class="hv-video" data-video="hero" data-bucle="5" muted playsinline preload="none" disablepictureinpicture>
+              <source data-src="assets/_efectos/blender/rd_v1/rd-trazo-1280.webm" type="video/webm" media="(min-width:1024px)">
+              <source data-src="assets/_efectos/blender/rd_v1/rd-trazo-1280.mp4" type="video/mp4" media="(min-width:1024px)">
+            </video>
             <svg class="hv-red" viewBox="0 0 1600 900" preserveAspectRatio="none" focusable="false">
               <defs><mask id="hv-mascara"><rect width="1600" height="900" fill="#fff"/><ellipse class="hv-hueco" cx="1110" cy="490" rx="390" ry="215" fill="#000"/></mask></defs>
               <g mask="url(#hv-mascara)"><path class="hv-hilo" pathLength="100" d="M1110 490L1000 205"/><path class="hv-hilo" pathLength="100" d="M1110 490L1455 655"/><path class="hv-hilo" pathLength="100" d="M1110 490L975 780"/></g>
@@ -326,9 +328,9 @@ if(!matchMedia('(min-width:901px) and (hover:hover) and (pointer:fine)').matches
           <p class="pliego__lede">Garantizar significa que lo que pactamos se cumple y se mide: lo entregable, los plazos, los reportes y los ajustes quedan escritos desde el primer día. Las ventas son el objetivo que medimos contigo. Nadie controla el mercado ni el algoritmo de Meta, y por eso no te prometemos una cifra.</p>
         </div>
         <div class="pliego__sello" aria-hidden="true">
-          <div class="sello sello--lacre sello--rd" data-estampa>
-            <!-- rd_v1 · monograma rd en cromo (Blender Cycles), sin lacre -->
-            <picture><source type="image/avif" srcset="assets/_efectos/blender/rd_v1/rdc-390.avif 390w, assets/_efectos/blender/rd_v1/rdc-768.avif 768w" sizes="(max-width:760px) 1px, 300px"><img class="sello__foto" src="assets/_efectos/blender/rd_v1/rdc-768.webp" srcset="assets/_efectos/blender/rd_v1/rdc-390.webp 390w, assets/_efectos/blender/rd_v1/rdc-768.webp 768w" sizes="(max-width:760px) 1px, 300px" width="768" height="717" alt="" loading="lazy" decoding="async"></picture>
+          <div class="sello sello--lacre sello--rd" data-estampa data-lacre="assets/_efectos/blender/rd_v1/trazo/t_" data-n="75">
+            <!-- rd_v1 · monograma rd en cromo (Blender Cycles), sin lacre; en escritorio fx-b.js lo traza con el scroll (75 cuadros) -->
+            <picture><source type="image/avif" srcset="assets/_efectos/blender/rd_v1/rdg-400.avif 400w" sizes="(max-width:760px) 1px, 300px"><img class="sello__foto" src="assets/_efectos/blender/rd_v1/rdg-400.webp" sizes="(max-width:760px) 1px, 300px" width="400" height="400" alt="" loading="lazy" decoding="async"></picture>
           </div>
         </div>
       </div>
