@@ -6,13 +6,13 @@
    ========================================================================= */
 
 export function paginas(ctx, crearLinks) {
-  const { S, C, OPC, esc, wa, svc, visibles, proyectos, casoIndexable, metricasOk, testimonios, ETQ, SITIO, ICO_WA, EXT } = ctx;
+  const { S, C, OPC, esc, wa, svc, visibles, proyectos, casoIndexable, metricasOk, testimonios, ETQ, SITIO, ICO_WA, EXT, FLECHA } = ctx;
   const out = [];
   const NEGOCIO_ID = SITIO + '/#negocio';
 
   /* ================= Componentes ================= */
   const btnWa = (txt, label, cls = 'btn btn-pri', servicio = '', ubic = '') =>
-    `<a class="${cls}" href="${wa(txt)}" target="_blank" rel="noopener noreferrer"${servicio ? ` data-servicio="${servicio}"` : ''}${ubic ? ` data-ubicacion="${ubic}"` : ''}>${ICO_WA}${esc(label)}${EXT}</a>`;
+    `<a class="${cls}" href="${wa(txt)}" target="_blank" rel="noopener noreferrer"${servicio ? ` data-servicio="${servicio}"` : ''}${ubic ? ` data-ubicacion="${ubic}"` : ''}>${esc(label)} ${FLECHA}${EXT}</a>`;
 
   const cabSec = (kicker, h2, intro = '', id = '') =>
     `<div class="sec-head rv">${kicker ? `<p class="kicker">${kicker}</p>` : ''}<h2 class="h-sec"${id ? ` id="${id}"` : ''}>${h2}</h2>${intro ? `<p class="lead">${intro}</p>` : ''}</div>`;
@@ -247,7 +247,7 @@ ${ids.map((id, i) => `<div class="sim-panel" role="tabpanel" id="${pre}-p-${id}"
   <input type="hidden" name="text" value="${esc(intro)}">
   ${campos}
   <div class="brief-vista" aria-live="polite"><b>Así se verá tu mensaje:</b><span data-wa-vista>${esc(intro)}</span></div>
-  <button class="btn btn-pri" type="submit">${ICO_WA}Enviar por WhatsApp<span class="sr-only"> (se abre en otra pestaña)</span></button>
+  <button class="btn btn-pri" type="submit">Enviar por WhatsApp ${FLECHA}<span class="sr-only"> (se abre en otra pestaña)</span></button>
   <p class="legal-nota" id="${idp}-nota">Al enviar, abrirás WhatsApp con este mensaje. No guardamos datos en este sitio. Tratamos tus datos según nuestra <a href="${L.a('privacidad/')}">Política de privacidad</a>.</p>
 </form>`;
 
@@ -758,6 +758,22 @@ ${otros.length ? `<section class="sec" aria-labelledby="otros-h"><div class="wra
   });
 
   /* ================= LEGALES ================= */
+  /* Documento largo: índice lateral con anclas (fijo en escritorio, plegable en móvil)
+     generado de los <h2> de cada <article class="card">. No cambia ningún texto. */
+  const slug = (t) => t.replace(/<[^>]+>/g, '').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/^\d+\.\s*/, '').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+  const conIndice = (cuerpo, L, numerar) => {
+    const items = [];
+    let c = cuerpo.replace(/<article class="card"( id="([^"]+)")?>(\s*)<h2>([\s\S]*?)<\/h2>/g, (m, _a, id, sp, h) => {
+      const k = id || slug(h); items.push([k, h.replace(/^\d+\.\s*/, '')]);
+      return `<article class="card" id="${k}">${sp}<h2>${h}</h2>`;
+    });
+    c = c.replace(/\s*<nav class="pills"[\s\S]*?<\/nav>/, '');
+    const nav = `<nav class="doc-indice" aria-label="Contenido del documento"><details><summary>Contenido <span class="versal">${items.length} secciones</span></summary><ol>${items.map(([k, t]) => `<li><a href="#${k}">${t}</a></li>`).join('')}</ol></details></nav>`;
+    c = c.replace(/(<\/section>\s*)(<article)/, `$1<div class="doc${numerar ? ' doc--num' : ''}">${nav}<div class="doc-cuerpo">$2`);
+    c = c.replace(/<\/div>\s*$/, `<p class="doc-volver"><a class="btn btn--linea" href="${L.a('')}">Volver al inicio ${FLECHA}</a></p></div></div>
+</div>`);
+    return c;
+  };
   const ph = (t) => `<mark class="ph">{{${t}}}</mark>`;
 
   {
@@ -855,7 +871,7 @@ ${otros.length ? `<section class="sec" aria-labelledby="otros-h"><div class="wra
   <!-- [DECISIÓN ABIERTA D13 — propuesta] "Los cambios se publican con su fecha y no afectan contratos ya firmados." -->
 </article>
 </div>`;
-    out.push({ salida, actual: 'politicas', legal: true, mainId: 'contenido-principal', cuerpo, canonical: 'politicas.html',
+    out.push({ salida, actual: 'politicas', legal: true, mainId: 'contenido-principal', cuerpo: conIndice(cuerpo, L, true), canonical: 'politicas.html',
       title: 'Cláusulas y políticas | Ricardo Design',
       desc: 'Tiempos de entrega, pagos, alcance y garantías de nuestros servicios.',
       jsonld: [{ '@context': 'https://schema.org', '@type': 'WebPage', name: 'Cláusulas y políticas', url: SITIO + '/politicas.html', inLanguage: 'es-CO', publisher: { '@id': NEGOCIO_ID } }] });
@@ -889,7 +905,7 @@ ${otros.length ? `<section class="sec" aria-labelledby="otros-h"><div class="wra
 <article class="card"><h2>9. Seguridad y vigencia</h2><p>Aplicamos medidas razonables para proteger tus datos. Esta política rige desde ${ph('FECHA')} y las bases de datos se conservan mientras sean necesarias para las finalidades descritas.</p>
   <!-- [DECISIÓN ABIERTA] Registro Nacional de Bases de Datos: confirmar con abogado si aplica. --></article>
 </div>`;
-    out.push({ salida, legal: true, noindex: true, cuerpo, title: 'Política de tratamiento de datos | Ricardo Design', desc: '' });
+    out.push({ salida, legal: true, noindex: true, cuerpo: conIndice(cuerpo, L, false), title: 'Política de tratamiento de datos | Ricardo Design', desc: '' });
   }
 
   {
@@ -915,7 +931,7 @@ ${otros.length ? `<section class="sec" aria-labelledby="otros-h"><div class="wra
   </tbody></table></div></article>
 <article class="card"><h2>Cómo borrarlas</h2><p>Puedes borrar las cookies y el almacenamiento local desde la configuración de privacidad de tu navegador (Chrome, Safari, Firefox o Edge). Más información sobre tus datos en nuestra <a href="${L.a('privacidad/')}">Política de tratamiento de datos</a>.</p></article>
 </div>`;
-    out.push({ salida, legal: true, cuerpo, title: 'Política de cookies | Ricardo Design', desc: 'Qué cookies usa ricardodesign.co, para qué sirven y cómo controlarlas.' });
+    out.push({ salida, legal: true, cuerpo: conIndice(cuerpo, L, true), title: 'Política de cookies | Ricardo Design', desc: 'Qué cookies usa ricardodesign.co, para qué sirven y cómo controlarlas.' });
   }
 
   {
@@ -925,6 +941,7 @@ ${otros.length ? `<section class="sec" aria-labelledby="otros-h"><div class="wra
   <h1 class="h-display">Esta página <em>no existe</em></h1>
   <p class="lead" style="margin:var(--e-4) 0 var(--e-6)">Puede que el enlace haya cambiado. Estos caminos sí funcionan:</p>
   <div class="relacionados">${S.servicios.map((s) => `<a class="rel" href="${L.a(s.ruta)}"><b>${esc(s.nombre)}</b><span>${esc(s.frase)}</span></a>`).join('')}<a class="rel" href="${L.a('')}"><b>Inicio</b><span>Volver a la página principal</span></a></div>
+  <p class="doc-volver"><a class="btn btn--laton" href="${L.a('')}">Volver al inicio ${FLECHA}</a></p>
 </div></section>`;
     out.push({ salida, noindex: true, cuerpo, canonical: '404.html', title: 'Página no encontrada | Ricardo Design', desc: '' });
   }

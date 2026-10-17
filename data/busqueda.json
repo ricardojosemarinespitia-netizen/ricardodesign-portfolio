@@ -480,10 +480,22 @@
   "g": "Página"
  },
  {
+  "t": "Contenido 6 secciones",
+  "d": "Pregunta frecuente · Cláusulas y políticas",
+  "u": "politicas.html",
+  "g": "Pregunta"
+ },
+ {
   "t": "Política de cookies",
   "d": "Qué cookies usa ricardodesign.co, para qué sirven y cómo controlarlas.",
   "u": "cookies/index.html",
   "g": "Página"
+ },
+ {
+  "t": "Contenido 3 secciones",
+  "d": "Pregunta frecuente · Política de cookies",
+  "u": "cookies/index.html",
+  "g": "Pregunta"
  },
  {
   "t": "Tienda virtual para Felipe Vergel",
