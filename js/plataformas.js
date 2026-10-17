@@ -391,10 +391,10 @@
     ctx.globalCompositeOperation='source-over';ctx.clearRect(0,0,w,h);ctx.drawImage(im,0,0,w,h);
     ctx.globalCompositeOperation='source-atop';
     var lx=w*(0.5+px*0.35),ly=h*(0.35+py*0.25),g=ctx.createRadialGradient(lx,ly,0,lx,ly,w*0.38);
-    g.addColorStop(0,'rgba(255,255,255,'+(0.55+golpeRd*0.45).toFixed(2)+')');g.addColorStop(1,'rgba(255,255,255,0)');ctx.fillStyle=g;ctx.fillRect(0,0,w,h);
+    g.addColorStop(0,'rgba(255,255,255,'+(0.12+golpeRd*0.3).toFixed(2)+')');g.addColorStop(1,'rgba(255,255,255,0)');ctx.fillStyle=g;ctx.fillRect(0,0,w,h);
     if(barr<0.32){var bx=(barr/0.32)*w*1.8-w*0.4,lg=ctx.createLinearGradient(bx-w*0.12,0,bx+w*0.12,h*0.3);
-      lg.addColorStop(0,'rgba(255,255,255,0)');lg.addColorStop(0.5,'rgba(255,255,255,.7)');lg.addColorStop(1,'rgba(255,255,255,0)');ctx.fillStyle=lg;ctx.fillRect(0,0,w,h)}
-    if(golpeRd>0.02){ctx.globalAlpha=golpeRd*0.7;ctx.fillStyle='#fff';ctx.fillRect(0,0,w,h);ctx.globalAlpha=1}   /* destello al chocar */
+      lg.addColorStop(0,'rgba(255,255,255,0)');lg.addColorStop(0.5,'rgba(255,255,255,.16)');lg.addColorStop(1,'rgba(255,255,255,0)');ctx.fillStyle=lg;ctx.fillRect(0,0,w,h)}
+    if(golpeRd>0.02){ctx.globalAlpha=golpeRd*0.25;ctx.fillStyle='#fff';ctx.fillRect(0,0,w,h);ctx.globalAlpha=1}   /* destello al chocar */
     if(tinte>0.01&&tinteC){ctx.globalAlpha=tinte*0.6;var tg=ctx.createRadialGradient(w*0.5,h*0.55,0,w*0.5,h*0.55,w*0.55);
       tg.addColorStop(0,tinteC);tg.addColorStop(1,'rgba(0,0,0,0)');ctx.fillStyle=tg;ctx.fillRect(0,0,w,h);ctx.globalAlpha=1}
     ctx.globalCompositeOperation='source-over';
@@ -414,7 +414,7 @@
   function soltar(){if(!arrastre)return;arrastre=null;rd.classList.remove('es-arrastre')}
   rd.addEventListener('pointerup',soltar);rd.addEventListener('pointercancel',soltar);
   var ayudaRd=fis?'; Enter dispara las medallas y cambia el régimen de órbita':'';
-  if(!ligero){rd.tabIndex=0;rd.setAttribute('aria-label','Monograma rd de Ricardo Design en cromo; gíralo con las flechas o arrastrándolo'+ayudaRd);
+  if(!ligero){rd.tabIndex=0;rd.setAttribute('aria-label','Monograma rd de Ricardo Design en negro mate; gíralo con las flechas o arrastrándolo'+ayudaRd);
     rd.addEventListener('keydown',function(e){if(e.key==='ArrowLeft'||e.key==='ArrowRight'){angVel+=(e.key==='ArrowLeft'?-1:1)*420;e.preventDefault()}})}
   if(fis)rd.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();estallar(1);cambiarRegimen()}});
 
@@ -445,7 +445,7 @@
       lAng=lArr.a+(e.clientX-lArr.x)*1.1;lVel=lVel*0.5+((e.clientX-lArr.lx)*1.1/(dtm/1000))*0.5;lArr.lx=e.clientX;lArr.t=now});
     var lSoltar=function(){if(!lArr)return;lArr=null;rd.classList.remove('es-arrastre');lMover()};
     rd.addEventListener('pointerup',lSoltar);rd.addEventListener('pointercancel',lSoltar);
-    rd.tabIndex=0;rd.setAttribute('aria-label','Monograma rd de Ricardo Design en cromo; gíralo con las flechas o deslizando el dedo'+ayudaRd);
+    rd.tabIndex=0;rd.setAttribute('aria-label','Monograma rd de Ricardo Design en negro mate; gíralo con las flechas o deslizando el dedo'+ayudaRd);
     rd.addEventListener('keydown',function(e){if(e.key==='ArrowLeft'||e.key==='ArrowRight'){pedirHoja();lVel+=(e.key==='ArrowLeft'?-1:1)*520;lMover();e.preventDefault()}});
   }
 
