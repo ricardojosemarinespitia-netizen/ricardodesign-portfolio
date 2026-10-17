@@ -320,32 +320,30 @@ if(!matchMedia('(min-width:901px) and (hover:hover) and (pointer:fine)').matches
 
   <!-- ================= Garantía: la promesa, por escrito (papel hueso) =================
        Texto sujeto a validación con un abogado colombiano antes de publicar (TAREA §6.5). -->
-  <section class="sec pliego" id="garantia" aria-labelledby="h-gar">
+  <section class="sec pliego pliego--v2" id="garantia" aria-labelledby="h-gar">
     <div class="pliego__fondo hueco" data-activo="I05" aria-hidden="true"><picture><source type="image/avif" srcset="assets/web/rd-I05-768.avif 768w, assets/web/rd-I05-1280.avif 1280w" sizes="100vw"><source type="image/webp" srcset="assets/web/rd-I05-768.webp 768w, assets/web/rd-I05-1280.webp 1280w" sizes="100vw"><img src="assets/web/rd-I05-1280.jpg" srcset="assets/web/rd-I05-768.jpg 768w, assets/web/rd-I05-1280.jpg 1280w" sizes="100vw" width="1280" height="1280" alt="" loading="lazy" decoding="async" onerror="this.classList.add('sin-activo')"></picture></div>
-    <div class="wrap registro">
-      <span class="reg reg--a"></span><span class="reg reg--b"></span>
+    <div class="wrap registro pliego__hoja">
+      <span class="reg reg--a"></span><span class="reg reg--b"></span><span class="reg reg--c"></span><span class="reg reg--d"></span>
       <div class="pliego__cab">
-        <div class="r-sube">
-          <p class="versal">La garantía, por escrito</p>
-          <h2 id="h-gar" data-lineas>Garantizamos lo que depende de nosotros.</h2>
-          <svg class="trazo" viewBox="0 0 300 14" preserveAspectRatio="none" aria-hidden="true"><path pathLength="1" d="M2 9C60 4 120 3 180 6s90 5 116 1"/></svg>
-          <p class="pliego__lede">Garantizar significa que lo que pactamos se cumple y se mide: lo entregable, los plazos, los reportes y los ajustes quedan escritos desde el primer día. Las ventas son el objetivo que medimos contigo. Nadie controla el mercado ni el algoritmo de Meta, y por eso no te prometemos una cifra.</p>
-        </div>
+        <div class="pliego__kick"><p class="versal">La garantía, por escrito</p><i class="pliego__hilo" aria-hidden="true"></i></div>
+        <h2 id="h-gar"><span class="gl"><span>Garantizamos lo que</span></span> <span class="gl gl--b"><span>depende de nosotros.</span></span></h2>
+        <p class="pliego__lede">Garantizar significa que lo que pactamos se cumple y se mide: lo entregable, los plazos, los reportes y los ajustes quedan escritos desde el primer día. Las ventas son el objetivo que medimos contigo. Nadie controla el mercado ni el algoritmo de Meta, y por eso no te prometemos una cifra.</p>
         <div class="pliego__sello" aria-hidden="true">
-          <div class="sello sello--lacre sello--rd" data-estampa data-lacre="assets/_efectos/blender/rd_v1/trazo/t_" data-n="75">
-            <!-- rd_v1 · monograma rd en cromo (Blender Cycles), sin lacre; en escritorio fx-b.js lo traza con el scroll (75 cuadros) -->
+          <div class="sello sello--lacre sello--rd" data-estampa>
+            <!-- monograma rd negro mate (Blender Cycles) -->
             <picture><source type="image/avif" srcset="assets/_efectos/blender/rd_v1/rdg-400.avif 400w" sizes="(max-width:760px) 1px, 300px"><img class="sello__foto" src="assets/_efectos/blender/rd_v1/rdg-400.webp" sizes="(max-width:760px) 1px, 300px" width="400" height="400" alt="" loading="lazy" decoding="async"></picture>
           </div>
         </div>
       </div>
-      <!-- "10 días hábiles" y "15 días de garantía" salen de servicios.json: CONFIRMAR vigencia con Ricardo -->
+      <!-- "10 días hábiles" y "15 días de garantía" salen de servicios.json: CONFIRMAR vigencia con Ricardo.
+           Íconos 3D (Blender): assets/web/garantia3d/<nombre>-gira.(avif|webp), hoja 6x4 de 160 px; js/garantia.js los carga al acercarse y deja el SVG si no existen. -->
       <ul class="clausulas">
-        <li class="clausula"><svg class="ico" aria-hidden="true"><use href="#i-sello"/></svg><h3>Entregables</h3><p>Recibes lo que dice tu propuesta. Lo que no esté escrito en ella se cotiza antes.</p></li>
-        <li class="clausula"><svg class="ico" aria-hidden="true"><use href="#i-reloj"/></svg><h3>Plazos</h3><p>Las páginas web se entregan en <span class="cifra" data-cuenta="10">10</span> días hábiles desde que recibimos tu contenido completo.</p></li>
-        <li class="clausula"><svg class="ico" aria-hidden="true"><use href="#i-reporte"/></svg><h3>Reportes</h3><p>Ves cuánto se invirtió, qué pasó y qué vamos a cambiar, sean buenos o malos los números.</p></li>
-        <li class="clausula"><svg class="ico" aria-hidden="true"><use href="#i-ajuste"/></svg><h3>Ajustes</h3><p>Si algo de lo entregado falla, lo corregimos sin costo durante los <span class="cifra" data-cuenta="15">15</span> días hábiles de garantía.</p></li>
+        <li class="clausula"><div class="clausula__cab" aria-hidden="true"><span class="clausula__n">01</span><span class="g3d" data-g3d="entregables"><svg class="ico"><use href="#i-sello"/></svg></span></div><h3>Entregables</h3><p>Recibes lo que dice tu propuesta. Lo que no esté escrito en ella se cotiza antes.</p></li>
+        <li class="clausula"><div class="clausula__cab" aria-hidden="true"><span class="clausula__n">02</span><span class="g3d" data-g3d="plazos"><svg class="ico"><use href="#i-reloj"/></svg></span></div><h3>Plazos</h3><p>Las páginas web se entregan en <span class="cifra">10</span> días hábiles desde que recibimos tu contenido completo.</p></li>
+        <li class="clausula"><div class="clausula__cab" aria-hidden="true"><span class="clausula__n">03</span><span class="g3d" data-g3d="reportes"><svg class="ico"><use href="#i-reporte"/></svg></span></div><h3>Reportes</h3><p>Ves cuánto se invirtió, qué pasó y qué vamos a cambiar, sean buenos o malos los números.</p></li>
+        <li class="clausula"><div class="clausula__cab" aria-hidden="true"><span class="clausula__n">04</span><span class="g3d" data-g3d="ajustes"><svg class="ico"><use href="#i-ajuste"/></svg></span></div><h3>Ajustes</h3><p>Si algo de lo entregado falla, lo corregimos sin costo durante los <span class="cifra">15</span> días hábiles de garantía.</p></li>
       </ul>
-      <div class="rentables r-sube">
+      <div class="rentables">
         <h3>Campañas rentables.</h3>
         <p>Medimos cuánto inviertes y cuánto vendes de verdad, incluidas las ventas que se cierran por WhatsApp, y ajustamos con esos números.</p>
       </div>
