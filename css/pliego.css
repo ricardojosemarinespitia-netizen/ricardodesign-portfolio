@@ -34,20 +34,20 @@
 /* ícono 3D: hoja de giro 6x4 (24 cuadros, 360°) movida por background-position con steps; SVG de respaldo */
 .g3d{position:relative;display:block;width:var(--pl-ico);height:var(--pl-ico);margin:calc(var(--s-2) * -1) calc(var(--s-2) * -1) 0 0;perspective:420px}
 .g3d .ico{position:absolute;inset:22%;width:56%;height:56%;color:var(--pl-tinta);stroke-width:1.25;transition:opacity var(--d-ui) var(--ease-casa)}
-.g3d__giro{position:absolute;inset:0;opacity:0;transition:opacity var(--d-ui) var(--ease-casa),transform .7s var(--ease-casa);transform:rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg));will-change:transform}
+.g3d__giro{position:absolute;inset:0;isolation:isolate;opacity:0;transition:opacity var(--d-ui) var(--ease-casa),transform .7s var(--ease-casa);transform:rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg));will-change:transform}
 .g3d__c{position:absolute;inset:0;background-repeat:no-repeat;background-size:600% 400%;background-position:0 0}
 .g3d__c+.g3d__c{opacity:0}
 .g3d--fijo .g3d__c{background-size:100% 100%}
 .g3d--vivo .g3d__giro{opacity:1}.g3d--vivo .ico{opacity:0}
-/* 24 cuadros en 8 s: la capa B muestra el cuadro siguiente y se funde durante cada cuadro (giro continuo, sin saltos) */
-.g3d--gira .g3d__c{animation:g3d-x var(--g3d-t4,2s) steps(6) infinite,g3d-y var(--g3d-t,8s) steps(4) infinite;animation-delay:var(--g3d-d,0s),var(--g3d-d,0s);animation-play-state:paused}
-.g3d--gira .g3d__c+.g3d__c{animation:g3d-x var(--g3d-t4,2s) steps(6) infinite,g3d-y var(--g3d-t,8s) steps(4) infinite,g3d-f var(--g3d-f,.333s) linear infinite;animation-delay:calc(var(--g3d-d,0s) - var(--g3d-f,.333s)),calc(var(--g3d-d,0s) - var(--g3d-f,.333s)),var(--g3d-d,0s);animation-play-state:paused}
+/* 24 cuadros en 8 s: fundido cruzado entre el cuadro actual (A) y el siguiente (B) con plus-lighter dentro de un grupo aislado:
+   interpolación lineal exacta, así la sombra fija de la hoja no late entre cuadros */
+.g3d--gira .g3d__c{animation:g3d-x var(--g3d-t4,2s) steps(6) infinite,g3d-y var(--g3d-t,8s) steps(4) infinite,g3d-fo var(--g3d-f,.333s) linear infinite;animation-delay:var(--g3d-d,0s),var(--g3d-d,0s),var(--g3d-d,0s);animation-play-state:paused}
+.g3d--gira .g3d__c+.g3d__c{animation:g3d-x var(--g3d-t4,2s) steps(6) infinite,g3d-y var(--g3d-t,8s) steps(4) infinite,g3d-f var(--g3d-f,.333s) linear infinite;mix-blend-mode:plus-lighter;animation-delay:calc(var(--g3d-d,0s) - var(--g3d-f,.333s)),calc(var(--g3d-d,0s) - var(--g3d-f,.333s)),var(--g3d-d,0s);animation-play-state:paused}
 .g3d--gira.g3d--en .g3d__c{animation-play-state:running}
 @keyframes g3d-x{to{background-position-x:120%}}
 @keyframes g3d-y{to{background-position-y:133.333%}}
 @keyframes g3d-f{from{opacity:0}to{opacity:1}}
-.g3d:after{content:"";position:absolute;left:18%;right:18%;bottom:2%;height:10%;border-radius:50%;background:radial-gradient(closest-side,rgba(22,22,22,.28),transparent);opacity:0;transition:opacity var(--d-ui) var(--ease-casa)}
-.g3d--vivo:after{opacity:1}
+@keyframes g3d-fo{from{opacity:1}to{opacity:0}}
 /* cierre editorial */
 .pliego--v2 .rentables{grid-template-columns:repeat(12,minmax(0,1fr));gap:0 var(--s-6);margin-top:clamp(var(--s-8),4vw,56px);padding-top:var(--s-8);border-top:1px solid var(--pl-tinta);align-items:end}
 .pliego--v2 .rentables h3{grid-column:1/span 7;font:700 clamp(2rem,1.2rem + 3vw,4.25rem)/.95 var(--f-display);letter-spacing:-.045em;color:var(--pl-tinta)}
