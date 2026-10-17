@@ -21,7 +21,9 @@
     var io = new IntersectionObserver(function (es) {
       es.forEach(function (e) { e.target.classList.toggle('vivo', e.isIntersecting); });
     }, { root: null, threshold: 0.35 });
-    [].forEach.call(pista.querySelectorAll('.caso--web'), function (li) { io.observe(li); });
+    [].forEach.call(pista.querySelectorAll('.caso--web, .caso--meta'), function (li) { io.observe(li); });
+  } else {
+    [].forEach.call(pista.querySelectorAll('.caso--meta'), function (li) { li.classList.add('vivo'); });
   }
 
   /* flechas */
@@ -56,6 +58,8 @@
       esc.style.setProperty('--ry', ((x - 0.5) * 9).toFixed(2) + 'deg');
       esc.style.setProperty('--rx', ((0.5 - y) * 6).toFixed(2) + 'deg');
       esc.style.setProperty('--mx', (x * 100).toFixed(1) + '%');
+      esc.style.setProperty('--px', (x - 0.5).toFixed(3));
+      esc.style.setProperty('--py', (y - 0.5).toFixed(3));
       esc.style.setProperty('--my', (y * 100).toFixed(1) + '%');
     }
     a.addEventListener('pointerenter', function () { caja = esc.getBoundingClientRect(); esc.classList.add('sigue'); });
@@ -66,6 +70,7 @@
     a.addEventListener('pointerleave', function () {
       pend = null; esc.classList.remove('sigue');
       esc.style.setProperty('--rx', '0deg'); esc.style.setProperty('--ry', '0deg');
+      esc.style.setProperty('--px', '0'); esc.style.setProperty('--py', '0');
     });
   });
 })();
