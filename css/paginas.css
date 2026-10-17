@@ -228,6 +228,7 @@ body.menu-abierto{overflow:hidden}
 .paq--dest{border-color:var(--c-tinta);border-top:3px solid var(--c-tinta)}
 .paq-dest-tag{align-self:flex-start;border-color:var(--c-tinta);color:var(--texto)}
 .paq-precio{font:500 var(--t-xl)/1 var(--f-display);letter-spacing:var(--tr-display);margin:0}
+.paq-precio--cotiza{font:600 var(--t-sm)/1.3 var(--f-texto);letter-spacing:.02em;color:var(--texto-2);margin:0}
 .paq-unidad{font-size:var(--t-sm);color:var(--texto-2);margin:var(--s-2) 0 0}
 .paq .lista-check{margin-top:0;border-top:1px solid var(--c-linea);font-size:var(--t-sm)}
 .paq .btn{margin-top:auto}

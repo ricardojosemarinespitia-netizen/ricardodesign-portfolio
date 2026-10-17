@@ -212,12 +212,12 @@ ${ids.map((id, i) => `<div class="sim-panel" role="tabpanel" id="${pre}-p-${id}"
   const paqCards = (s) => {
     const ps = visibles(s);
     if (!ps.length) return '';
-    return `<div class="paq-grid${ps.length > 2 ? ' paq-grid--3' : ''}">${ps.map((p, i) => `<article class="paq${p.destacado ? ' paq--dest' : ''} rv rv-d${i % 3}">
-  ${p.destacado ? '<span class="chip paq-dest-tag">El más elegido</span>' : ''}
+    return `<div class="paq-grid${ps.length === 3 ? ' paq-grid--3' : ''}">${ps.map((p, i) => `<article class="paq${p.destacado ? ' paq--dest' : ''} rv rv-d${i % 3}">
+  ${p.destacado ? '<span class="chip paq-dest-tag">Recomendado</span>' : ''}
   <h3>${esc(p.nombre)}${p.estado === 'por_validar' ? ' <span class="chip">Por validar</span>' : ''}</h3>
-  <div><p class="paq-precio">${esc(p.precio)}</p><p class="paq-unidad">${esc(p.unidad)}</p></div>
+  <div><p class="paq-precio paq-precio--cotiza">${esc(p.precio)}</p><p class="paq-unidad">${esc(p.unidad)}</p></div>
   <ul class="lista-check">${p.incluye.map((x) => `<li>${esc(x)}</li>`).join('')}</ul>
-  ${btnWa(`Hola Ricardo, me interesa ${s.nombreLargo.toLowerCase()}: ${p.nombre}.`, 'Quiero este', p.destacado ? 'btn btn-claro' : 'btn btn-sec', s.id, 'paquete')}
+  ${btnWa(`Hola Ricardo, quiero cotizar ${/^plan /i.test(p.nombre) ? 'el ' + p.nombre : 'el plan ' + p.nombre.toLowerCase()} de ${s.nombreLargo}.`, 'Cotizar este plan', p.destacado ? 'btn btn-claro' : 'btn btn-sec', s.id, 'paquete')}
 </article>`).join('')}</div>`;
   };
 
@@ -234,10 +234,9 @@ ${ids.map((id, i) => `<div class="sim-panel" role="tabpanel" id="${pre}-p-${id}"
     return `<section class="sec" aria-labelledby="pj-rel-h"><div class="wrap">${cabSec('Proyectos', 'Trabajos con <em>este servicio</em>', '', 'pj-rel-h')}<div class="pj-grid">${ps.map((p, i) => pjCard(p, L, i)).join('')}</div></div></section>`;
   };
 
-  const serviceLd = (s, url, ofertas = []) => ({
+  const serviceLd = (s, url) => ({
     '@context': 'https://schema.org', '@type': 'Service', name: s.nombreLargo, description: s.frase, url,
     provider: { '@id': NEGOCIO_ID }, areaServed: ['Bucaramanga', 'Floridablanca', 'Girón', 'Piedecuesta', 'Colombia'],
-    ...(ofertas.length ? { offers: ofertas.map(([n, v]) => ({ '@type': 'Offer', name: n, price: v, priceCurrency: 'COP' })) } : {})
   });
 
   /* ---------- formulario WhatsApp genérico ---------- */
@@ -265,7 +264,7 @@ ${ids.map((id, i) => `<div class="sim-panel" role="tabpanel" id="${pre}-p-${id}"
       ['¿Trabajan fuera de Bucaramanga?', 'Sí, atendemos clientes en toda Colombia de forma remota.']
     ];
     const destacados = proyectos.filter((p) => p.destacado).slice(0, 3);
-    const PRECIO_CORTO = { web: 'Cotización en 24 h', mantenimiento: 'Desde $65.000/h', ads: 'Desde $90.000', contenido: 'A cotizar' };
+    const PRECIO_CORTO = { web: 'Cotización en 24 h', mantenimiento: 'Se cotiza', ads: 'Se cotiza', contenido: 'Se cotiza' };
     const cuerpo = `
 <span id="hero" class="ancla-vieja"></span>
 <section class="hero" id="inicio" aria-labelledby="h1">
@@ -293,7 +292,7 @@ ${ids.map((id, i) => `<div class="sim-panel" role="tabpanel" id="${pre}-p-${id}"
 <span id="services" class="ancla-vieja"></span>
 <section class="sec" id="servicios" aria-labelledby="servicios-h">
   <div class="wrap">
-    ${cabSec('Servicios', 'Lo que hacemos <em>por tu negocio</em>', 'Cuatro servicios que funcionan solos o combinados. Precios en pesos colombianos; la inversión en anuncios se paga directamente a Meta.', 'servicios-h')}
+    ${cabSec('Servicios', 'Lo que hacemos <em>por tu negocio</em>', 'Cuatro servicios que funcionan solos o combinados. Todo se cotiza según tu negocio; la inversión en anuncios se paga directamente a Meta.', 'servicios-h')}
     <div class="svc-vistas" role="group" aria-label="Vista de servicios (temporal)"><button type="button" class="tab" data-vista-btn="cuadricula" aria-pressed="true">Cuadrícula</button><button type="button" class="tab" data-vista-btn="carrusel" aria-pressed="false">Carrusel</button></div>
     <div class="svc-carrusel" data-svc-vista="cuadricula">
       <div class="svc-grid" data-svc-pista tabindex="-1">${S.servicios.map((s, i) => svcCard(s, i, L)).join('\n')}</div>
@@ -311,7 +310,7 @@ ${ids.map((id, i) => `<div class="sim-panel" role="tabpanel" id="${pre}-p-${id}"
         <h4>Tu selección</h4>
         <ul class="plan-lista"><li class="vacio">Elige uno o varios servicios.</li></ul>
         <a class="btn btn-pri" style="width:100%" href="${wa(C.whatsappGeneral)}" target="_blank" rel="noopener noreferrer" data-plan-enviar data-ubicacion="arma-tu-plan">${ICO_WA}Cotizar por WhatsApp${EXT}</a>
-        <p class="nota">Precios de referencia vigentes. Los paquetes combinados se cotizan a la medida.</p>
+        <p class="nota">Todo se cotiza según tu negocio, también los paquetes combinados.</p>
       </div>
     </div>
   </div>
@@ -380,7 +379,7 @@ ${testimonios.length >= 2 ? `<section class="sec" id="testimonios" aria-labelled
       </div>
     </div>
     <div class="rv rv-d1">${formWa(L, 'Hola Ricardo, quiero cotizar.',
-      opciones('servicio', 'Servicio', ['Diseño web', 'Mantenimiento', 'Publicidad digital', 'Contenido para redes', 'No estoy seguro']) +
+      opciones('servicio', 'Servicio', ['Diseño web', 'Mantenimiento', 'Meta Ads', 'Contenido para redes', 'No estoy seguro']) +
       opciones('web', '¿Tienes página web?', ['Sí', 'No']) +
       `<div class="campo" data-label="Presupuesto aproximado"><label class="lbl" for="b-pres">Presupuesto aproximado</label><select id="b-pres" name="presupuesto"><option value="">Elige una opción</option><option>Menos de $500.000</option><option>$500.000-$1.500.000</option><option>Más de $1.500.000</option><option>Prefiero conversarlo</option></select></div>` +
       opciones('plazo', '¿Para cuándo?', ['Este mes', 'Próximos 3 meses', 'Sólo explorando']) +
@@ -396,15 +395,14 @@ ${testimonios.length >= 2 ? `<section class="sec" id="testimonios" aria-labelled
       cuerpo,
       jsonld: [
         { '@context': 'https://schema.org', '@type': 'ProfessionalService', '@id': NEGOCIO_ID, name: 'Ricardo Design', url: SITIO + '/', logo: SITIO + '/favicon-512.png', image: SITIO + '/favicon-512.png',
-          email: C.correo, telephone: '+' + C.whatsapp, priceRange: '$$',
-          address: { '@type': 'PostalAddress', addressLocality: 'Bucaramanga', addressRegion: 'Santander', addressCountry: 'CO' },
+          email: C.correo, telephone: '+' + C.whatsapp,           address: { '@type': 'PostalAddress', addressLocality: 'Bucaramanga', addressRegion: 'Santander', addressCountry: 'CO' },
           areaServed: ['Bucaramanga', 'Floridablanca', 'Girón', 'Piedecuesta', 'Colombia'],
           hasOfferCatalog: { '@type': 'OfferCatalog', name: 'Servicios', itemListElement: [
             { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'Creación de páginas web' } },
-            { '@type': 'Offer', price: '65000', priceCurrency: 'COP', itemOffered: { '@type': 'Service', name: 'Mantenimiento web por hora' } },
-            { '@type': 'Offer', price: '250000', priceCurrency: 'COP', itemOffered: { '@type': 'Service', name: 'Mantenimiento web mensual' } },
-            { '@type': 'Offer', price: '90000', priceCurrency: 'COP', itemOffered: { '@type': 'Service', name: 'Campaña en Meta Ads' } },
-            { '@type': 'Offer', price: '290000', priceCurrency: 'COP', itemOffered: { '@type': 'Service', name: 'Gestión mensual de Meta Ads' } },
+            { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'Mantenimiento web por hora' } },
+            { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'Mantenimiento web mensual' } },
+            { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'Campaña en Meta Ads' } },
+            { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'Gestión mensual de Meta Ads' } },
             { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'Contenido para redes sociales' } }
           ] } },
         { '@context': 'https://schema.org', '@type': 'WebSite', name: 'Ricardo Design', url: SITIO + '/', inLanguage: 'es-CO' },
@@ -424,15 +422,15 @@ ${testimonios.length >= 2 ? `<section class="sec" id="testimonios" aria-labelled
       ['¿Qué pasa con mis datos y los de mis clientes?', `Los tratamos sólo para prestar el servicio y según tus instrucciones. Lee nuestra <a href="${L.a('privacidad/')}">Política de privacidad</a>.`],
       ['¿Me garantizan ventas?', 'No. Dependen del producto, el mercado y Meta. Sí garantizamos método, medición y transparencia.']
     ];
-    const MIGAS = [['Inicio', ''], ['Publicidad digital', 'publicidad-digital/']];
+    const MIGAS = [['Inicio', ''], ['Meta Ads', 'publicidad-digital/']];
     const nodos = [['Anuncio', 'Facebook · Instagram'], ['Visita a tu web', 'con enlace UTM'], ['Evento', 'carrito · WhatsApp · compra'], ['Píxel y GA4', 'registran el evento'], ['Informe', 'qué funciona y qué no']];
     const cuerpo = `
 ${migas(L, MIGAS)}
 <section class="p-hero"><div class="wrap">
-  <p class="kicker">Publicidad digital · Meta Ads</p>
-  <h1>Publicidad en Meta Ads con estudio de público y <em>medición real</em></h1>
+  <p class="kicker">Meta Ads · Facebook e Instagram</p>
+  <h1>Meta Ads con estudio de público y <em>medición real</em></h1>
   <p class="lead">Anuncios en Facebook, Instagram y WhatsApp pensados para tu cliente ideal, conectados a tu página web para saber qué funciona y qué no.</p>
-  <div class="acciones">${btnWa(s.whatsappTexto, 'Cotizar publicidad', 'btn btn-pri', 'ads', 'hero')}<a class="btn btn-sec" href="#fases">Ver cómo trabajamos</a></div>
+  <div class="acciones">${btnWa(s.whatsappTexto, 'Cotizar Meta Ads', 'btn btn-pri', 'ads', 'hero')}<a class="btn btn-sec" href="#fases">Ver cómo trabajamos</a></div>
 </div></section>
 
 <section class="sec" aria-labelledby="pq-h" style="padding-top:0"><div class="wrap">
@@ -465,7 +463,7 @@ ${migas(L, MIGAS)}
       <p class="aviso-caja"><b>¿No tienes web?</b> Medimos con los resultados de Meta y las conversaciones de WhatsApp, y te recomendamos cuándo vale la pena dar el paso.</p></li>
     <li class="fase rv" data-n="4"><h3>Estrategia y montaje</h3><p>Armamos campañas por etapa: darte a conocer, generar interés y cerrar ventas (incluido el remarketing a quien ya te visitó). Probamos de 3 a 5 anuncios por grupo para descubrir cuál funciona.</p></li>
     <li class="fase rv" data-n="5"><h3>Optimización</h3><p>Revisamos las campañas dos veces por semana: ajustamos presupuesto, públicos y anuncios, y renovamos piezas cuando el público se cansa de verlas.</p></li>
-    <li class="fase rv" data-n="6"><h3>Informe mensual</h3><!-- [POR VALIDAR] informe mensual + reunión de 30 min dentro del plan de $290.000 (D4) -->
+    <li class="fase rv" data-n="6"><h3>Informe mensual</h3><!-- [POR VALIDAR] informe mensual + reunión de 30 min dentro de los planes (D4) -->
       <p>Recibes un tablero y un informe en lenguaje claro: cuánto invertiste, a cuántas personas llegaste, cuántos clics, mensajes o ventas obtuviste, cuánto te costó cada resultado y qué haremos el mes siguiente. Incluye una reunión de 30 minutos.</p>
       <p class="nota">Indicadores que verás:</p>
       <ul class="indicadores">${['Alcance', 'Frecuencia', 'CPM', 'CTR', 'Costo por clic', 'Costo por mensaje o cliente potencial', 'Costo por compra', 'ROAS (si hay compras medidas)'].map((x) => `<li class="chip">${x}</li>`).join('')}</ul></li>
@@ -487,9 +485,9 @@ ${migas(L, MIGAS)}
 </div></section>
 
 <section class="sec" id="paquetes" aria-labelledby="paq-h"><div class="wrap">
-  ${cabSec('Paquetes', 'Honorarios <em>claros</em>', 'Precios en pesos colombianos. El estudio de público y la configuración de medición se cotizan según tu cuenta y tu página.', 'paq-h')}
+  ${cabSec('Planes', 'Pauta, <em>mes a mes</em>', 'Todo se cotiza según tu negocio. La diferencia entre los planes no es cuánta pauta se hace, sino cuánto se analiza y qué tanto se ajusta.', 'paq-h')}
   ${paqCards(s)}
-  <!-- [POR VALIDAR] Paquetes "Estudio de público" y "Configuración de medición" (precios sugeridos en el plan, D4). Se publican con: node scripts/build.mjs --incluir-por-validar -->
+  
   <div class="avisos">
     <p class="aviso-caja rv"><b>La inversión en anuncios</b> se paga directamente a Meta y no está incluida en los honorarios.</p>
     <p class="aviso-caja rv"><b>No garantizamos ventas ni retorno de la inversión:</b> dependen del producto, el mercado y Meta. Sí garantizamos método, medición y transparencia.</p>
@@ -504,12 +502,12 @@ ${migas(L, MIGAS)}
 ${proyectosDe('ads', L)}
 
 <section class="sec" aria-labelledby="faq-h"><div class="wrap">${cabSec('Preguntas', 'Preguntas sobre <em>Meta Ads</em>', '', 'faq-h')}${faq(FAQ)}</div></section>
-${ctaFinal('¿Listo para anunciar <em>con datos?</em>', 'Cuéntanos qué vendes y a quién. Te respondemos con una propuesta por WhatsApp.', s.whatsappTexto, 'Cotizar publicidad', 'ads')}
+${ctaFinal('¿Listo para anunciar <em>con datos?</em>', 'Cuéntanos qué vendes y a quién. Te respondemos con una propuesta por WhatsApp.', s.whatsappTexto, 'Cotizar Meta Ads', 'ads')}
 ${relacionados(L, 'ads')}`;
     out.push({ salida, actual: 'ads', servicio: 'ads', cuerpo,
-      title: 'Publicidad en Meta Ads en Bucaramanga | Ricardo Design',
+      title: 'Meta Ads en Bucaramanga | Ricardo Design',
       desc: 'Campañas en Facebook, Instagram y WhatsApp con estudio de público, Meta Pixel, Google Analytics e informes mensuales claros. Bucaramanga y toda Colombia.',
-      jsonld: [serviceLd(s, SITIO + '/publicidad-digital/', [['Campaña puntual', '90000'], ['Plan mensual', '290000']]), migasLd(MIGAS), faqLd(FAQ)] });
+      jsonld: [serviceLd(s, SITIO + '/publicidad-digital/'), migasLd(MIGAS), faqLd(FAQ)] });
   }
 
   /* ================= CONTENIDO PARA REDES ================= */
@@ -530,7 +528,7 @@ ${relacionados(L, 'ads')}`;
       ['¿Para qué redes hacen contenido?', 'Instagram, Facebook y TikTok. Adaptamos cada pieza al formato de cada red.'],
       ['¿Necesito una sesión de fotos?', 'No siempre. Podemos trabajar con tu material o, si lo necesitas, programar una sesión de foto o video.'],
       ['¿Usan música en los reels?', 'Sí, sólo de bibliotecas comerciales con licencia, para que tu cuenta de empresa no tenga problemas.'],
-      ['¿Lo puedo combinar con publicidad?', `Sí. Los anuncios rinden más con piezas hechas para pauta. Mira <a href="${L.a('publicidad-digital/')}">Publicidad digital</a> y pregunta por el plan combinado.`],
+      ['¿Lo puedo combinar con publicidad?', `Sí. Los anuncios rinden más con piezas hechas para pauta. Mira <a href="${L.a('publicidad-digital/')}">Meta Ads</a> y pregunta por el plan combinado.`],
       ['¿Quién publica las piezas?', 'Podemos entregártelas listas o programarlas en Meta Business Suite. Lo definimos contigo en la cotización.']
     ];
     const cuerpo = `
@@ -673,7 +671,7 @@ ${migas(L, MIGAS)}
 </div></section>
 
 <section class="sec" id="planes" aria-labelledby="pl-h" style="padding-top:0"><div class="wrap">
-  ${cabSec('Planes', 'Dos formas <em>de trabajar</em>', 'Precios en pesos colombianos.', 'pl-h')}
+  ${cabSec('Modalidades', 'Dos formas <em>de trabajar</em>', 'Por hora o en suscripción mensual. Todo se cotiza según tu página y lo que necesites.', 'pl-h')}
   ${paqCards(s)}
 </div></section>
 
@@ -697,8 +695,8 @@ ${ctaFinal('¿Tu página necesita <em>un cambio?</em>', 'Escríbenos qué quiere
 ${relacionados(L, 'mantenimiento')}`;
     out.push({ salida, actual: 'mantenimiento', servicio: 'mantenimiento', cuerpo,
       title: 'Mantenimiento de páginas web | Ricardo Design',
-      desc: 'Cambios, actualizaciones y soporte para tu página web desde $65.000 por hora o $250.000 al mes. Respuesta en 24-48 horas hábiles.',
-      jsonld: [serviceLd(s, SITIO + '/mantenimiento-web/', [['Por hora', '65000'], ['Suscripción mensual', '250000']]), migasLd(MIGAS), faqLd(FAQ)] });
+      desc: 'Cambios, actualizaciones y soporte para tu página web, por hora o en suscripción mensual. Se cotiza según tu página. Respuesta en 24-48 horas hábiles.',
+      jsonld: [serviceLd(s, SITIO + '/mantenimiento-web/'), migasLd(MIGAS), faqLd(FAQ)] });
   }
 
   /* ================= PROYECTOS (índice) ================= */
@@ -812,10 +810,10 @@ ${otros.length ? `<section class="sec" aria-labelledby="otros-h"><div class="wra
 
 <article class="card" id="mantenimiento">
   <h2>Mantenimiento web</h2><p class="sub">Dos modalidades: por hora o suscripción mensual.</p>
-  <h3>Plan por hora</h3><div class="precio"><b>$65.000</b><span>COP · por hora de modificación realizada</span></div>
+  <h3>Por hora</h3><p>Se cobra por hora de modificación realizada. <strong>Valor:</strong> se cotiza según el alcance; te lo confirmamos por escrito antes de empezar.</p>
   <div class="divisor"></div>
-  <h3>Suscripción mensual</h3><div class="precio"><b>$250.000</b><span>COP · al mes</span></div>
-  <p>Incluye asistencia personalizada y soporte continuo para realizar las modificaciones que el cliente requiera en su sitio web. Todas las solicitudes se atienden en un plazo estimado de <strong>24 a 48 horas hábiles</strong>, dependiendo de su complejidad.</p>
+  <h3>Suscripción mensual</h3><p>Incluye asistencia personalizada y soporte continuo para realizar las modificaciones que el cliente requiera en su sitio web. <strong>Valor:</strong> se cotiza según el alcance; te lo confirmamos por escrito antes de empezar.</p>
+  <p>Todas las solicitudes se atienden en un plazo estimado de <strong>24 a 48 horas hábiles</strong>, dependiendo de su complejidad.</p>
   <h3>Incluye</h3><ul>${svc('mantenimiento').incluye.map((x) => `<li>${esc(x)}</li>`).join('')}</ul>
   <!-- [D16] Antes decía "Actualización de plugins, temas y CMS". Neutralizado a "dependencias y servicios conectados" hasta confirmar si se atienden sitios con CMS. -->
   <h3>No incluye</h3><ul>${svc('mantenimiento').noIncluye.map((x) => `<li>${esc(x)}</li>`).join('')}</ul>
@@ -823,18 +821,12 @@ ${otros.length ? `<section class="sec" aria-labelledby="otros-h"><div class="wra
 </article>
 
 <article class="card" id="ads">
-  <h2>Gestión de Meta Ads</h2><p class="sub">Pauta individual, suscripción mensual y grandes presupuestos.</p>
-  <h3>Pauta individual</h3><div class="precio"><b>$90.000</b><span>COP · por campaña</span></div>
-  <ul><li>Configuración de 1 campaña en Meta Ads.</li><li>Segmentación del público.</li><li>Configuración del objetivo de campaña.</li><li>Configuración de ubicaciones y presupuesto.</li><li>Publicación y verificación de la campaña.</li></ul>
-  <div class="divisor"></div>
-  <h3>Suscripción mensual</h3><div class="precio"><b>$290.000</b><span>COP · al mes</span></div>
-  <ul><li>Hasta 5 campañas de Meta Ads al mes.</li><li>Configuración y publicación de campañas.</li><li><strong>Alta optimización con el público objetivo</strong> durante la ejecución.</li><li>Ajustes de segmentación, presupuesto y anuncios.</li><li>Monitoreo del rendimiento.</li><li>Asistencia personalizada con tiempo de respuesta de 24 horas hábiles.</li></ul>
+  <h2>Meta Ads</h2><p class="sub">Cuatro planes de pauta: Base, Plus, Performance y Por comisión.</p>
+  <p><strong>Valor:</strong> se cotiza según el alcance y tu negocio; te lo confirmamos por escrito antes de empezar. Los planes no cambian cuánta pauta se hace, sino cuánto se analiza y qué tanto se ajusta.</p>
+  <ul><li><strong>Plan Base:</strong> creación, programación y optimización de campañas, seguimiento mensual y recomendaciones de presupuesto.</li><li><strong>Plan Plus:</strong> lo del Plan Base, con ubicaciones y segmentaciones estudiadas, análisis cada 15 días y hasta 2 cambios de creativo al mes.</li><li><strong>Plan Performance:</strong> lo del Plan Plus, con seguimiento diario, Pixel de Meta y Microsoft Clarity configurados, optimización a conversión, mejoras leves en la web y hasta 4 cambios de creativo al mes.</li><li><strong>Por comisión:</strong> todo el Plan Performance, pagado con una base fija baja más un porcentaje de las ventas atribuibles a la pauta, sin precio fijo.</li></ul>
   <h3>Estudio de público</h3>
   <p>Cuando se contrata, incluye la definición de hasta 3 perfiles de cliente ideal y la creación de públicos personalizados y similares en la cuenta del cliente. Su valor se indica en la cotización.</p>
-  <div class="aviso">La pauta se realiza únicamente sobre contenido <strong>ya publicado</strong> en las redes sociales del cliente; no incluye diseño de piezas gráficas ni video (disponible con el servicio de <a href="#contenido">Contenido para redes</a>). La <strong>inversión publicitaria</strong> es asumida directamente por el cliente ante Meta y no está incluida en la suscripción. Cancelación con preaviso de <strong>30 días</strong> y <strong>permanencia mínima de 3 meses</strong> en la suscripción mensual.</div>
-  <h3>Gestión de grandes presupuestos</h3>
-  <p>Para campañas con una inversión mensual superior a <strong>$2.000.000 COP</strong>, los honorarios corresponden al <strong>15% del presupuesto publicitario mensual</strong> y reemplazan la tarifa fija de la suscripción.</p>
-  <div class="tabla-scroll"><table class="tabla"><caption class="sr-only">Ejemplos de honorarios del 15 %</caption><thead><tr><th scope="col">Inversión mensual</th><th scope="col">Honorarios</th></tr></thead><tbody><tr><td>$3.000.000</td><td>$450.000</td></tr><tr><td>$5.000.000</td><td>$750.000</td></tr><tr><td>$10.000.000</td><td>$1.500.000</td></tr></tbody></table></div>
+  <div class="aviso">La pauta se realiza únicamente sobre contenido <strong>ya publicado</strong> en las redes sociales del cliente; no incluye diseño de piezas gráficas ni video (disponible con el servicio de <a href="#contenido">Contenido para redes</a>). La <strong>inversión publicitaria</strong> es asumida directamente por el cliente ante Meta y no está incluida en el plan. Las condiciones de cancelación y permanencia se indican en la cotización.</div>
   <h3>Condiciones del servicio</h3>
   <ul><li>No se garantizan resultados de ventas ni retorno de inversión (ROI): estos dependen de Meta, el mercado y el producto o servicio del cliente.</li><li>La cuenta publicitaria (Business Manager) y sus datos, incluido el píxel, quedan registrados a nombre del cliente.</li><li>No se asume responsabilidad por rechazos, restricciones o suspensiones de cuentas impuestas por Meta, al ser ajenas al control del prestador del servicio.</li></ul>
 </article>
