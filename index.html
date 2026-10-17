@@ -39,6 +39,9 @@ if(!matchMedia('(min-width:901px) and (hover:hover) and (pointer:fine)').matches
 <link rel="stylesheet" href="css/casos.min.css" media="print" onload="this.media='all'">
 <noscript><link rel="stylesheet" href="css/casos.min.css"></noscript>
 <script src="js/casos.min.js" defer></script>
+<link rel="stylesheet" href="css/descuento.min.css" media="print" onload="this.media='all'">
+<noscript><link rel="stylesheet" href="css/descuento.min.css"></noscript>
+<script src="js/descuento.min.js" defer></script>
 <noscript><link rel="stylesheet" href="css/plataformas.min.css"></noscript>
 <script src="js/plataformas.min.js" defer></script>
 <script type="application/ld+json">
@@ -484,16 +487,41 @@ if(!matchMedia('(min-width:901px) and (hover:hover) and (pointer:fine)').matches
   </section>
 
   <!-- ================= Cierre + Proceso (fusionados para acortar la landing) ================= -->
-  <section class="cierre" id="contacto" aria-labelledby="h-cierre">
+  <section class="cierre cierre--desc" id="contacto" aria-labelledby="h-cierre">
     <div class="reticula" aria-hidden="true"></div>
     <div class="wrap cierre__grid">
       <div>
         <h2 id="h-cierre" aria-label="Hablemos de tu negocio."><span class="l" aria-hidden="true" data-split>Hablemos de</span><span class="l" aria-hidden="true" data-split>tu negocio.</span></h2>
-        <p class="r-sube">Escríbenos en dos líneas qué vendes y a quién. Se abre WhatsApp con el mensaje ya escrito y te enviamos la cotización por el mismo chat.</p>
-        <div class="r-sube">
+        <p class="r-sube cierre__intro">Escríbenos en dos líneas qué vendes y a quién. Se abre WhatsApp con el mensaje ya escrito y te enviamos la cotización por el mismo chat.</p>
+        <div class="r-sube cierre__acciones">
           <a class="btn btn--laton iman" data-wa="Hola Ricardo, quiero cotizar un proyecto para mi negocio." href="https://wa.me/573027981468">Cotizar por WhatsApp <svg class="ico flecha" aria-hidden="true"><use href="#i-flecha"/></svg></a>
           <p class="versal cierre__tel">+57 302 798 1468 · Atención en toda Colombia</p>
         </div>
+        <!-- Inscripción con 10 % de descuento: valida y abre WhatsApp con el mensaje prellenado (sin servidor, sin guardar datos) -->
+        <section class="desc r-sube" id="descuento" aria-labelledby="h-desc">
+          <h3 class="desc__t" id="h-desc"><button class="desc__tg" type="button" aria-controls="desc-cuerpo"><span>Inscríbete y obtén <b>10&nbsp;% de descuento</b></span><span class="desc__chev" aria-hidden="true"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="square"><path d="M5 9l7 7 7-7"/></svg></span></button></h3>
+          <div class="desc__cuerpo" id="desc-cuerpo">
+            <form novalidate autocomplete="on" aria-describedby="desc-p">
+              <p class="desc__p" id="desc-p">Déjanos tu nombre y tu correo y te lo confirmamos por WhatsApp junto con las condiciones.</p>
+              <div class="desc__fila">
+                <div class="desc__campo"><label class="desc__l" for="desc-n">Nombre</label><input class="desc__in" id="desc-n" type="text" name="nombre" autocomplete="name" required maxlength="80" data-e="desc-e-n" aria-describedby="desc-e-n"><span class="desc__e" id="desc-e-n" aria-live="polite"></span></div>
+                <div class="desc__campo"><label class="desc__l" for="desc-c">Correo</label><input class="desc__in" id="desc-c" type="email" name="correo" autocomplete="email" inputmode="email" required maxlength="120" data-e="desc-e-c" aria-describedby="desc-e-c"><span class="desc__e" id="desc-e-c" aria-live="polite"></span></div>
+              </div>
+              <div class="desc__bot" aria-hidden="true"><label>No llenes este campo<input type="text" name="web" tabindex="-1" autocomplete="off"></label></div>
+              <div class="desc__pie">
+                <label class="desc__ok-c"><input type="checkbox" name="acepto" value="1" required data-e="desc-e-a" aria-describedby="desc-e-a"><span>Acepto el tratamiento de mis datos según la <a href="privacidad/">política de tratamiento de datos</a></span></label>
+                <button class="btn btn--laton desc__go" type="submit"><span class="desc__gt">Quiero mi 10&nbsp;%</span> <svg class="ico flecha" aria-hidden="true"><use href="#i-flecha"/></svg></button>
+                <span class="desc__e" id="desc-e-a" aria-live="polite"></span>
+              </div>
+            </form>
+            <div class="desc__listo" hidden tabindex="-1" role="status">
+              <p class="desc__lt">Listo, se abrió WhatsApp para confirmar tu descuento.</p>
+              <p>Te confirmamos las condiciones por WhatsApp.</p>
+              <a class="desc__wa" href="https://wa.me/573027981468?text=Hola%20Ricardo%2C%20quiero%20mi%2010%20%25%20de%20descuento." target="_blank" rel="noopener">¿No se abrió? Ábrelo aquí <svg class="ico flecha" aria-hidden="true"><use href="#i-flecha"/></svg></a>
+            </div>
+            <noscript><p class="desc__p"><a href="https://wa.me/573027981468?text=Hola%20Ricardo%2C%20quiero%20mi%2010%20%25%20de%20descuento." rel="noopener">Pide tu 10&nbsp;% por WhatsApp</a></p></noscript>
+          </div>
+        </section>
       </div>
       <div class="cierre__medio">
         <div class="ficha" id="proceso">
