@@ -1,6 +1,6 @@
 /* Servicios v3: escenario 3D (un video a la vez) + índice de 4 oficios.
-   Tokens de rol locales; el único literal es el fondo de render de Blender (#F6F6F6), que debe empalmar con el video. */
-.sv{--sv-fondo:#F6F6F6;--sv-linea:var(--c-linea);--sv-tinta:var(--texto);--sv-gris:var(--texto-2);--sv-hueco:var(--c-hueso);--sv-dur:9s;--sv-top:calc(var(--nav-h) + var(--s-4))}
+   Tokens de rol locales; el único literal es el fondo del video: render #F6F6F6, medido tras el códec en Chrome = rgb(244,244,244) en bordes y esquinas. */
+.sv{--sv-fondo:#F4F4F4;--sv-linea:var(--c-linea);--sv-tinta:var(--texto);--sv-gris:var(--texto-2);--sv-hueco:var(--c-hueso);--sv-dur:9s;--sv-top:calc(var(--nav-h) + var(--s-4))}
 .sv-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,31rem);gap:var(--s-8) clamp(var(--s-8),4vw,var(--s-16));align-items:start}
 .sv-escenario{grid-column:1;grid-row:1;align-self:center;position:sticky;top:var(--sv-top);z-index:2}
 .sv .sec__cab{position:relative;z-index:3}
@@ -8,6 +8,8 @@
 
 /* Marco: 16:9 reservado (CLS 0); el fondo es el del render para que el borde del video no se vea */
 .sv-marco{position:relative;aspect-ratio:16/9;background:var(--sv-fondo);border:1px solid var(--sv-linea);border-radius:var(--r-2);overflow:hidden;transform:perspective(1400px) rotateX(0) rotateY(0) scale(1);transform-origin:50% 60%;transition:transform var(--d-ui) var(--ease-casa),box-shadow var(--d-ui) var(--ease-casa)}
+/* borde suave: funde al fondo lo que el encuadre corta en el canto */
+.sv-marco:after{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;box-shadow:inset 0 0 18px 8px var(--sv-fondo)}
 .sv-esc{position:absolute;inset:0;margin:0;opacity:0;transition:opacity var(--d-ui) var(--ease-casa)}
 .sv-esc.es-activa{opacity:1}
 .sv-esc picture,.sv-esc img,.sv-esc video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
