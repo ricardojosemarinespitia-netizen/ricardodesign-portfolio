@@ -13,6 +13,9 @@
   var c=navigator.connection,mem=navigator.deviceMemory,
       ligero=R.classList.contains('quieto')||R.classList.contains('webview')||/[?&]estatico/.test(location.search)||
              !!(c&&c.saveData)||(R.classList.contains('ligero')&&mem&&mem<=2)||!('IntersectionObserver' in window);
+  var listas=[];escs.forEach(function(f,k){if(f.getAttribute('data-listo')==='1')listas.push(k)});
+  /* sigue: próxima escena publicada después de k (si solo hay una, ella misma) */
+  function sigue(k){for(var j=1;j<=escs.length;j++){var n=(k+j)%escs.length;if(listas.indexOf(n)>-1)return n}return (k+1)%escs.length}
   var ancho=matchMedia('(min-width:1024px)'),act=0,cerca=false,visible=false,fijo=false;
 
   /* Pósters y videos: se montan solo para escenas publicadas */
@@ -49,7 +52,7 @@
     var p=filas[k].querySelector('.sv-prog');if(p){p.style.animation='none';void p.offsetWidth;p.style.animation=''}
     sync();
     /* precarga la siguiente cuando la actual ya corre */
-    if(v&&!ligero&&cerca){var sig=escs[(k+1)%escs.length];setTimeout(function(){if(act===k)cargar(sig)},2500)}
+    if(v&&!ligero&&cerca){var sig=escs[sigue(k)];setTimeout(function(){if(act===k)cargar(sig)},2500)}
   }
 
   if(!ligero)grid.classList.add('sv-mov');
@@ -64,7 +67,7 @@
   /* Escritorio: avance automático con el filete; hover/foco fija */
   filas.forEach(function(f,k){
     var p=f.querySelector('.sv-prog');
-    if(p)p.addEventListener('animationend',function(){if(R.classList.contains('sv-auto')&&!fijo&&act===k)activar((k+1)%filas.length)});
+    if(p)p.addEventListener('animationend',function(){if(R.classList.contains('sv-auto')&&!fijo&&act===k){var n=sigue(k);if(n===k){p.style.animation='none';void p.offsetWidth;p.style.animation=''}else activar(n)}});
     f.addEventListener('pointerenter',function(e){if(e.pointerType==='mouse'&&ancho.matches){fijo=true;grid.classList.add('sv-fijo');activar(k)}});
     f.addEventListener('focusin',function(){fijo=true;grid.classList.add('sv-fijo');activar(k)});
     f.addEventListener('click',function(e){if(!e.target.closest('a'))activar(k)});
@@ -73,8 +76,9 @@
   grid.addEventListener('focusout',function(e){if(!grid.contains(e.relatedTarget)){fijo=false;grid.classList.remove('sv-fijo')}});
 
   /* < 1024: la fila en la franja central manda */
-  var io=new IntersectionObserver(function(es){if(ancho.matches)return;es.forEach(function(e){if(e.isIntersecting)activar(filas.indexOf(e.target))})},{rootMargin:'-55% 0px -40% 0px'});
+  var io=new IntersectionObserver(function(es){if(ancho.matches)return;es.forEach(function(e){var k=filas.indexOf(e.target);if(e.isIntersecting&&(!listas.length||listas.indexOf(k)>-1))activar(k)})},{rootMargin:'-55% 0px -40% 0px'});
   filas.forEach(function(f){io.observe(f)});
 
-  activar(0,'inicio');
+  /* arranca en la primera escena publicada; sin ninguna, en 01 */
+  activar(listas.length?listas[0]:0,'inicio');
 })();
