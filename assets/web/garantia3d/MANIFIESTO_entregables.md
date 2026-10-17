@@ -19,3 +19,11 @@ Rejilla 6x4, cuadro 160x160, 24 cuadros, lectura por filas (izquierda a derecha,
 ## Notas
 - Pieza con grosor (0,28) para que se vea bien de perfil al girar.
 - Pesos con alfa verificado (0-255) en todos. La sombra va con calidad de alfa baja en WebP (para entrar en peso): se ve algo escalonada; AVIF es la fuente principal.
+
+## Hoja de giro v2 (entregables-gira72) · reemplaza a entregables-gira
+- 72 cuadros, **cuadro i = yaw 5 grados x i** (0 a 355) alrededor del eje vertical; el cuadro 72 (355) enlaza con el 1 (0): loop perfecto.
+- Rejilla **12 columnas x 6 filas**, lectura por filas; cuadro de **160 x 160 px**; hoja 1920 x 960. Velocidad sugerida: 1 vuelta cada 8 s (111 ms por cuadro).
+- AVIF 110 KB aprox. / WebP 132 KB aprox., con alfa limpio (0-255). **Sin sombra horneada**: la sombra va por CSS. Sin plano shadow-catcher.
+- Render: Cycles OptiX, 128 samples + denoise en los 72 cuadros, cámara **ortográfica**, luz de borde reforzada; el grano de color se suaviza (desenfoque 1 px solo en RGB, el alfa queda nítido) para entrar en peso.
+- Pivote: eje vertical que pasa por el centro de la diana (aro exterior); el centro del aro exterior no se mueve entre cuadros. Los aros interiores quedan más adelante en profundidad, por eso en el giro orbitan ligeramente (paralaje real, no bamboleo).
+- Fuente: `_build/blender/garantia_v1/entregables.blend`, `entregables_render72.py`, `ent_gira72.py`.
