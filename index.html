@@ -329,16 +329,14 @@ if(!matchMedia('(min-width:901px) and (hover:hover) and (pointer:fine)').matches
         <h2 id="h-gar"><span class="gl"><span>Garantizamos lo que</span></span> <span class="gl gl--b"><span>depende de nosotros.</span></span></h2>
         <p class="pliego__lede">Garantizar significa que lo que pactamos se cumple y se mide: lo entregable, los plazos, los reportes y los ajustes quedan escritos desde el primer día. Las ventas son el objetivo que medimos contigo. Nadie controla el mercado ni el algoritmo de Meta, y por eso no te prometemos una cifra.</p>
         <div class="pliego__sello" aria-hidden="true">
-          <div class="sello sello--lacre sello--rd" data-estampa>
-            <!-- monograma rd negro mate (Blender Cycles) -->
-            <picture><source type="image/avif" srcset="assets/_efectos/blender/rd_v1/rdg-400.avif 400w" sizes="(max-width:760px) 1px, 300px"><img class="sello__foto" src="assets/_efectos/blender/rd_v1/rdg-400.webp" sizes="(max-width:760px) 1px, 300px" width="400" height="400" alt="" loading="lazy" decoding="async"></picture>
-          </div>
+          <!-- rd negro mate (Blender Cycles, rd_negro.blend) recortado con alfa, sin piso ni sombra horneada: la sombra de contacto es CSS -->
+          <div class="pliego__rd" data-estampa><picture><source type="image/avif" srcset="assets/web/garantia/rds-360.avif 360w, assets/web/garantia/rds-720.avif 720w" sizes="(max-width:760px) 1px, 420px"><img class="pliego__rd-img" src="assets/web/garantia/rds-720.webp" srcset="assets/web/garantia/rds-360.webp 360w, assets/web/garantia/rds-720.webp 720w" sizes="(max-width:760px) 1px, 420px" width="720" height="677" alt="" loading="lazy" decoding="async"></picture></div>
         </div>
       </div>
       <!-- "10 días hábiles" y "15 días de garantía" salen de servicios.json: CONFIRMAR vigencia con Ricardo.
            Íconos 3D (Blender): assets/web/garantia3d/<nombre>-gira.(avif|webp), hoja 6x4 de 160 px; js/garantia.js los carga al acercarse y deja el SVG si no existen. -->
       <ul class="clausulas" data-g3d-on>
-        <li class="clausula"><div class="clausula__cab" aria-hidden="true"><span class="clausula__n">01</span><span class="g3d" data-g3d="entregables"><svg class="ico"><use href="#i-sello"/></svg></span></div><h3>Entregables</h3><p>Recibes lo que dice tu propuesta. Lo que no esté escrito en ella se cotiza antes.</p></li>
+        <li class="clausula"><div class="clausula__cab" aria-hidden="true"><span class="clausula__n">01</span><span class="g3d" data-g3d="entregables" data-g3d-hoja="24"><svg class="ico"><use href="#i-sello"/></svg></span></div><h3>Entregables</h3><p>Recibes lo que dice tu propuesta. Lo que no esté escrito en ella se cotiza antes.</p></li>
         <li class="clausula"><div class="clausula__cab" aria-hidden="true"><span class="clausula__n">02</span><span class="g3d" data-g3d="plazos"><svg class="ico"><use href="#i-reloj"/></svg></span></div><h3>Plazos</h3><p>Las páginas web se entregan en <span class="cifra">10</span> días hábiles desde que recibimos tu contenido completo.</p></li>
         <li class="clausula"><div class="clausula__cab" aria-hidden="true"><span class="clausula__n">03</span><span class="g3d" data-g3d="reportes"><svg class="ico"><use href="#i-reporte"/></svg></span></div><h3>Reportes</h3><p>Ves cuánto se invirtió, qué pasó y qué vamos a cambiar, sean buenos o malos los números.</p></li>
         <li class="clausula"><div class="clausula__cab" aria-hidden="true"><span class="clausula__n">04</span><span class="g3d" data-g3d="ajustes"><svg class="ico"><use href="#i-ajuste"/></svg></span></div><h3>Ajustes</h3><p>Si algo de lo entregado falla, lo corregimos sin costo durante los <span class="cifra">15</span> días hábiles de garantía.</p></li>
