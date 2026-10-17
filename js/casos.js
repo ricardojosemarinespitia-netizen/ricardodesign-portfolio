@@ -55,8 +55,8 @@
       var p = pend; pend = null; if (!p || !caja) return;
       var x = (p.x - caja.left) / caja.width, y = (p.y - caja.top) / caja.height;
       x = Math.max(0, Math.min(1, x)); y = Math.max(0, Math.min(1, y));
-      esc.style.setProperty('--ry', ((x - 0.5) * 9).toFixed(2) + 'deg');
-      esc.style.setProperty('--rx', ((0.5 - y) * 6).toFixed(2) + 'deg');
+      esc.style.setProperty('--ry', ((x - 0.5) * 13).toFixed(2) + 'deg');
+      esc.style.setProperty('--rx', ((0.5 - y) * 8).toFixed(2) + 'deg');
       esc.style.setProperty('--mx', (x * 100).toFixed(1) + '%');
       esc.style.setProperty('--px', (x - 0.5).toFixed(3));
       esc.style.setProperty('--py', (y - 0.5).toFixed(3));
