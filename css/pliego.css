@@ -102,3 +102,11 @@
 .g3d--gira.g3d--24 .g3d__c+.g3d__c{animation-name:g3d-x24,g3d-y24,g3d-f}
 @keyframes g3d-x24{to{background-position-x:120%}}
 @keyframes g3d-y24{to{background-position-y:133.333%}}
+/* íconos 3D v2 (js/g3d.js): el canvas o la foto miden más que la caja de 80 px y la desbordan hacia arriba y a los lados;
+   la caja no cambia, así que la altura de la página tampoco. La sombra de contacto viene pintada dentro del canvas/foto. */
+.pliego--v2{--g3d-v:116px}
+.g3d__cv,.g3d__foto{position:absolute;width:var(--g3d-v);height:var(--g3d-v);left:50%;top:calc(50% - 6px);transform:translate(-50%,-50%);pointer-events:none;display:block}
+.g3d--rt:after,.g3d__foto~.g3d__giro,.g3d:has(.g3d__foto):after{display:none}
+.g3d--rt .ico,.g3d--vivo .ico{opacity:0}
+@media(max-width:1279px){.pliego--v2{--g3d-v:108px}}
+@media(max-width:760px){.pliego--v2{--g3d-v:94px}.g3d__cv,.g3d__foto{top:calc(50% - 8px)}}

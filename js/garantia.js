@@ -14,65 +14,52 @@
   function Q(s, e) { return [].slice.call((e || sec).querySelectorAll(s)); }
   function abs(el) { var y = 0; while (el) { y += el.offsetTop; el = el.offsetParent; } return y; }
 
-  /* ---------- íconos 3D ---------- */
-  var DIR = 'assets/web/garantia3d/', VUELTA = 8;             /* segundos por vuelta */
+  /* ---------- íconos 3D en tiempo real (js/g3d.js, WebGL propio) ----------
+     Se arman al acercarse (900 px). Vaivén ±32°, puntero y scroll inclinan el objeto de verdad; cada uno vive.
+     Reducido, ?estatico, WebView de Instagram/Facebook, ahorro de datos o sin WebGL: foto fija (assets/web/garantia3d/v2). */
   var fijo = quieto || wv || ahorro;
-  var icos = Q('.g3d');
-  var activos = !!sec.querySelector('[data-g3d-on]');           /* se enciende cuando los assets 3D están publicados (evita 404) */
-  function probar(urls, ok, i) {
-    i = i || 0; if (i >= urls.length) return;
-    var im = new Image(); im.decoding = 'async';
-    im.onload = function () { ok(urls[i]); };
-    im.onerror = function () { probar(urls, ok, i + 1); };
-    im.src = urls[i];
+  var icos = Q('.g3d'), G = null;
+  function foto(g) {
+    if (g._f) return; g._f = 1;
+    var n = g.getAttribute('data-g3d'), im = new Image();
+    im.className = 'g3d__foto'; im.alt = ''; im.decoding = 'async'; im.width = im.height = 240;
+    im.onload = function () { g.classList.add('g3d--vivo'); };
+    im.src = 'assets/web/garantia3d/v2/' + n + (window.G3D_AVIF === false ? '.webp' : '.avif');
+    im.onerror = function () { if (!/webp$/.test(im.src)) im.src = im.src.replace(/avif$/, 'webp'); };
+    g.insertBefore(im, g.firstChild);
   }
-  function cargar(g, k) {
-    if (g._c) return; g._c = 1;
-    var n = g.getAttribute('data-g3d'), capa = document.createElement('i');
-    capa.className = 'g3d__giro'; g.insertBefore(capa, g.firstChild);
-    var cA = document.createElement('i'); cA.className = 'g3d__c'; capa.appendChild(cA);
-    var h24 = g.getAttribute('data-g3d-hoja') === '24';           /* hoja vieja 6x4 mientras <nombre>-gira72 no esté publicada */
-    if (h24) g.classList.add('g3d--24');
-    var base = DIR + n + (h24 ? '-gira' : '-gira72');
-    probar([base + '.avif', base + '.webp'], function (u) {
-      cA.style.backgroundImage = 'url(' + u + ')';
-      if (fijo) g.classList.add('g3d--fijo');
-      else {
-        g.style.setProperty('--g3d-t', VUELTA + 's');
-        g.style.setProperty('--g3d-t6', (VUELTA / (h24 ? 4 : 6)).toFixed(4) + 's');
-        g.style.setProperty('--g3d-f', (VUELTA / (h24 ? 24 : 72)).toFixed(4) + 's');   /* un cuadro */
-        var cB = cA.cloneNode(); capa.appendChild(cB);
-        g.style.setProperty('--g3d-d', (-k * VUELTA * 0.27).toFixed(2) + 's');   /* desfasados entre sí */
-        g.classList.add('g3d--gira');
-      }
-      g.classList.add('g3d--vivo');
-    });
-  }
-  if (activos && icos.length && 'IntersectionObserver' in window) {
-    var cerca = new IntersectionObserver(function (es) {
-      es.forEach(function (e) { if (e.isIntersecting) { cargar(e.target, icos.indexOf(e.target)); cerca.unobserve(e.target); } });
-    }, { rootMargin: '900px 0px' });
+  function armar() {
+    if (G) return;
+    G = (!fijo && window.G3D) ? window.G3D(icos, { scroll: function (it) {
+      var r = it.el.getBoundingClientRect(); return ((r.top + r.height / 2) / (innerHeight || 1) - .5) * .22;
+    } }) : { ok: false };
+    if (!G.ok) { icos.forEach(foto); return; }
+    icos.forEach(function (g) { g.classList.add('g3d--vivo', 'g3d--rt'); });
+    var vis = 0, fn = function (ms) { G.cuadro(ms); };
+    var tk = window.RDFX && RDFX.tick, propio = 0;
+    function arr() { if (tk) tk.add(fn); else if (!propio) { propio = 1; (function l(ms) { if (!propio) return; fn(ms); requestAnimationFrame(l); })(performance.now()); } }
+    function par() { if (tk) tk.remove(fn); else propio = 0; }
     var vista = new IntersectionObserver(function (es) {
-      es.forEach(function (e) { e.target.classList.toggle('g3d--en', e.isIntersecting); });
-    }, { rootMargin: '40px 0px' });
-    icos.forEach(function (g) { cerca.observe(g); if (!fijo) vista.observe(g); });
-  }
-  /* inclinación hacia el puntero (solo puntero fino y con movimiento): variables + transición CSS, sin bucle propio */
-  if (activos && !fijo && matchMedia('(hover:hover) and (pointer:fine)').matches) {
-    var lista = sec.querySelector('.clausulas'), pend = 0, px = 0, py = 0;
-    var inclinar = function () {
-      pend = 0;
-      icos.forEach(function (g) {
-        var r = g.getBoundingClientRect(), cx = r.left + r.width / 2, cy = r.top + r.height / 2;
-        var dx = Math.max(-1, Math.min(1, (px - cx) / 420)), dy = Math.max(-1, Math.min(1, (py - cy) / 300));
-        g.style.setProperty('--ry', (dx * 16).toFixed(1) + 'deg');
-        g.style.setProperty('--rx', (-dy * 12).toFixed(1) + 'deg');
-      });
-    };
-    if (lista) {
-      lista.addEventListener('pointermove', function (e) { px = e.clientX; py = e.clientY; if (!pend) { pend = 1; requestAnimationFrame(inclinar); } });
-      lista.addEventListener('pointerleave', function () { icos.forEach(function (g) { g.style.setProperty('--rx', '0deg'); g.style.setProperty('--ry', '0deg'); }); });
+      es.forEach(function (e) { G.ver(e.target, e.isIntersecting); vis += e.isIntersecting ? 1 : -1; });
+      vis = Math.max(0, vis); if (vis) arr(); else par();
+    }, { rootMargin: '60px 0px' });
+    icos.forEach(function (g) { vista.observe(g); });
+    var rs = 0; addEventListener('resize', function () { clearTimeout(rs); rs = setTimeout(G.medir, 150); });
+    if (matchMedia('(hover:hover) and (pointer:fine)').matches) {
+      var lista = sec.querySelector('.clausulas'), pend = 0, px = 0, py = 0;
+      lista.addEventListener('pointermove', function (e) { px = e.clientX; py = e.clientY; if (!pend) { pend = 1; requestAnimationFrame(function () {
+        pend = 0; icos.forEach(function (g) { var r = g.getBoundingClientRect();
+          G.inclinar(g, cl((py - r.top - r.height / 2) / 300) * .22, cl((px - r.left - r.width / 2) / 420) * .38); });
+      }); } });
+      lista.addEventListener('pointerleave', function () { icos.forEach(function (g) { G.inclinar(g, 0, 0); }); });
     }
+  }
+  function cl(x) { return Math.max(-1, Math.min(1, x)); }
+  if (icos.length && sec.querySelector('[data-g3d-on]') && 'IntersectionObserver' in window) {
+    var cerca = new IntersectionObserver(function (es) {
+      if (es.some(function (e) { return e.isIntersecting; })) { cerca.disconnect(); armar(); }
+    }, { rootMargin: '900px 0px' });
+    icos.forEach(function (g) { cerca.observe(g); });
   }
 
   /* rd: se inclina apenas hacia el puntero (variables CSS sobre el <picture>; la entrada usa el contenedor) */
