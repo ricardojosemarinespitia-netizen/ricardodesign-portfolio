@@ -99,3 +99,44 @@ html.quieto .pl-pulso.es-activa{animation-duration:.01ms;animation-iteration-cou
 .pl-escena.es-ligero .pl-rd::before{pointer-events:none}
 .pl-ficha.lbl-der b{left:auto;right:-4px;translate:0 6px}.pl-ficha.lbl-izq b{left:-4px;translate:0 6px}
 .pl-ficha.es-activa.lbl-der b,.pl-ficha.es-activa.lbl-izq b{translate:0 0}
+/* ===== Plataformas v3.1 · hiperpulido (17 oct 2026) =====
+   Medallas = renders Blender Cycles (cromo torneado + vidrio ahumado con el logo en relieve; fila b = perla para el estado activo),
+   una sola hoja de 10x2 (AVIF 29 KB / WebP 49 KB). El color oficial de la marca se multiplica sobre el relieve perla solo al
+   pasar, tocar o enfocar. Brillo especular que sigue al puntero. Halo más fino, pulso por el hilo pulido, entrada en volteo. */
+.plt{--pl-hoja-m:url(../assets/_efectos/blender/plataformas_v3/medallas.webp)}
+@supports (background-image:image-set(url(a.avif) type("image/avif"))){.plt{--pl-hoja-m:image-set(url(../assets/_efectos/blender/plataformas_v3/medallas.avif) type("image/avif"),url(../assets/_efectos/blender/plataformas_v3/medallas.webp) type("image/webp"))}}
+.pl-ficha__cuerpo{background:none;box-shadow:0 12px 18px -8px var(--pl-sombra),0 3px 5px -2px var(--pl-sombra)}
+.pl-ficha__cara,.pl-ficha__cara::after{inset:0;background:var(--pl-hoja-m) calc(var(--i) * 100% / 9) 0/1000% 200% no-repeat;box-shadow:none}
+.pl-ficha__cara::after{background-position-y:100%}
+.pl-logo--gris{display:none}
+.pl-logo--color{mix-blend-mode:multiply}
+.pl-ficha__brillo{inset:4%;background:radial-gradient(circle at var(--gx,32%) var(--gy,24%),var(--pl-luz) 0,transparent 34%),linear-gradient(125deg,transparent 38%,color-mix(in oklab,var(--pl-luz) 55%,transparent) 48%,transparent 58%);background-size:100% 100%,240% 240%;background-position:0 0,var(--gx,32%) var(--gy,24%);mix-blend-mode:screen;opacity:.22;transition:opacity var(--d-ui) var(--ease-casa)}
+.pl-ficha.es-activa .pl-ficha__brillo{opacity:.5}
+/* halo fino: intensidad media-baja, borde suave, sin mancha */
+.pl-ficha::before{inset:-48%;background:radial-gradient(closest-side,color-mix(in oklab,var(--marca) 24%,transparent),color-mix(in oklab,var(--marca) 7%,transparent) 58%,transparent)}
+.pl-ficha.es-activa .pl-ficha__cuerpo{box-shadow:0 22px 24px -12px var(--pl-sombra),0 0 0 1px color-mix(in oklab,var(--marca) 30%,transparent)}
+.pl-fondo::after{background:radial-gradient(closest-side,color-mix(in oklab,var(--tono,var(--pl-tono)) 11%,transparent),transparent)}
+.pl-rd::after{background:radial-gradient(closest-side,color-mix(in oklab,var(--tono,var(--pl-tono)) 14%,transparent),transparent 70%)}
+/* pulso pulido: cometa corta con cola, ritmo más calmo */
+.pl-pulso{stroke-width:2.4;stroke-dasharray:9 140;stroke-dashoffset:-91}
+.pl-pulso.es-activa{animation:pl-pulso2 1.6s var(--ease-casa) infinite}
+@keyframes pl-pulso2{0%{stroke-dashoffset:-91;opacity:0}15%{opacity:.95}80%{opacity:.95}to{stroke-dashoffset:9;opacity:0}}
+.pl-hilo.es-activa{stroke-width:1.2;opacity:.8}
+/* entrada cinematográfica: el rd se asienta y las medallas se voltean en cascada */
+html.js:not(.quieto) .plt .pl-rd{scale:.9;transition:opacity var(--d-rev) var(--ease-casa),scale var(--d-firma) var(--ease-casa)}
+html.js .plt.plt--vista .pl-rd{scale:1}
+html.js:not(.quieto) .plt:not(.plt--vista) .pl-ficha__cuerpo{opacity:0}
+html.js:not(.quieto) .plt.plt--vista .pl-ficha__cuerpo{animation:pl-volteo var(--d-firma) var(--ease-casa) backwards;animation-delay:calc(.35s + var(--i) * 70ms)}
+@keyframes pl-volteo{from{opacity:0;scale:.55;rotate:x 82deg;translate:0 22px}to{opacity:1;scale:1;rotate:x 0deg;translate:0 0}}
+@media(prefers-reduced-motion:reduce){.pl-pulso.es-activa{animation-duration:.01ms;animation-iteration-count:1;animation-fill-mode:forwards}.plt .pl-ficha__cuerpo{animation-duration:.01ms!important;animation-delay:0s!important}}
+html.quieto .pl-pulso.es-activa{animation-duration:.01ms;animation-iteration-count:1;animation-fill-mode:forwards}
+/* cursor propio sobre la escena */
+.cursor.pl-sobre .cursor__aro,.cursor.pl-sobre.enlace-on .cursor__aro{width:10px;height:10px;margin:-5px 0 0 -5px;background:var(--pl-cursor,var(--c-tinta));border-color:var(--c-papel-2)}
+.cursor.pl-gira .cursor__aro,.cursor.pl-gira.enlace-on .cursor__aro{width:46px;height:46px;margin:-23px 0 0 -23px;background:transparent;border-style:dashed}
+/* rd ligero girable: hoja de 24 cuadros; mientras llega, el póster se inclina con el dedo */
+.pl-escena.es-ligero.es-girable .pl-rd::before{pointer-events:auto}
+.pl-escena.es-girable .pl-rd__poster{transform:perspective(600px) rotateY(var(--pl-ry,0deg));transition:transform var(--d-micro) var(--ease-casa)}
+.pl-rd__hoja{position:absolute;inset:0;background:0 0/600% 400% no-repeat;pointer-events:none}
+.pl-rd.es-hoja .pl-rd__poster{visibility:hidden}
+.pl-rd__pista{position:absolute;left:50%;top:-2%;translate:-50% 0;white-space:nowrap;font:600 var(--t-xs)/1 var(--f-texto);letter-spacing:.08em;color:var(--texto-2);padding:var(--s-1) var(--s-2);border:1px solid var(--c-linea);border-radius:var(--r-1);background:var(--c-papel-2);opacity:0;pointer-events:none;transition:opacity var(--d-ui) var(--ease-casa)}
+.pl-escena.es-girable:not(.ya-girado) .pl-rd__pista{opacity:1}

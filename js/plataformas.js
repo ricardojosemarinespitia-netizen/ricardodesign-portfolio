@@ -142,6 +142,34 @@
   if(!ligero){rd.tabIndex=0;rd.setAttribute('aria-label','Monograma rd de Ricardo Design en cromo; gíralo con las flechas o arrastrándolo');
     rd.addEventListener('keydown',function(e){if(e.key==='ArrowLeft'||e.key==='ArrowRight'){angVel+=(e.key==='ArrowLeft'?-1:1)*420;e.preventDefault()}})}
 
+  /* ======================= rd ligero (celular, Instagram/FB, ahorro de datos) =======================
+     Sin Canvas ni bucle permanente: una hoja de 24 cuadros (rejilla 6x4, AVIF 62 KB / WebP 109 KB) que se pide al primer
+     toque del rd; mientras llega, el póster se inclina con el dedo. Inercia con rAF solo mientras se mueve; al soltar
+     vuelve al frente. Fuera solo en ?estatico y movimiento reducido (html.quieto). */
+  if(ligero&&!quieto){
+    var hoja=null,lAng=0,lVel=0,lArr=null,lRaf=0,lUlt=0,lK=-1,M=24;
+    escena.classList.add('es-girable');
+    function pedirHoja(){if(hoja)return;hoja=document.createElement('span');hoja.className='pl-rd__hoja';hoja.setAttribute('aria-hidden','true');
+      var src=rd.getAttribute('data-hoja'),im=new Image();
+      im.onload=function(){hoja.style.backgroundImage='url("'+im.currentSrc+'")';rd.appendChild(hoja);lK=-1;lPinta();rd.classList.add('es-hoja')};
+      var pic=document.createElement('picture'),so=document.createElement('source');so.type='image/avif';so.srcset=src+'.avif';pic.appendChild(so);im.decoding='async';im.src=src+'.webp';pic.appendChild(im)}
+    function lPinta(){
+      if(rd.classList.contains('es-hoja')){var k=((Math.round(lAng/(360/M))%M)+M)%M;if(k!==lK){lK=k;hoja.style.backgroundPosition=(k%6)*20+'% '+((k/6|0)*100/3).toFixed(3)+'%'}rd.style.removeProperty('--pl-ry')}
+      else rd.style.setProperty('--pl-ry',Math.max(-28,Math.min(28,lAng*0.25)).toFixed(1)+'deg');
+    }
+    function lPaso(ms){var dt=Math.min(0.05,(ms-lUlt)/1000||0.016);lUlt=ms;
+      if(!lArr){lVel*=Math.pow(0.05,dt);lAng+=lVel*dt;if(Math.abs(lVel)<60){var o=Math.round(lAng/360)*360;lAng+=(o-lAng)*Math.min(1,dt*3.2)}}
+      lPinta();if(lArr||Math.abs(lVel)>2||Math.abs(lAng-Math.round(lAng/360)*360)>0.5)lRaf=requestAnimationFrame(lPaso);else{lRaf=0;lAng=Math.round(lAng/360)*360;lPinta()}}
+    function lMover(){if(!lRaf){lUlt=performance.now();lRaf=requestAnimationFrame(lPaso)}}
+    rd.addEventListener('pointerdown',function(e){pedirHoja();lArr={x:e.clientX,a:lAng,lx:e.clientX,t:performance.now()};lVel=0;rd.classList.add('es-arrastre');escena.classList.add('ya-girado');lMover()});
+    rd.addEventListener('pointermove',function(e){if(!lArr)return;var now=performance.now(),dtm=Math.max(8,now-lArr.t);
+      lAng=lArr.a+(e.clientX-lArr.x)*1.1;lVel=lVel*0.5+((e.clientX-lArr.lx)*1.1/(dtm/1000))*0.5;lArr.lx=e.clientX;lArr.t=now});
+    function lSoltar(){if(!lArr)return;lArr=null;rd.classList.remove('es-arrastre');lMover()}
+    rd.addEventListener('pointerup',lSoltar);rd.addEventListener('pointercancel',lSoltar);
+    rd.tabIndex=0;rd.setAttribute('aria-label','Monograma rd de Ricardo Design en cromo; gíralo con las flechas o deslizando el dedo');
+    rd.addEventListener('keydown',function(e){if(e.key==='ArrowLeft'||e.key==='ArrowRight'){pedirHoja();lVel+=(e.key==='ArrowLeft'?-1:1)*520;lMover();e.preventDefault()}});
+  }
+
   /* ======================= reloj único ======================= */
   var corriendo=false,usaGsap=false,ultimo=0,rafId=0,t0=0;
   function paso(ms){
@@ -162,6 +190,13 @@
   }
   function parar(){if(!corriendo)return;corriendo=false;if(usaGsap)gsap.ticker.remove(tickGsap);else cancelAnimationFrame(rafId)}
 
+  /* ======================= cursor propio del sitio (sitio.min.js mueve .cursor) =======================
+     Sobre una medalla el aro se encoge a un punto del color de la marca (no tapa la medalla);
+     sobre el rd se vuelve un aro punteado de "girar". */
+  var cur=document.querySelector('.cursor');
+  function cursor(modo,color){if(!cur)return;cur.classList.toggle('pl-sobre',modo===1);cur.classList.toggle('pl-gira',modo===2);if(color)cur.style.setProperty('--pl-cursor',color)}
+  if(cur){rd.addEventListener('pointerenter',function(e){if(e.pointerType==='mouse')cursor(2)});rd.addEventListener('pointerleave',function(){cursor(0)})}
+
   /* ======================= interacción de medallas ======================= */
   function activar(i){
     if(i===activa)return;if(!listo)preparar();
@@ -178,7 +213,8 @@
     c.style.setProperty('--gx',(50+dx*30).toFixed(0)+'%');c.style.setProperty('--gy',(40+dy*30).toFixed(0)+'%');
   }
   fichas.forEach(function(f,i){
-    f.addEventListener('pointerenter',function(e){if(e.pointerType==='mouse')activar(i)});
+    f.addEventListener('pointerenter',function(e){if(e.pointerType==='mouse'){activar(i);cursor(1,getComputedStyle(f).getPropertyValue('--marca').trim())}});
+    f.addEventListener('pointerleave',function(e){if(e.pointerType==='mouse')cursor(0)});
     f.addEventListener('pointermove',function(e){if(e.pointerType==='mouse'){activar(i);inclinar(i,e)}});
     f.addEventListener('click',function(){activar(activa===i&&!fino&&performance.now()-f._foco>400?-1:i)});    /* táctil: un toque = hover; otro toque lo apaga */
     f._foco=0;f.addEventListener('focus',function(){f._foco=performance.now();activar(i)});
@@ -187,7 +223,7 @@
   escena.addEventListener('pointermove',function(e){
     if(!fino||ligero)return;var b=escena.getBoundingClientRect();tx=((e.clientX-b.left)/b.width-0.5)*2;ty=((e.clientY-b.top)/b.height-0.5)*2;
   });
-  escena.addEventListener('pointerleave',function(e){tx=ty=0;if(e.pointerType==='mouse')activar(-1)});
+  escena.addEventListener('pointerleave',function(e){tx=ty=0;cursor(0);if(e.pointerType==='mouse')activar(-1)});
   document.addEventListener('pointerdown',function(e){if(activa>-1&&!escena.contains(e.target))activar(-1)},{passive:true});
 
   /* ======================= arranque perezoso y pausa fuera de pantalla ======================= */
