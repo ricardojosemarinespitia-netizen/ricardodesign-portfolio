@@ -20,3 +20,10 @@ El documento se hizo más grueso (fondo del trazo 0,20) para que de perfil se le
 
 ## Lo flojo
 La sombra suave comprimida en WebP alfa muestra bandas leves; AVIF es el principal. La hoja de inclinación en WebP supera 40 KB (52,7 KB); en AVIF cumple.
+
+## Giro v2: reportes-gira72 (reemplaza a reportes-gira, que saltaba)
+- 72 cuadros de 160x160 px en rejilla 12 columnas x 6 filas (1920x960), con alfa limpio.
+- Orden de lectura (izquierda a derecha, arriba a abajo): cuadro i (0-71) = yaw 5 grados x i alrededor del eje vertical. El cuadro 72 equivale al 0 (loop perfecto). Velocidad sugerida: 1 vuelta cada 8 s (111 ms por cuadro).
+- Sin sombra horneada ni shadow-catcher: solo el objeto sobre transparente puro (la sombra va por CSS). Cámara ortográfica, 128 muestras con denoise, render a 480 px y reducción a 160.
+- Pivote: eje vertical por el centro geométrico del objeto (x=0, centro de profundidad entre hoja y líneas). Verificado: el borde superior e inferior no se mueven entre cuadros (filas 23-456 de 480 en todos); el centro horizontal varía unos 6 px de 480 por la asimetría real de la pieza (esquina y líneas al frente).
+- Pesos: AVIF q55 = 110,6 KB; WebP = 141,4 KB (q40, alfa 90).
