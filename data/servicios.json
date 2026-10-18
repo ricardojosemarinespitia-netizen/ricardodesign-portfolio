@@ -45,8 +45,7 @@
       "bullets": [
         "Cambios de textos, fotos, precios y secciones",
         "Renovación de dominio y servicios conectados",
-        "Corrección de errores y mejoras de velocidad",
-        "Respuesta en 24-48 horas hábiles"
+        "Corrección de errores y mejoras de velocidad"
       ],
       "precio": {
         "texto": "Se cotiza según tu negocio",
@@ -72,7 +71,6 @@
           "destacado": true,
           "incluye": [
             "Asistencia personalizada y soporte continuo",
-            "Solicitudes atendidas en 24 a 48 horas hábiles",
             "Permanencia mínima de 3 meses",
             "Cancelación con preaviso de 30 días"
           ]
