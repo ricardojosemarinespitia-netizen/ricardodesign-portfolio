@@ -36,8 +36,10 @@ if(!matchMedia('(min-width:901px) and (hover:hover) and (pointer:fine)').matches
 <!-- Hojas de las secciones bajo el pliegue (dispositivos, secciones, plataformas, casos, descuento) en una sola petición y un solo recálculo; no bloquean el primer pintado -->
 <link rel="stylesheet" href="css/resto.min.css" media="print" onload="this.media='all'">
 <noscript><link rel="stylesheet" href="css/resto.min.css"></noscript>
+<link rel="stylesheet" href="css/sobre.min.css" media="print" onload="this.media='all'">
+<noscript><link rel="stylesheet" href="css/sobre.min.css"></noscript>
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"ProfessionalService","@id":"https://ricardodesign.co/#negocio","name":"Ricardo Design","url":"https://ricardodesign.co/","description":"Diseño web y campañas de Meta Ads en Bucaramanga, con atención en toda Colombia.","telephone":"+57 302 798 1468","areaServed":"CO","address":{"@type":"PostalAddress","addressLocality":"Bucaramanga","addressRegion":"Santander","addressCountry":"CO"}}
+{"@context":"https://schema.org","@type":"ProfessionalService","@id":"https://ricardodesign.co/#negocio","name":"Ricardo Design","url":"https://ricardodesign.co/","description":"Diseño web y campañas de Meta Ads en Bucaramanga, con atención en toda Colombia.","telephone":"+57 302 798 1468","areaServed":"CO","address":{"@type":"PostalAddress","addressLocality":"Bucaramanga","addressRegion":"Santander","addressCountry":"CO"},"founder":{"@type":"Person","name":"Ricardo Marín","jobTitle":"Diseño web y Meta Ads"}}
 </script>
 <style id="coherencia">.oficio__ir{color:inherit;text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:.22em;text-decoration-color:var(--c-linea)}.oficio__ir:hover,.oficio__ir:focus-visible{text-decoration-color:currentColor}.casos__cab-der p .enlace{display:inline;min-height:0;white-space:normal}.casos__cab-der p .enlace .ico{display:inline-block;vertical-align:-.1em}@media(max-width:600px){.pie__nav{gap:var(--s-2) var(--s-4)}.pie__nav a{font-size:.9375rem}}</style>
 </head>
@@ -69,12 +71,12 @@ if(!matchMedia('(min-width:901px) and (hover:hover) and (pointer:fine)').matches
     <a class="marca" href="#inicio" aria-label="Ricardo Design, inicio"><picture><source type="image/webp" srcset="img/logo_negro-80.webp 2x, img/logo_negro-120.webp 3x"><img src="logo_negro.png" alt="" width="785" height="439" class="marca__logo"></picture></a>
     <nav aria-label="Principal">
       <ul class="nav__links">
-        <li><a href="#dispositivos">Dispositivos</a></li>
-        <li><a href="#garantia">Garantía</a></li>
         <li><a href="#servicios">Servicios</a></li>
+        <li><a href="#dispositivos">Dispositivos</a></li>
         <li><a href="#casos">Casos</a></li>
         <li><a href="#planes">Planes</a></li>
-        <li><a href="#proceso">Proceso</a></li>
+        <li><a href="#garantia">Garantía</a></li>
+        <li><a href="#sobre-mi">Sobre mí</a></li>
       </ul>
     </nav>
     <div class="nav__acc">
@@ -88,12 +90,12 @@ if(!matchMedia('(min-width:901px) and (hover:hover) and (pointer:fine)').matches
 <div class="panel" id="panel" role="dialog" aria-modal="true" aria-label="Menú">
   <button type="button" class="btn btn--linea panel__cerrar" data-cerrar>Cerrar <svg class="ico" aria-hidden="true"><use href="#i-cerrar"/></svg></button>
   <ul>
-    <li><a href="#dispositivos">Dispositivos</a></li>
-    <li><a href="#garantia">Garantía</a></li>
     <li><a href="#servicios">Servicios</a></li>
+    <li><a href="#dispositivos">Dispositivos</a></li>
     <li><a href="#casos">Casos</a></li>
     <li><a href="#planes">Planes</a></li>
-    <li><a href="#proceso">Proceso</a></li>
+    <li><a href="#garantia">Garantía</a></li>
+    <li><a href="#sobre-mi">Sobre mí</a></li>
   </ul>
   <div class="panel__pie">
     <a class="btn btn--laton" data-wa="Hola Ricardo, quiero cotizar un proyecto para mi negocio." href="https://wa.me/573027981468">Cotizar por WhatsApp <svg class="ico flecha" aria-hidden="true"><use href="#i-flecha"/></svg></a>
@@ -548,6 +550,29 @@ if(!matchMedia('(min-width:901px) and (hover:hover) and (pointer:fine)').matches
     </div>
   </section>
 
+  <!-- ================= Sobre mí (17 oct 2026): retrato + primera persona =================
+       FOTO: reemplaza assets/web/ricardo-marin.jpg (hoy es un marcador gris liso, 960×1200) por la foto real en 4:5; no cambia el código.
+       CONFIRMAR con Ricardo: textos de esta sección (PENDIENTES_DISENO.md). -->
+  <section class="sec sobre" id="sobre-mi" aria-labelledby="h-sobre">
+    <div class="wrap sobre__grid">
+      <figure class="sobre__retrato r-sube">
+        <div class="sobre__marco"><img src="assets/web/ricardo-marin.jpg" width="960" height="1200" alt="Retrato de Ricardo Marín, fundador de Ricardo Design" loading="lazy" decoding="async"></div>
+        <figcaption class="sobre__pie"><span class="versal">Ricardo Marín</span><span class="versal">Bucaramanga</span></figcaption>
+      </figure>
+      <div class="sobre__txt r-sube">
+        <span class="versal">Sobre mí</span>
+        <h2 id="h-sobre">Detrás de Ricardo Design estoy yo.</h2>
+        <p>Soy <b>Ricardo Marín</b>. Diseño páginas web y manejo campañas de Meta Ads para negocios de Bucaramanga y del resto de Colombia, y trabajo directo con el dueño de cada negocio, sin intermediarios.</p>
+        <p>Antes de proponerte algo, quiero entender qué vendes, a quién y cómo te llegan hoy los clientes. Con eso armo la web, conecto la medición y pauto, y te cuento lo que pasa con tu inversión, sea bueno o malo.</p>
+        <p>Los proyectos que viste más arriba son de clientes reales, cada uno con su propio oficio y su propio lenguaje. Así quiero que se vea también el tuyo.</p>
+        <div class="sobre__acc">
+          <a class="btn btn--laton iman" data-wa="Hola Ricardo, vi tu web y quiero contarte de mi negocio." href="https://wa.me/573027981468">Escríbeme por WhatsApp <svg class="ico flecha" aria-hidden="true"><use href="#i-flecha"/></svg></a>
+          <span class="versal">+57 302 798 1468</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
 </main>
 
 <footer class="pie">
@@ -595,7 +620,7 @@ if(!matchMedia('(min-width:901px) and (hover:hover) and (pointer:fine)').matches
     var fns=window.rdTarde||[];
     (function paso(){var f=fns.shift();
       if(f){try{f()}catch(x){console.error(x)}ceder(paso)}
-      else cargar(B,function(){ceder(function(){if(window.ScrollTrigger)ScrollTrigger.refresh();ceder(function(){hecha=true;/* Lenis reajusta su límite con 250 ms de espera: el ancla pendiente se repite después */setTimeout(function(){cola.splice(0).forEach(function(g){g()})},450)})})});
+      else cargar(B,function(){ceder(function(){if(window.ScrollTrigger){/* el orden de creación no sigue al de la página: se ordenan antes de medir */if(ScrollTrigger.sort)ScrollTrigger.sort();ScrollTrigger.refresh()}ceder(function(){hecha=true;/* Lenis reajusta su límite con 250 ms de espera: el ancla pendiente se repite después */setTimeout(function(){cola.splice(0).forEach(function(g){g()})},450)})})});
     })();
   }
   EV.forEach(function(n){addEventListener(n,despertar,{capture:true,passive:true})});
