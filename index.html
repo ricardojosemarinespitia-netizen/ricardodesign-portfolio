@@ -36,8 +36,10 @@ if(!matchMedia('(min-width:901px) and (hover:hover) and (pointer:fine)').matches
 <!-- Hojas de las secciones bajo el pliegue (dispositivos, secciones, plataformas, casos, descuento) en una sola petición y un solo recálculo; no bloquean el primer pintado -->
 <link rel="stylesheet" href="css/resto.min.css" media="print" onload="this.media='all'">
 <noscript><link rel="stylesheet" href="css/resto.min.css"></noscript>
+<link rel="stylesheet" href="css/sobre.min.css" media="print" onload="this.media='all'">
+<noscript><link rel="stylesheet" href="css/sobre.min.css"></noscript>
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"ProfessionalService","@id":"https://ricardodesign.co/#negocio","name":"Ricardo Design","url":"https://ricardodesign.co/","description":"Diseño web y campañas de Meta Ads en Bucaramanga, con atención en toda Colombia.","telephone":"+57 302 798 1468","areaServed":"CO","address":{"@type":"PostalAddress","addressLocality":"Bucaramanga","addressRegion":"Santander","addressCountry":"CO"}}
+{"@context":"https://schema.org","@type":"ProfessionalService","@id":"https://ricardodesign.co/#negocio","name":"Ricardo Design","url":"https://ricardodesign.co/","description":"Diseño web y campañas de Meta Ads en Bucaramanga, con atención en toda Colombia.","telephone":"+57 302 798 1468","areaServed":"CO","address":{"@type":"PostalAddress","addressLocality":"Bucaramanga","addressRegion":"Santander","addressCountry":"CO"},"founder":{"@type":"Person","name":"Ricardo Marín","jobTitle":"Diseño web y Meta Ads"}}
 </script>
 <style id="coherencia">.oficio__ir{color:inherit;text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:.22em;text-decoration-color:var(--c-linea)}.oficio__ir:hover,.oficio__ir:focus-visible{text-decoration-color:currentColor}.casos__cab-der p .enlace{display:inline;min-height:0;white-space:normal}.casos__cab-der p .enlace .ico{display:inline-block;vertical-align:-.1em}@media(max-width:600px){.pie__nav{gap:var(--s-2) var(--s-4)}.pie__nav a{font-size:.9375rem}}</style>
 </head>
@@ -69,12 +71,12 @@ if(!matchMedia('(min-width:901px) and (hover:hover) and (pointer:fine)').matches
     <a class="marca" href="#inicio" aria-label="Ricardo Design, inicio"><picture><source type="image/webp" srcset="img/logo_negro-80.webp 2x, img/logo_negro-120.webp 3x"><img src="logo_negro.png" alt="" width="785" height="439" class="marca__logo"></picture></a>
     <nav aria-label="Principal">
       <ul class="nav__links">
-        <li><a href="#dispositivos">Dispositivos</a></li>
-        <li><a href="#garantia">Garantía</a></li>
         <li><a href="#servicios">Servicios</a></li>
+        <li><a href="#dispositivos">Dispositivos</a></li>
         <li><a href="#casos">Casos</a></li>
         <li><a href="#planes">Planes</a></li>
-        <li><a href="#proceso">Proceso</a></li>
+        <li><a href="#garantia">Garantía</a></li>
+        <li><a href="#sobre-mi">Sobre mí</a></li>
       </ul>
     </nav>
     <div class="nav__acc">
@@ -88,12 +90,12 @@ if(!matchMedia('(min-width:901px) and (hover:hover) and (pointer:fine)').matches
 <div class="panel" id="panel" role="dialog" aria-modal="true" aria-label="Menú">
   <button type="button" class="btn btn--linea panel__cerrar" data-cerrar>Cerrar <svg class="ico" aria-hidden="true"><use href="#i-cerrar"/></svg></button>
   <ul>
-    <li><a href="#dispositivos">Dispositivos</a></li>
-    <li><a href="#garantia">Garantía</a></li>
     <li><a href="#servicios">Servicios</a></li>
+    <li><a href="#dispositivos">Dispositivos</a></li>
     <li><a href="#casos">Casos</a></li>
     <li><a href="#planes">Planes</a></li>
-    <li><a href="#proceso">Proceso</a></li>
+    <li><a href="#garantia">Garantía</a></li>
+    <li><a href="#sobre-mi">Sobre mí</a></li>
   </ul>
   <div class="panel__pie">
     <a class="btn btn--laton" data-wa="Hola Ricardo, quiero cotizar un proyecto para mi negocio." href="https://wa.me/573027981468">Cotizar por WhatsApp <svg class="ico flecha" aria-hidden="true"><use href="#i-flecha"/></svg></a>
@@ -169,6 +171,61 @@ if(!matchMedia('(min-width:901px) and (hover:hover) and (pointer:fine)').matches
         <span class="versal">Atención en toda Colombia</span>
         <span class="versal hv-plat">Tu marca en la red, vendiendo por ti en automático</span>
         <span class="versal scroll-ind"><i aria-hidden="true"></i>Baja para ver el trabajo</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= Servicios (v3: escenario 3D + índice de 4 oficios; escenas en assets/web/servicios3d, ver js/servicios.js) ================= -->
+  <section class="sec serv sv" id="servicios" aria-labelledby="h-serv">
+    <div class="wrap">
+      <div class="sec__cab r-sube">
+        <div><span class="versal">Servicios</span><h2 id="h-serv" data-lineas>Cuatro oficios, una sola casa.</h2></div>
+        <p>Todo se cotiza según tu negocio.</p>
+      </div>
+      <div class="sv-grid">
+        <div class="sv-escenario r-sube" aria-hidden="true">
+          <div class="sv-marco">
+            <figure class="sv-esc es-activa" data-n="diseno-web" data-listo="1"><svg class="ico sv-hueco"><use href="#i-web"/></svg></figure>
+            <figure class="sv-esc" data-n="meta-ads" data-listo="1"><svg class="ico sv-hueco"><use href="#i-meta"/></svg></figure>
+            <figure class="sv-esc" data-n="contenido" data-listo="1"><svg class="ico sv-hueco"><use href="#i-calendario"/></svg></figure>
+            <figure class="sv-esc" data-n="mantenimiento" data-listo="1"><svg class="ico sv-hueco"><use href="#i-llave"/></svg></figure>
+          </div>
+          
+        </div>
+        <ul class="sv-lista">
+          <li class="sv-fila r-sube es-activa">
+            <span class="sv-num" aria-hidden="true">01</span>
+            <div class="sv-cab"><h3><a class="oficio__ir" href="diseno-web/">Diseño web</a></h3>
+            <a class="enlace" data-wa="Hola Ricardo, quiero cotizar una página web." href="https://wa.me/573027981468">Cotizar web <svg class="ico flecha" aria-hidden="true"><use href="#i-flecha"/></svg></a></div>
+            <p>Tu página a la medida, rápida y lista para vender.</p>
+            <ul><li>Diseño para celular y computador</li><li>Pagos en línea, correos y registros automáticos</li><li>Entrega en 10 días hábiles</li></ul>
+            <i class="sv-prog" aria-hidden="true"></i>
+          </li>
+          <li class="sv-fila r-sube">
+            <span class="sv-num" aria-hidden="true">02</span>
+            <div class="sv-cab"><h3><a class="oficio__ir" href="publicidad-digital/">Meta Ads</a></h3>
+            <a class="enlace" data-wa="Hola Ricardo, quiero cotizar campañas de Meta Ads." href="https://wa.me/573027981468">Cotizar pauta <svg class="ico flecha" aria-hidden="true"><use href="#i-flecha"/></svg></a></div>
+            <p>Anuncios en Facebook, Instagram y WhatsApp, medidos de punta a punta.</p>
+            <ul><li>Estudio de público</li><li>Medición conectada (Meta Pixel y GA4)</li><li>Optimización semanal e informe mensual</li></ul>
+            <i class="sv-prog" aria-hidden="true"></i>
+          </li>
+          <li class="sv-fila r-sube">
+            <span class="sv-num" aria-hidden="true">03</span>
+            <div class="sv-cab"><h3><a class="oficio__ir" href="contenido-redes-sociales/">Contenido para redes</a></h3>
+            <a class="enlace" data-wa="Hola Ricardo, quiero cotizar contenido para redes." href="https://wa.me/573027981468">Cotizar contenido <svg class="ico flecha" aria-hidden="true"><use href="#i-flecha"/></svg></a></div>
+            <p>Publicaciones, carruseles y reels que muestran tu marca como es.</p>
+            <ul><li>Calendario mensual</li><li>Publicaciones, carruseles e historias</li><li>Reels con subtítulos</li></ul>
+            <i class="sv-prog" aria-hidden="true"></i>
+          </li>
+          <li class="sv-fila r-sube">
+            <span class="sv-num" aria-hidden="true">04</span>
+            <div class="sv-cab"><h3><a class="oficio__ir" href="mantenimiento-web/">Mantenimiento web</a></h3>
+            <a class="enlace" data-wa="Hola Ricardo, quiero cotizar el mantenimiento de mi web." href="https://wa.me/573027981468">Cotizar mantenimiento <svg class="ico flecha" aria-hidden="true"><use href="#i-flecha"/></svg></a></div>
+            <p>Tu web siempre al día, sin que tengas que tocar código.</p>
+            <ul><li>Cambios de textos, fotos y secciones</li><li>Corrección de errores y velocidad</li></ul>
+            <i class="sv-prog" aria-hidden="true"></i>
+          </li>
+        </ul>
       </div>
     </div>
   </section>
@@ -318,95 +375,6 @@ if(!matchMedia('(min-width:901px) and (hover:hover) and (pointer:fine)').matches
 
   </section>
 
-  <!-- ================= Garantía: la promesa, por escrito (papel hueso) =================
-       Texto sujeto a validación con un abogado colombiano antes de publicar (TAREA §6.5). -->
-  <section class="sec pliego pliego--v2" id="garantia" aria-labelledby="h-gar">
-    <div class="pliego__fondo hueco" data-activo="I05" aria-hidden="true"><picture><source type="image/avif" srcset="assets/web/rd-I05-768.avif 768w, assets/web/rd-I05-1280.avif 1280w" sizes="100vw"><source type="image/webp" srcset="assets/web/rd-I05-768.webp 768w, assets/web/rd-I05-1280.webp 1280w" sizes="100vw"><img src="assets/web/rd-I05-1280.jpg" srcset="assets/web/rd-I05-768.jpg 768w, assets/web/rd-I05-1280.jpg 1280w" sizes="100vw" width="1280" height="1280" alt="" loading="lazy" decoding="async" onerror="this.classList.add('sin-activo')"></picture></div>
-    <div class="wrap registro pliego__hoja">
-      <span class="reg reg--a"></span><span class="reg reg--b"></span><span class="reg reg--c"></span><span class="reg reg--d"></span>
-      <div class="pliego__cab">
-        <div class="pliego__kick"><p class="versal">La garantía, por escrito</p><i class="pliego__hilo" aria-hidden="true"></i></div>
-        <h2 id="h-gar"><span class="gl"><span>Garantizamos lo que</span></span> <span class="gl gl--b"><span>depende de nosotros.</span></span></h2>
-        <p class="pliego__lede">Garantizar significa que lo que pactamos se cumple y se mide: lo entregable, los plazos, los reportes y los ajustes quedan escritos desde el primer día. Las ventas son el objetivo que medimos contigo. Nadie controla el mercado ni el algoritmo de Meta, y por eso no te prometemos una cifra.</p>
-        <div class="pliego__sello" aria-hidden="true">
-          <!-- rd negro mate (Blender Cycles, rd_negro.blend) recortado con alfa, sin piso ni sombra horneada: la sombra de contacto es CSS -->
-          <div class="pliego__rd" data-estampa><picture><source type="image/avif" srcset="assets/web/garantia/rds-360.avif 360w, assets/web/garantia/rds-720.avif 720w" sizes="(max-width:760px) 1px, 420px"><img class="pliego__rd-img" src="assets/web/garantia/rds-720.webp" srcset="assets/web/garantia/rds-360.webp 360w, assets/web/garantia/rds-720.webp 720w" sizes="(max-width:760px) 1px, 420px" width="720" height="677" alt="" loading="lazy" decoding="async"></picture></div>
-        </div>
-      </div>
-      <!-- "10 días hábiles" y "15 días de garantía" salen de servicios.json: CONFIRMAR vigencia con Ricardo.
-           Íconos 3D (Blender): assets/web/garantia3d/<nombre>-gira.(avif|webp), hoja 6x4 de 160 px; js/garantia.js los carga al acercarse y deja el SVG si no existen. -->
-      <ul class="clausulas" data-g3d-on>
-        <li class="clausula"><div class="clausula__cab" aria-hidden="true"><span class="clausula__n">01</span><span class="g3d" data-g3d="entregables"><svg class="ico"><use href="#i-sello"/></svg></span></div><h3>Entregables</h3><p>Recibes lo que dice tu propuesta. Lo que no esté escrito en ella se cotiza antes.</p></li>
-        <li class="clausula"><div class="clausula__cab" aria-hidden="true"><span class="clausula__n">02</span><span class="g3d" data-g3d="plazos"><svg class="ico"><use href="#i-reloj"/></svg></span></div><h3>Plazos</h3><p>Las páginas web se entregan en <span class="cifra">10</span> días hábiles desde que recibimos tu contenido completo.</p></li>
-        <li class="clausula"><div class="clausula__cab" aria-hidden="true"><span class="clausula__n">03</span><span class="g3d" data-g3d="reportes"><svg class="ico"><use href="#i-reporte"/></svg></span></div><h3>Reportes</h3><p>Ves cuánto se invirtió, qué pasó y qué vamos a cambiar, sean buenos o malos los números.</p></li>
-        <li class="clausula"><div class="clausula__cab" aria-hidden="true"><span class="clausula__n">04</span><span class="g3d" data-g3d="ajustes"><svg class="ico"><use href="#i-ajuste"/></svg></span></div><h3>Ajustes</h3><p>Si algo de lo entregado falla, lo corregimos sin costo durante los <span class="cifra">15</span> días hábiles de garantía.</p></li>
-      </ul>
-      <div class="rentables">
-        <h3>Campañas rentables.</h3>
-        <p>Medimos cuánto inviertes y cuánto vendes de verdad, incluidas las ventas que se cierran por WhatsApp, y ajustamos con esos números.</p>
-      </div>
-      <div class="letra-chica">
-        <p>Garantía sujeta a las condiciones del contrato. El presupuesto de pauta se paga directo a Meta y no está incluido.</p>
-        <a class="enlace" href="politicas.html">Ver políticas <svg class="ico flecha" aria-hidden="true"><use href="#i-flecha"/></svg></a>
-      </div>
-    </div>
-  </section>
-
-  <!-- ================= Servicios (v3: escenario 3D + índice de 4 oficios; escenas en assets/web/servicios3d, ver js/servicios.js) ================= -->
-  <section class="sec serv sv" id="servicios" aria-labelledby="h-serv">
-    <div class="wrap">
-      <div class="sec__cab r-sube">
-        <div><span class="versal">Servicios</span><h2 id="h-serv" data-lineas>Cuatro oficios, una sola casa.</h2></div>
-        <p>Todo se cotiza según tu negocio.</p>
-      </div>
-      <div class="sv-grid">
-        <div class="sv-escenario r-sube" aria-hidden="true">
-          <div class="sv-marco">
-            <figure class="sv-esc es-activa" data-n="diseno-web" data-listo="1"><svg class="ico sv-hueco"><use href="#i-web"/></svg></figure>
-            <figure class="sv-esc" data-n="meta-ads" data-listo="1"><svg class="ico sv-hueco"><use href="#i-meta"/></svg></figure>
-            <figure class="sv-esc" data-n="contenido" data-listo="1"><svg class="ico sv-hueco"><use href="#i-calendario"/></svg></figure>
-            <figure class="sv-esc" data-n="mantenimiento" data-listo="1"><svg class="ico sv-hueco"><use href="#i-llave"/></svg></figure>
-          </div>
-          
-        </div>
-        <ul class="sv-lista">
-          <li class="sv-fila r-sube es-activa">
-            <span class="sv-num" aria-hidden="true">01</span>
-            <div class="sv-cab"><h3><a class="oficio__ir" href="diseno-web/">Diseño web</a></h3>
-            <a class="enlace" data-wa="Hola Ricardo, quiero cotizar una página web." href="https://wa.me/573027981468">Cotizar web <svg class="ico flecha" aria-hidden="true"><use href="#i-flecha"/></svg></a></div>
-            <p>Tu página a la medida, rápida y lista para vender.</p>
-            <ul><li>Diseño para celular y computador</li><li>Pagos en línea, correos y registros automáticos</li><li>Entrega en 10 días hábiles</li></ul>
-            <i class="sv-prog" aria-hidden="true"></i>
-          </li>
-          <li class="sv-fila r-sube">
-            <span class="sv-num" aria-hidden="true">02</span>
-            <div class="sv-cab"><h3><a class="oficio__ir" href="publicidad-digital/">Meta Ads</a></h3>
-            <a class="enlace" data-wa="Hola Ricardo, quiero cotizar campañas de Meta Ads." href="https://wa.me/573027981468">Cotizar pauta <svg class="ico flecha" aria-hidden="true"><use href="#i-flecha"/></svg></a></div>
-            <p>Anuncios en Facebook, Instagram y WhatsApp, medidos de punta a punta.</p>
-            <ul><li>Estudio de público</li><li>Medición conectada (Meta Pixel y GA4)</li><li>Optimización semanal e informe mensual</li></ul>
-            <i class="sv-prog" aria-hidden="true"></i>
-          </li>
-          <li class="sv-fila r-sube">
-            <span class="sv-num" aria-hidden="true">03</span>
-            <div class="sv-cab"><h3><a class="oficio__ir" href="contenido-redes-sociales/">Contenido para redes</a></h3>
-            <a class="enlace" data-wa="Hola Ricardo, quiero cotizar contenido para redes." href="https://wa.me/573027981468">Cotizar contenido <svg class="ico flecha" aria-hidden="true"><use href="#i-flecha"/></svg></a></div>
-            <p>Publicaciones, carruseles y reels que muestran tu marca como es.</p>
-            <ul><li>Calendario mensual</li><li>Publicaciones, carruseles e historias</li><li>Reels con subtítulos</li></ul>
-            <i class="sv-prog" aria-hidden="true"></i>
-          </li>
-          <li class="sv-fila r-sube">
-            <span class="sv-num" aria-hidden="true">04</span>
-            <div class="sv-cab"><h3><a class="oficio__ir" href="mantenimiento-web/">Mantenimiento web</a></h3>
-            <a class="enlace" data-wa="Hola Ricardo, quiero cotizar el mantenimiento de mi web." href="https://wa.me/573027981468">Cotizar mantenimiento <svg class="ico flecha" aria-hidden="true"><use href="#i-flecha"/></svg></a></div>
-            <p>Tu web siempre al día, sin que tengas que tocar código.</p>
-            <ul><li>Cambios de textos, fotos y secciones</li><li>Corrección de errores y velocidad</li></ul>
-            <i class="sv-prog" aria-hidden="true"></i>
-          </li>
-        </ul>
-      </div>
-    </div>
-  </section>
-
   <!-- ================= Casos v2 (17 oct 2026): capturas a COLOR en la MacBook Air v4 + Meta Ads en celular =================
        CONFIRMAR: permiso de cada cliente para mostrar su sitio y sus anuncios (PENDIENTES_DISENO.md) -->
   <section class="sec casos" id="casos" aria-labelledby="h-casos">
@@ -547,6 +515,64 @@ if(!matchMedia('(min-width:901px) and (hover:hover) and (pointer:fine)').matches
       </div>
     </div>
   </section>
+
+  <!-- ================= Garantía: la promesa, por escrito (papel hueso) =================
+       Texto sujeto a validación con un abogado colombiano antes de publicar (TAREA §6.5). -->
+  <section class="sec pliego pliego--v2" id="garantia" aria-labelledby="h-gar">
+    <div class="pliego__fondo hueco" data-activo="I05" aria-hidden="true"><picture><source type="image/avif" srcset="assets/web/rd-I05-768.avif 768w, assets/web/rd-I05-1280.avif 1280w" sizes="100vw"><source type="image/webp" srcset="assets/web/rd-I05-768.webp 768w, assets/web/rd-I05-1280.webp 1280w" sizes="100vw"><img src="assets/web/rd-I05-1280.jpg" srcset="assets/web/rd-I05-768.jpg 768w, assets/web/rd-I05-1280.jpg 1280w" sizes="100vw" width="1280" height="1280" alt="" loading="lazy" decoding="async" onerror="this.classList.add('sin-activo')"></picture></div>
+    <div class="wrap registro pliego__hoja">
+      <span class="reg reg--a"></span><span class="reg reg--b"></span><span class="reg reg--c"></span><span class="reg reg--d"></span>
+      <div class="pliego__cab">
+        <div class="pliego__kick"><p class="versal">La garantía, por escrito</p><i class="pliego__hilo" aria-hidden="true"></i></div>
+        <h2 id="h-gar"><span class="gl"><span>Garantizamos lo que</span></span> <span class="gl gl--b"><span>depende de nosotros.</span></span></h2>
+        <p class="pliego__lede">Garantizar significa que lo que pactamos se cumple y se mide: lo entregable, los plazos, los reportes y los ajustes quedan escritos desde el primer día. Las ventas son el objetivo que medimos contigo. Nadie controla el mercado ni el algoritmo de Meta, y por eso no te prometemos una cifra.</p>
+        <div class="pliego__sello" aria-hidden="true">
+          <!-- rd negro mate (Blender Cycles, rd_negro.blend) recortado con alfa, sin piso ni sombra horneada: la sombra de contacto es CSS -->
+          <div class="pliego__rd" data-estampa><picture><source type="image/avif" srcset="assets/web/garantia/rds-360.avif 360w, assets/web/garantia/rds-720.avif 720w" sizes="(max-width:760px) 1px, 420px"><img class="pliego__rd-img" src="assets/web/garantia/rds-720.webp" srcset="assets/web/garantia/rds-360.webp 360w, assets/web/garantia/rds-720.webp 720w" sizes="(max-width:760px) 1px, 420px" width="720" height="677" alt="" loading="lazy" decoding="async"></picture></div>
+        </div>
+      </div>
+      <!-- "10 días hábiles" y "15 días de garantía" salen de servicios.json: CONFIRMAR vigencia con Ricardo.
+           Íconos 3D (Blender): assets/web/garantia3d/<nombre>-gira.(avif|webp), hoja 6x4 de 160 px; js/garantia.js los carga al acercarse y deja el SVG si no existen. -->
+      <ul class="clausulas" data-g3d-on>
+        <li class="clausula"><div class="clausula__cab" aria-hidden="true"><span class="clausula__n">01</span><span class="g3d" data-g3d="entregables"><svg class="ico"><use href="#i-sello"/></svg></span></div><h3>Entregables</h3><p>Recibes lo que dice tu propuesta. Lo que no esté escrito en ella se cotiza antes.</p></li>
+        <li class="clausula"><div class="clausula__cab" aria-hidden="true"><span class="clausula__n">02</span><span class="g3d" data-g3d="plazos"><svg class="ico"><use href="#i-reloj"/></svg></span></div><h3>Plazos</h3><p>Las páginas web se entregan en <span class="cifra">10</span> días hábiles desde que recibimos tu contenido completo.</p></li>
+        <li class="clausula"><div class="clausula__cab" aria-hidden="true"><span class="clausula__n">03</span><span class="g3d" data-g3d="reportes"><svg class="ico"><use href="#i-reporte"/></svg></span></div><h3>Reportes</h3><p>Ves cuánto se invirtió, qué pasó y qué vamos a cambiar, sean buenos o malos los números.</p></li>
+        <li class="clausula"><div class="clausula__cab" aria-hidden="true"><span class="clausula__n">04</span><span class="g3d" data-g3d="ajustes"><svg class="ico"><use href="#i-ajuste"/></svg></span></div><h3>Ajustes</h3><p>Si algo de lo entregado falla, lo corregimos sin costo durante los <span class="cifra">15</span> días hábiles de garantía.</p></li>
+      </ul>
+      <div class="rentables">
+        <h3>Campañas rentables.</h3>
+        <p>Medimos cuánto inviertes y cuánto vendes de verdad, incluidas las ventas que se cierran por WhatsApp, y ajustamos con esos números.</p>
+      </div>
+      <div class="letra-chica">
+        <p>Garantía sujeta a las condiciones del contrato. El presupuesto de pauta se paga directo a Meta y no está incluido.</p>
+        <a class="enlace" href="politicas.html">Ver políticas <svg class="ico flecha" aria-hidden="true"><use href="#i-flecha"/></svg></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= Sobre mí (17 oct 2026): retrato + primera persona =================
+       FOTO: reemplaza assets/web/ricardo-marin.jpg (hoy es un marcador gris liso, 960×1200) por la foto real en 4:5; no cambia el código.
+       CONFIRMAR con Ricardo: textos de esta sección (PENDIENTES_DISENO.md). -->
+  <section class="sec sobre" id="sobre-mi" aria-labelledby="h-sobre">
+    <div class="wrap sobre__grid">
+      <figure class="sobre__retrato r-sube">
+        <div class="sobre__marco"><img src="assets/web/ricardo-marin.jpg" width="960" height="1200" alt="Retrato de Ricardo Marín, fundador de Ricardo Design" loading="lazy" decoding="async"></div>
+        <figcaption class="sobre__pie"><span class="versal">Ricardo Marín</span><span class="versal">Bucaramanga</span></figcaption>
+      </figure>
+      <div class="sobre__txt r-sube">
+        <span class="versal">Sobre mí</span>
+        <h2 id="h-sobre">Detrás de Ricardo Design estoy yo.</h2>
+        <p>Soy <b>Ricardo Marín</b>. Diseño páginas web y manejo campañas de Meta Ads para negocios de Bucaramanga y del resto de Colombia, y trabajo directo con el dueño de cada negocio, sin intermediarios.</p>
+        <p>Antes de proponerte algo, quiero entender qué vendes, a quién y cómo te llegan hoy los clientes. Con eso armo la web, conecto la medición y pauto, y te cuento lo que pasa con tu inversión, sea bueno o malo.</p>
+        <p>Los proyectos que viste más arriba son de clientes reales, cada uno con su propio oficio y su propio lenguaje. Así quiero que se vea también el tuyo.</p>
+        <div class="sobre__acc">
+          <a class="btn btn--laton iman" data-wa="Hola Ricardo, vi tu web y quiero contarte de mi negocio." href="https://wa.me/573027981468">Escríbeme por WhatsApp <svg class="ico flecha" aria-hidden="true"><use href="#i-flecha"/></svg></a>
+          <span class="versal">+57 302 798 1468</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
 </main>
 
 <footer class="pie">
@@ -594,7 +620,7 @@ if(!matchMedia('(min-width:901px) and (hover:hover) and (pointer:fine)').matches
     var fns=window.rdTarde||[];
     (function paso(){var f=fns.shift();
       if(f){try{f()}catch(x){console.error(x)}ceder(paso)}
-      else cargar(B,function(){ceder(function(){if(window.ScrollTrigger)ScrollTrigger.refresh();ceder(function(){hecha=true;/* Lenis reajusta su límite con 250 ms de espera: el ancla pendiente se repite después */setTimeout(function(){cola.splice(0).forEach(function(g){g()})},450)})})});
+      else cargar(B,function(){ceder(function(){if(window.ScrollTrigger){/* el orden de creación no sigue al de la página: se ordenan antes de medir */if(ScrollTrigger.sort)ScrollTrigger.sort();ScrollTrigger.refresh()}ceder(function(){hecha=true;/* Lenis reajusta su límite con 250 ms de espera: el ancla pendiente se repite después */setTimeout(function(){cola.splice(0).forEach(function(g){g()})},450)})})});
     })();
   }
   EV.forEach(function(n){addEventListener(n,despertar,{capture:true,passive:true})});
