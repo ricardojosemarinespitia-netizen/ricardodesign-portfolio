@@ -606,15 +606,20 @@
     if('ResizeObserver' in window)new ResizeObserver(function(){medir()}).observe(escena);else addEventListener('resize',medir);
   }
   /* a una pantalla de distancia: ya medido, con los cuerpos creados y los cuadros/hojas pidiéndose, para que al llegar estén de inmediato */
-  new IntersectionObserver(function(es){es.forEach(function(e){cerca=e.isIntersecting;if(cerca){preparar();cargarCuadros();pedirHojas();arrancar()}else parar()})},{rootMargin:'100% 0px'}).observe(escena);
+  /* 17 oct 2026 (fluidez): a una pantalla solo se prepara; el reloj corre únicamente con la escena a la vista (±150 px).
+     Medido: con la escena de dispositivos fijada debajo, este bucle seguía vivo (getBoundingClientRect + física cada cuadro). */
+  new IntersectionObserver(function(es){es.forEach(function(e){cerca=e.isIntersecting;if(cerca){preparar();cargarCuadros();pedirHojas()}else parar()})},{rootMargin:'100% 0px'}).observe(escena);
   new IntersectionObserver(function(es){
     es.forEach(function(e){
-      visible=e.isIntersecting;
-      if(e.isIntersecting){preparar();sec.classList.add('plt--vista');arrancar()}
+      /* con menos de un cuarto de la escena a la vista (una franja en el borde mientras entra la escena de dispositivos)
+         las fichas se quedan quietas: en celular esa franja costaba más que la escena que estaba entrando */
+      visible=e.isIntersecting&&e.intersectionRatio>=.25;
+      if(e.isIntersecting){preparar();sec.classList.add('plt--vista')}
+      if(visible)arrancar();else parar();
     });
-  },{rootMargin:'150px 0px'}).observe(escena);
+  },{threshold:[0,.25,.5]}).observe(escena);
   if(marquee)new IntersectionObserver(function(es){es.forEach(function(e){marquee.classList.toggle('esta-fuera',!e.isIntersecting)})}).observe(marquee);
-  document.addEventListener('visibilitychange',function(){document.hidden?parar():(cerca&&arrancar())});
+  document.addEventListener('visibilitychange',function(){document.hidden?parar():(visible&&arrancar())});
   if(quieto)sec.classList.add('plt--vista');
   window.__pl={estallar:function(){estallar(1)},regimen:cambiarRegimen,q:function(){return q},fijar:fijar,estado:function(){return B.map(function(b){return {x:b.px,y:b.py,z:b.pos[2],sc:b.sc,zi:b.zi,a:b.fa}})}};
 })();
