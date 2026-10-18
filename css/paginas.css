@@ -422,7 +422,7 @@ mark.ph{background:var(--bg-hueco);color:var(--texto);border:1px solid var(--c-l
 .doc-indice a:before{content:counter(ix,decimal-leading-zero);font-size:var(--t-xs);letter-spacing:.06em}
 .doc-indice a:hover{color:var(--texto)}
 .doc-indice a[aria-current=true]{color:var(--texto);font-weight:600;box-shadow:inset 2px 0 0 var(--accion);padding-left:var(--s-2);grid-template-columns:2.2em 1fr}
-.doc-cuerpo{display:grid;gap:0;max-width:calc(var(--lectura) + 2 * var(--s-8));counter-reset:sec}
+.doc-cuerpo{display:grid;grid-template-columns:minmax(0,1fr);gap:0;max-width:calc(var(--lectura) + 2 * var(--s-8));counter-reset:sec}
 .legal .card{background:transparent;border:0;border-top:1px solid var(--c-linea);border-radius:0;padding:var(--s-8) 0;scroll-margin-top:calc(var(--nav-h) + var(--s-6))}
 .legal .card:first-child{border-top:0;padding-top:0}
 .legal .card h2{font:500 var(--t-lg)/1.1 var(--f-display);letter-spacing:-.02em;margin-bottom:var(--s-4)}
@@ -443,7 +443,8 @@ mark.ph{background:var(--bg-hueco);color:var(--texto);border:1px solid var(--c-l
 .tabla tr:last-child td{border-bottom:0}
 .doc-volver{margin:var(--s-8) 0 0;padding-top:var(--s-8);border-top:1px solid var(--c-linea)}
 @media (max-width:960px){
-  .doc{grid-template-columns:1fr;gap:var(--s-8);padding-top:var(--s-8)}
+  .doc{grid-template-columns:minmax(0,1fr);gap:var(--s-8);padding-top:var(--s-8)}
+  .doc>*{min-width:0}
   .doc-indice{position:static;max-height:none}
   .doc-indice details:not([open]) summary{border-bottom:1px solid var(--c-linea)}
   .doc-indice summary{cursor:pointer}

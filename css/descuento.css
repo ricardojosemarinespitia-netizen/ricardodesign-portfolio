@@ -85,6 +85,8 @@ html.quieto .desc,html.quieto .desc *{transition-duration:.01ms}
 /* ===== Botón flotante del descuento (.dflo) — lo crea descuento.js; position:fixed, no altera la altura de la página ===== */
 .dflo{position:fixed;left:0;right:0;bottom:calc(env(safe-area-inset-bottom,0px) + 14px);z-index:55;display:flex;justify-content:center;padding-inline:max(12px,env(safe-area-inset-left,0px)) max(12px,env(safe-area-inset-right,0px));pointer-events:none;opacity:0;visibility:hidden;transform:translateY(12px);transition:opacity var(--d-ui) var(--ease-casa),transform var(--d-ui) var(--ease-casa),visibility 0s linear var(--d-ui)}
 .dflo.dflo--ver{opacity:1;visibility:visible;transform:none;transition-delay:0s}
+/* reserva bajo el pie para que la pastilla flotante no tape el "© 2026" ni los enlaces legales */
+body:has(.dflo) .pie{padding-bottom:calc(env(safe-area-inset-bottom,0px) + 88px)}
 .dflo__in{pointer-events:auto;display:inline-flex;align-items:center;max-width:100%;min-height:48px;padding:0 4px 0 6px;border-radius:999px;color:var(--c-tinta);background-color:rgba(244,244,244,.9);border:1px solid rgba(22,22,22,.12);box-shadow:0 10px 28px -14px rgba(22,22,22,.4),0 1px 3px rgba(22,22,22,.08),inset 0 1px 0 rgba(255,255,255,.85)}
 @supports ((-webkit-backdrop-filter:blur(1px)) or (backdrop-filter:blur(1px))){.dflo__in{background-color:rgba(244,244,244,.66);-webkit-backdrop-filter:blur(16px) saturate(170%);backdrop-filter:blur(16px) saturate(170%)}}
 @media (prefers-reduced-transparency:reduce){.dflo__in{background-color:rgba(244,244,244,.97);-webkit-backdrop-filter:none;backdrop-filter:none}}
