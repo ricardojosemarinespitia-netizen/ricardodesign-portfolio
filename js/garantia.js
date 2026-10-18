@@ -155,12 +155,14 @@
 
 /* rd negro mate: gira lento sobre su eje (rotación Y, 16 s por vuelta, lineal). 90 cuadros de 4° (Blender Cycles, alfa) que se
    mezclan de a dos para que no se vean los pasos; se cargan al acercarse. Pausa fuera de pantalla y con la pestaña oculta.
-   Reducido, ?estatico, ahorro de datos o sin canvas: queda el póster fijo del HTML. En móvil usa cuadros alternos (45). */
+   Reducido, ?estatico, ahorro de datos, red 2g o sin canvas/rAF (guardia de 2,5 s): queda el póster fijo del HTML. En móvil/táctil usa cuadros alternos (45, ~320 KB)
+   y el sello se ve centrado sobre el título (css/pliego.css, max-width:760px). */
 (function () {
   var rd = document.querySelector('#garantia .pliego__rd');
   if (!rd) return;
   var root = document.documentElement;
-  if (root.classList.contains('quieto') || (navigator.connection && navigator.connection.saveData) || !window.IntersectionObserver) return;
+  var red = navigator.connection || {};
+  if (root.classList.contains('quieto') || red.saveData || /(^|-)2g$/.test(red.effectiveType || '') || !window.IntersectionObserver) return;   /* 2g, ahorro de datos, reducido: póster fijo */
   var c = document.createElement('canvas'); c.className = 'pliego__rd-lienzo'; c.width = c.height = 360; c.setAttribute('aria-hidden', 'true');
   var cx = c.getContext && c.getContext('2d'); if (!cx) return;
   var N = 90, PASO = (window.innerWidth <= 760 || matchMedia('(pointer:coarse)').matches) ? 2 : 1, SEG = 16000;
@@ -176,7 +178,10 @@
     if (!vivo) { vivo = 1; rd.classList.add('rd-vivo'); }
   }
   function bucle(ms) { if (!vis || document.hidden) { raf = 0; return; } dibujar(ms); raf = requestAnimationFrame(bucle); }
-  function arrancar() { if (ok && vis && !raf) { if (!t0) t0 = performance.now(); raf = requestAnimationFrame(bucle); } }
+  function arrancar() { if (ok && vis && !raf) { if (!t0) t0 = performance.now(); raf = requestAnimationFrame(bucle); guardia(); } }
+  /* WebView o navegador que no entrega cuadros de rAF / canvas: si en 2,5 s no se pintó ninguno, se retira el lienzo y queda el póster */
+  var gd = 0;
+  function guardia() { if (gd || vivo) return; gd = setTimeout(function () { gd = 0; if (document.hidden || !vis) return; if (!vivo) { vis = 0; ok = 0; if (c.parentNode) c.parentNode.removeChild(c); } }, 2500); }
   function cargar() {
     if (im.length) return;
     for (var i = 0; i < N; i += PASO) (function (k) {
@@ -188,6 +193,6 @@
   rd.appendChild(c);
   new IntersectionObserver(function (es) {
     vis = es[0].isIntersecting; if (vis) { cargar(); arrancar(); }
-  }, { rootMargin: '300px 0px' }).observe(rd);
+  }, { rootMargin: (PASO > 1 ? '500px' : '300px') + ' 0px' }).observe(rd);
   document.addEventListener('visibilitychange', arrancar);
 })();
