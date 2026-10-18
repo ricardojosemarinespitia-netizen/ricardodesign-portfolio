@@ -93,7 +93,7 @@ ctx.EXT = EXT;
    (index.html hecho a mano, que este build ya NO escribe). Estilos: css/paginas.css. */
 const FLECHA = '<svg class="ico flecha" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6"/></svg>';
 ctx.FLECHA = FLECHA;
-const NAV_HOME = [['#dispositivos', 'Dispositivos'], ['#garantia', 'Garantía'], ['#servicios', 'Servicios'], ['#casos', 'Casos'], ['#planes', 'Planes'], ['#proceso', 'Proceso']];
+const NAV_HOME = [['#dispositivos', 'Dispositivos'], ['#garantia', 'Garantía'], ['#servicios', 'Servicios'], ['#casos', 'Casos'], ['#planes', 'Planes']];
 /* Pie: mismos enlaces en el home y en las internas (servicios, proyectos). Si cambias esto, cambia también el <footer> de index.html. */
 const NAV_PIE = [['diseno-web/', 'Diseño web'], ['publicidad-digital/', 'Meta Ads'], ['contenido-redes-sociales/', 'Contenido para redes'], ['mantenimiento-web/', 'Mantenimiento web'], ['proyectos/', 'Proyectos']];
 function logo(L, cls, lazy = '') {
