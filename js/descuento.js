@@ -51,3 +51,35 @@
     enl.click();                               /* mismo gesto del usuario: el <a> real abre WhatsApp, también en el navegador de Instagram/Facebook */
   });
 })();
+
+/* ===== Botón flotante del descuento ("Inscríbete: 10 % de descuento") =====
+   Se crea aquí (etapa 2 de la carga, tras el primer pintado). Aparece a los ~6 s o al bajar más de un pliegue; se oculta sobre #contacto
+   (donde está la tarjeta) y con el menú abierto; la × lo quita toda la sesión (sessionStorage con try/catch). Enlaza a #descuento. */
+(function(){
+  var K='rd_dflo_x';
+  try{if(sessionStorage.getItem(K))return}catch(e){}
+  var meta=document.getElementById('contacto'),tarj=document.getElementById('descuento');
+  if(!meta||!tarj||!document.body)return;
+  var d=document,w=d.createElement('div');
+  w.className='dflo';
+  w.innerHTML='<div class="dflo__in"><a class="dflo__a" href="#descuento" aria-label="Inscríbete y obtén 10 % de descuento. Ir al formulario"><span>Inscríbete:</span><b>10&nbsp;% de descuento</b></a>'+
+    '<button type="button" class="dflo__x" aria-label="Cerrar aviso de descuento"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="square" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>';
+  d.body.appendChild(w);
+  var listo=false,pasado=false,enMeta=false,menu=false,cerrado=false;
+  /* 'pasado': no sale sobre el primer pliegue (ahí están los controles del carrusel del hero) */
+  function pintar(){w.classList.toggle('dflo--ver',listo&&pasado&&!enMeta&&!menu&&!cerrado)}
+  setTimeout(function(){listo=true;pintar()},6000);
+  function medir(){var p=scrollY>innerHeight*.3;if(!listo&&scrollY>innerHeight*1.1)listo=true;if(p!==pasado||listo)pasado=p;pintar()}
+  addEventListener('scroll',medir,{passive:true});medir();
+  if('IntersectionObserver' in window){
+    new IntersectionObserver(function(es){enMeta=es[es.length-1].isIntersecting;pintar()},{threshold:0}).observe(meta);
+  }
+  var panel=d.getElementById('panel'),bm=d.querySelector('.nav__menu');
+  function leerMenu(){menu=!!(panel&&panel.classList.contains('abierto'))||!!(bm&&bm.getAttribute('aria-expanded')==='true');pintar()}
+  if(panel&&window.MutationObserver){new MutationObserver(leerMenu).observe(panel,{attributes:true,attributeFilter:['class']});leerMenu()}
+  w.querySelector('.dflo__x').addEventListener('click',function(){
+    cerrado=true;pintar();
+    try{sessionStorage.setItem(K,'1')}catch(e){}
+    setTimeout(function(){if(w.parentNode)w.parentNode.removeChild(w)},700);
+  });
+})();
