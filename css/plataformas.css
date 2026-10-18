@@ -171,18 +171,3 @@ html.quieto .pl-pulso.es-activa{animation-duration:.01ms;animation-iteration-cou
 .pl-pausa{position:absolute;left:var(--s-2);top:var(--s-2);z-index:70;clip:rect(0 0 0 0);clip-path:inset(50%);width:1px;height:1px;overflow:hidden;white-space:nowrap;font:600 var(--t-xs)/1 var(--f-texto);letter-spacing:.06em;color:var(--texto);background:var(--c-papel-2);border:1px solid var(--c-linea);border-radius:var(--r-1);padding:0}
 .pl-pausa:focus-visible{clip:auto;clip-path:none;width:auto;height:auto;overflow:visible;padding:var(--s-2) var(--s-3);outline:2px solid var(--c-tinta);outline-offset:2px}
 .pl-escena.pl-q0 .pl-lz--frente{display:none}
-
-/* ===== Pauta 3D (18 oct 2026): video 16:9 + medallón superpuesto =====
-   Columna derecha = video (caja 16:9, fondo #F6F6F6 como el cuadro) con el medallón rd cabalgando su esquina inferior derecha, junto a la lista:
-   la columna no pasa de la altura del texto (medido). El borde derecho del video se desvanece: disimula la ficha del pin que la cámara corta a medias. */
-.plt-der{display:grid;min-width:0;align-content:center;position:relative}
-.plt-pauta{position:relative;margin:0;width:100%;max-width:640px;justify-self:end;aspect-ratio:16/9;background:#F6F6F6;border:1px solid var(--c-linea);border-radius:var(--r-2);box-shadow:0 22px 44px -30px color-mix(in srgb,var(--c-tinta) 42%,transparent);overflow:hidden;isolation:isolate}
-.plt-pauta picture,.plt-pauta img,.plt-pauta video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;-webkit-mask-image:linear-gradient(90deg,#000 86%,transparent);mask-image:linear-gradient(90deg,#000 86%,transparent)}
-.plt-pauta video{opacity:0;transition:opacity var(--d-ui) var(--ease-casa)}
-.plt-pauta video.vivo{opacity:1}
-.plt-der .pl-escena{--plt-ficha:clamp(36px,3.1vw,44px);width:min(100%,440px);max-width:none;justify-self:end;margin:-158px -2% 0 0;position:relative;z-index:2}
-@media(max-width:900px){
-  .plt-pauta{max-width:560px;justify-self:center}
-  .plt-der .pl-escena{--plt-ficha:clamp(34px,10vw,42px);width:min(86%,340px);max-width:none;justify-self:end;margin:-86px 0 0 0}
-  .plt-der .pl-rd{left:20%;width:60%}
-}
