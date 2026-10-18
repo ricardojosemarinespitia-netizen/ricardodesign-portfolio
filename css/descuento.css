@@ -81,3 +81,19 @@ html.quieto .desc,html.quieto .desc *{transition-duration:.01ms}
 @media (min-width:901px) and (max-width:1100px){
   .desc__fila{grid-template-columns:1fr}
 }
+
+/* ===== Botón flotante del descuento (.dflo) — lo crea descuento.js; position:fixed, no altera la altura de la página ===== */
+.dflo{position:fixed;left:0;right:0;bottom:calc(env(safe-area-inset-bottom,0px) + 14px);z-index:55;display:flex;justify-content:center;padding-inline:max(12px,env(safe-area-inset-left,0px)) max(12px,env(safe-area-inset-right,0px));pointer-events:none;opacity:0;visibility:hidden;transform:translateY(12px);transition:opacity var(--d-ui) var(--ease-casa),transform var(--d-ui) var(--ease-casa),visibility 0s linear var(--d-ui)}
+.dflo.dflo--ver{opacity:1;visibility:visible;transform:none;transition-delay:0s}
+.dflo__in{pointer-events:auto;display:inline-flex;align-items:center;max-width:100%;min-height:48px;padding:0 4px 0 6px;border-radius:999px;color:var(--c-tinta);background-color:rgba(244,244,244,.9);border:1px solid rgba(22,22,22,.12);box-shadow:0 10px 28px -14px rgba(22,22,22,.4),0 1px 3px rgba(22,22,22,.08),inset 0 1px 0 rgba(255,255,255,.85)}
+@supports ((-webkit-backdrop-filter:blur(1px)) or (backdrop-filter:blur(1px))){.dflo__in{background-color:rgba(244,244,244,.66);-webkit-backdrop-filter:blur(16px) saturate(170%);backdrop-filter:blur(16px) saturate(170%)}}
+@media (prefers-reduced-transparency:reduce){.dflo__in{background-color:rgba(244,244,244,.97);-webkit-backdrop-filter:none;backdrop-filter:none}}
+.dflo__a{display:inline-flex;align-items:center;gap:.3em;min-height:var(--toque);padding:0 var(--s-3) 0 var(--s-3);border-radius:999px;font:600 var(--t-sm)/1.2 var(--f-texto);letter-spacing:.01em;color:inherit;text-decoration:none;white-space:nowrap}
+.dflo__a b{font-weight:700}
+.dflo__x{flex:none;display:inline-flex;align-items:center;justify-content:center;width:var(--toque);height:var(--toque);padding:0;margin:0;border:0;border-radius:999px;background:none;color:var(--c-tinta);opacity:.62;cursor:pointer;-webkit-tap-highlight-color:transparent}
+.dflo__x svg{width:14px;height:14px}
+@media (hover:hover){.dflo__a:hover{background:rgba(22,22,22,.07)}.dflo__x:hover{opacity:1;background:rgba(22,22,22,.07)}}
+.dflo__a:focus-visible,.dflo__x:focus-visible{outline:2px solid var(--c-tinta);outline-offset:-2px}
+@media (min-width:901px){.dflo{justify-content:flex-end;bottom:calc(env(safe-area-inset-bottom,0px) + 22px);padding-inline:var(--gutter,24px)}}
+@media (prefers-reduced-motion:reduce){.dflo{transition-duration:.01ms;transform:none}}
+html.quieto .dflo{transition-duration:.01ms;transform:none}
