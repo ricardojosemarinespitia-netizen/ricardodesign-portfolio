@@ -110,3 +110,8 @@
 .g3d--rt .ico,.g3d--vivo .ico{opacity:0}
 @media(max-width:1279px){.pliego--v2{--g3d-v:108px}}
 @media(max-width:760px){.pliego--v2{--g3d-v:94px}.g3d__cv,.g3d__foto{top:calc(50% - 8px)}}
+/* rd girando (js/garantia.js): el lienzo flota sobre el póster sin tocar la caja; el póster se apaga al arrancar. */
+.pliego__rd-lienzo{position:absolute;left:-10%;top:50%;width:120%;height:auto;aspect-ratio:1;transform:translateY(-50%) rotateX(var(--rd-sy,0deg));opacity:0;transition:opacity .6s var(--ease-casa);pointer-events:none}
+.rd-vivo .pliego__rd-lienzo{opacity:1}
+.rd-vivo picture{opacity:0;transition:opacity .6s var(--ease-casa)}
+.rd-vivo:after{left:calc(50% - 13% - 14% * var(--rd-sh,1));right:calc(50% - 13% - 14% * var(--rd-sh,1));bottom:6%;height:5%;opacity:calc(.55 + .45 * var(--rd-sh,1))}

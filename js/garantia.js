@@ -152,3 +152,42 @@
     } else if (++n < 80) setTimeout(esperar, 100);
   })();
 })();
+
+/* rd negro mate: gira lento sobre su eje (rotación Y, 16 s por vuelta, lineal). 90 cuadros de 4° (Blender Cycles, alfa) que se
+   mezclan de a dos para que no se vean los pasos; se cargan al acercarse. Pausa fuera de pantalla y con la pestaña oculta.
+   Reducido, ?estatico, ahorro de datos o sin canvas: queda el póster fijo del HTML. En móvil usa cuadros alternos (45). */
+(function () {
+  var rd = document.querySelector('#garantia .pliego__rd');
+  if (!rd) return;
+  var root = document.documentElement;
+  if (root.classList.contains('quieto') || (navigator.connection && navigator.connection.saveData) || !window.IntersectionObserver) return;
+  var c = document.createElement('canvas'); c.className = 'pliego__rd-lienzo'; c.width = c.height = 360; c.setAttribute('aria-hidden', 'true');
+  var cx = c.getContext && c.getContext('2d'); if (!cx) return;
+  var N = 90, PASO = (window.innerWidth <= 760 || matchMedia('(pointer:coarse)').matches) ? 2 : 1, SEG = 16000;
+  var im = [], listos = 0, tot = Math.ceil(N / PASO), ok = 0, vis = 0, t0 = 0, raf = 0, f = -1, vivo = 0;
+  var sombra = rd;
+  function dibujar(ms) {
+    var p = ((ms - t0) / SEG) % 1, x = p * N, a = Math.floor(x), t = x - a;
+    var i0 = Math.floor(a / PASO) * PASO, i1 = (i0 + PASO) % N, u = (x - i0) / PASO;
+    var A = im[i0], B = im[i1]; if (!A || !B) return;
+    cx.clearRect(0, 0, 360, 360); cx.globalAlpha = 1; cx.drawImage(A, 0, 0, 360, 360);
+    if (u > 0.003) { cx.globalAlpha = u; cx.drawImage(B, 0, 0, 360, 360); cx.globalAlpha = 1; }
+    sombra.style.setProperty('--rd-sh', (0.5 + 0.5 * Math.abs(Math.cos(p * 6.2832))).toFixed(3));
+    if (!vivo) { vivo = 1; rd.classList.add('rd-vivo'); }
+  }
+  function bucle(ms) { if (!vis || document.hidden) { raf = 0; return; } dibujar(ms); raf = requestAnimationFrame(bucle); }
+  function arrancar() { if (ok && vis && !raf) { if (!t0) t0 = performance.now(); raf = requestAnimationFrame(bucle); } }
+  function cargar() {
+    if (im.length) return;
+    for (var i = 0; i < N; i += PASO) (function (k) {
+      var g = new Image(); g.decoding = 'async';
+      g.onload = function () { if (++listos === tot) { ok = 1; arrancar(); } };
+      g.src = 'assets/web/garantia/giro/r_' + (k < 10 ? '0' : '') + k + '.webp'; im[k] = g;
+    })(i);
+  }
+  rd.appendChild(c);
+  new IntersectionObserver(function (es) {
+    vis = es[0].isIntersecting; if (vis) { cargar(); arrancar(); }
+  }, { rootMargin: '300px 0px' }).observe(rd);
+  document.addEventListener('visibilitychange', arrancar);
+})();
