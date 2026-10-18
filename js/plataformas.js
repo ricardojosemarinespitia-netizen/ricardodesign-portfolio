@@ -374,7 +374,7 @@
     var ok=0;try{var tg=document.createElement('canvas').getContext('webgl2');if(tg){ok=1;var lc=tg.getExtension('WEBGL_lose_context');lc&&lc.loseContext()}}catch(_){}
     if(!ok)return cargarCuadros2D();
     import(new URL('js/rd3d.min.js',document.baseURI).href).then(function(m){
-      return m.giro(rd,{control:true,zona:sec,antes:lienzo,clase:'pl-rd__gl',vivo:['es-vivo'],lado:1,reflejo:.24,exp:2,
+      return m.giro(rd,{control:true,zona:sec,antes:lienzo,clase:'pl-rd__gl',vivo:['es-vivo'],lado:1,reflejo:.24,fondoReflejo:.3,exp:2,
         estilo:'position:absolute;inset:0;width:100%;height:100%;display:block;pointer-events:none',
         cam:{fov:24,pos:[0,.66,3.55],mira:[0,.36,0]},alFallar:function(){gl3=null;cargarCuadros2D()}});
     }).then(function(g){gl3=g;ctx=lienzo.getContext('2d');window.__plGl=g}).catch(function(e){console.warn('rd plataformas',e&&e.message);cargarCuadros2D()});
