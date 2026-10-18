@@ -656,7 +656,7 @@ ${relacionados(L, 'web')}`;
     const salida = 'mantenimiento-web/index.html', L = crearLinks(salida), s = svc('mantenimiento');
     const MIGAS = [['Inicio', ''], ['Mantenimiento web', 'mantenimiento-web/']];
     const FAQ = [
-      ['¿En cuánto tiempo atienden un cambio?', 'Entre 24 y 48 horas hábiles, según la complejidad.'],
+      ['¿En cuánto tiempo atienden un cambio?', 'Depende de la complejidad del cambio; te confirmamos el tiempo por WhatsApp antes de empezar.'],
       ['¿Qué pasa si necesito un cambio grande?', 'Si una solicitud supera 8 horas continuas de desarrollo, se cotiza como proyecto independiente.'],
       ['¿Hay permanencia en el plan mensual?', 'Sí, mínimo 3 meses. Para cancelar, avísanos con 30 días de anticipación.'],
       ['¿Qué conviene más, por hora o mensual?', 'Si haces cambios de vez en cuando, por hora. Si actualizas productos, precios o contenido cada semana, el plan mensual.']
@@ -685,7 +685,7 @@ ${migas(L, MIGAS)}
   <ol class="pasos">
     <li class="paso rv"><h3>Escríbenos</h3><p>Por WhatsApp, con lo que quieres cambiar y las fotos o textos nuevos.</p></li>
     <li class="paso rv rv-d1"><h3>Confirmamos</h3><p>Te decimos el tiempo estimado; si es por hora, cuántas horas.</p></li>
-    <li class="paso rv rv-d2"><h3>Lo hacemos</h3><p>En 24 a 48 horas hábiles, según la complejidad.</p></li>
+    <li class="paso rv rv-d2"><h3>Lo hacemos</h3><p>Te confirmamos el tiempo antes de empezar, según la complejidad.</p></li>
     <li class="paso rv rv-d3"><h3>Revisas</h3><p>Te avisamos cuando esté publicado para que lo veas.</p></li>
   </ol>
 </div></section>
@@ -695,7 +695,7 @@ ${ctaFinal('¿Tu página necesita <em>un cambio?</em>', 'Escríbenos qué quiere
 ${relacionados(L, 'mantenimiento')}`;
     out.push({ salida, actual: 'mantenimiento', servicio: 'mantenimiento', cuerpo,
       title: 'Mantenimiento web | Ricardo Design',
-      desc: 'Cambios, actualizaciones y soporte para tu página web, por hora o en suscripción mensual. Se cotiza según tu página. Respuesta en 24-48 horas hábiles.',
+      desc: 'Cambios, actualizaciones y soporte para tu página web, por hora o en suscripción mensual. Se cotiza según tu página.',
       jsonld: [serviceLd(s, SITIO + '/mantenimiento-web/'), migasLd(MIGAS), faqLd(FAQ)] });
   }
 
@@ -816,7 +816,7 @@ ${migas(L, MIGAS_LEGAL).replace('migas wrap', 'migas')}
   <h3>Por hora</h3><p>Se cobra por hora de modificación realizada. <strong>Valor:</strong> se cotiza según el alcance; te lo confirmamos por escrito antes de empezar.</p>
   <div class="divisor"></div>
   <h3>Suscripción mensual</h3><p>Incluye asistencia personalizada y soporte continuo para realizar las modificaciones que el cliente requiera en su sitio web. <strong>Valor:</strong> se cotiza según el alcance; te lo confirmamos por escrito antes de empezar.</p>
-  <p>Todas las solicitudes se atienden en un plazo estimado de <strong>24 a 48 horas hábiles</strong>, dependiendo de su complejidad.</p>
+  <p>El tiempo de atención de cada solicitud depende de su complejidad y se confirma con el cliente antes de empezar.</p>
   <h3>Incluye</h3><ul>${svc('mantenimiento').incluye.map((x) => `<li>${esc(x)}</li>`).join('')}</ul>
   <!-- [D16] Antes decía "Actualización de plugins, temas y CMS". Neutralizado a "dependencias y servicios conectados" hasta confirmar si se atienden sitios con CMS. -->
   <h3>No incluye</h3><ul>${svc('mantenimiento').noIncluye.map((x) => `<li>${esc(x)}</li>`).join('')}</ul>
