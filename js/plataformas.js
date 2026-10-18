@@ -2,17 +2,50 @@
    Las medallas ya no van atadas al rd: no hay hilos ni elipses guía. Cada una es un satélite con su propia trayectoria 3D
    (elipse kepleriana inclinada con precesión, ocho/lemniscata, rosetón en espiral, Lissajous 3D) alrededor del rd y
    sobre todo de la "d", con distinto plano, radio, velocidad y fase. Pasan por delante y por detrás del rd (oclusión real
-   por capas contra la silueta del rd), con perspectiva (escala, brillo y desenfoque por profundidad), estela de luz,
-   sombra suave sobre el piso y giro propio en su eje (hoja Blender de volteo). El cuerpo = trayectoria + desviación con
+   por capas contra la silueta del rd), con perspectiva (escala, brillo y desenfoque por profundidad),
+   sombra suave sobre el piso (sin estelas ni rastros) y giro propio en su eje (hoja Blender de volteo). El cuerpo = trayectoria + desviación con
    resorte: el puntero, los choques y el estallido lo sacan de su órbita y vuelve con elasticidad.
    Regímenes de órbita: libre, polar, ocho y enjambre; el scroll los mezcla y tocar el rd los cambia.
    Hover = la medalla se frena, se pone de cara y toma su color; clic/toque/foco = viaja al frente y queda brillando
    mientras las demás siguen orbitando. Mantener presionado = imán; barrido rápido = patada; inclinar el celular = paralaje.
    Un solo reloj (gsap.ticker si existe), nada corre fuera de pantalla, solo transform/opacity en el DOM.
-   Calidad adaptable (45 fps): sin desenfoque, sin estelas, sin choques. Modos livianos (WebView de Instagram/Facebook,
+   Calidad adaptable (45 fps): sin desenfoque, sin choques. Modos livianos (WebView de Instagram/Facebook,
    ahorro de datos, ?estatico, reducido): composición 3D quieta calculada una vez, sin bucle. */
 (function(){
   'use strict';
+  /* ======================= AFINACION: todo el "carácter" del movimiento vive aquí =======================
+     v5.1 "sutil": ~45 % de la energía de v5, medallas casi siempre de cara, rebotes amortiguados. Sube o baja a gusto. */
+  var ENERGIA={
+    vel:0.65,          /* velocidad orbital (1 = v5; la energía cinética es vel^2) */
+    regimen:1.1,       /* rapidez del cambio de régimen al hacer scroll (v5: 2.4; menos = más lento) */
+    camara:2.6,        /* seguimiento del paralaje de cámara (v5: 4) */
+    entradaMs:1200,    /* giro de entrada del rd (v5: 2400) */
+    aparece:0.22,      /* fundido + escala de cada medalla al entrar la sección, en segundos (v5.1: 0,45 tras 4 s de cascada) */
+    escalonado:0.015,  /* retraso entre medallas al aparecer, en segundos (máx. 60 ms): ya nacen repartidas en su órbita */
+    patada:0.38,       /* patada del puntero rápido (1 = v5) */
+    leanPuntero:18,    /* atracción de la medalla en hover hacia el puntero (v5: 40) */
+    leanMax:0.07,      /* recorrido máximo de esa atracción (v5: 0.12) */
+    iman:0.45,         /* fuerza del imán al mantener presionado (1 = v5) */
+    estallido:0.5,     /* fuerza del estallido del rd (1 = v5) */
+    choque:0.5,        /* impulso en choques entre medallas (v5: 0.9) */
+    rebote:1.3,        /* rebote contra el rd: 1 = sin rebote, 2 = elástico total (v5: 1.7) */
+    cabeceo:0.45       /* inclinación (roll) de la medalla al moverse (1 = v5) */
+  };
+  var AMORTIGUACION={
+    resorte:8,         /* rigidez del resorte que devuelve la medalla a su órbita (v5: 14) */
+    freno:5.2,         /* fricción de ese resorte; 2*raíz(resorte)=5.7 sería crítico (v5: 4.2, rebotaba) */
+    rafaga:[5,5]       /* cada cuántos segundos una medalla recibe un empujoncito: [mínimo, rango] (v5: 2.5 + 3) */
+  };
+  var GIRO_PROPIO={
+    amp:26,            /* grados de balanceo (yaw) alrededor de "de cara"; |ángulo| < 90 siempre = casi nunca de canto */
+    periodo:15,        /* segundos de un balanceo completo (cada medalla lo varía) */
+    rigidez:9,         /* qué tan rápido sigue su ángulo objetivo (resorte) */
+    freno:5.4,         /* amortiguación de ese resorte (crítico = 2*raíz(rigidez)) */
+    golpe:0.17,        /* cuánto del antiguo golpe de giro se conserva (1 = v5, que las volteaba) */
+    vmax:240,          /* tope de velocidad angular (grados/s) por cualquier golpe */
+    tope:46,           /* desviación máxima respecto al balanceo (grados) */
+    volteo:1.5         /* velocidad del volteo completo al activar (1/seg, ~1,8 s); solo con clic/toque/foco */
+  };
   var root=document.documentElement;
   var sec=document.getElementById('plataformas');if(!sec||!('IntersectionObserver' in window))return;
   var escena=sec.querySelector('.pl-escena'),rd=sec.querySelector('.pl-rd'),lienzo=sec.querySelector('.pl-rd__lienzo');
@@ -102,14 +135,12 @@
   var reloj=0,activa=-1,hov=-1,fij=-1;
   var px=0,py=0,tx=0,ty=0,prog=0;
   var B=[],regManual=-1,progManual=0,golpeRd=0,empujeRd={x:0,y:0,vx:0,vy:0},iman=null,ptr={x:0,y:0,vx:0,vy:0,t:0,dentro:false,mouse:false,abajo:false};
-  var grav={x:0,y:0},dedo={x:0,y:0},cam={x:0,y:0},q=2,fpsM=60,lentoT=0,pausado=false,gT=1,proxRafaga=4,ultLuz=0;
-  var SPIN=[58,-46,52,-62,44,-54,60,-48,50,-56];
-  var STAGE=[0,0.4,0.95];
-  var luces=[];
+  var grav={x:0,y:0},dedo={x:0,y:0},cam={x:0,y:0},q=2,fpsM=60,lentoT=0,pausado=false,gT=1,proxRafaga=7,ultLuz=0;
+    var STAGE=[0,0.4,0.95];
 
   function crearCuerpos(){
     B=fichas.map(function(f,i){return {tau:i*0.37,ox:0,oy:0,oz:0,vx:0,vy:0,vz:0,pos:[0,0,0],pv:[0,0,0],px:0,py:0,sc:1,mp:0,mpv:0,rate:1,
-      fa:i*37,fv:0,hold:0.55+i*0.11,rel:false,t0:0,vis:0,vf:-1,zi:0,blur:-1,gx:-1,gy:-1,tr:[],trt:0,lado:-1,hit:0}});
+      fa:0,fv:0,fb:0,fbT:0,fph:i*1.9+0.7,fper:0.74+((i*37)%10)/16,hold:0,rel:true,t0:i*ENERGIA.escalonado,vis:0,vf:-1,zi:0,blur:-1,gx:-1,gy:-1,lado:-1,hit:0}});
   }
 
   /* ======================= proyección ======================= */
@@ -123,16 +154,17 @@
   }
 
   /* ======================= física ======================= */
-  function patear(b,fx,fy,fz,giroF){b.vx+=fx;b.vy+=fy;b.vz+=fz;b.fv+=giroF}
+  function giro(b,v){b.fv=cl(b.fv+v*GIRO_PROPIO.golpe,-GIRO_PROPIO.vmax,GIRO_PROPIO.vmax)}
+  function patear(b,fx,fy,fz,giroF){b.vx+=fx;b.vy+=fy;b.vz+=fz;giro(b,giroF)}
   function estallar(fuerza){
     fuerza=fuerza||1;golpeRd=1;
-    B.forEach(function(b){var dx=b.pos[0],dy=b.pos[1],dz=b.pos[2]*0.5,d=Math.hypot(dx,dy,dz)||1,v=(1.5+Math.random()*1.2)*fuerza;
-      patear(b,dx/d*v,dy/d*v-0.3,dz/d*v,(Math.random()<.5?-1:1)*(1200+Math.random()*1200))});
+    B.forEach(function(b){var dx=b.pos[0],dy=b.pos[1],dz=b.pos[2]*0.5,d=Math.hypot(dx,dy,dz)||1,v=(1.5+Math.random()*1.2)*fuerza*ENERGIA.estallido;
+      patear(b,dx/d*v,dy/d*v-0.15,dz/d*v,(Math.random()<.5?-1:1)*(1200+Math.random()*1200))});
     esquirlas();onda(cx,cy,'');
   }
   function cambiarRegimen(){
     regManual=((regManual<0?regActual():regManual)+1)%4;progManual=prog;
-    B.forEach(function(b,i){b.fv+=(i%2?-1:1)*(700+i*60)});anunciar(NOMBRES[regManual]);
+    B.forEach(function(b,i){giro(b,(i%2?-1:1)*(700+i*60))});anunciar(NOMBRES[regManual]);
   }
   function regActual(){var m=0;for(var r=1;r<4;r++)if(reg[r]>reg[m])m=r;return m}
   var voz=null;function anunciar(t){if(!voz){voz=document.createElement('span');voz.className='visually-hidden pl-voz';voz.setAttribute('aria-live','polite');escena.appendChild(voz)}voz.textContent='Régimen: '+t}
@@ -145,12 +177,12 @@
     var s=(1-prog)/2,w0=[1,0,0,0];
     if(regManual>-1){w0=[0,0,0,0];w0[regManual]=1}
     else if(s<0.34){var m=ease(s/0.34);w0=[m,0,0,1-m]}else if(s>0.64){var m2=ease((s-0.64)/0.3);w0=[1-m2,m2,0,0]}
-    var kr=Math.min(1,dt*2.4);for(var r=0;r<4;r++)reg[r]+=(w0[r]-reg[r])*kr;
+    var kr=Math.min(1,dt*ENERGIA.regimen);for(var r=0;r<4;r++)reg[r]+=(w0[r]-reg[r])*kr;
     var gTobj=pausado?0.03:1;gT+=(gTobj-gT)*Math.min(1,dt*3);
     var cax=cl(px*0.9+grav.x+dedo.x,-1.3,1.3),cay=cl(py*0.9+grav.y+dedo.y,-1.3,1.3);
-    cam.x+=(cax-cam.x)*Math.min(1,dt*4);cam.y+=(cay-cam.y)*Math.min(1,dt*4);
+    cam.x+=(cax-cam.x)*Math.min(1,dt*ENERGIA.camara);cam.y+=(cay-cam.y)*Math.min(1,dt*ENERGIA.camara);
     dedo.x*=Math.pow(0.2,dt);dedo.y*=Math.pow(0.2,dt);
-    var KS=14,CS=4.2,rm=0.10;
+    var KS=AMORTIGUACION.resorte,CS=AMORTIGUACION.freno,rm=0.10;
     var pxS=(ptr.x-cx)/S,pyS=(ptr.y-cy)/S,pvS=Math.hypot(ptr.vx,ptr.vy);
     for(var i=0;i<n;i++){
       var b=B[i];
@@ -159,26 +191,21 @@
       if(ptr.dentro&&(ptr.mouse||ptr.abajo)){var dd=Math.hypot(b.px-ptr.x,b.py-ptr.y)/S;rt=1-0.82*cl((0.5-dd)/0.5,0,1)}
       if(i===hov||i===fij)rt=0.06;
       b.rate+=(rt-b.rate)*Math.min(1,dt*6);
-      b.tau+=dt*b.rate*gT;
+      b.tau+=dt*b.rate*gT*ENERGIA.vel;
       var P=trayecto(i,b.tau,reg),Px=P[0],Py=P[1],Pz=P[2];
       /* velocidad de la trayectoria */
       b.pv[0]=(Px-b.pos[0]+b.ox)/Math.max(dt,0.004);
-      if(!b.rel){
-        b.hold-=dt;
-        if(b.hold<=0){b.rel=true;b.t0=reloj;var d=Math.hypot(Px,Py,Pz)||1;b.ox=-Px;b.oy=-Py;b.oz=-Pz-0.25;b.vx=Px/d*1.1;b.vy=Py/d*1.1;b.vz=Pz/d*0.9;b.fv+=(i%2?-1:1)*1600}
-        else{b.ox=-Px;b.oy=-Py;b.oz=-Pz-0.25;b.vx=b.vy=b.vz=0}
-      }
       /* desviación: resorte elástico que devuelve a la órbita */
       var ax=-KS*b.ox-CS*b.vx,ay=-KS*b.oy-CS*b.vy,az=-KS*b.oz-CS*b.vz;
       var sx=Px+b.ox,sy=Py+b.oy;
       if(b.rel){
         /* imán: mantener presionado el fondo */
-        if(iman){var mx=(iman.x-cx)/S-sx,my=(iman.y-cy)/S-sy,md=Math.hypot(mx,my)||1,fm=Math.min(14,md*20);ax+=mx/md*fm;ay+=my/md*fm;ax-=b.vx*1.6;ay-=b.vy*1.6}
+        if(iman){var mx=(iman.x-cx)/S-sx,my=(iman.y-cy)/S-sy,md=Math.hypot(mx,my)||1,fm=Math.min(14,md*20)*ENERGIA.iman;ax+=mx/md*fm;ay+=my/md*fm;ax-=b.vx*2.6;ay-=b.vy*2.6}
         /* puntero rápido = patada; la medalla en foco se asoma hacia el puntero */
         if(ptr.dentro&&!iman){
           var qx=sx-pxS,qy=sy-pyS,qd=Math.hypot(qx,qy),rr=FI*0.6*b.sc/S;
-          if(i===hov&&ptr.mouse){ax+=cl(-qx,-0.12,0.12)*40;ay+=cl(-qy,-0.12,0.12)*40}
-          else if(qd<rr*1.9&&pvS>650&&i!==fij){var fk=Math.min(2400,pvS)/S*0.0012*S/ S;patear(b,(qx/(qd||1))*0.9*Math.min(2.4,pvS/900)+ptr.vx/S*0.18,(qy/(qd||1))*0.9*Math.min(2.4,pvS/900)+ptr.vy/S*0.18,0,(ptr.vx>0?1:-1)*Math.min(2400,pvS*1.3))}
+          if(i===hov&&ptr.mouse){ax+=cl(-qx,-ENERGIA.leanMax,ENERGIA.leanMax)*ENERGIA.leanPuntero;ay+=cl(-qy,-ENERGIA.leanMax,ENERGIA.leanMax)*ENERGIA.leanPuntero}
+          else if(qd<rr*1.9&&pvS>650&&i!==fij){var fk=Math.min(2400,pvS)/S*0.0012*S/ S;patear(b,((qx/(qd||1))*0.9*Math.min(2.4,pvS/900)+ptr.vx/S*0.18)*ENERGIA.patada,((qy/(qd||1))*0.9*Math.min(2.4,pvS/900)+ptr.vy/S*0.18)*ENERGIA.patada,0,(ptr.vx>0?1:-1)*Math.min(2400,pvS*1.3))}
         }
       }
       b.vx+=ax*dt;b.vy+=ay*dt;b.vz+=az*dt;b.ox+=b.vx*dt;b.oy+=b.vy*dt;b.oz+=b.vz*dt;
@@ -193,15 +220,18 @@
         if(e2<1&&e2>1e-6){var e1=Math.sqrt(e2),nx=ex/ax2,ny=ey/ay2,nz=ez/az2,nl=Math.hypot(nx,ny,nz)||1;nx/=nl;ny/=nl;nz/=nl;
           var push=(1/e1-1)*Math.min(ax2,ay2,az2)*0.9;b.ox+=nx*push;b.oy+=ny*push;b.oz+=nz*push;X+=nx*push;Y+=ny*push;Z+=nz*push;
           var vn=b.vx*nx+b.vy*ny+b.vz*nz+(b.pv[0]*nx)*0;
-          if(vn<0){b.vx-=1.7*vn*nx;b.vy-=1.7*vn*ny;b.vz-=1.7*vn*nz;b.fv+=-vn*500*(nx>0?1:-1)}
-          if(vn<-0.3){golpeRd=Math.min(0.6,golpeRd+Math.min(0.25,-vn*0.25));empujeRd.vx-=nx*0.35*S*0.1;empujeRd.vy-=ny*0.35*S*0.1}}
+          if(vn<0){b.vx-=ENERGIA.rebote*vn*nx;b.vy-=ENERGIA.rebote*vn*ny;b.vz-=ENERGIA.rebote*vn*nz;giro(b,-vn*500*(nx>0?1:-1))}
+          if(vn<-0.3){golpeRd=Math.min(0.6,golpeRd+Math.min(0.25,-vn*0.25));empujeRd.vx-=nx*0.2*S*0.1;empujeRd.vy-=ny*0.2*S*0.1}}
       }
       b.pos[0]=X;b.pos[1]=Y;b.pos[2]=Z;
-      /* giro propio: más lento de cara y más rápido de canto, para que el logo se lea; en foco se pone de cara */
-      var sa=Math.sin(b.fa*D2R);
-      b.fa+=(SPIN[i]*(0.25+0.75*sa*sa)*b.rate*gT)*dt+b.fv*dt;b.fv*=Math.pow(0.35,dt);
-      if(i===hov||i===fij){var o2=Math.round(b.fa/180)*180;b.fa+=(o2-b.fa)*Math.min(1,dt*10);b.fv*=0.5}
-      b.vis=b.rel?cl((reloj-b.t0)/0.45,0,1):0;
+      /* giro propio v5.1: balanceo suave (yaw) alrededor de "de cara"; nunca se acerca a los 90 grados (canto).
+         El volteo completo (fbT += 180) solo ocurre al activar la medalla y es lento. */
+      var G=GIRO_PROPIO,foco=i===hov||i===fij,ytar=foco?0:G.amp*Math.sin(b.tau*TAU/G.periodo*b.fper+b.fph);
+      b.fb+=(b.fbT-b.fb)*Math.min(1,dt*G.volteo);
+      var tgt=b.fb+ytar;
+      b.fv+=((tgt-b.fa)*G.rigidez-b.fv*G.freno)*dt;b.fa+=b.fv*dt;
+      var dev=b.fa-tgt;if(dev>G.tope){b.fa=tgt+G.tope;if(b.fv>0)b.fv=0}else if(dev<-G.tope){b.fa=tgt-G.tope;if(b.fv<0)b.fv=0}
+      b.vis=cl((reloj-b.t0)/ENERGIA.aparece,0,1);
     }
     /* choques entre medallas (esferas 3D: si cruzan a distinto fondo, pasan de largo) */
     if(q>1)for(var i2=0;i2<n;i2++)for(var j=i2+1;j<n;j++){
@@ -210,10 +240,10 @@
       if(dd2<mn&&dd2>0.001){var ux=dx/dd2,uy=dy/dd2,uz=dz/dd2,ov=(mn-dd2)*0.5;
         p.ox-=ux*ov;p.oy-=uy*ov;p.oz-=uz*ov;r2.ox+=ux*ov;r2.oy+=uy*ov;r2.oz+=uz*ov;
         var rel=(r2.vx-p.vx)*ux+(r2.vy-p.vy)*uy+(r2.vz-p.vz)*uz;
-        if(rel<0){var im=-rel*0.9;p.vx-=im*ux;p.vy-=im*uy;p.vz-=im*uz;r2.vx+=im*ux;r2.vy+=im*uy;r2.vz+=im*uz;if(-rel>0.5){p.fv+=rel*500;r2.fv-=rel*500}}}
+        if(rel<0){var im=-rel*ENERGIA.choque;p.vx-=im*ux;p.vy-=im*uy;p.vz-=im*uz;r2.vx+=im*ux;r2.vy+=im*uy;r2.vz+=im*uz;if(-rel>0.5){giro(p,rel*500);giro(r2,-rel*500)}}}
     }
     /* un golpe de giro cada pocos segundos para que ninguna se vea mecánica */
-    proxRafaga-=dt;if(proxRafaga<0&&fij<0&&hov<0){proxRafaga=2.5+Math.random()*3;var bb=B[(Math.random()*n)|0];bb.fv+=(Math.random()<.5?-1:1)*1100;bb.vy-=0.12}
+    proxRafaga-=dt;if(proxRafaga<0&&fij<0&&hov<0){proxRafaga=AMORTIGUACION.rafaga[0]+Math.random()*AMORTIGUACION.rafaga[1];var bb=B[(Math.random()*n)|0];giro(bb,(Math.random()<.5?-1:1)*1100);bb.vy-=0.05}
     /* el rd siente a sus satélites: se inclina hacia donde está la masa y responde a los choques */
     var bx=0,by=0,bm=0;for(i=0;i<n;i++){var bq=B[i];if(!bq.rel)continue;var dm=Math.hypot(bq.pos[0],bq.pos[1]);if(dm<1.1){bx+=bq.pos[0]*(1.1-dm);by+=bq.pos[1]*(1.1-dm);bm+=1}}
     var lx=bm?bx/10:0,ly=bm?by/10:0;empujeRd.lx=(empujeRd.lx||0)+(lx-(empujeRd.lx||0))*Math.min(1,dt*2);empujeRd.ly=(empujeRd.ly||0)+(ly-(empujeRd.ly||0))*Math.min(1,dt*2);
@@ -228,8 +258,8 @@
     for(var i=0;i<n;i++){
       var b=B[i],f=fichas[i];
       proyectar(b,b.pos);
-      var sc=b.sc*(0.4+0.6*ease(b.vis))*(i===fij?1+b.mp*0.5:1);
-      var roll=cl((b.px-(b.lx||b.px))*0.9,-14,14);b.lx=b.px;
+      var sc=b.sc*(0.6+0.4*ease(b.vis))*(i===fij?1+b.mp*0.5:1);
+      var roll=cl((b.px-(b.lx||b.px))*0.9*ENERGIA.cabeceo,-7,7);b.lx=b.px;
       f.style.transform='translate3d('+(b.px-W*0.5).toFixed(1)+'px,'+(b.py-H*0.5).toFixed(1)+'px,0) rotate('+roll.toFixed(1)+'deg) scale('+sc.toFixed(3)+')';
       var z=b.pos[2],lejos=cl((-z-0.1)/0.8,0,1),op=(b.vis*(0.8+0.2*(1-lejos))).toFixed(2);
       if(f._op!==op){f.style.opacity=op;f._op=op}
@@ -239,10 +269,10 @@
       bl=q>1?Math.round(Math.min(1.7,bl)*3)/3:0;var br=Math.round((1-0.14*lejos)*20)/20;
       var kf=bl*10+br;if(b.blur!==kf){cuerpos[i].style.filter=(bl||br<1)?(bl?'blur('+bl.toFixed(2)+'px) ':'')+'brightness('+br+')':'none';b.blur=kf}
       /* cuadro del volteo (16 cuadros = media vuelta) */
-      var a=((b.fa%180)+180)%180,k=Math.round(a/11.25)%16,vf=hayVolteo&&k!==0?k:-1;
+      var a=((b.fa%180)+180)%180,ys=b.fa-180*Math.round(b.fa/180),k=Math.round(a/11.25)%16,vf=hayVolteo&&k!==0?k:-1;
       if(vf!==b.vf){if(vf<0){f.classList.remove('es-volteo');caras[i].style.backgroundPosition=''}else{if(b.vf<0)f.classList.add('es-volteo');caras[i].style.backgroundPosition=(vf*100/15).toFixed(3)+'% '+(i*100/9).toFixed(3)+'%'}b.vf=vf}
       /* destello especular: recorre la cara con el giro y sigue la altura respecto a la luz */
-      var gx=Math.round(18+64*(a/180)),gy=Math.round(cl(26+(b.py-cy)/S*22,10,60));
+      var gx=Math.round(cl(50+ys*0.42,16,84)),gy=Math.round(cl(26+(b.py-cy)/S*22,10,60));
       if(!f.classList.contains('es-activa')&&(Math.abs(gx-b.gx)>2||Math.abs(gy-b.gy)>3)){cuerpos[i].style.setProperty('--gx',gx+'%');cuerpos[i].style.setProperty('--gy',gy+'%');b.gx=gx;b.gy=gy}
     }
     /* orden de profundidad: detrás del rd (1-9) y delante (30-39); la fijada, arriba de todo */
@@ -258,13 +288,12 @@
   }
   function lado(f,b){var xx=b.px,l=xx>W*0.8?2:xx<W*0.2?1:0;if(b.lado!==l){f.classList.toggle('lbl-der',l===2);f.classList.toggle('lbl-izq',l===1);b.lado=l}}
 
-  /* ---- lienzos: sombra sobre el piso + estelas (atrás del rd y delante del rd) ---- */
-  var cAt=null,cFr=null,xAt=null,xFr=null,dpr=1,sombraSpr=null,sombraRGB='46,40,36';
+  /* ---- lienzos: sombra sobre el piso ---- */
+  var cAt=null,xAt=null,dpr=1,sombraSpr=null,sombraRGB='46,40,36';
   function crearLienzos(){
     if(cAt)return;
     function mk(cl){var c=document.createElement('canvas');c.className=cl;c.setAttribute('aria-hidden','true');escena.appendChild(c);return c}
     cAt=mk('pl-lz pl-lz--atras');xAt=cAt.getContext('2d');
-    if(fis){cFr=mk('pl-lz pl-lz--frente');xFr=cFr.getContext('2d')}
     /* color de sombra de la casa */
     try{var tmp=document.createElement('i');tmp.style.color=getComputedStyle(sec).getPropertyValue('--pl-sombra')||'';tmp.style.display='none';sec.appendChild(tmp);var m=getComputedStyle(tmp).color.match(/[\d.]+/g);sec.removeChild(tmp);if(m&&m.length>=3)sombraRGB=(+m[0]|0)+','+(+m[1]|0)+','+(+m[2]|0)}catch(_){}
     var s=document.createElement('canvas');s.width=96;s.height=48;var g=s.getContext('2d'),gr=g.createRadialGradient(48,24,0,48,24,48);
@@ -273,7 +302,7 @@
   }
   function dimensionarLienzos(){
     if(!cAt)return;dpr=Math.min(window.devicePixelRatio||1,fino?1.5:1.25);
-    [cAt,cFr].forEach(function(c){if(c){c.width=Math.round(W*dpr);c.height=Math.round(H*dpr)}});
+    cAt.width=Math.round(W*dpr);cAt.height=Math.round(H*dpr);
   }
   var PISO=0.58;
   function sombras(x){
@@ -283,36 +312,13 @@
       x.globalAlpha=al;x.drawImage(sombraSpr,b.px-w*0.5,piso-w*0.25,w,w*0.5)}
     x.globalAlpha=1;
   }
-  var L=26;
+  /* sin estelas ni rastros: el lienzo solo pinta la sombra suave sobre el piso */
   function dibujar(t,dt){
     if(!cAt)return;
     xAt.setTransform(dpr,0,0,dpr,0,0);xAt.clearRect(0,0,W,H);
-    if(xFr){xFr.setTransform(dpr,0,0,dpr,0,0);xFr.clearRect(0,0,W,H)}
     if(q>0)sombras(xAt);
-    if(!xFr)return;
-    var ligeroT=!fino;
-    for(var i=0;i<n;i++){
-      var b=B[i];if(!b.rel)continue;
-      b.trt+=dt;if(b.trt>0.024){b.trt=0;var tr=b.tr;tr.unshift(b.px,b.py,b.pos[2],b.sc);if(tr.length>(ligeroT?14:L)*4)tr.length=(ligeroT?14:L)*4}
-      if(q<2)continue;
-      var tr2=b.tr,np=tr2.length/4,act=i===activa,col=act?colores[i]:null,hi=act?1.4:1;
-      for(var k=0;k<np-1;k++){
-        var u=1-k/np,al=Math.pow(u,1.7)*0.34*b.vis*hi,x0=tr2[k*4],y0=tr2[k*4+1],x1=tr2[k*4+4],y1=tr2[k*4+5],zz=tr2[k*4+2],cx2=zz<0?xAt:xFr;
-        var wd=Math.max(0.6,FI*0.075*u*tr2[k*4+3]);
-        cx2.lineCap='round';if(!ligeroT||act){cx2.globalAlpha=al*0.45;cx2.strokeStyle=col||'#8c8a86';cx2.lineWidth=wd*2.6;cx2.beginPath();cx2.moveTo(x0,y0);cx2.lineTo(x1,y1);cx2.stroke()}
-        cx2.globalAlpha=Math.min(1,al*1.5);cx2.strokeStyle=col||'#fffdfa';cx2.lineWidth=wd*(col?0.9:0.7);cx2.beginPath();cx2.moveTo(x0,y0);cx2.lineTo(x1,y1);cx2.stroke();
-      }
-    }
-    /* paquetes de luz que viajan por el aire del rd a la medalla activada */
-    for(var m=luces.length-1;m>=0;m--){
-      var lu=luces[m],tt=(reloj-lu.t)/0.7;if(tt>=1){luces.splice(m,1);continue}
-      var bb=B[lu.i],e=ease(tt);
-      for(var s=0;s<7;s++){var te=Math.max(0,e-s*0.035),X=cx+(bb.px-cx)*te+Math.sin(te*Math.PI)*S*0.12*lu.s,Y=cy+(bb.py-cy)*te-Math.sin(te*Math.PI)*S*0.1,r=(7-s)*0.9*(1-tt*0.4);
-        xFr.globalAlpha=(1-s/7)*(1-tt)*0.9;xFr.fillStyle=lu.c;xFr.beginPath();xFr.arc(X,Y,r,0,TAU);xFr.fill()}
-    }
-    xFr.globalAlpha=1;
   }
-  function luz(i){if(!fis||!B[i]||reloj-ultLuz<0.35)return;ultLuz=reloj;luces.push({i:i,t:reloj,c:colores[i],s:Math.random()<.5?-1:1});onda(cx,cy,colores[i])}
+  function luz(i){if(!fis||!B[i]||reloj-ultLuz<0.35)return;ultLuz=reloj;onda(cx,cy,colores[i])}
   function onda(x,y,c){var o=escena.querySelector('.pl-onda');if(!o)return;if(c)o.style.setProperty('--c',c);else o.style.removeProperty('--c');o.style.left=x+'px';o.style.top=y+'px';o.classList.remove('es-viva');void o.offsetWidth;o.classList.add('es-viva')}
 
   /* ---- composición quieta (modos livianos): una foto de las órbitas, sin bucle ---- */
@@ -357,10 +363,24 @@
   }
   function esquirlas(){if(hayEsq){est=performance.now();estK=-1}}
 
-  /* ======================= rd vivo (Canvas 2D, escritorio) ======================= */
-  var cuadros=[],cargados=0,N=+rd.getAttribute('data-n')||72,ctx=null,ang=0,angVel=0,arrastre=null,tinte=0,tinteC='',chispas=[];
+  /* ======================= rd vivo (escritorio) =======================
+     WebGL en vivo con el MISMO motor del hero (js/rd3d.min.js, giro() en modo control: misma geometría, negro mate, estudio, sombra de
+     contacto y reflejo en el piso). Este bucle (el único reloj) le pasa el ángulo, el puntero, el golpe y el tono; el lienzo 2D queda
+     encima solo para las chispas. Sin WebGL2 o si el módulo falla: los 72 cuadros Blender de antes (Canvas 2D). */
+  var cuadros=[],cargados=0,N=+rd.getAttribute('data-n')||72,ctx=null,ang=0,angVel=0,arrastre=null,tinte=0,tinteC='',chispas=[],gl3=null,pidioGl=0;
   function cargarCuadros(){
-    if(ligero||cuadros.length||!lienzo.getContext)return;
+    if(ligero||pidioGl||cuadros.length||!lienzo.getContext)return;pidioGl=1;
+    for(var i=0;i<26;i++)chispas.push({a:Math.random()*TAU,r:0.25+Math.random()*0.25,v:0.15+Math.random()*0.35,f:Math.random(),z:Math.random()});
+    var ok=0;try{var tg=document.createElement('canvas').getContext('webgl2');if(tg){ok=1;var lc=tg.getExtension('WEBGL_lose_context');lc&&lc.loseContext()}}catch(_){}
+    if(!ok)return cargarCuadros2D();
+    import(new URL('js/rd3d.min.js',document.baseURI).href).then(function(m){
+      return m.giro(rd,{control:true,zona:sec,antes:lienzo,clase:'pl-rd__gl',vivo:['es-vivo'],lado:1,reflejo:.24,exp:2,
+        estilo:'position:absolute;inset:0;width:100%;height:100%;display:block;pointer-events:none',
+        cam:{fov:24,pos:[0,.66,3.55],mira:[0,.36,0]},alFallar:function(){gl3=null;cargarCuadros2D()}});
+    }).then(function(g){gl3=g;ctx=lienzo.getContext('2d');window.__plGl=g}).catch(function(e){console.warn('rd plataformas',e&&e.message);cargarCuadros2D()});
+  }
+  function cargarCuadros2D(){
+    if(cuadros.length)return;
     var base=rd.getAttribute('data-giro');ctx=lienzo.getContext('2d');
     var orden=[];for(var k=0;k<N;k+=6)orden.push(k);for(k=0;k<N;k++)if(k%6)orden.push(k);
     for(var i=0;i<N;i++)cuadros.push(null);
@@ -369,7 +389,6 @@
       im.onload=function(){cuadros[k]=im;cargados++;if(k===0)rd.classList.add('es-vivo');vivos--;sigue()};
       im.onerror=function(){vivos--;sigue()};im.src=base+(k<10?'0':'')+k+'.webp'})(cola.shift())}}
     sigue();
-    for(i=0;i<26;i++)chispas.push({a:Math.random()*TAU,r:0.25+Math.random()*0.25,v:0.15+Math.random()*0.35,f:Math.random(),z:Math.random()});
   }
   function cuadroMasCercano(k){
     if(cuadros[k])return cuadros[k];
@@ -384,9 +403,14 @@
       if(Math.abs(angVel)<40)ang+=(obj-ang)*Math.min(1,dt*1.6);
       ang+=angVel*dt;
     }
-    var k=((Math.round(ang/(360/N))%N)+N)%N;
-    var w=lienzo.width,h=lienzo.height,im=cuadroMasCercano(k);if(!im)return;
     tinte+=((activa>-1?1:0)-tinte)*Math.min(1,dt*6);if(activa>-1)tinteC=colores[activa];
+    var w=lienzo.width,h=lienzo.height;
+    if(gl3){                                                    /* WebGL: ángulo continuo (sin pasos de 5°), luces en la escena 3D */
+      gl3.pose({ang:ang*D2R,px:px,py:py,golpe:golpeRd,tinte:tinte,color:tinteC,t:t});
+      ctx.clearRect(0,0,w,h);chispasRd(t,dt,w,h);return;
+    }
+    var k=((Math.round(ang/(360/N))%N)+N)%N;
+    var im=cuadroMasCercano(k);if(!im)return;
     var barr=(t%7)/7;
     ctx.globalCompositeOperation='source-over';ctx.clearRect(0,0,w,h);ctx.drawImage(im,0,0,w,h);
     ctx.globalCompositeOperation='source-atop';
@@ -398,6 +422,9 @@
     if(tinte>0.01&&tinteC){ctx.globalAlpha=tinte*0.6;var tg=ctx.createRadialGradient(w*0.5,h*0.55,0,w*0.5,h*0.55,w*0.55);
       tg.addColorStop(0,tinteC);tg.addColorStop(1,'rgba(0,0,0,0)');ctx.fillStyle=tg;ctx.fillRect(0,0,w,h);ctx.globalAlpha=1}
     ctx.globalCompositeOperation='source-over';
+    chispasRd(t,dt,w,h);
+  }
+  function chispasRd(t,dt,w,h){
     if(q>0)for(var i=0;i<chispas.length;i++){var c=chispas[i];c.f+=dt*c.v*(0.25+golpeRd*2);if(c.f>1){c.f=0;c.a=Math.random()*TAU}
       var r=c.r*w*(1+golpeRd*0.6),xx=w*0.5+Math.cos(c.a+t*0.2)*r,yy=h*(0.78-c.f*0.6)+Math.sin(c.a)*r*0.25,al=Math.sin(c.f*Math.PI)*0.55;
       ctx.globalAlpha=al;ctx.fillStyle=tinte>0.3&&tinteC?tinteC:'#9A9A9A';ctx.beginPath();ctx.arc(xx,yy,1+c.z*1.6,0,TAU);ctx.fill()}
@@ -472,13 +499,13 @@
   /* ======================= reloj único ======================= */
   var corriendo=false,usaGsap=false,ultimo=0,rafId=0,t0=0,entrada=ligero?1:0;
   function paso(ms){
-    var tm0=performance.now(),dt=Math.min(0.05,(ms-ultimo)/1000||0.016);ultimo=ms;reloj+=dt;
-    if(entrada<1){var ahora=performance.now();if(!t0)t0=ahora;entrada=Math.min(1,(ahora-t0)/2400)}
+    var tm0=performance.now(),dt=Math.max(0.001,Math.min(0.05,(ms-ultimo)/1000||0.016));ultimo=ms;reloj+=dt;
+    if(entrada<1){var ahora=performance.now();if(!t0)t0=ahora;entrada=Math.min(1,(ahora-t0)/ENERGIA.entradaMs)}
     px+=(tx-px)*Math.min(1,dt*5);py+=(ty-py)*Math.min(1,dt*5);
     var r=sec.getBoundingClientRect(),vh=innerHeight;
     prog=Math.max(-1,Math.min(1,((r.top+r.height/2)-vh/2)/vh));
     ptr.vx*=Math.pow(0.02,dt);ptr.vy*=Math.pow(0.02,dt);
-    /* calidad adaptable: sin desenfoque ni choques, luego sin estelas, luego sin sombras */
+    /* calidad adaptable: sin desenfoque ni choques, luego sin sombras */
     fpsM=fpsM*0.95+(1/Math.max(dt,0.001))*0.05;
     if(fpsM<45){lentoT+=dt;if(lentoT>1.5&&q>0){q--;lentoT=0;sec.setAttribute('data-q',q);escena.classList.toggle('pl-q1',q<2);escena.classList.toggle('pl-q0',q<1);B.forEach(function(b){b.blur=-1})}}else lentoT=0;
     window.__plFps=fpsM;
@@ -486,7 +513,7 @@
     pintarRd(reloj,dt);if(lPasoExt)lPasoExt(dt);
     window.__plMs=(window.__plMs||0)*0.95+(performance.now()-tm0)*0.05;
   }
-  function tickGsap(time){paso(time*1000)}
+  function tickGsap(){paso(performance.now())}   /* el tiempo de gsap tiene otro origen que performance.now(): mezclarlos daba un dt negativo y retrasaba la entrada segundos */
   function tickRaf(ms){paso(ms);rafId=requestAnimationFrame(tickRaf)}
   function arrancar(){
     if(corriendo||!fis||document.hidden)return;corriendo=true;ultimo=performance.now();
@@ -511,7 +538,8 @@
   }
   function setHov(i){if(i===hov)return;hov=i;refrescarActiva()}
   function fijar(i){
-    if(i===fij)return;fij=i;fichas.forEach(function(f,k){f.classList.toggle('es-fijada',k===i)});
+    if(i===fij)return;fij=i;if(i>-1&&fis&&B[i])B[i].fbT+=180;   /* volteo completo, lento, solo al activar */
+    fichas.forEach(function(f,k){f.classList.toggle('es-fijada',k===i)});
     refrescarActiva();if(!fis)pintarEstatico();else if(!corriendo)arrancar();
   }
   var salida=0;
@@ -537,7 +565,7 @@
     f.addEventListener('click',function(){
       if(performance.now()-f._foco<400)return;           /* el clic que dio el foco ya la fijó */
       fijar(fij===i?-1:i);
-      if(fis&&B[i]&&fij===i){B[i].fv+=1100;B[i].vy-=0.2}
+      if(fis&&B[i]&&fij===i)B[i].vy-=0.08
     });
     f.addEventListener('focus',function(){f._foco=performance.now();fijar(i)});
     f.addEventListener('blur',function(){if(fij===i)fijar(-1)});
@@ -564,28 +592,29 @@
     iman={x:ptr.x,y:ptr.y};tap={x:e.clientX,y:e.clientY,t:performance.now()};escena.classList.add('es-iman');if(!corriendo)arrancar()});
   function sueltaIman(e){ptr.abajo=false;if(!iman)return;
     if(tap&&e&&e.type==='pointerup'&&performance.now()-tap.t<260&&Math.hypot(e.clientX-tap.x,e.clientY-tap.y)<10&&fij>-1)fijar(-1);   /* toque en el vacío suelta la fijada */
-    iman=null;tap=null;escena.classList.remove('es-iman');B.forEach(function(b){b.fv+=(Math.random()<.5?-1:1)*900})}
+    iman=null;tap=null;escena.classList.remove('es-iman');B.forEach(function(b){giro(b,(Math.random()<.5?-1:1)*900)})}
   addEventListener('pointerup',sueltaIman);addEventListener('pointercancel',sueltaIman);
   escena.addEventListener('pointerleave',function(e){tx=ty=0;ptr.dentro=false;if(hov>-1)setHov(-1)});
   document.addEventListener('pointerdown',function(e){if(fij>-1&&!escena.contains(e.target))fijar(-1)},{passive:true});
 
   /* ======================= arranque perezoso y pausa fuera de pantalla ======================= */
-  var listo=false,visible=false;
+  var listo=false,visible=false,cerca=false;
   function preparar(){
     if(listo)return;listo=true;crearCuerpos();crearLienzos();
     if(fis){fichas.forEach(function(f){f.style.opacity=0});var on=document.createElement('span');on.className='pl-onda';on.setAttribute('aria-hidden','true');escena.appendChild(on)}
     medir();
     if('ResizeObserver' in window)new ResizeObserver(function(){medir()}).observe(escena);else addEventListener('resize',medir);
   }
-  new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){cargarCuadros();pedirHojas()}})},{rootMargin:'100% 0px'}).observe(escena);
+  /* a una pantalla de distancia: ya medido, con los cuerpos creados y los cuadros/hojas pidiéndose, para que al llegar estén de inmediato */
+  new IntersectionObserver(function(es){es.forEach(function(e){cerca=e.isIntersecting;if(cerca){preparar();cargarCuadros();pedirHojas();arrancar()}else parar()})},{rootMargin:'100% 0px'}).observe(escena);
   new IntersectionObserver(function(es){
     es.forEach(function(e){
       visible=e.isIntersecting;
-      if(e.isIntersecting){preparar();sec.classList.add('plt--vista');arrancar()}else parar();
+      if(e.isIntersecting){preparar();sec.classList.add('plt--vista');arrancar()}
     });
   },{rootMargin:'150px 0px'}).observe(escena);
   if(marquee)new IntersectionObserver(function(es){es.forEach(function(e){marquee.classList.toggle('esta-fuera',!e.isIntersecting)})}).observe(marquee);
-  document.addEventListener('visibilitychange',function(){document.hidden?parar():(visible&&arrancar())});
+  document.addEventListener('visibilitychange',function(){document.hidden?parar():(cerca&&arrancar())});
   if(quieto)sec.classList.add('plt--vista');
-  window.__pl={estallar:function(){estallar(1)},regimen:cambiarRegimen,q:function(){return q},fijar:fijar,estado:function(){return B.map(function(b){return {x:b.px,y:b.py,z:b.pos[2],sc:b.sc,zi:b.zi}})}};
+  window.__pl={estallar:function(){estallar(1)},regimen:cambiarRegimen,q:function(){return q},fijar:fijar,estado:function(){return B.map(function(b){return {x:b.px,y:b.py,z:b.pos[2],sc:b.sc,zi:b.zi,a:b.fa}})}};
 })();

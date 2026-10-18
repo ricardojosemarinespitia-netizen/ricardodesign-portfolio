@@ -153,46 +153,28 @@
   })();
 })();
 
-/* rd negro mate: gira lento sobre su eje (rotación Y, 16 s por vuelta, lineal). 90 cuadros de 4° (Blender Cycles, alfa) que se
-   mezclan de a dos para que no se vean los pasos; se cargan al acercarse. Pausa fuera de pantalla y con la pestaña oculta.
-   Reducido, ?estatico, ahorro de datos, red 2g o sin canvas/rAF (guardia de 2,5 s): queda el póster fijo del HTML. En móvil/táctil usa cuadros alternos (45, ~320 KB)
-   y el sello se ve centrado sobre el título (css/pliego.css, max-width:760px). */
+/* rd negro mate: WebGL en vivo con el MISMO motor del hero (js/rd3d.min.js, export giro(): misma geometría, material, estudio y
+   sombra de contacto). Gira sobre su eje a velocidad constante, 16 s por vuelta, sin cuadros ni fantasma; pausa fuera de pantalla
+   y con la pestaña oculta; suelta el contexto WebGL al salir de vista. El módulo es el mismo que importa el hero (misma URL):
+   si el hero ya lo cargó no se descarga nada nuevo.
+   ROT_MODO: 'vuelta' (360°, el reverso muestra el rd en espejo: es inherente a la vuelta completa) o 'balanceo' (±ROT_AMPLITUD°).
+   Reducido, ?estatico, WebView de Instagram/Facebook, ahorro de datos, red 2g, equipo débil o sin WebGL2: queda el póster fijo del HTML. */
 (function () {
+  var ROT_MODO = 'vuelta', ROT_AMPLITUD = 35, ROT_SEG = 16000;
   var rd = document.querySelector('#garantia .pliego__rd');
-  if (!rd) return;
-  var root = document.documentElement;
-  var red = navigator.connection || {};
-  if (root.classList.contains('quieto') || red.saveData || /(^|-)2g$/.test(red.effectiveType || '') || !window.IntersectionObserver) return;   /* 2g, ahorro de datos, reducido: póster fijo */
-  var c = document.createElement('canvas'); c.className = 'pliego__rd-lienzo'; c.width = c.height = 360; c.setAttribute('aria-hidden', 'true');
-  var cx = c.getContext && c.getContext('2d'); if (!cx) return;
-  var N = 90, PASO = (window.innerWidth <= 760 || matchMedia('(pointer:coarse)').matches) ? 2 : 1, SEG = 16000;
-  var im = [], listos = 0, tot = Math.ceil(N / PASO), ok = 0, vis = 0, t0 = 0, raf = 0, f = -1, vivo = 0;
-  var sombra = rd;
-  function dibujar(ms) {
-    var p = ((ms - t0) / SEG) % 1, x = p * N, a = Math.floor(x), t = x - a;
-    var i0 = Math.floor(a / PASO) * PASO, i1 = (i0 + PASO) % N, u = (x - i0) / PASO;
-    var A = im[i0], B = im[i1]; if (!A || !B) return;
-    cx.clearRect(0, 0, 360, 360); cx.globalAlpha = 1; cx.drawImage(A, 0, 0, 360, 360);
-    if (u > 0.003) { cx.globalAlpha = u; cx.drawImage(B, 0, 0, 360, 360); cx.globalAlpha = 1; }
-    sombra.style.setProperty('--rd-sh', (0.5 + 0.5 * Math.abs(Math.cos(p * 6.2832))).toFixed(3));
-    if (!vivo) { vivo = 1; rd.classList.add('rd-vivo'); }
-  }
-  function bucle(ms) { if (!vis || document.hidden) { raf = 0; return; } dibujar(ms); raf = requestAnimationFrame(bucle); }
-  function arrancar() { if (ok && vis && !raf) { if (!t0) t0 = performance.now(); raf = requestAnimationFrame(bucle); guardia(); } }
-  /* WebView o navegador que no entrega cuadros de rAF / canvas: si en 2,5 s no se pintó ninguno, se retira el lienzo y queda el póster */
-  var gd = 0;
-  function guardia() { if (gd || vivo) return; gd = setTimeout(function () { gd = 0; if (document.hidden || !vis) return; if (!vivo) { vis = 0; ok = 0; if (c.parentNode) c.parentNode.removeChild(c); } }, 2500); }
-  function cargar() {
-    if (im.length) return;
-    for (var i = 0; i < N; i += PASO) (function (k) {
-      var g = new Image(); g.decoding = 'async';
-      g.onload = function () { if (++listos === tot) { ok = 1; arrancar(); } };
-      g.src = 'assets/web/garantia/giro/r_' + (k < 10 ? '0' : '') + k + '.webp'; im[k] = g;
-    })(i);
-  }
-  rd.appendChild(c);
-  new IntersectionObserver(function (es) {
-    vis = es[0].isIntersecting; if (vis) { cargar(); arrancar(); }
-  }, { rootMargin: (PASO > 1 ? '500px' : '300px') + ' 0px' }).observe(rd);
-  document.addEventListener('visibilitychange', arrancar);
+  if (!rd || !window.IntersectionObserver) return;
+  var root = document.documentElement, t = navigator, red = t.connection || {};
+  if (root.classList.contains('quieto') || root.classList.contains('webview') || /[?&]estatico/.test(location.search) ||
+      /Instagram|FBAN|FBAV|FB_IAB/.test(t.userAgent) || matchMedia('(prefers-reduced-motion: reduce)').matches ||
+      red.saveData || /(^|-)2g$/.test(red.effectiveType || '') ||
+      (t.deviceMemory && t.deviceMemory < 4) || (t.hardwareConcurrency && t.hardwareConcurrency < 4)) return;
+  try { var gl = document.createElement('canvas').getContext('webgl2'); if (!gl) return; var lc = gl.getExtension('WEBGL_lose_context'); lc && lc.loseContext(); } catch (e) { return; }
+  var hecho = 0, zona = document.getElementById('garantia');
+  var cerca = new IntersectionObserver(function (es) {
+    if (hecho || !es[0].isIntersecting) return; hecho = 1; cerca.disconnect();
+    import(new URL('js/rd3d.min.js', document.baseURI).href).then(function (m) {
+      return m.giro(rd, { modo: ROT_MODO, amplitud: ROT_AMPLITUD, seg: ROT_SEG, zona: zona, exp: 2.2 });   /* exposición sobre papel claro: el mismo negro mate se lee como el póster de Blender */
+    }).then(function (g) { window.__rdGiro = g; }).catch(function (e) { rd.classList.remove('rd-vivo', 'rd-3d'); console.warn('rd giro', e && e.message); });
+  }, { rootMargin: '700px 0px' });
+  cerca.observe(zona);                                        /* la sección: su clip-path impide observar al rd directamente */
 })();
