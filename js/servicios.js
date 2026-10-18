@@ -10,8 +10,8 @@
 
   E.forEach(function(e,i){
     var n=e.getAttribute('data-n'),pic=document.createElement('picture'),so=document.createElement('source'),im=document.createElement('img');
-    so.type='image/avif';so.setAttribute('data-srcset',B+n+'-poster.avif?v=2');
-    im.setAttribute('data-src',B+n+'-poster.webp?v=2');im.width=960;im.height=540;im.alt='';im.decoding='async';
+    so.type='image/avif';so.setAttribute('data-srcset',B+n+'-poster.avif?v=3');
+    im.setAttribute('data-src',B+n+'-poster.webp?v=3');im.width=960;im.height=540;im.alt='';im.decoding='async';
     pic.appendChild(so);pic.appendChild(im);e.insertBefore(pic,e.firstChild);
     var rot=document.createElement('div');rot.className='sv-rot';
     e._r=[].map.call(F[i]?F[i].querySelectorAll('li'):[],function(li){var s=document.createElement('span');s.textContent=li.textContent;rot.appendChild(s);return s});
@@ -24,7 +24,7 @@
     e._v=v;e.insertBefore(v,rot);
   });
 
-  function fuentes(e){var v=e&&e._v;if(!v||v._ok)return;v._ok=1;[['webm','video/webm'],['mp4','video/mp4']].forEach(function(t){var s=document.createElement('source');s.src=B+e.getAttribute('data-n')+'.'+t[0]+'?v=2';s.type=t[1];v.appendChild(s)});v.load()}
+  function fuentes(e){var v=e&&e._v;if(!v||v._ok)return;v._ok=1;[['webm','video/webm'],['mp4','video/mp4']].forEach(function(t){var s=document.createElement('source');s.src=B+e.getAttribute('data-n')+'.'+t[0]+'?v=3';s.type=t[1];v.appendChild(s)});v.load()}
   function sig(i){return (i+1)%E.length}
 
   /* un solo rAF, vivo solo mientras el video activo está en pantalla y sonando */
