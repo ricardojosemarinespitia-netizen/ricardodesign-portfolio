@@ -78,6 +78,10 @@
 @media(max-width:760px){
  .pliego--v2{--pl-ico:80px;padding-block:clamp(56px,30.3vw - 36.5px,96px)}
  .pliego--v2 .pliego__cab{grid-template-columns:minmax(0,1fr)}
+ /* rd en móvil: sello centrado como cabecera de la sección, en el flujo (antes display:none). +~210 px de alto como máximo; el lienzo desborda 10 % a cada lado sin generar scroll horizontal */
+ .pliego--v2{--rd-w:clamp(168px,52vw,208px)}
+ .pliego--v2 .pliego__sello{display:block;position:relative;top:auto;right:auto;bottom:auto;order:-1;grid-column:1;justify-self:center;width:var(--rd-w);margin:0 0 var(--s-4)}
+ .pliego--v2 .pliego__sello .sello--rd{width:100%}
  .pliego--v2 h2,.pliego--v2 .pliego__lede{grid-column:1}
  .pliego--v2 h2{font-size:clamp(2.1rem,9.6vw,3.4rem);margin:var(--s-4) 0 var(--s-6)}
  .pliego--v2 .pliego__lede{font-size:var(--t-base)}
