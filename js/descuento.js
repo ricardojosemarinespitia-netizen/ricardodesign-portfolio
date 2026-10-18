@@ -67,7 +67,7 @@
   d.body.appendChild(w);
   var listo=false,pasado=false,enMeta=false,menu=false,cerrado=false;
   /* 'pasado': no sale sobre el primer pliegue (ahí están los controles del carrusel del hero) */
-  function pintar(){w.classList.toggle('dflo--ver',listo&&pasado&&!enMeta&&!menu&&!cerrado)}
+  function pintar(){var v=listo&&pasado&&!enMeta&&!menu&&!cerrado;w.classList.toggle('dflo--ver',v);d.documentElement.classList.toggle('dflo-on',v)}  /* dflo-on: en móvil el botón de WhatsApp se apila encima */
   setTimeout(function(){listo=true;pintar()},6000);
   function medir(){var p=scrollY>innerHeight*.3;if(!listo&&scrollY>innerHeight*1.1)listo=true;if(p!==pasado||listo)pasado=p;pintar()}
   addEventListener('scroll',medir,{passive:true});medir();
@@ -82,4 +82,36 @@
     try{sessionStorage.setItem(K,'1')}catch(e){}
     setTimeout(function(){if(w.parentNode)w.parentNode.removeChild(w)},700);
   });
+})();
+
+/* ===== Botón flotante de WhatsApp (.wflo; el <a> ya está en index.html con data-wa, oculto con [hidden]) =====
+   Aparece a los ~3 s o al primer scroll. Se oculta con el menú abierto, sobre #contacto (que ya trae su CTA y la tarjeta), cuando un control ajeno (WhatsApp, carruseles) o el pie
+   pasan por su esquina (132 px) o su franja (120 px), y sobre los planes (CSS, html.planes-vista). Posición: css/descuento.css. */
+(function(){
+  var w=document.querySelector('.wflo');if(!w)return;
+  var d=document,t=false,sc=false,cierre=false,pie=false,menu=false,ya=false,cta=0;
+  function pintar(){
+    var v=(t||sc)&&!cierre&&!pie&&!menu&&!cta;
+    if(v&&!ya){ya=true;w.hidden=false;void w.offsetWidth}
+    w.classList.toggle('wflo--ver',v);
+  }
+  setTimeout(function(){t=true;pintar()},Math.max(0,3000-(window.performance?performance.now():0)));
+  function medir(){if(!sc&&scrollY>40){sc=true;pintar()}}
+  addEventListener('scroll',medir,{passive:true});medir();
+  if('IntersectionObserver' in window){
+    var c=d.getElementById('contacto'),p=d.querySelector('.pie');
+    if(c)new IntersectionObserver(function(es){cierre=es[es.length-1].isIntersecting;pintar()},{threshold:0}).observe(c);
+    if(p)new IntersectionObserver(function(es){pie=es[es.length-1].isIntersecting;pintar()},{threshold:0,rootMargin:'0px 0px -120px 0px'}).observe(p);
+    /* control ajeno (botones de WhatsApp, controles del carrusel del hero y de casos) que pasa por la esquina del flotante (132 × 120 px): el flotante sobra o estorba, se aparta */
+    var ctas=d.querySelectorAll('[data-wa]:not(.wflo),.hv-ficha button,.casos__btn'),io;
+    function armar(){
+      if(io)io.disconnect();cta=0;
+      io=new IntersectionObserver(function(es){es.forEach(function(e){cta+=e.isIntersecting?(e.target.__wf?0:1):(e.target.__wf?-1:0);e.target.__wf=e.isIntersecting});pintar()},{threshold:0,rootMargin:'-'+Math.max(0,innerHeight-132)+'px 0px 0px -'+Math.max(0,innerWidth-120)+'px'});
+      [].forEach.call(ctas,function(e){e.__wf=false;io.observe(e)});
+    }
+    if(ctas.length){armar();var rz;addEventListener('resize',function(){clearTimeout(rz);rz=setTimeout(armar,250)})}
+  }
+  var panel=d.getElementById('panel'),bm=d.querySelector('.nav__menu');
+  function leerMenu(){menu=!!(panel&&panel.classList.contains('abierto'))||!!(bm&&bm.getAttribute('aria-expanded')==='true');pintar()}
+  if(panel&&window.MutationObserver){new MutationObserver(leerMenu).observe(panel,{attributes:true,attributeFilter:['class']});leerMenu()}
 })();

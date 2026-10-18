@@ -5,10 +5,12 @@
 
 /* El cierre cede aire vertical para alojar la tarjeta sin alargar la página (±8 px, medido) */
 .cierre.cierre--desc{padding-block:clamp(var(--s-8),3vw,calc(var(--s-12) - var(--s-1)))}
-.cierre--desc .cierre__grid{align-items:center;gap:clamp(var(--s-6),4vw,var(--s-12))}
+/* Dos columnas equilibradas: titular + CTA a la izquierda, tarjeta de inscripción a la derecha (ya no hay tarjeta de proceso) */
+.cierre--desc .cierre__grid{grid-template-columns:minmax(0,1fr) minmax(0,min(35rem,46%));align-items:center;gap:clamp(var(--s-6),4vw,var(--s-12))}
+.cierre--desc .desc{justify-self:end;width:100%}
 .cierre--desc h2{margin-bottom:var(--s-4)}
 .cierre--desc .cierre__intro{margin-bottom:var(--s-6)}
-.cierre__acciones{display:flex;flex-wrap:wrap;align-items:center;gap:var(--s-3) var(--s-6);margin-bottom:var(--s-6)}
+.cierre__acciones{display:flex;flex-wrap:wrap;align-items:center;gap:var(--s-3) var(--s-6);margin-bottom:0}
 .cierre--desc .cierre__acciones .cierre__tel{margin:0}
 
 .desc{position:relative;max-width:560px;background:var(--bg-elevado);border:1px solid var(--c-linea);border-top:1px solid var(--c-linea-laton);border-radius:var(--r-1);padding:var(--s-4) var(--s-6) var(--s-4);scroll-margin-top:calc(var(--nav-h) + var(--s-6))}
@@ -60,11 +62,10 @@ html.quieto .desc,html.quieto .desc *{transition-duration:.01ms}
 
 @media (max-width:900px){
   .cierre.cierre--desc{padding-block:var(--s-12)}
-  .cierre--desc .cierre__grid{gap:28px}
+  .cierre--desc .cierre__grid{grid-template-columns:1fr;gap:32px}
+  .cierre--desc .desc{justify-self:stretch}
   .cierre--desc h2{margin-bottom:var(--s-6)}
   .cierre--desc .cierre__intro{margin-bottom:var(--s-8)}
-  .cierre__acciones{margin-bottom:32px}
-  .cierre__acciones .cierre__tel{display:none}
   .desc__chev{display:inline-flex}
   .desc__tg{cursor:pointer}
   .desc__t{font-size:var(--t-base)}
@@ -86,7 +87,7 @@ html.quieto .desc,html.quieto .desc *{transition-duration:.01ms}
 .dflo{position:fixed;left:0;right:0;bottom:calc(env(safe-area-inset-bottom,0px) + 14px);z-index:55;display:flex;justify-content:center;padding-inline:max(12px,env(safe-area-inset-left,0px)) max(12px,env(safe-area-inset-right,0px));pointer-events:none;opacity:0;visibility:hidden;transform:translateY(12px);transition:opacity var(--d-ui) var(--ease-casa),transform var(--d-ui) var(--ease-casa),visibility 0s linear var(--d-ui)}
 .dflo.dflo--ver{opacity:1;visibility:visible;transform:none;transition-delay:0s}
 /* reserva bajo el pie para que la pastilla flotante no tape el "© 2026" ni los enlaces legales */
-body:has(.dflo) .pie{padding-bottom:calc(env(safe-area-inset-bottom,0px) + 88px)}
+body:has(.dflo,.wflo) .pie{padding-bottom:calc(env(safe-area-inset-bottom,0px) + 88px)}
 .dflo__in{pointer-events:auto;display:inline-flex;align-items:center;max-width:100%;min-height:48px;padding:0 4px 0 6px;border-radius:999px;color:var(--c-tinta);background-color:rgba(244,244,244,.9);border:1px solid rgba(22,22,22,.12);box-shadow:0 10px 28px -14px rgba(22,22,22,.4),0 1px 3px rgba(22,22,22,.08),inset 0 1px 0 rgba(255,255,255,.85)}
 @supports ((-webkit-backdrop-filter:blur(1px)) or (backdrop-filter:blur(1px))){.dflo__in{background-color:rgba(244,244,244,.66);-webkit-backdrop-filter:blur(16px) saturate(170%);backdrop-filter:blur(16px) saturate(170%)}}
 @media (prefers-reduced-transparency:reduce){.dflo__in{background-color:rgba(244,244,244,.97);-webkit-backdrop-filter:none;backdrop-filter:none}}
@@ -96,6 +97,24 @@ body:has(.dflo) .pie{padding-bottom:calc(env(safe-area-inset-bottom,0px) + 88px)
 .dflo__x svg{width:14px;height:14px}
 @media (hover:hover){.dflo__a:hover{background:rgba(22,22,22,.07)}.dflo__x:hover{opacity:1;background:rgba(22,22,22,.07)}}
 .dflo__a:focus-visible,.dflo__x:focus-visible{outline:2px solid var(--c-tinta);outline-offset:-2px}
-@media (min-width:901px){.dflo{justify-content:flex-end;bottom:calc(env(safe-area-inset-bottom,0px) + 22px);padding-inline:var(--gutter,24px)}}
+@media (min-width:901px){.dflo{justify-content:flex-end;bottom:calc(env(safe-area-inset-bottom,0px) + 24px);padding-inline:var(--gutter,24px) calc(max(var(--gutter,24px),env(safe-area-inset-right,0px)) + 64px)}}
 @media (prefers-reduced-motion:reduce){.dflo{transition-duration:.01ms;transform:none}}
 html.quieto .dflo{transition-duration:.01ms;transform:none}
+
+/* ===== Botón flotante de WhatsApp (.wflo) — esquina inferior derecha, position:fixed (no altera la altura). Cristal neutro como la pastilla del descuento, icono en tinta.
+   Móvil/tableta (≤900): la pastilla del descuento va centrada abajo y el círculo se apila encima, a la derecha (html.dflo-on lo sube 58 px).
+   Escritorio: círculo en la esquina y la pastilla a su izquierda, en la misma línea. Lo muestra descuento.js (a los ~3 s o al primer scroll). ===== */
+.wflo{position:fixed;right:max(12px,env(safe-area-inset-right,0px));bottom:calc(env(safe-area-inset-bottom,0px) + 14px);z-index:55;display:grid;place-items:center;width:52px;height:52px;padding:0;border-radius:50%;color:var(--c-tinta);text-decoration:none;background-color:rgba(244,244,244,.92);border:1px solid rgba(22,22,22,.12);box-shadow:0 10px 28px -14px rgba(22,22,22,.4),0 1px 3px rgba(22,22,22,.08),inset 0 1px 0 rgba(255,255,255,.85);opacity:0;visibility:hidden;transform:translateY(12px);transition:opacity var(--d-ui) var(--ease-casa),transform var(--d-ui) var(--ease-casa),visibility 0s linear var(--d-ui);-webkit-tap-highlight-color:transparent}
+.wflo[hidden]{display:none}
+.wflo svg{display:block;width:26px;height:26px;fill:currentColor}
+.wflo.wflo--ver{opacity:1;visibility:visible;transform:none;transition-delay:0s}
+@supports ((-webkit-backdrop-filter:blur(1px)) or (backdrop-filter:blur(1px))){.wflo{background-color:rgba(244,244,244,.66);-webkit-backdrop-filter:blur(16px) saturate(170%);backdrop-filter:blur(16px) saturate(170%)}}
+@media (prefers-reduced-transparency:reduce){.wflo{background-color:rgba(244,244,244,.97);-webkit-backdrop-filter:none;backdrop-filter:none}}
+@media (hover:hover){.wflo:hover{background-color:var(--c-tinta);color:#f4f4f4}}
+.wflo:focus-visible{outline:2px solid var(--c-tinta);outline-offset:3px;box-shadow:0 0 0 3px #f4f4f4}
+@media (max-width:900px){html.dflo-on .wflo.wflo--ver{transform:translateY(-58px)}}
+@media (min-width:901px){.wflo{right:max(var(--gutter,24px),env(safe-area-inset-right,0px));bottom:calc(env(safe-area-inset-bottom,0px) + 22px)}}
+html.planes-vista .wflo.wflo--ver{opacity:0;visibility:hidden;pointer-events:none}
+@media (prefers-reduced-motion:reduce){.wflo{transition-duration:.01ms}.wflo:not(.wflo--ver){transform:none}}
+html.quieto .wflo{transition-duration:.01ms}
+html.quieto .wflo:not(.wflo--ver){transform:none}
