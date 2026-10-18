@@ -401,9 +401,12 @@ if(!matchMedia('(min-width:901px) and (hover:hover) and (pointer:fine)').matches
         <div><span class="versal"><a class="oficio__ir" href="publicidad-digital/">Planes de pauta en Meta Ads</a></span><h2 id="h-planes" data-lineas>Pauta, mes a mes.</h2></div>
         <p>Todo se cotiza según tu negocio. La diferencia entre los planes no es cuánta pauta se hace, sino cuánto se analiza y qué tanto se ajusta.</p>
       </div>
-      <div class="planes registro">
+      <div class="planes__sel" role="group" aria-label="Elegir plan">
+        <button class="planes__op" type="button" aria-controls="pl-base">Base</button><button class="planes__op" type="button" aria-controls="pl-plus">Plus</button><button class="planes__op" type="button" aria-controls="pl-perf" aria-current="true">Performance</button><button class="planes__op" type="button" aria-controls="pl-com">Comisión</button>
+      </div>
+      <div class="planes registro" tabindex="0" role="region" aria-label="Planes de pauta: desliza para comparar">
         <span class="reg reg--a"></span><span class="reg reg--d"></span>
-        <article class="plan" aria-labelledby="p-base">
+        <article class="plan" id="pl-base" aria-labelledby="p-base">
           <div class="plan__nivel"><span class="versal">Base</span></div>
           <h3 id="p-base">Plan Base</h3>
           <p class="plan__para">Para empezar a pautar bien.</p>
@@ -414,7 +417,7 @@ if(!matchMedia('(min-width:901px) and (hover:hover) and (pointer:fine)').matches
           </ul>
           <a class="btn btn--linea" data-wa="Hola Ricardo, quiero cotizar el Plan Base de Meta Ads." href="https://wa.me/573027981468" aria-label="Cotizar este plan: Plan Base, por WhatsApp">Cotizar este plan</a>
         </article>
-        <article class="plan" aria-labelledby="p-plus">
+        <article class="plan" id="pl-plus" aria-labelledby="p-plus">
           <div class="plan__nivel"><span class="versal">Plus</span></div>
           <h3 id="p-plus">Plan Plus</h3>
           <p class="plan__para">Para quien ya pauta y quiere mejor público.</p>
@@ -426,7 +429,7 @@ if(!matchMedia('(min-width:901px) and (hover:hover) and (pointer:fine)').matches
           </ul>
           <a class="btn btn--linea" data-wa="Hola Ricardo, quiero cotizar el Plan Plus de Meta Ads." href="https://wa.me/573027981468" aria-label="Cotizar este plan: Plan Plus, por WhatsApp">Cotizar este plan</a>
         </article>
-        <article class="plan plan--rec" aria-labelledby="p-perf">
+        <article class="plan plan--rec" id="pl-perf" aria-labelledby="p-perf">
           <span class="plan__borde" data-borde aria-hidden="true"></span>
           <div class="plan__nivel"><span class="versal">Performance</span><span class="versal plan__rec">Recomendado</span></div>
           <h3 id="p-perf">Plan Performance</h3>
@@ -441,7 +444,7 @@ if(!matchMedia('(min-width:901px) and (hover:hover) and (pointer:fine)').matches
           </ul>
           <a class="btn btn--laton iman" data-wa="Hola Ricardo, quiero cotizar el Plan Performance de Meta Ads." href="https://wa.me/573027981468" aria-label="Cotizar este plan: Plan Performance, por WhatsApp">Cotizar este plan</a>
         </article>
-        <article class="plan" aria-labelledby="p-com">
+        <article class="plan" id="pl-com" aria-labelledby="p-com">
           <div class="plan__nivel"><span class="versal">Por comisión</span></div>
           <h3 id="p-com">Por comisión</h3>
           <p class="plan__para">Todo el Plan Performance, nuestro mejor plan, pero sin precio fijo.</p>
@@ -455,6 +458,13 @@ if(!matchMedia('(min-width:901px) and (hover:hover) and (pointer:fine)').matches
       </div>
       <p class="versal planes__nota"><span class="rombo" aria-hidden="true"></span>El presupuesto de pauta se paga directo a Meta y no está incluido en los planes.</p>
     </div>
+    <script>(function(){var mq=matchMedia("(max-width:760px)"),c=document.querySelector("#planes .planes"),bs=[].slice.call(document.querySelectorAll(".planes__op"));if(!c||!bs.length)return;var cs=bs.map(function(b){return document.getElementById(b.getAttribute("aria-controls"))});var rd=matchMedia("(prefers-reduced-motion:reduce)");
+function ir(i,suave){var k=cs[i];c.scrollTo({left:k.offsetLeft-(c.clientWidth-k.offsetWidth)/2,behavior:suave&&!rd.matches?"smooth":"auto"})}
+function marca(i){bs.forEach(function(b,j){b.setAttribute("aria-current",j===i?"true":"false")})}
+bs.forEach(function(b,i){b.addEventListener("click",function(){ir(i,1);marca(i)})});
+var t;c.addEventListener("scroll",function(){clearTimeout(t);t=setTimeout(function(){var m=c.scrollLeft+c.clientWidth/2,mi=0,md=1e9;cs.forEach(function(k,j){var d=Math.abs(k.offsetLeft+k.offsetWidth/2-m);if(d<md){md=d;mi=j}});marca(mi)},80)},{passive:true});
+var u=0;c.addEventListener("pointerdown",function(){u=1},{passive:true});function ini(){if(mq.matches&&!u){ir(2,0);marca(2)}}ini();addEventListener("load",ini);
+if("IntersectionObserver"in window){var p1=1;new IntersectionObserver(function(e){var v=e[0].isIntersecting;if(v&&p1){p1=0;ini()}document.documentElement.classList.toggle("planes-vista",v)},{rootMargin:"0px 0px -10% 0px"}).observe(c)}})();</script>
   </section>
 
   <!-- ================= Cierre + Proceso (fusionados para acortar la landing) ================= -->
