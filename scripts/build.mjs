@@ -93,7 +93,7 @@ ctx.EXT = EXT;
    (index.html hecho a mano, que este build ya NO escribe). Estilos: css/paginas.css. */
 const FLECHA = '<svg class="ico flecha" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6"/></svg>';
 ctx.FLECHA = FLECHA;
-const NAV_HOME = [['#dispositivos', 'Dispositivos'], ['#garantia', 'Garantía'], ['#servicios', 'Servicios'], ['#casos', 'Casos'], ['#planes', 'Planes'], ['#proceso', 'Proceso']];
+const NAV_HOME = [['#dispositivos', 'Dispositivos'], ['#garantia', 'Garantía'], ['#servicios', 'Servicios'], ['#casos', 'Casos'], ['#planes', 'Planes']];
 /* Pie: mismos enlaces en el home y en las internas (servicios, proyectos). Si cambias esto, cambia también el <footer> de index.html. */
 const NAV_PIE = [['diseno-web/', 'Diseño web'], ['publicidad-digital/', 'Meta Ads'], ['contenido-redes-sociales/', 'Contenido para redes'], ['mantenimiento-web/', 'Mantenimiento web'], ['proyectos/', 'Proyectos']];
 function logo(L, cls, lazy = '') {
@@ -264,7 +264,7 @@ for (const pg of escritos) {
   while ((m = rq.exec(pg.cuerpo))) indice.push({ t: sinTags(m[1]), d: 'Pregunta frecuente · ' + pg.title.replace(/\s*\|\s*Ricardo Design$/, ''), u: url, g: 'Pregunta' });
 }
 for (const p of proyectos) indice.push({ t: `${p.titulo} para ${p.cliente}`, d: `${p.rubro} · ${p.resumen}`, u: `proyectos/${p.slug}/index.html`, g: 'Proyecto' });
-const vistos = new Set(); const indiceU = indice.filter((x) => { const k = x.t + '|' + x.u; if (vistos.has(k) || !x.t) return false; vistos.add(k); return true; });
+const vistos = new Set(); const indiceU = indice.filter((x) => { const k = x.t + '|' + x.u; if (vistos.has(k) || !x.t || x.u === 'index.html#proceso-h') return false; /* la home ya no tiene la sección «Cómo trabajamos» */ vistos.add(k); return true; });
 fs.writeFileSync(path.join(ROOT, 'data/busqueda.json'), JSON.stringify(indiceU, null, 1) + '\n');
 fs.writeFileSync(path.join(ROOT, 'assets/js/busqueda-indice.js'), '/* Generado por scripts/build.mjs — no editar. */\nwindow.RD_BUSQUEDA = ' + JSON.stringify(indiceU) + ';\n');
 
