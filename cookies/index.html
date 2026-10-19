@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <!-- Generado por scripts/build.mjs — no edites este archivo a mano: edita data/*.json o scripts/paginas.mjs y vuelve a ejecutar el build. -->
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https://felipevergel.com https://alejandravergel.com https://vegasdelverde.co https://armandomartinez.co https://accesoriosencobre.co; connect-src 'self'; frame-src 'none'; object-src 'none'; base-uri 'self'; form-action 'self' https://wa.me; upgrade-insecure-requests">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://www.clarity.ms https://scripts.clarity.ms https://www.googletagmanager.com https://connect.facebook.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https://*.clarity.ms https://c.bing.com https://www.googletagmanager.com https://*.google-analytics.com https://www.facebook.com https://felipevergel.com https://alejandravergel.com https://vegasdelverde.co https://armandomartinez.co https://accesoriosencobre.co; connect-src 'self' https://*.clarity.ms https://c.bing.com https://*.google-analytics.com https://*.analytics.google.com https://www.googletagmanager.com https://www.facebook.com https://connect.facebook.net; frame-src 'none'; object-src 'none'; base-uri 'self'; form-action 'self' https://wa.me; upgrade-insecure-requests">
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Política de cookies | Ricardo Design</title>
@@ -24,9 +24,11 @@
 <meta name="twitter:card" content="summary">
 <link rel="preload" as="font" type="font/woff2" href="/fonts/figtree-var.woff2" crossorigin>
 <link rel="stylesheet" href="/css/paginas.min.css">
+<link rel="stylesheet" href="/css/cookies.min.css">
 <script src="/assets/js/config-medicion.js" defer></script>
 <script src="/assets/js/app.js" defer></script>
 <script src="/js/paginas.min.js" defer></script>
+<script src="/js/cookies.min.js" defer></script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Inicio","item":"https://ricardodesign.co/"},{"@type":"ListItem","position":2,"name":"Cookies","item":"https://ricardodesign.co/cookies/"}]}</script>
 </head>
 <body id="top" class="pg legal" data-wa="573027981468" data-raiz="../">
@@ -71,21 +73,25 @@
 <section class="legal-hero">
   <p class="kicker">Transparencia</p>
   <h1>Política de cookies</h1>
-  <p>Las cookies son pequeños archivos que el navegador guarda para recordar información. Aquí te contamos cuáles usamos y cómo controlarlas.</p>
+  <p>Las cookies son archivos pequeños que tu navegador guarda para recordar información. Las de medición y publicidad solo las usamos si las aceptas.</p>
 </section>
-<div class="doc doc--num"><nav class="doc-indice" aria-label="Contenido del documento"><details><summary>Contenido <span class="versal">3 secciones</span></summary><ol><li><a href="#estado-actual">Estado actual</a></li><li><a href="#cookies-por-categoria">Cookies por categoría</a></li><li><a href="#como-borrarlas">Cómo borrarlas</a></li></ol></details></nav><div class="doc-cuerpo"><article class="card" id="estado-actual"><h2>Estado actual</h2><p><strong>Hoy este sitio no usa cookies de analítica ni de publicidad.</strong> Sólo guarda en tu navegador preferencias propias, como pausar las animaciones. Si en el futuro activamos herramientas de medición, te pediremos permiso antes con un aviso y podrás cambiar tu decisión en cualquier momento.</p>
-  <p><button class="btn btn-sec btn-sm" type="button" data-config-cookies>Configurar cookies</button></p></article>
-<article class="card" id="cookies-por-categoria"><h2>Cookies por categoría</h2>
+<div class="doc-cuerpo doc-solo">
+<article class="card" id="que-usamos"><h2>Qué usamos</h2>
+  <ul><li><strong>Necesarias:</strong> hacen que el sitio funcione y recuerdan tu decisión. Siempre activas.</li>
+  <li><strong>Analítica:</strong> Google Analytics y Microsoft Clarity cuentan visitas y muestran cómo se usa el sitio.</li>
+  <li><strong>Publicidad:</strong> Meta mide y mejora nuestros anuncios.</li></ul>
   <div class="tabla-scroll"><table class="tabla"><caption class="sr-only">Cookies y almacenamiento usados</caption>
-  <thead><tr><th scope="col">Nombre</th><th scope="col">Proveedor</th><th scope="col">Finalidad</th><th scope="col">Duración</th><th scope="col">Categoría</th></tr></thead><tbody>
-  <tr><td><code>rd_consent</code></td><td>Ricardo Design</td><td>Recordar tu decisión sobre cookies (almacenamiento local)</td><td>12 meses</td><td>Necesaria</td></tr>
-  <tr><td><code>rd_pausa</code></td><td>Ricardo Design</td><td>Recordar si pausaste las animaciones (almacenamiento local)</td><td>Hasta que la borres</td><td>Necesaria</td></tr>
-  <tr><td><code>_ga, _ga_*</code></td><td>Google Analytics 4</td><td>Contar visitas y entender el uso del sitio</td><td>13 meses · sólo si se activa</td><td>Analítica</td></tr>
-  <tr><td><code>_clck, _clsk</code></td><td>Microsoft Clarity</td><td>Mapas de calor y grabaciones anónimas</td><td>1 año / 1 día · sólo si se activa</td><td>Analítica</td></tr>
-  <tr><td><code>_fbp, _fbc</code></td><td>Meta</td><td>Medir y mejorar anuncios en Facebook e Instagram</td><td>3 meses · sólo si se activa</td><td>Publicidad</td></tr>
+  <thead><tr><th scope="col">Nombre</th><th scope="col">Para qué</th><th scope="col">Duración</th></tr></thead><tbody>
+  <tr><td><code>rd_consent</code></td><td>Recordar tu decisión (almacenamiento local)</td><td>12 meses</td></tr>
+  <tr><td><code>rd_pausa</code></td><td>Recordar si pausaste las animaciones (almacenamiento local)</td><td>Hasta que la borres</td></tr>
+  <tr><td><code>_ga, _ga_*</code></td><td>Google Analytics: contar visitas</td><td>Hasta 2 años</td></tr>
+  <tr><td><code>_clck, _clsk</code></td><td>Clarity: mapas de calor y grabaciones anónimas</td><td>1 año y 1 día</td></tr>
+  <tr><td><code>_fbp, _fbc</code></td><td>Meta: medir anuncios</td><td>3 meses</td></tr>
   </tbody></table></div></article>
-<article class="card" id="como-borrarlas"><h2>Cómo borrarlas</h2><p>Puedes borrar las cookies y el almacenamiento local desde la configuración de privacidad de tu navegador (Chrome, Safari, Firefox o Edge). Más información sobre tus datos en nuestra <a href="../privacidad/index.html">Política de tratamiento de datos</a>.</p></article>
-<p class="doc-volver"><a class="btn btn--linea" href="../index.html">Volver al inicio <svg class="ico flecha" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6"/></svg></a></p></div></div>
+<article class="card" id="cambiar"><h2>Cambiar tu decisión</h2><p>Abre el panel cuando quieras, aquí o en «Configurar cookies», al final de cada página.</p>
+  <p><button class="btn btn-sec btn-sm" type="button" data-config-cookies>Configurar cookies</button></p></article>
+<article class="card" id="borrar"><h2>Borrarlas</h2><p>Desde la configuración de privacidad de tu navegador (Chrome, Safari, Firefox o Edge). Más sobre tus datos en la <a href="../privacidad/index.html">política de privacidad</a>.</p></article>
+<p class="doc-volver"><a class="btn btn--linea" href="../index.html">Volver al inicio <svg class="ico flecha" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6"/></svg></a></p></div>
 </div>
 
 </main>
@@ -103,25 +109,11 @@
       <ul class="pie__links">
         <li><a href="../privacidad/index.html">Privacidad</a></li>
         <li><a href="../cookies/index.html">Cookies</a></li>
+        <li><a href="../cookies/index.html" data-config-cookies>Configurar cookies</a></li>
         <li><span class="pie__copy">© 2026 Ricardo Design</span></li>
       </ul>
     </div>
   </div>
 </footer>
-<div class="cookies" id="cookies" role="dialog" aria-labelledby="cookies-t" hidden>
-  <h2 id="cookies-t">Tu privacidad</h2>
-  <p>Usamos cookies propias necesarias para que el sitio funcione y, si lo autorizas, cookies de analítica (Google Analytics, Microsoft Clarity) y de publicidad (Meta) para medir visitas y mejorar nuestros anuncios. Puedes cambiar tu decisión cuando quieras en "Configurar cookies". Lee la <a href="../cookies/index.html">política de cookies</a>.</p>
-  <div class="cookies-cfg" hidden>
-    <label><input type="checkbox" checked disabled> Necesarias (siempre activas)</label>
-    <label><input type="checkbox" name="c-analitica"> Analítica</label>
-    <label><input type="checkbox" name="c-publicidad"> Publicidad</label>
-    <button class="btn btn--linea" type="button" data-c="guardar">Guardar preferencias</button>
-  </div>
-  <div class="acciones">
-    <button class="btn btn--linea" type="button" data-c="todas">Aceptar todas</button>
-    <button class="btn btn--linea" type="button" data-c="rechazar">Rechazar</button>
-    <button class="btn btn--linea" type="button" data-c="config">Configurar</button>
-  </div>
-</div>
 </body>
 </html>

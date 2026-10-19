@@ -24,7 +24,7 @@ const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const ARGS = new Set(process.argv.slice(2));
 const OPC = { porValidar: ARGS.has('--incluir-por-validar'), produccion: ARGS.has('--produccion') };
 const SITIO = 'https://ricardodesign.co';
-const LASTMOD = '2026-10-17'; // fecha fija → build idempotente. Actualízala al publicar.
+const LASTMOD = '2026-10-19'; // fecha fija → build idempotente. Actualízala al publicar.
 
 const leer = (f) => JSON.parse(fs.readFileSync(path.join(ROOT, f), 'utf8'));
 const S = leer('data/servicios.json');
@@ -145,26 +145,12 @@ function pie(L) {
       <ul class="pie__links">
         <li><a href="${L.a('privacidad/')}">Privacidad</a></li>
         <li><a href="${L.a('cookies/')}">Cookies</a></li>
+        <li><a href="${L.a('cookies/')}" data-config-cookies>Configurar cookies</a></li>
         <li><span class="pie__copy">© 2026 Ricardo Design</span></li>
       </ul>
     </div>
   </div>
-</footer>
-<div class="cookies" id="cookies" role="dialog" aria-labelledby="cookies-t" hidden>
-  <h2 id="cookies-t">Tu privacidad</h2>
-  <p>Usamos cookies propias necesarias para que el sitio funcione y, si lo autorizas, cookies de analítica (Google Analytics, Microsoft Clarity) y de publicidad (Meta) para medir visitas y mejorar nuestros anuncios. Puedes cambiar tu decisión cuando quieras en "Configurar cookies". Lee la <a href="${L.a('cookies/')}">política de cookies</a>.</p>
-  <div class="cookies-cfg" hidden>
-    <label><input type="checkbox" checked disabled> Necesarias (siempre activas)</label>
-    <label><input type="checkbox" name="c-analitica"> Analítica</label>
-    <label><input type="checkbox" name="c-publicidad"> Publicidad</label>
-    <button class="btn btn--linea" type="button" data-c="guardar">Guardar preferencias</button>
-  </div>
-  <div class="acciones">
-    <button class="btn btn--linea" type="button" data-c="todas">Aceptar todas</button>
-    <button class="btn btn--linea" type="button" data-c="rechazar">Rechazar</button>
-    <button class="btn btn--linea" type="button" data-c="config">Configurar</button>
-  </div>
-</div>`;
+</footer>`;
 }
 
 /* Splash del home: capa decorativa (aria-hidden). Sólo se muestra si
@@ -180,11 +166,8 @@ const SPLASH = `<div class="splash-capa" aria-hidden="true"><div class="splash-i
 `;
 
 /* ---------- Documento ---------- */
-const CSP = "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https://felipevergel.com https://alejandravergel.com https://vegasdelverde.co https://armandomartinez.co https://accesoriosencobre.co; connect-src 'self'; frame-src 'none'; object-src 'none'; base-uri 'self'; form-action 'self' https://wa.me; upgrade-insecure-requests";
-/* Ampliación para cuando se active la medición (NO activar sin IDs reales):
-   script-src  + https://www.googletagmanager.com https://connect.facebook.net https://www.clarity.ms https://*.clarity.ms
-   img-src     + https://www.googletagmanager.com https://*.google-analytics.com https://www.facebook.com https://*.clarity.ms
-   connect-src + https://*.google-analytics.com https://*.analytics.google.com https://www.googletagmanager.com https://www.facebook.com https://connect.facebook.net https://*.clarity.ms */
+const CSP = "default-src 'self'; script-src 'self' https://www.clarity.ms https://scripts.clarity.ms https://www.googletagmanager.com https://connect.facebook.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https://*.clarity.ms https://c.bing.com https://www.googletagmanager.com https://*.google-analytics.com https://www.facebook.com https://felipevergel.com https://alejandravergel.com https://vegasdelverde.co https://armandomartinez.co https://accesoriosencobre.co; connect-src 'self' https://*.clarity.ms https://c.bing.com https://*.google-analytics.com https://*.analytics.google.com https://www.googletagmanager.com https://www.facebook.com https://connect.facebook.net; frame-src 'none'; object-src 'none'; base-uri 'self'; form-action 'self' https://wa.me; upgrade-insecure-requests";
+/* Medición (19 oct 2026): la CSP ya admite Clarity, GA4 y Meta, pero ningún script de terceros se pide hasta que el visitante acepta (js/cookies.js). */
 
 function documento(pg, L) {
   const url = SITIO + '/' + (pg.canonical ?? pg.salida.replace(/index\.html$/, ''));
@@ -214,9 +197,11 @@ ${pg.desc ? `<meta property="og:description" content="${esc(pg.desc)}">\n` : ''}
 <meta name="twitter:card" content="summary">
 <link rel="preload" as="font" type="font/woff2" href="/fonts/figtree-var.woff2" crossorigin>
 <link rel="stylesheet" href="/css/paginas.min.css">
+<link rel="stylesheet" href="/css/cookies.min.css">
 <script src="/assets/js/config-medicion.js" defer></script>
 <script src="/assets/js/app.js" defer></script>
 <script src="/js/paginas.min.js" defer></script>
+<script src="/js/cookies.min.js" defer></script>
 ${ld}
 </head>
 <body id="top" class="pg${pg.legal ? ' legal' : ''}" data-wa="${C.whatsapp}" data-raiz="${L.r === '/' ? '/' : L.r}"${pg.servicio ? ` data-servicio="${pg.servicio}"` : ''}>

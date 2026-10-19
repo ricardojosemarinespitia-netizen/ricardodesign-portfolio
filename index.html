@@ -68,7 +68,6 @@ if(/[?&#]diag\b/.test(location.search+location.hash))addEventListener('load',fun
 {"@context":"https://schema.org","@type":"ProfessionalService","@id":"https://ricardodesign.co/#negocio","name":"Ricardo Design","url":"https://ricardodesign.co/","description":"Diseño web y campañas de Meta Ads en Bucaramanga, con atención en toda Colombia.","telephone":"+57 302 798 1468","areaServed":"CO","address":{"@type":"PostalAddress","addressLocality":"Bucaramanga","addressRegion":"Santander","addressCountry":"CO"}}
 </script>
 <style id="coherencia">.oficio__ir{color:inherit;text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:.22em;text-decoration-color:var(--c-linea)}.oficio__ir:hover,.oficio__ir:focus-visible{text-decoration-color:currentColor}.casos__cab-der p .enlace{display:inline;min-height:0;white-space:normal}.casos__cab-der p .enlace .ico{display:inline-block;vertical-align:-.1em}@media(max-width:600px){.pie__nav{gap:var(--s-2) var(--s-4)}.pie__nav a{font-size:.9375rem}}</style>
-<script src="/assets/clarity.js" async></script>
 </head>
 <body>
 <a class="skip" href="#contenido">Saltar al contenido</a>
@@ -585,6 +584,7 @@ if("IntersectionObserver"in window){var p1=1;new IntersectionObserver(function(e
       <ul class="pie__links">
         <li><a href="privacidad/">Privacidad</a></li>
         <li><a href="cookies/">Cookies</a></li>
+        <li><a href="cookies/" data-config-cookies>Configurar cookies</a></li>
         <li><span class="pie__copy">© <span data-anio>2026</span> Ricardo Design</span></li>
       </ul>
     </div>
@@ -606,7 +606,7 @@ if("IntersectionObserver"in window){var p1=1;new IntersectionObserver(function(e
   var A=['js/vendor/gsap.min.js','js/vendor/ScrollTrigger.min.js','js/sitio.min.js','js/hero.min.js'],
       /* WebViews/Safari viejos sin IntersectionObserver o ResizeObserver: polyfill ligero antes de todo (los reveals y el 3D dependen de ellos) */
       P=window.IntersectionObserver&&window.ResizeObserver?[]:['js/polyfill.min.js'];A=P.concat(A);
-      B=['js/dispositivos.min.js','js/secciones.min.js','js/fx.min.js','js/garantia.min.js','js/casos.min.js','js/descuento.min.js','js/plataformas.min.js','js/servicios.min.js'];
+      B=['js/cookies.min.js','js/dispositivos.min.js','js/secciones.min.js','js/fx.min.js','js/garantia.min.js','js/casos.min.js','js/descuento.min.js','js/plataformas.min.js','js/servicios.min.js'];
   var EV=['pointerdown','touchstart','keydown','wheel','scroll','mousemove'];
   var e1=false,quiere=false,pidio=false,hecha=false,cola=[];
   function ceder(f){if(window.scheduler&&scheduler.yield)scheduler.yield().then(f);else setTimeout(f,0)}

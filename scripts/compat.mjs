@@ -1,5 +1,5 @@
 // Compatibilidad del JS publicado. Uso: node scripts/compat.mjs
-// 1) Minifica a ES2017 (sin lowering de import(): se usa RDCAP.modulo) js/polyfill.js, js/diag.js, js/servicios.js, js/plataformas.js.
+// 1) Minifica a ES2017 (sin lowering de import(): se usa RDCAP.modulo) js/polyfill.js, js/diag.js, js/servicios.js, js/plataformas.js, js/cookies.js.
 // 2) Verifica con acorn que TODO js/*.min.js y los <script> inline de index.html parsean como ES2017 clásico
 //    (objetivo: Safari/iOS 12, Chrome 64, WebView de Instagram/Facebook viejos). js/rd3d.min.js es un módulo ES que solo se importa
 //    cuando RDCAP.puede3d() es cierto, así que se valida como módulo ES2022.
@@ -8,7 +8,7 @@ const req = createRequire('D:/DOCUMENTOS/COWORK GENERAL/AGENTES/node_modules/');
 const esbuild = req('esbuild');
 const acorn = createRequire('D:/DOCUMENTOS/COWORK GENERAL/AGENTE WEB/herramientas/package.json')('acorn');
 const min = (s) => esbuild.transformSync(s, { loader: 'js', minify: true, target: 'es2017' }).code;
-for (const [src, out] of [['js/polyfill.js', 'js/polyfill.min.js'], ['js/diag.js', 'js/diag.min.js'], ['js/servicios.js', 'js/servicios.min.js'], ['js/plataformas.js', 'js/plataformas.min.js']]) {
+for (const [src, out] of [['js/polyfill.js', 'js/polyfill.min.js'], ['js/diag.js', 'js/diag.min.js'], ['js/servicios.js', 'js/servicios.min.js'], ['js/plataformas.js', 'js/plataformas.min.js'], ['js/cookies.js', 'js/cookies.min.js']]) {
   if (!fs.existsSync(src)) continue;
   const c = min(fs.readFileSync(src, 'utf8')); fs.writeFileSync(out, c); console.log(out, c.length, 'B');
 }

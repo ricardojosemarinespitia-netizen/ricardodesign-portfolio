@@ -1,8 +1,4 @@
-/* Configuración de medición (plan §9.1).
-   DESACTIVADA. No se inventan IDs. Para activar:
-   1) El dueño entrega su ID de Google Tag Manager (formato GTM-XXXXXXX).
-      GA4, Meta Pixel y Clarity se configuran DENTRO de GTM, no aquí.
-   2) La página /privacidad/ debe estar completa (sin {{placeholders}}).
-   3) Ampliar la CSP de todas las páginas y de _headers (ver LEEME.md).
-   4) Poner activo:true y el gtmId real. El banner de cookies aparecerá solo. */
+/* Configuración de medición — OBSOLETO desde el 19 oct 2026.
+   La medición (GA4, Microsoft Clarity, píxel de Meta) y el consentimiento viven ahora en js/cookies.js: los IDs están en el objeto RD_IDS de ese archivo.
+   Este objeto se deja apagado para que assets/js/app.js no empuje eventos a un dataLayer que no existe. */
 window.RD_MEDICION = { gtmId: null, activo: false };
