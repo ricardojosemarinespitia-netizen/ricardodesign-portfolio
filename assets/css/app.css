@@ -1594,10 +1594,6 @@ html.motion-paused .hero-wordmark::after{animation-play-state:paused}
   .pl-paso:hover,.js .pl-paso.rv:hover{transform:translateX(10px)}
   .pl-paso:hover .pl-num{background:linear-gradient(120deg,#2F5BFF,#7C3AED);-webkit-background-clip:text;background-clip:text;-webkit-text-stroke-color:transparent}
 }
-.pl-cond{margin-top:var(--e-5)}
-.pl-enlace{display:inline-flex;align-items:center;gap:6px;min-height:44px;color:var(--azul-hondo);font-weight:600;text-decoration:underline;text-underline-offset:4px}
-.pl-enlace:hover{color:#6D28D9}
-.pl-enlace .fl{transition:transform var(--dur-rapido)}.pl-enlace:hover .fl{transform:translateX(4px)}
 .js .pl-paso.rv{transform:none}
 @media (prefers-reduced-motion:reduce){.pl-paso,.pl-num{transition:none}}
 

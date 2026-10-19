@@ -143,7 +143,6 @@ function pie(L) {
         <a href="${wa(C.whatsappGeneral)}" target="_blank" rel="noopener noreferrer">WhatsApp ${esc(C.whatsappVisible)}${EXT}</a>
       </div>
       <ul class="pie__links">
-        <li><a href="${L.a('politicas.html')}">Políticas</a></li>
         <li><a href="${L.a('privacidad/')}">Privacidad</a></li>
         <li><a href="${L.a('cookies/')}">Cookies</a></li>
         <li><span class="pie__copy">© 2026 Ricardo Design</span></li>
