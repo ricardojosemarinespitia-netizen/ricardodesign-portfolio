@@ -773,64 +773,58 @@ ${otros.length ? `<section class="sec" aria-labelledby="otros-h"><div class="wra
     return c;
   };
 
+  /* Políticas cortas (19 oct 2026, orden de Ricardo: "más sencillas, no detalladas"): sin índice lateral, sin numeración, 3 a 5 bloques. */
+  const legalSimple = (L, migasL, hero, bloques) => `
+<div class="legal-main">
+${migas(L, migasL).replace('migas wrap', 'migas')}
+<section class="legal-hero">
+${hero}
+</section>
+<div class="doc-cuerpo doc-solo">
+${bloques}
+<p class="doc-volver"><a class="btn btn--linea" href="${L.a('')}">Volver al inicio ${FLECHA}</a></p></div>
+</div>`;
+
   {
     const salida = 'privacidad/index.html', L = crearLinks(salida);
     const MIGAS_LEGAL = [['Inicio', ''], ['Privacidad', 'privacidad/']];
-    const cuerpo = `
-<div class="legal-main">
-${migas(L, MIGAS_LEGAL).replace('migas wrap', 'migas')}
-<section class="legal-hero">
-  <p class="kicker">Ley 1581 de 2012 · Decreto 1377 de 2013</p>
-  <h1>Política de tratamiento de datos personales</h1>
-</section>
-<article class="card"><h2>1. Responsable</h2>
-  <p>Ricardo José Marín Espitia, persona natural comerciante que opera bajo el nombre comercial Ricardo Design, con domicilio en Bucaramanga, Santander, Colombia. Atención 100 % virtual (no se atiende de forma presencial). Correo: <a href="mailto:${esc(C.correo)}">${esc(C.correo)}</a>. WhatsApp: ${esc(C.whatsappVisible)}.</p></article>
-<article class="card"><h2>2. Datos que tratamos</h2><ul>
-  <li><strong>De contacto:</strong> nombre, teléfono, correo y nombre del negocio, que nos entregas por WhatsApp, correo o el formulario de cotización.</li>
-  <li><strong>De navegación:</strong> cookies, dirección IP y tipo de dispositivo, sólo si autorizas las cookies de analítica o publicidad.</li>
-  <li><strong>Datos de los clientes de nuestros clientes:</strong> a los que accedemos como encargados al gestionar sus páginas o cuentas publicitarias.</li></ul></article>
-<article class="card"><h2>3. Finalidades</h2><ul>
-  <li>Responder tus solicitudes y enviarte cotizaciones.</li><li>Prestar y facturar los servicios contratados.</li>
-  <li>Enviarte información comercial, sólo si lo autorizas.</li><li>Medir y mejorar el sitio y nuestros anuncios, sólo con tu consentimiento.</li></ul></article>
-<article class="card"><h2>4. Tratamiento como encargado</h2><p>Cuando configuramos el píxel de Meta, Google Analytics o listas de clientes para públicos personalizados, lo hacemos sólo según las instrucciones de nuestro cliente, que es el responsable de esos datos.</p></article>
-<article class="card"><h2>5. Tus derechos</h2><ul>
-  <li>Conocer, actualizar y rectificar tus datos.</li><li>Solicitar prueba de la autorización otorgada.</li><li>Ser informado sobre el uso de tus datos.</li>
-  <li>Presentar quejas ante la Superintendencia de Industria y Comercio.</li><li>Revocar la autorización y/o solicitar la supresión de tus datos.</li><li>Acceder gratuitamente a tus datos.</li></ul></article>
-<article class="card"><h2>6. Cómo ejercerlos</h2><p>Escribe a <a href="mailto:${esc(C.correo)}">${esc(C.correo)}</a> con el asunto "Datos personales". Las <strong>consultas</strong> se responden en máximo 10 días hábiles (prorrogables 5). Los <strong>reclamos</strong>, en máximo 15 días hábiles (prorrogables 8).</p></article>
-<article class="card"><h2>7. Transferencia y transmisión internacional</h2><p>Algunas herramientas que usamos (Google, Meta, Microsoft) almacenan datos en servidores fuera de Colombia.</p></article>
-<article class="card"><h2>8. Datos sensibles y de menores</h2><p>No solicitamos datos sensibles ni datos de menores de edad.</p></article>
-<article class="card"><h2>9. Seguridad y vigencia</h2><p>Aplicamos medidas razonables para proteger tus datos. Esta política rige desde el 19 de octubre de 2026 y las bases de datos se conservan mientras sean necesarias para las finalidades descritas.</p>
-  <!-- [DECISIÓN ABIERTA] Registro Nacional de Bases de Datos: confirmar con abogado si aplica. --></article>
-</div>`;
-    out.push({ salida, legal: true, cuerpo: conIndice(cuerpo, L, false), title: 'Política de tratamiento de datos | Ricardo Design', desc: '' });
+    const cuerpo = legalSimple(L, MIGAS_LEGAL, `  <p class="kicker">Ley 1581 de 2012</p>
+  <h1>Política de privacidad</h1>
+  <p>Cómo cuidamos los datos que nos compartes. Vigente desde el 19 de octubre de 2026.</p>`, `<article class="card" id="responsable"><h2>Quién es el responsable</h2>
+  <p>Ricardo José Marín Espitia, persona natural que opera como Ricardo Design, en Bucaramanga, Santander, Colombia. Atendemos de forma virtual. Correo: <a href="mailto:${esc(C.correo)}">${esc(C.correo)}</a>. WhatsApp: ${esc(C.whatsappVisible)}.</p></article>
+<article class="card" id="datos"><h2>Qué datos recibimos</h2>
+  <p>Los que nos das por WhatsApp, correo o formulario: nombre, teléfono, correo y tu negocio. Los datos de navegación, como tu dispositivo y las páginas que visitas, solo si aceptas las cookies.</p></article>
+<article class="card" id="uso"><h2>Para qué los usamos</h2>
+  <p>Para responderte, cotizarte y prestarte el servicio. Si aceptas las cookies, también para medir y mejorar el sitio y nuestros anuncios.</p></article>
+<article class="card" id="derechos"><h2>Tus derechos</h2>
+  <p>Puedes conocer, actualizar y corregir tus datos, pedir que los borremos y retirar tu autorización cuando quieras. Escríbenos al correo o por WhatsApp: respondemos las consultas en máximo 10 días hábiles y los reclamos en máximo 15. Si no quedas conforme, puedes acudir a la Superintendencia de Industria y Comercio (SIC).</p></article>
+<article class="card" id="terceros"><h2>Herramientas de terceros</h2>
+  <p>Usamos herramientas de Google, Meta y Microsoft, que pueden guardar datos fuera de Colombia. Más detalle en la <a href="${L.a('cookies/')}">política de cookies</a>.</p></article>`);
+    out.push({ salida, legal: true, cuerpo, title: 'Política de tratamiento de datos | Ricardo Design', desc: 'Qué datos recibe Ricardo Design, para qué los usa y cómo ejercer tus derechos (Ley 1581 de 2012).' });
   }
 
   {
     const salida = 'cookies/index.html', L = crearLinks(salida);
     const MIGAS_LEGAL = [['Inicio', ''], ['Cookies', 'cookies/']];
-    const fila = (c, p, f, d, cat) => `<tr><td><code>${c}</code></td><td>${p}</td><td>${f}</td><td>${d}</td><td>${cat}</td></tr>`;
-    const cuerpo = `
-<div class="legal-main">
-${migas(L, MIGAS_LEGAL).replace('migas wrap', 'migas')}
-<section class="legal-hero">
-  <p class="kicker">Transparencia</p>
+    const fila = (c, p, d) => `<tr><td><code>${c}</code></td><td>${p}</td><td>${d}</td></tr>`;
+    const cuerpo = legalSimple(L, MIGAS_LEGAL, `  <p class="kicker">Transparencia</p>
   <h1>Política de cookies</h1>
-  <p>Las cookies son pequeños archivos que el navegador guarda para recordar información. Aquí te contamos cuáles usamos y cómo controlarlas.</p>
-</section>
-<article class="card"><h2>Estado actual</h2><p><strong>Hoy este sitio no usa cookies de analítica ni de publicidad.</strong> Sólo guarda en tu navegador preferencias propias, como pausar las animaciones. Si en el futuro activamos herramientas de medición, te pediremos permiso antes con un aviso y podrás cambiar tu decisión en cualquier momento.</p>
-  <p><button class="btn btn-sec btn-sm" type="button" data-config-cookies>Configurar cookies</button></p></article>
-<article class="card"><h2>Cookies por categoría</h2>
+  <p>Las cookies son archivos pequeños que tu navegador guarda para recordar información. Las de medición y publicidad solo las usamos si las aceptas.</p>`, `<article class="card" id="que-usamos"><h2>Qué usamos</h2>
+  <ul><li><strong>Necesarias:</strong> hacen que el sitio funcione y recuerdan tu decisión. Siempre activas.</li>
+  <li><strong>Analítica:</strong> Google Analytics y Microsoft Clarity cuentan visitas y muestran cómo se usa el sitio.</li>
+  <li><strong>Publicidad:</strong> Meta mide y mejora nuestros anuncios.</li></ul>
   <div class="tabla-scroll"><table class="tabla"><caption class="sr-only">Cookies y almacenamiento usados</caption>
-  <thead><tr><th scope="col">Nombre</th><th scope="col">Proveedor</th><th scope="col">Finalidad</th><th scope="col">Duración</th><th scope="col">Categoría</th></tr></thead><tbody>
-  ${fila('rd_consent', 'Ricardo Design', 'Recordar tu decisión sobre cookies (almacenamiento local)', '12 meses', 'Necesaria')}
-  ${fila('rd_pausa', 'Ricardo Design', 'Recordar si pausaste las animaciones (almacenamiento local)', 'Hasta que la borres', 'Necesaria')}
-  ${fila('_ga, _ga_*', 'Google Analytics 4', 'Contar visitas y entender el uso del sitio', '13 meses · sólo si se activa', 'Analítica')}
-  ${fila('_clck, _clsk', 'Microsoft Clarity', 'Mapas de calor y grabaciones anónimas', '1 año / 1 día · sólo si se activa', 'Analítica')}
-  ${fila('_fbp, _fbc', 'Meta', 'Medir y mejorar anuncios en Facebook e Instagram', '3 meses · sólo si se activa', 'Publicidad')}
+  <thead><tr><th scope="col">Nombre</th><th scope="col">Para qué</th><th scope="col">Duración</th></tr></thead><tbody>
+  ${fila('rd_consent', 'Recordar tu decisión (almacenamiento local)', '12 meses')}
+  ${fila('rd_pausa', 'Recordar si pausaste las animaciones (almacenamiento local)', 'Hasta que la borres')}
+  ${fila('_ga, _ga_*', 'Google Analytics: contar visitas', 'Hasta 2 años')}
+  ${fila('_clck, _clsk', 'Clarity: mapas de calor y grabaciones anónimas', '1 año y 1 día')}
+  ${fila('_fbp, _fbc', 'Meta: medir anuncios', '3 meses')}
   </tbody></table></div></article>
-<article class="card"><h2>Cómo borrarlas</h2><p>Puedes borrar las cookies y el almacenamiento local desde la configuración de privacidad de tu navegador (Chrome, Safari, Firefox o Edge). Más información sobre tus datos en nuestra <a href="${L.a('privacidad/')}">Política de tratamiento de datos</a>.</p></article>
-</div>`;
-    out.push({ salida, legal: true, cuerpo: conIndice(cuerpo, L, true), title: 'Política de cookies | Ricardo Design', desc: 'Qué cookies usa ricardodesign.co, para qué sirven y cómo controlarlas.', jsonld: [migasLd(MIGAS_LEGAL)] });
+<article class="card" id="cambiar"><h2>Cambiar tu decisión</h2><p>Abre el panel cuando quieras, aquí o en «Configurar cookies», al final de cada página.</p>
+  <p><button class="btn btn-sec btn-sm" type="button" data-config-cookies>Configurar cookies</button></p></article>
+<article class="card" id="borrar"><h2>Borrarlas</h2><p>Desde la configuración de privacidad de tu navegador (Chrome, Safari, Firefox o Edge). Más sobre tus datos en la <a href="${L.a('privacidad/')}">política de privacidad</a>.</p></article>`);
+    out.push({ salida, legal: true, cuerpo, title: 'Política de cookies | Ricardo Design', desc: 'Qué cookies usa ricardodesign.co, para qué sirven y cómo controlarlas.', jsonld: [migasLd(MIGAS_LEGAL)] });
   }
 
   {

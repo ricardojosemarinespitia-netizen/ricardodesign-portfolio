@@ -423,6 +423,7 @@ mark.ph{background:var(--bg-hueco);color:var(--texto);border:1px solid var(--c-l
 .doc-indice a:hover{color:var(--texto)}
 .doc-indice a[aria-current=true]{color:var(--texto);font-weight:600;box-shadow:inset 2px 0 0 var(--accion);padding-left:var(--s-2);grid-template-columns:2.2em 1fr}
 .doc-cuerpo{display:grid;grid-template-columns:minmax(0,1fr);gap:0;max-width:calc(var(--lectura) + 2 * var(--s-8));counter-reset:sec}
+.doc-solo{padding-top:var(--s-12)}
 .legal .card{background:transparent;border:0;border-top:1px solid var(--c-linea);border-radius:0;padding:var(--s-8) 0;scroll-margin-top:calc(var(--nav-h) + var(--s-6))}
 .legal .card:first-child{border-top:0;padding-top:0}
 .legal .card h2{font:500 var(--t-lg)/1.1 var(--f-display);letter-spacing:-.02em;margin-bottom:var(--s-4)}

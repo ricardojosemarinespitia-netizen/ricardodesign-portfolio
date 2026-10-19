@@ -277,45 +277,9 @@
     if (a) push({ event: 'cta_whatsapp_click', servicio: a.getAttribute('data-servicio') || d.body.getAttribute('data-servicio') || 'general', ubicacion: a.getAttribute('data-ubicacion') || 'pagina' });
   });
 
-  /* ---------- Consentimiento de cookies (plan §9.2) ----------
-     Con RD_MEDICION.activo === false (por defecto) NO se muestra banner y
-     NO se carga ninguna etiqueta de terceros. */
-  var M = window.RD_MEDICION || { activo: false };
-  var banner = d.getElementById('cookies');
-  var idValido = M.gtmId && String(M.gtmId).indexOf('{{') === -1 && /^GTM-[A-Z0-9]+$/.test(M.gtmId);
-  var activo = !!(M.activo && idValido);
-  function leerC() { try { var c = JSON.parse(store('rd_consent') || 'null'); if (c && c.v === 1 && (Date.now() - c.fecha) < 31536e6) return c; } catch (e) {} return null; }
-  function gtag() { window.dataLayer.push(arguments); }
-  function cargarGTM(c) {
-    if (window.__gtm) return; window.__gtm = true;
-    gtag('consent', 'update', { analytics_storage: c.analitica ? 'granted' : 'denied', ad_storage: c.publicidad ? 'granted' : 'denied', ad_user_data: c.publicidad ? 'granted' : 'denied', ad_personalization: c.publicidad ? 'granted' : 'denied' });
-    window.dataLayer.push({ 'gtm.start': Date.now(), event: 'gtm.js' });
-    if (c.publicidad) window.dataLayer.push({ event: 'consent_marketing' });
-    if (c.analitica) window.dataLayer.push({ event: 'consent_analytics' });
-    var s = d.createElement('script'); s.async = true; s.src = 'https://www.googletagmanager.com/gtm.js?id=' + encodeURIComponent(M.gtmId); d.head.appendChild(s);
-  }
-  function guardar(an, pu) { var c = { v: 1, fecha: Date.now(), analitica: an, publicidad: pu }; store('rd_consent', JSON.stringify(c)); if (banner) banner.hidden = true; if (an || pu) cargarGTM(c); }
-  if (activo && banner) {
-    window.dataLayer = window.dataLayer || [];
-    gtag('consent', 'default', { ad_storage: 'denied', ad_user_data: 'denied', ad_personalization: 'denied', analytics_storage: 'denied', functionality_storage: 'granted', security_storage: 'granted', wait_for_update: 500 });
-    var c0 = leerC();
-    if (c0) { if (c0.analitica || c0.publicidad) cargarGTM(c0); } else banner.hidden = false;
-    var cfg = banner.querySelector('.cookies-cfg');
-    banner.addEventListener('click', function (e) {
-      var b = e.target.closest('[data-c]'); if (!b) return;
-      var a = b.getAttribute('data-c');
-      if (a === 'todas') guardar(true, true);
-      if (a === 'rechazar') guardar(false, false);
-      if (a === 'config') cfg.hidden = !cfg.hidden;
-      if (a === 'guardar') guardar(banner.querySelector('[name=c-analitica]').checked, banner.querySelector('[name=c-publicidad]').checked);
-    });
-  }
-  $$('[data-config-cookies]').forEach(function (b) {
-    b.addEventListener('click', function () {
-      if (activo && banner) { banner.hidden = false; var f = banner.querySelector('button'); if (f) f.focus(); }
-      else { var r = b.getAttribute('data-href'); if (r) location.href = r; }
-    });
-  });
+  /* ---------- Consentimiento de cookies ----------
+     Lo gestiona js/cookies.js (19 oct 2026): aviso, panel, rd_consent y carga condicionada de GA4, Clarity y Meta.
+     Aquí ya no queda lógica de consentimiento. */
 
   /* ---------- Splash (la secuencia es CSS; aquí sólo saltar y limpiar) ---------- */
   var capaS = d.querySelector('.splash-capa');

@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <!-- Generado por scripts/build.mjs — no edites este archivo a mano: edita data/*.json o scripts/paginas.mjs y vuelve a ejecutar el build. -->
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https://felipevergel.com https://alejandravergel.com https://vegasdelverde.co https://armandomartinez.co https://accesoriosencobre.co; connect-src 'self'; frame-src 'none'; object-src 'none'; base-uri 'self'; form-action 'self' https://wa.me; upgrade-insecure-requests">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://www.clarity.ms https://scripts.clarity.ms https://www.googletagmanager.com https://connect.facebook.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https://*.clarity.ms https://c.bing.com https://www.googletagmanager.com https://*.google-analytics.com https://www.facebook.com https://felipevergel.com https://alejandravergel.com https://vegasdelverde.co https://armandomartinez.co https://accesoriosencobre.co; connect-src 'self' https://*.clarity.ms https://c.bing.com https://*.google-analytics.com https://*.analytics.google.com https://www.googletagmanager.com https://www.facebook.com https://connect.facebook.net; frame-src 'none'; object-src 'none'; base-uri 'self'; form-action 'self' https://wa.me; upgrade-insecure-requests">
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Contenido para redes en Bucaramanga | Ricardo Design</title>
@@ -24,9 +24,11 @@
 <meta name="twitter:card" content="summary">
 <link rel="preload" as="font" type="font/woff2" href="/fonts/figtree-var.woff2" crossorigin>
 <link rel="stylesheet" href="/css/paginas.min.css">
+<link rel="stylesheet" href="/css/cookies.min.css">
 <script src="/assets/js/config-medicion.js" defer></script>
 <script src="/assets/js/app.js" defer></script>
 <script src="/js/paginas.min.js" defer></script>
+<script src="/js/cookies.min.js" defer></script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"Service","name":"Contenido para redes sociales","description":"Publicaciones, carruseles y reels que muestran tu marca como es.","url":"https://ricardodesign.co/contenido-redes-sociales/","provider":{"@id":"https://ricardodesign.co/#negocio"},"areaServed":["Bucaramanga","Floridablanca","Girón","Piedecuesta","Colombia"]}</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Inicio","item":"https://ricardodesign.co/"},{"@type":"ListItem","position":2,"name":"Contenido para redes","item":"https://ricardodesign.co/contenido-redes-sociales/"}]}</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"¿Para qué redes hacen contenido?","acceptedAnswer":{"@type":"Answer","text":"Instagram, Facebook y TikTok. Adaptamos cada pieza al formato de cada red."}},{"@type":"Question","name":"¿Necesito una sesión de fotos?","acceptedAnswer":{"@type":"Answer","text":"No siempre. Podemos trabajar con tu material o, si lo necesitas, programar una sesión de foto o video."}},{"@type":"Question","name":"¿Usan música en los reels?","acceptedAnswer":{"@type":"Answer","text":"Sí, sólo de bibliotecas comerciales con licencia, para que tu cuenta de empresa no tenga problemas."}},{"@type":"Question","name":"¿Lo puedo combinar con publicidad?","acceptedAnswer":{"@type":"Answer","text":"Sí. Los anuncios rinden más con piezas hechas para pauta. Mira Meta Ads y pregunta por el plan combinado."}},{"@type":"Question","name":"¿Quién publica las piezas?","acceptedAnswer":{"@type":"Answer","text":"Podemos entregártelas listas o programarlas en Meta Business Suite. Lo definimos contigo en la cotización."}}]}</script>
@@ -137,25 +139,11 @@
       <ul class="pie__links">
         <li><a href="../privacidad/index.html">Privacidad</a></li>
         <li><a href="../cookies/index.html">Cookies</a></li>
+        <li><a href="../cookies/index.html" data-config-cookies>Configurar cookies</a></li>
         <li><span class="pie__copy">© 2026 Ricardo Design</span></li>
       </ul>
     </div>
   </div>
 </footer>
-<div class="cookies" id="cookies" role="dialog" aria-labelledby="cookies-t" hidden>
-  <h2 id="cookies-t">Tu privacidad</h2>
-  <p>Usamos cookies propias necesarias para que el sitio funcione y, si lo autorizas, cookies de analítica (Google Analytics, Microsoft Clarity) y de publicidad (Meta) para medir visitas y mejorar nuestros anuncios. Puedes cambiar tu decisión cuando quieras en "Configurar cookies". Lee la <a href="../cookies/index.html">política de cookies</a>.</p>
-  <div class="cookies-cfg" hidden>
-    <label><input type="checkbox" checked disabled> Necesarias (siempre activas)</label>
-    <label><input type="checkbox" name="c-analitica"> Analítica</label>
-    <label><input type="checkbox" name="c-publicidad"> Publicidad</label>
-    <button class="btn btn--linea" type="button" data-c="guardar">Guardar preferencias</button>
-  </div>
-  <div class="acciones">
-    <button class="btn btn--linea" type="button" data-c="todas">Aceptar todas</button>
-    <button class="btn btn--linea" type="button" data-c="rechazar">Rechazar</button>
-    <button class="btn btn--linea" type="button" data-c="config">Configurar</button>
-  </div>
-</div>
 </body>
 </html>
