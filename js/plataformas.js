@@ -55,8 +55,8 @@
   var quieto=root.classList.contains('quieto');
   var con=navigator.connection||{};
   var fino=matchMedia('(hover:hover) and (pointer:fine)').matches;
-  var wv=root.classList.contains('webview')||/Instagram|FBAN|FBAV/.test(navigator.userAgent);
-  var liviano=quieto||wv||!!con.saveData;
+  /* 19 oct 2026: el WebView de Instagram/Facebook ya no apaga la física ni el rd; solo reducido, ahorro de datos o render por software */
+  var liviano=quieto||!!con.saveData||!!(window.RDCAP&&RDCAP.software);
   var fis=!liviano;
   var ligero=liviano||!fino||!matchMedia('(min-width:901px)').matches;
   if(ligero)escena.classList.add('es-ligero');
@@ -371,13 +371,12 @@
   function cargarCuadros(){
     if(ligero||pidioGl||cuadros.length||!lienzo.getContext)return;pidioGl=1;
     for(var i=0;i<26;i++)chispas.push({a:Math.random()*TAU,r:0.25+Math.random()*0.25,v:0.15+Math.random()*0.35,f:Math.random(),z:Math.random()});
-    var ok=0;try{var tg=document.createElement('canvas').getContext('webgl2');if(tg){ok=1;var lc=tg.getExtension('WEBGL_lose_context');lc&&lc.loseContext()}}catch(_){}
-    if(!ok)return cargarCuadros2D();
-    import(new URL('js/rd3d.min.js',document.baseURI).href).then(function(m){
+    var C=window.RDCAP;if(!C||!C.puede3d())return cargarCuadros2D();
+    C.modulo('js/rd3d.min.js').then(function(m){
       return m.giro(rd,{control:true,zona:sec,antes:lienzo,clase:'pl-rd__gl',vivo:['es-vivo'],lado:1,reflejo:.24,fondoReflejo:.3,exp:2,
         estilo:'position:absolute;inset:0;width:100%;height:100%;display:block;pointer-events:none',
         cam:{fov:24,pos:[0,.66,3.55],mira:[0,.36,0]},alFallar:function(){gl3=null;cargarCuadros2D()}});
-    }).then(function(g){gl3=g;ctx=lienzo.getContext('2d');window.__plGl=g}).catch(function(e){console.warn('rd plataformas',e&&e.message);cargarCuadros2D()});
+    }).then(function(g){gl3=g;ctx=lienzo.getContext('2d');window.__plGl=g;C.estado('plataformas','webgl')}).catch(function(e){console.warn('rd plataformas',e&&e.message);C.estado('plataformas','cuadros (falló el 3D: '+(e&&e.message)+')');cargarCuadros2D()});
   }
   function cargarCuadros2D(){
     if(cuadros.length)return;
@@ -386,7 +385,7 @@
     for(var i=0;i<N;i++)cuadros.push(null);
     var cola=orden.slice(),vivos=0;
     function sigue(){while(vivos<6&&cola.length){(function(k){vivos++;var im=new Image();im.decoding='async';
-      im.onload=function(){cuadros[k]=im;cargados++;if(k===0)rd.classList.add('es-vivo');vivos--;sigue()};
+      im.onload=function(){cuadros[k]=im;cargados++;if(k===0){rd.classList.add('es-vivo');if(window.RDCAP)RDCAP.estado('plataformas','cuadros (72 cuadros, canvas 2D)')}vivos--;sigue()};
       im.onerror=function(){vivos--;sigue()};im.src=base+(k<10?'0':'')+k+'.webp'})(cola.shift())}}
     sigue();
   }
@@ -452,7 +451,7 @@
     escena.classList.add('es-girable');
     var pedirHoja=function(){if(hojaRd)return;hojaRd=document.createElement('span');hojaRd.className='pl-rd__hoja';hojaRd.setAttribute('aria-hidden','true');
       var src=rd.getAttribute('data-hoja'),im=new Image();
-      im.onload=function(){hojaRd.style.backgroundImage='url("'+im.currentSrc+'")';rd.appendChild(hojaRd);lK=-1;lPinta();rd.classList.add('es-hoja')};
+      im.onload=function(){hojaRd.style.backgroundImage='url("'+im.currentSrc+'")';rd.appendChild(hojaRd);lK=-1;lPinta();rd.classList.add('es-hoja');if(window.RDCAP)RDCAP.estado('plataformas','cuadros (hoja de giro)')};
       var pic=document.createElement('picture'),so=document.createElement('source');so.type='image/avif';so.srcset=src+'.avif';pic.appendChild(so);im.decoding='async';im.src=src+'.webp';pic.appendChild(im)};
     var lPinta=function(){
       if(rd.classList.contains('es-hoja')){var k=((Math.round(lAng/(360/M))%M)+M)%M;if(k!==lK){lK=k;hojaRd.style.backgroundPosition=(k%6)*20+'% '+((k/6|0)*100/3).toFixed(3)+'%'}rd.style.removeProperty('--pl-ry')}
