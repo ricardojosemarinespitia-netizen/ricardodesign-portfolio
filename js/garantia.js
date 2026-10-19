@@ -17,15 +17,16 @@
   /* ---------- íconos 3D en tiempo real (js/g3d.js, WebGL propio) ----------
      Se arman al acercarse (900 px). Vaivén ±32°, puntero y scroll inclinan el objeto de verdad; cada uno vive.
      Reducido, ?estatico, WebView de Instagram/Facebook, ahorro de datos o sin WebGL: foto fija (assets/web/garantia3d/v2). */
-  var fijo = quieto || wv || ahorro;
+  /* 19 oct 2026: el WebView de Instagram/Facebook ya no apaga el 3D (g3d es WebGL1 propio y corre ahí); solo render por software, reducido o ahorro */
+  var fijo = quieto || ahorro || !!(window.RDCAP && RDCAP.software);
   var icos = Q('.g3d'), G = null;
   function foto(g) {
     if (g._f) return; g._f = 1;
     var n = g.getAttribute('data-g3d'), im = new Image();
     im.className = 'g3d__foto'; im.alt = ''; im.decoding = 'async'; im.width = im.height = 240;
-    im.onload = function () { g.classList.add('g3d--vivo'); };
+    im.onload = function () { g.classList.add('g3d--vivo'); if (window.RDCAP) RDCAP.estado('iconos', 'foto'); };
     im.src = 'assets/web/garantia3d/v2/' + n + (window.G3D_AVIF === false ? '.webp' : '.avif');
-    im.onerror = function () { if (!/webp$/.test(im.src)) im.src = im.src.replace(/avif$/, 'webp'); };
+    im.onerror = function () { if (/avif$/.test(im.src)) im.src = im.src.replace(/avif$/, 'webp'); else if (/webp$/.test(im.src)) im.src = im.src.replace(/webp$/, 'png'); else if (window.RDCAP) RDCAP.estado('iconos', 'svg (falló la foto)'); };
     g.insertBefore(im, g.firstChild);
   }
   function armar() {
@@ -35,6 +36,7 @@
     } }) : { ok: false };
     if (!G.ok) { icos.forEach(foto); return; }
     icos.forEach(function (g) { g.classList.add('g3d--vivo', 'g3d--rt'); });
+    if (window.RDCAP) RDCAP.estado('iconos', 'webgl');
     var vis = 0, fn = function (ms) { G.cuadro(ms); };
     var tk = window.RDFX && RDFX.tick, propio = 0;
     function arr() { if (tk) tk.add(fn); else if (!propio) { propio = 1; (function l(ms) { if (!propio) return; fn(ms); requestAnimationFrame(l); })(performance.now()); } }
@@ -164,17 +166,15 @@
   var rd = document.querySelector('#garantia .pliego__rd');
   if (!rd || !window.IntersectionObserver) return;
   var root = document.documentElement, t = navigator, red = t.connection || {};
-  if (root.classList.contains('quieto') || root.classList.contains('webview') || /[?&]estatico/.test(location.search) ||
-      /Instagram|FBAN|FBAV|FB_IAB/.test(t.userAgent) || matchMedia('(prefers-reduced-motion: reduce)').matches ||
-      red.saveData || /(^|-)2g$/.test(red.effectiveType || '') ||
-      (t.deviceMemory && t.deviceMemory < 4) || (t.hardwareConcurrency && t.hardwareConcurrency < 4)) return;
-  try { var gl = document.createElement('canvas').getContext('webgl2'); if (!gl) return; var lc = gl.getExtension('WEBGL_lose_context'); lc && lc.loseContext(); } catch (e) { return; }
+  /* 19 oct 2026: se decide por capacidades reales (RDCAP), no por el UA; reducido y red 2g siguen en póster */
+  var C = window.RDCAP;
+  if (!C || !C.puede3d() || root.classList.contains('quieto') || matchMedia('(prefers-reduced-motion: reduce)').matches || /(^|-)2g$/.test(red.effectiveType || '')) { if (C) C.estado('garantia', 'póster' + (C.motivo ? ' (' + C.motivo + ')' : '')); return; }
   var hecho = 0, zona = document.getElementById('garantia');
   var cerca = new IntersectionObserver(function (es) {
     if (hecho || !es[0].isIntersecting) return; hecho = 1; cerca.disconnect();
-    import(new URL('js/rd3d.min.js', document.baseURI).href).then(function (m) {
+    C.modulo('js/rd3d.min.js').then(function (m) {
       return m.giro(rd, { modo: ROT_MODO, amplitud: ROT_AMPLITUD, seg: ROT_SEG, zona: zona, exp: 2.2 });   /* exposición sobre papel claro: el mismo negro mate se lee como el póster de Blender */
-    }).then(function (g) { window.__rdGiro = g; }).catch(function (e) { rd.classList.remove('rd-vivo', 'rd-3d'); console.warn('rd giro', e && e.message); });
+    }).then(function (g) { window.__rdGiro = g; C.estado('garantia', 'webgl'); }).catch(function (e) { rd.classList.remove('rd-vivo', 'rd-3d'); C.estado('garantia', 'póster (falló: ' + (e && e.message) + ')'); console.warn('rd giro', e && e.message); });
   }, { rootMargin: '700px 0px' });
   cerca.observe(zona);                                        /* la sección: su clip-path impide observar al rd directamente */
 })();

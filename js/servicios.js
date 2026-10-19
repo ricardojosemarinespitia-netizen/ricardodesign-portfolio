@@ -4,15 +4,14 @@
   var G=S.querySelector('.sv-grid'),M=S.querySelector('.sv-marco');if(!G||!M)return;
   var H=document.documentElement,F=[].slice.call(S.querySelectorAll('.sv-fila')),E=[].slice.call(S.querySelectorAll('.sv-esc'));
   var B='assets/web/servicios3d/',cn=navigator.connection,dm=navigator.deviceMemory;
-  var Q=matchMedia('(prefers-reduced-motion: reduce)').matches||H.classList.contains('quieto')||H.classList.contains('webview')||/[?&]estatico/.test(location.search)||!!(cn&&cn.saveData)||(H.classList.contains('ligero')&&dm&&dm<=2)||!('IntersectionObserver' in window);
+  var Q=matchMedia('(prefers-reduced-motion: reduce)').matches||H.classList.contains('quieto')||/[?&]estatico/.test(location.search)||!!(cn&&cn.saveData)||(H.classList.contains('ligero')&&dm&&dm<=2)||!('IntersectionObserver' in window);
   var act=0,cargado=false,visible=false,fijo=false,raf=0;
   G.classList.add('sv-js');G.classList.add(Q?'sv-quieto':'sv-mov');
+  if(window.RDCAP)RDCAP.estado('servicios',Q?'póster (modo quieto)':'póster (video al llegar a la vista)');
 
   E.forEach(function(e,i){
-    var n=e.getAttribute('data-n'),pic=document.createElement('picture'),so=document.createElement('source'),im=document.createElement('img');
-    so.type='image/avif';so.setAttribute('data-srcset',B+n+'-poster.avif?v=3');
-    im.setAttribute('data-src',B+n+'-poster.webp?v=3');im.width=960;im.height=540;im.alt='';im.decoding='async';
-    pic.appendChild(so);pic.appendChild(im);e.insertBefore(pic,e.firstChild);
+    /* 19 oct 2026: el póster (avif/webp/jpg) ya viene en el HTML para que se vea sin JS; aquí solo se agrega el video si se puede */
+    var n=e.getAttribute('data-n');
     var rot=document.createElement('div');rot.className='sv-rot';
     e._r=[].map.call(F[i]?F[i].querySelectorAll('li'):[],function(li){var s=document.createElement('span');s.textContent=li.textContent;rot.appendChild(s);return s});
     e.appendChild(rot);
@@ -20,11 +19,11 @@
     var v=document.createElement('video');
     v.muted=true;v.loop=true;v.playsInline=true;v.preload='none';v.setAttribute('muted','');v.setAttribute('playsinline','');
     v.setAttribute('aria-hidden','true');v.tabIndex=-1;v.width=960;v.height=540;v.disablePictureInPicture=true;
-    v.addEventListener('playing',function(){v.classList.add('vivo');pulso()});
+    v.addEventListener('playing',function(){v.classList.add('vivo');if(window.RDCAP)RDCAP.estado('servicios','video');pulso()});
     e._v=v;e.insertBefore(v,rot);
   });
 
-  function fuentes(e){var v=e&&e._v;if(!v||v._ok)return;v._ok=1;[['webm','video/webm'],['mp4','video/mp4']].forEach(function(t){var s=document.createElement('source');s.src=B+e.getAttribute('data-n')+'.'+t[0]+'?v=3';s.type=t[1];v.appendChild(s)});v.load()}
+  function fuentes(e){var v=e&&e._v;if(!v||v._ok)return;v._ok=1;[['mp4','video/mp4'],['webm','video/webm']].forEach(function(t){var s=document.createElement('source');s.src=B+e.getAttribute('data-n')+'.'+t[0]+'?v=3';s.type=t[1];v.appendChild(s)});v.load()}
   function sig(i){return (i+1)%E.length}
 
   /* un solo rAF, vivo solo mientras el video activo está en pantalla y sonando */
