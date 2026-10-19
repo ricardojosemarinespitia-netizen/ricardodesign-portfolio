@@ -325,7 +325,6 @@ ${ids.map((id, i) => `<div class="sim-panel" role="tabpanel" id="${pre}-p-${id}"
       <li class="pl-paso rv"><span class="pl-num" aria-hidden="true">03</span><div class="pl-txt"><h3><span class="pl-ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 20l4-1 11-11-3-3L5 16z"/><path d="M14 6l3 3"/></svg></span>Diseño y revisiones</h3><p>Te mostramos avances y ajustamos contigo antes de publicar.</p></div></li>
       <li class="pl-paso rv"><span class="pl-num" aria-hidden="true">04</span><div class="pl-txt"><h3><span class="pl-ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 3c3 2 5 6 5 10l-2 3H9l-2-3c0-4 2-8 5-10z"/><circle cx="12" cy="10" r="1.6"/><path d="M9 18l-2 3M15 18l2 3"/></svg></span>Publicación y acompañamiento</h3><p>Publicamos, verificamos que todo funcione y te acompañamos 15 días hábiles de garantía.</p></div></li>
     </ol>
-    <p class="pl-cond"><a class="pl-enlace" href="politicas.html">Lee las condiciones completas <span class="fl" aria-hidden="true">→</span></a></p>
   </div>
 </section>
 
@@ -496,7 +495,7 @@ ${migas(L, MIGAS)}
 </div></section>
 
 <section class="sec" aria-labelledby="ni-h" style="padding-top:0"><div class="wrap">
-  <div class="tarjeta rv"><h3 id="ni-h">Qué no incluye</h3><ul class="lista-x">${s.noIncluye.map((x) => `<li>${esc(x)}</li>`).join('')}</ul><p style="margin-top:var(--e-4)"><a class="enlace" href="${L.a('politicas.html#ads')}">Ver condiciones del servicio <span class="fl" aria-hidden="true">→</span></a></p></div>
+  <div class="tarjeta rv"><h3 id="ni-h">Qué no incluye</h3><ul class="lista-x">${s.noIncluye.map((x) => `<li>${esc(x)}</li>`).join('')}</ul></div>
 </div></section>
 
 ${proyectosDe('ads', L)}
@@ -577,7 +576,7 @@ ${migas(L, MIGAS)}
     <li>Música sólo de biblioteca comercial con licencia.</li>
     <li>Garantizas que tienes derechos sobre las fotos y logos que nos entregas.</li>
     <li>Revisiones, permanencia y archivos editables se definen en tu cotización.</li>
-  </ul><p style="margin-top:var(--e-4)"><a class="enlace" href="${L.a('politicas.html#contenido')}">Ver condiciones completas <span class="fl" aria-hidden="true">→</span></a></p></div>
+  </ul></div>
   <div class="tarjeta rv rv-d1"><h3>Qué no incluye</h3><ul class="lista-x">${s.noIncluye.map((x) => `<li>${esc(x)}</li>`).join('')}</ul></div>
 </div></section>
 ${proyectosDe('contenido', L)}
@@ -639,7 +638,7 @@ ${migas(L, MIGAS)}
 </div></section>
 
 <section class="sec" aria-labelledby="ni-h" style="padding-top:0"><div class="wrap">
-  <div class="tarjeta rv"><h3 id="ni-h">Qué no incluye</h3><ul class="lista-x">${s.noIncluye.map((x) => `<li>${esc(x)}</li>`).join('')}</ul><p style="margin-top:var(--e-4)"><a class="enlace" href="${L.a('politicas.html#web')}">Ver tiempos, pagos y garantía <span class="fl" aria-hidden="true">→</span></a></p></div>
+  <div class="tarjeta rv"><h3 id="ni-h">Qué no incluye</h3><ul class="lista-x">${s.noIncluye.map((x) => `<li>${esc(x)}</li>`).join('')}</ul></div>
 </div></section>
 ${proyectosDe('web', L)}
 <section class="sec" aria-labelledby="faq-h"><div class="wrap">${cabSec('Preguntas', 'Preguntas sobre <em>diseño web</em>', '', 'faq-h')}${faq(FAQ)}</div></section>
@@ -677,7 +676,7 @@ ${migas(L, MIGAS)}
 
 <section class="sec" aria-labelledby="inc-h"><div class="wrap dos-col">
   <div class="tarjeta rv"><h3 id="inc-h">Incluye</h3><ul class="lista-check">${s.incluye.map((x) => `<li>${esc(x)}</li>`).join('')}</ul></div>
-  <div class="tarjeta rv rv-d1"><h3>No incluye</h3><ul class="lista-x">${s.noIncluye.map((x) => `<li>${esc(x)}</li>`).join('')}</ul><p style="margin-top:var(--e-4)"><a class="enlace" href="${L.a('politicas.html#mantenimiento')}">Ver condiciones <span class="fl" aria-hidden="true">→</span></a></p></div>
+  <div class="tarjeta rv rv-d1"><h3>No incluye</h3><ul class="lista-x">${s.noIncluye.map((x) => `<li>${esc(x)}</li>`).join('')}</ul></div>
 </div></section>
 
 <section class="sec" aria-labelledby="cp-h"><div class="wrap">
@@ -773,104 +772,6 @@ ${otros.length ? `<section class="sec" aria-labelledby="otros-h"><div class="wra
 </div>`);
     return c;
   };
-  const ph = (t) => `<mark class="ph">{{${t}}}</mark>`;
-
-  {
-    const salida = 'politicas.html', L = crearLinks(salida);
-    const MIGAS_LEGAL = [['Inicio', ''], ['Políticas', 'politicas.html']];
-    const cuerpo = `
-<div class="legal-main">
-${migas(L, MIGAS_LEGAL).replace('migas wrap', 'migas')}
-<section class="legal-hero">
-  <p class="kicker">Ricardo Design</p>
-  <h1>Cláusulas y políticas</h1>
-  <p>Reglas claras para una relación tranquila. Aquí encuentras todo lo que necesitas saber sobre tiempos de entrega, pagos, alcance de cada servicio y garantías.</p>
-  <nav class="pills" aria-label="Secciones"><a href="#web">Creación web</a><a href="#mantenimiento">Mantenimiento</a><a href="#ads">Meta Ads</a><a href="#contenido">Contenido para redes</a><a href="#medicion">Medición</a><a href="#generales">Cláusulas generales</a></nav>
-</section>
-
-<article class="card" id="web">
-  <h2>Creación web</h2><p class="sub">Tiempos de entrega, cotización y pagos.</p>
-  <h3>Tiempos de entrega</h3>
-  <p>El desarrollo se entrega en un plazo de <strong>10 días hábiles</strong>, contados a partir de la recepción de la <strong>totalidad de la información</strong> del cliente: textos, imágenes, accesos y demás insumos necesarios para la página. Se entiende por día hábil de lunes a viernes, excluyendo festivos oficiales de Colombia.</p>
-  <ul>
-    <li>Si el cliente entrega información adicional o solicita cambios sustanciales después de iniciado el conteo, el plazo se <strong>reinicia</strong> desde la fecha de esa nueva entrega.</li>
-    <li>Si una entrega o avance queda pendiente de aprobación y transcurren más de <strong>5 días hábiles</strong> sin respuesta del cliente, se entenderá aprobado tácitamente para continuar con las siguientes etapas.</li>
-  </ul>
-  <!-- [DECISIÓN ABIERTA D13 — propuesta, NO publicada] "Si no hay respuesta en 5 días hábiles enviaremos un recordatorio; tras 5 días hábiles más, el avance se considera aprobado." -->
-  <h3>Cotización y pago</h3>
-  <ul>
-    <li>La cotización tiene una vigencia de <strong>1 mes</strong> a partir de su emisión.</li>
-    <li>Para iniciar el proyecto se requiere el pago del <strong>50% del valor acordado</strong>.</li>
-    <li>Si el cliente no se pone en contacto ni realiza gestiones relacionadas con el proyecto durante <strong>1 mes</strong> después de acordado el pago, el desarrollo se suspende, el dominio queda inhabilitado y el 50% pagado <strong>no será reembolsado</strong>.</li>
-    <li>Si el cliente cancela el proyecto a mitad de su ejecución, el anticipo no se devuelve y el saldo se cobra de forma <strong>proporcional al avance</strong> real del desarrollo.</li>
-  </ul>
-  <!-- [DECISIÓN ABIERTA D13 — propuesta, NO publicada] "el proyecto se suspende; el dominio, si fue registrado a nombre del cliente, sigue siendo suyo". Revisar con abogado (Ley 1480). -->
-  <div class="aviso">Los precios establecidos <strong>incluyen IVA</strong>: el cliente no asume cargos adicionales por impuestos. El <strong>dominio y el hosting</strong> no están incluidos en la tarifa de creación web y se cobran por separado.</div>
-  <!-- [DECISIÓN ABIERTA D12] Confirmar régimen de IVA. Si no es responsable de IVA: "No somos responsables de IVA; los precios son finales." -->
-  <h3>Garantía post-entrega</h3>
-  <p>Se otorgan <strong>15 días hábiles</strong> de corrección gratuita sobre errores del desarrollo original entregado. Pasado este plazo, cualquier modificación, ajuste o nueva funcionalidad se gestiona bajo el plan de mantenimiento.</p>
-</article>
-
-<article class="card" id="mantenimiento">
-  <h2>Mantenimiento web</h2><p class="sub">Dos modalidades: por hora o suscripción mensual.</p>
-  <h3>Por hora</h3><p>Se cobra por hora de modificación realizada. <strong>Valor:</strong> se cotiza según el alcance; te lo confirmamos por escrito antes de empezar.</p>
-  <div class="divisor"></div>
-  <h3>Suscripción mensual</h3><p>Incluye asistencia personalizada y soporte continuo para realizar las modificaciones que el cliente requiera en su sitio web. <strong>Valor:</strong> se cotiza según el alcance; te lo confirmamos por escrito antes de empezar.</p>
-  <p>El tiempo de atención de cada solicitud depende de su complejidad y se confirma con el cliente antes de empezar.</p>
-  <h3>Incluye</h3><ul>${svc('mantenimiento').incluye.map((x) => `<li>${esc(x)}</li>`).join('')}</ul>
-  <!-- [D16] Antes decía "Actualización de plugins, temas y CMS". Neutralizado a "dependencias y servicios conectados" hasta confirmar si se atienden sitios con CMS. -->
-  <h3>No incluye</h3><ul>${svc('mantenimiento').noIncluye.map((x) => `<li>${esc(x)}</li>`).join('')}</ul>
-  <div class="aviso">La cancelación de la suscripción requiere un preaviso de <strong>30 días</strong>. Las suscripciones mensuales tienen una <strong>permanencia mínima de 3 meses</strong>.</div>
-</article>
-
-<article class="card" id="ads">
-  <h2>Meta Ads</h2><p class="sub">Cuatro planes de pauta: Base, Plus, Performance y Por comisión.</p>
-  <p><strong>Valor:</strong> se cotiza según el alcance y tu negocio; te lo confirmamos por escrito antes de empezar. Los planes no cambian cuánta pauta se hace, sino cuánto se analiza y qué tanto se ajusta.</p>
-  <ul><li><strong>Plan Base:</strong> creación, programación y optimización de campañas, seguimiento mensual y recomendaciones de presupuesto.</li><li><strong>Plan Plus:</strong> lo del Plan Base, con ubicaciones y segmentaciones estudiadas, análisis cada 15 días y hasta 2 cambios de creativo al mes.</li><li><strong>Plan Performance:</strong> lo del Plan Plus, con seguimiento diario, Pixel de Meta y Microsoft Clarity configurados, optimización a conversión, mejoras leves en la web y hasta 4 cambios de creativo al mes.</li><li><strong>Por comisión:</strong> todo el Plan Performance, pagado con una base fija baja más un porcentaje de las ventas atribuibles a la pauta, sin precio fijo.</li></ul>
-  <h3>Estudio de público</h3>
-  <p>Cuando se contrata, incluye la definición de hasta 3 perfiles de cliente ideal y la creación de públicos personalizados y similares en la cuenta del cliente. Su valor se indica en la cotización.</p>
-  <div class="aviso">La pauta se realiza únicamente sobre contenido <strong>ya publicado</strong> en las redes sociales del cliente; no incluye diseño de piezas gráficas ni video (disponible con el servicio de <a href="#contenido">Contenido para redes</a>). La <strong>inversión publicitaria</strong> es asumida directamente por el cliente ante Meta y no está incluida en el plan. Las condiciones de cancelación y permanencia se indican en la cotización.</div>
-  <h3>Condiciones del servicio</h3>
-  <ul><li>Se garantiza lo que depende del prestador del servicio: lo entregable, los plazos, los reportes y los ajustes quedan escritos desde el primer día. Las ventas son el objetivo que se mide con el cliente; nadie controla el mercado ni el algoritmo de Meta, por lo que no se promete una cifra de ventas ni de retorno de inversión (ROI), que dependen de Meta, el mercado y el producto o servicio del cliente. Garantía sujeta a las condiciones del contrato.</li><li>La cuenta publicitaria (Business Manager) y sus datos, incluido el píxel, quedan registrados a nombre del cliente.</li><li>No se asume responsabilidad por rechazos, restricciones o suspensiones de cuentas impuestas por Meta, al ser ajenas al control del prestador del servicio.</li></ul>
-</article>
-
-<article class="card" id="contenido">
-  <h2>Contenido para redes sociales</h2><p class="sub">Servicio nuevo. Condiciones generales.</p>
-  <!-- [POR VALIDAR D3] Número de revisiones, permanencia mínima y entrega de archivos editables: se definen en cada cotización hasta que el dueño fije valores. -->
-  <ul>
-    <li>Los <strong>derechos de uso</strong> de las piezas se transfieren al cliente al completar el pago.</li>
-    <li>El número de rondas de revisión, la permanencia mínima y la entrega de archivos editables se indican en la cotización.</li>
-    <li>Las piezas se entregan listas para publicar o se programan en Meta Business Suite, según se acuerde.</li>
-    <li>La música se usa sólo de bibliotecas comerciales con licencia.</li>
-    <li>El cliente garantiza que tiene derechos sobre las fotos, logos y demás material que entrega.</li>
-  </ul>
-</article>
-
-<article class="card" id="medicion">
-  <h2>Configuración de medición</h2><p class="sub">Meta Pixel, Google Analytics, Google Tag Manager y Microsoft Clarity en sitios de clientes.</p>
-  <ul>
-    <li>Las cuentas de medición (píxel, Google Analytics, Google Tag Manager, Clarity) se crean <strong>a nombre del cliente</strong>.</li>
-    <li>El cliente es el <strong>responsable</strong> del tratamiento de los datos de sus visitantes y de publicar su política de datos y su aviso de cookies; Ricardo Design actúa como <strong>encargado</strong> y sólo trata esos datos según sus instrucciones.</li>
-    <li>Su valor se indica en la cotización.</li>
-  </ul>
-</article>
-
-<article class="card" id="generales">
-  <h2>Cláusulas generales</h2><p class="sub">Aplican a todos los servicios.</p>
-  <h3>Propiedad intelectual</h3><p>El código y el diseño final se transfieren en propiedad al cliente únicamente tras el pago del <strong>100% del valor acordado</strong>. Hasta entonces, el material es propiedad de Ricardo Design.</p>
-  <h3>Confidencialidad</h3><p>La información entregada por el cliente se trata de forma confidencial y no se comparte con terceros sin autorización.</p>
-  <h3>Datos personales</h3><p>Tratamos los datos personales según nuestra <a href="${L.a('privacidad/')}">Política de tratamiento de datos</a>. Consultas y reclamos: <a href="mailto:${esc(C.correo)}">${esc(C.correo)}</a> o WhatsApp ${esc(C.whatsappVisible)}.</p>
-  <h3>Responsabilidad sobre el contenido</h3><p>El cliente garantiza que los textos, imágenes y demás material que entrega no infringen derechos de autor ni derechos de terceros. Ricardo Design no asume responsabilidad por reclamaciones derivadas de dicho contenido.</p>
-  <h3>Ley aplicable</h3><p>Este documento y la prestación del servicio se rigen por las leyes de la <strong>República de Colombia</strong>.</p>
-  <p class="nota">Última actualización: octubre de 2026 · Sujeto a cambios sin previo aviso.</p>
-  <!-- [DECISIÓN ABIERTA D13 — propuesta] "Los cambios se publican con su fecha y no afectan contratos ya firmados." -->
-</article>
-</div>`;
-    out.push({ salida, actual: 'politicas', legal: true, mainId: 'contenido-principal', cuerpo: conIndice(cuerpo, L, true), canonical: 'politicas.html',
-      title: 'Cláusulas y políticas | Ricardo Design',
-      desc: 'Tiempos de entrega, pagos, alcance y garantías de nuestros servicios.',
-      jsonld: [{ '@context': 'https://schema.org', '@type': 'WebPage', name: 'Cláusulas y políticas', url: SITIO + '/politicas.html', inLanguage: 'es-CO', publisher: { '@id': NEGOCIO_ID } }, migasLd(MIGAS_LEGAL)] });
-  }
 
   {
     const salida = 'privacidad/index.html', L = crearLinks(salida);
@@ -881,10 +782,9 @@ ${migas(L, MIGAS_LEGAL).replace('migas wrap', 'migas')}
 <section class="legal-hero">
   <p class="kicker">Ley 1581 de 2012 · Decreto 1377 de 2013</p>
   <h1>Política de tratamiento de datos personales</h1>
-  <p class="estado-borrador"><strong>Borrador pendiente de datos del responsable y de revisión legal.</strong> Esta página no se indexa hasta completarse. Los campos resaltados deben completarse antes de activar cualquier herramienta de medición.</p>
 </section>
 <article class="card"><h2>1. Responsable</h2>
-  <p>${ph('NOMBRE_COMPLETO_O_RAZON_SOCIAL')}, identificado con ${ph('CC_O_NIT')}, con domicilio en ${ph('DIRECCION')}, Bucaramanga, Santander, Colombia. Correo: <a href="mailto:${esc(C.correo)}">${esc(C.correo)}</a>. WhatsApp: ${esc(C.whatsappVisible)}.</p></article>
+  <p>Ricardo José Marín Espitia, persona natural comerciante que opera bajo el nombre comercial Ricardo Design, con domicilio en Bucaramanga, Santander, Colombia. Atención 100 % virtual (no se atiende de forma presencial). Correo: <a href="mailto:${esc(C.correo)}">${esc(C.correo)}</a>. WhatsApp: ${esc(C.whatsappVisible)}.</p></article>
 <article class="card"><h2>2. Datos que tratamos</h2><ul>
   <li><strong>De contacto:</strong> nombre, teléfono, correo y nombre del negocio, que nos entregas por WhatsApp, correo o el formulario de cotización.</li>
   <li><strong>De navegación:</strong> cookies, dirección IP y tipo de dispositivo, sólo si autorizas las cookies de analítica o publicidad.</li>
@@ -899,10 +799,10 @@ ${migas(L, MIGAS_LEGAL).replace('migas wrap', 'migas')}
 <article class="card"><h2>6. Cómo ejercerlos</h2><p>Escribe a <a href="mailto:${esc(C.correo)}">${esc(C.correo)}</a> con el asunto "Datos personales". Las <strong>consultas</strong> se responden en máximo 10 días hábiles (prorrogables 5). Los <strong>reclamos</strong>, en máximo 15 días hábiles (prorrogables 8).</p></article>
 <article class="card"><h2>7. Transferencia y transmisión internacional</h2><p>Algunas herramientas que usamos (Google, Meta, Microsoft) almacenan datos en servidores fuera de Colombia.</p></article>
 <article class="card"><h2>8. Datos sensibles y de menores</h2><p>No solicitamos datos sensibles ni datos de menores de edad.</p></article>
-<article class="card"><h2>9. Seguridad y vigencia</h2><p>Aplicamos medidas razonables para proteger tus datos. Esta política rige desde ${ph('FECHA')} y las bases de datos se conservan mientras sean necesarias para las finalidades descritas.</p>
+<article class="card"><h2>9. Seguridad y vigencia</h2><p>Aplicamos medidas razonables para proteger tus datos. Esta política rige desde el 19 de octubre de 2026 y las bases de datos se conservan mientras sean necesarias para las finalidades descritas.</p>
   <!-- [DECISIÓN ABIERTA] Registro Nacional de Bases de Datos: confirmar con abogado si aplica. --></article>
 </div>`;
-    out.push({ salida, legal: true, noindex: true, cuerpo: conIndice(cuerpo, L, false), title: 'Política de tratamiento de datos | Ricardo Design', desc: '' });
+    out.push({ salida, legal: true, cuerpo: conIndice(cuerpo, L, false), title: 'Política de tratamiento de datos | Ricardo Design', desc: '' });
   }
 
   {
