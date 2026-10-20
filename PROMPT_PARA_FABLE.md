@@ -10,7 +10,7 @@ Estoy creando un portafolio web premium para un emprendimiento de **creación, m
 **Ubicación:** Bucaramanga, Colombia  
 **Clientes de referencia:** Felipe Vergel (arte en vidrio) y Alejandra Vergel (joyería artesanal)  
 **Email:** ricardodesingwebs@gmail.com  
-**WhatsApp:** 3027981468  
+**WhatsApp:** 3227403983  
 
 **REFERENCIA VISUAL:** spaceship.com/es - interfaz moderna con scroll visual agresivo, animaciones en cada sección, elementos que se revelan/transforman al scroll.
 
@@ -239,7 +239,7 @@ Card Animations:
 - Botón 2: "Hablar con nosotros" (WhatsApp)
   - Background: #25d366 (verde)
   - Text: #ffffff
-  - Link: https://wa.me/3027981468?text=Hola%20Me%20interesa%20conocer%20tus%20servicios%20de%20creación%20de%20webs
+  - Link: https://wa.me/3227403983?text=Hola%20Me%20interesa%20conocer%20tus%20servicios%20de%20creación%20de%20webs
   - Animación: Hover scale(1.1) + pulse + glow
 
 **Animaciones de la sección:**
@@ -255,7 +255,7 @@ Card Animations:
 - Glass overlay sutil: rgba(255, 255, 255, 0.02)
 
 **Contenido:**
-- 📱 WhatsApp: <a href="https://wa.me/3027981468">3027981468</a>
+- 📱 WhatsApp: <a href="https://wa.me/3227403983">3227403983</a>
 - 📧 Email: ricardodesingwebs@gmail.com
 - Copyright: "© 2026 Ricardo Design. Diseño minimalista. Resultados reales."
 
@@ -428,8 +428,8 @@ ricardodesign-portfolio/
 
 - **Dominio:** ricardodesign.com
 - **Email:** ricardodesingwebs@gmail.com
-- **WhatsApp:** 3027981468
-- **WhatsApp Link:** https://wa.me/3027981468?text=Hola%20Me%20interesa%20conocer%20tus%20servicios%20de%20creación%20de%20webs
+- **WhatsApp:** 3227403983
+- **WhatsApp Link:** https://wa.me/3227403983?text=Hola%20Me%20interesa%20conocer%20tus%20servicios%20de%20creación%20de%20webs
 - **Portfolio 1:** https://felipevergel.com
 - **Portfolio 2:** https://alejandravergel.com
 - **GitHub Repo:** https://github.com/ricardojosemarinespitia-netizen/ricardodesign-portfolio
@@ -444,7 +444,7 @@ ricardodesign-portfolio/
 - ✅ Paleta exacta: #0f0f0f + #d4a574 + #ffffff
 - ✅ Tipografía exacta: Playfair Display + Inter
 - ✅ Google Fonts incluidos en HTML
-- ✅ Links funcionales (WhatsApp 3027981468, Felipe, Alejandra, email)
+- ✅ Links funcionales (WhatsApp 3227403983, Felipe, Alejandra, email)
 - ✅ Responsive perfecto (mobile/tablet/desktop)
 - ✅ Sin dependencias externas
 - ✅ IntersectionObserver para scroll triggers

@@ -4,7 +4,7 @@
   var s=document.getElementById('descuento');if(!s)return;
   var tg=s.querySelector('.desc__tg'),cuerpo=s.querySelector('.desc__cuerpo'),f=s.querySelector('form'),
       ok=s.querySelector('.desc__listo'),enl=s.querySelector('.desc__wa'),go=s.querySelector('.desc__go'),
-      mq=matchMedia('(min-width:901px)'),WA='https://wa.me/573027981468?text=';
+      mq=matchMedia('(min-width:901px)'),WA='https://wa.me/573227403983?text=';
 
   /* Móvil: plegada; escritorio: siempre abierta. El estado inicial lo fija CSS (html.js), aquí solo la semántica. */
   var u=false;
