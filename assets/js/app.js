@@ -10,7 +10,7 @@
   // Anti-framing (mitigación parcial mientras no haya cabeceras HTTP reales)
   try { if (window.top !== window.self) window.top.location = window.self.location; } catch (e) {}
 
-  var WA = d.body.getAttribute('data-wa') || '573027981468';
+  var WA = d.body.getAttribute('data-wa') || '573227403983';
   var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var finePointer = window.matchMedia && window.matchMedia('(pointer: fine)').matches;
   function waUrl(text) { return 'https://wa.me/' + WA + '?text=' + encodeURIComponent(text); }
